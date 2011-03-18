@@ -5,15 +5,24 @@ require 'gval.pl';
 use Jcode;
 use CGI;
 $query=new CGI;
+$comm=$query->param('comm');
 $getcity=$query->param('city');
 $getcity=Jcode->new($getcity)->utf8;
 $titlename=$getcity;
 $getcity=~ s/ //g;
 $getcity=~ s/　//g;
-$getgroup=$query->param('gid');
+$getgroup=int($query->param('gid'));
 if ($getgroup>5 || $getgroup<=0) {
 	$getgroup=0;
 }
+$ver='1.121';
+$auth='mnakajim';
+
+if ($comm=~ m/ver/gi) {
+	print "Content-type: text/plain\n\n$ver($auth)\n";
+	exit;
+}
+
 
 $titlename=~ s/[;\"\'\$\@\%\(\)]//g;
 
