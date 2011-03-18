@@ -1,8 +1,10 @@
 #!/usr/bin/perl
 
 use CGI;
+use Jcode;
 $query=new CGI;
 $getcity=$query->param('city');
+$getcity=Jcode->new($getcity)->utf8;
 $zip1=$query->param('zip1');
 $zip2=$query->param('zip2');
 $zip=$zip1 . $zip2;
