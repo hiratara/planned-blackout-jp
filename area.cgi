@@ -1,23 +1,26 @@
 #!/usr/bin/perl
+use strict;
+use warnings;
 
+our (@day1, @day2, @day3, @day4, @day5, @day6, @day7);
 require 'gval.pl';
 
 use Encode qw/decode encode_utf8/;
 use Encode::Guess;
 use CGI;
 
-$query=new CGI;
-$comm=$query->param('comm');
-$getcity=force_utf8($query->param('city'));
-$titlename=$getcity;
+my $query=new CGI;
+my $comm=$query->param('comm');
+my $getcity=force_utf8($query->param('city'));
+my $titlename=$getcity;
 $getcity=~ s/ //g;
 $getcity=~ s/　//g;
-$getgroup=int($query->param('gid'));
+my $getgroup=int($query->param('gid'));
 if ($getgroup>5 || $getgroup<=0) {
 	$getgroup=0;
 }
-$ver='1.122';
-$auth='mnakajim';
+my $ver='1.122';
+my $auth='mnakajim';
 
 if ($comm=~ m/ver/gi) {
 	print "Content-type: text/plain\n\n$ver($auth)\n";
@@ -29,15 +32,16 @@ $titlename=~ s/[;\"\'\$\@\%\(\)]//g;
 
 open (READ,"all.all");
 
-$buf='';
-$count=0;
+my $buf='';
+my $count=0;
 
 while (<READ>) {
 	chomp;
-	($area1,$area2,$area3,$num)=split (/\t/,$_);
-	$areaorg="$area1$area2$area3";
+	my ($area1,$area2,$area3,$num)=split (/\t/,$_);
+	my $areaorg="$area1$area2$area3";
 	$areaorg=~ s/ //g;
 
+	my $bgcolor;
 	if ($count % 2 ==0) {
 		$bgcolor='EEFFFF';
 	} else {
