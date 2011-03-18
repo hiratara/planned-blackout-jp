@@ -10,9 +10,12 @@ use Archive::Tar;
 # http://bizoole.com/power/のファイル更新 スクリプト
 # update.cgiを実行することで、tgzを取得し、同階層のファイルを入れ替えます
 # 作成 @iRSS http://d.hatena.ne.jp/iRSS/20110317/1300328160
+# 2011/03/18 修正 tarボールファイル名を'power_latest.tgz'に変更
+#
+#
 #tarファイル取得
 my $cgi = CGI->new;
-my $file = $cgi->param('file') || 'power110316.tgz';
+my $file = $cgi->param('file') || 'power_latest.tgz';
 my $force = $cgi->param('force') || 0;
 
 my $file_path = "$FindBin::RealBin/$file";
