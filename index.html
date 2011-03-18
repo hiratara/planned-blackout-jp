@@ -7,11 +7,11 @@
 <title>計画停電時間検索</title>
 </head>
 <body>
-V.1.112
+V.1.12
 <br>
 <table border=1><tr><td>
 <b>停電時間検索</b>
-<form action="area.cgi" method="post">
+<form action="area.cgi" method="get">
     <p>計画停電の予定時間を知りたい市区町村名、地域名<input type="text" name="city" size="20" />
 <input type="submit" name="submit" value="検索" /><br>
 　　グループ番号で絞り込み<select name="gid">
@@ -22,35 +22,21 @@ V.1.112
 	<option value="4">グループ4</option>
 	<option value="5">グループ5</option>
 	</select></form>
+*<a href=http://182.48.61.190/power/touhoku.html>東北電力エリア用</a>(nanakoch123456)<br>
+*Area search and summary of Planned blackout is following link. <a href=http://inferno.soutan.net/power/search>For English</a>
 </td></tr></table>
 <table border=0>
 <tr><td colspan=2>
 アクセス集中でService Temporarily Unavailable表示をすることがあります。ミラーサーバをご利用ください。</td></tr>
-<tr><td><a href="http://helpjapan.jpn.com/power/">http://helpjapan.jpn.com/power/</a>(tnx:HELPJAPANJPNCOM)</td>
-<td><a href="http://tomodati.crazyworks.net/">http://tomodati.crazyworks.net/</a>(tnx:Takumi_Daddy)</td></tr>
-<tr><td><a href="http://mt-seo.jp/">http://mt-seo.jp/</a>(tnx:13_yousuke)</td>
-<td><a href="http://power.moene.ws/">http://power.moene.ws/</a>(tnx:Kei_Nanigashi)</td></tr>
-<tr><td><a href="http://kgbu.sakura.ne.jp/power/">http://kgbu.sakura.ne.jp/power/</a>(tnx:ocaokgbu)</td>
-<td><a href="http://asdf.homeunix.net/power/">http://asdf.homeunix.net/power/</a>(tnx:sigemasa)</td></tr>
-<tr><td><a href="http://www23403u.sakura.ne.jp/power/">http://www23403u.sakura.ne.jp/power/ </a>(tnx:usomillp)</td>
-<td><a href="http://www.lani-kai.sakura.ne.jp/power/">http://www.lani-kai.sakura.ne.jp/power/</a>(tnx:lanikai_online)</td></tr>
-<tr><td><a href="http://winwin7s.com/blackout/">http://winwin7s.com/blackout/</a>(tnx:kojou279)</td>
-<td><a href="http://jukai.jp/cgi/teiden/">http://jukai.jp/cgi/teiden/</a>(tnx:jukaimaeda)</td></tr>
+<tr><td colspan=2>最近協力いただいたミラーサーバ</td></tr>
+<tr><td><a href="http://www4.atpages.jp/~jirou/power/">http://www4.atpages.jp/~jirou/power/</a>(tnx:)</td></tr>
+<tr><td><a href="http://www.gosoudan.com/power/">http://www.gosoudan.com/power/</a>(tnx:_nat)</td></tr>
+<tr><td><a href="http://yamada-t.sakura.ne.jp/power/">http://yamada-t.sakura.ne.jp/power/</a>(tnx:suchiyanaoyuki)</td></tr>
 
-<tr><td><a href="http://power.ifos.jp/">http://power.ifos.jp/</a>(tnx:wargrick)</td>
-<td><a href="http://phoenix.xtr.jp/power/">http://phoenix.xtr.jp/power/</a>(tnx:hououdou)</td></tr>
-<tr><td><a href="http://power.mirror.matsuoka.sh/">http://power.mirror.matsuoka.sh/</a>(tnx:matsuokanaoki)</td>
-<td><a href="http://mohawk.sakura.ne.jp/power/">http://mohawk.sakura.ne.jp/power/</a>(tnx:stingraze)</td></tr>
-<tr><td><a href="http://teagin.com/power/">http://teagin.com/power/</a>(tnx:teagin)</td>
-<td><a href="http://p.takashi.me/">http://p.takashi.me/</a>(tnx:TakashiChi_ba)</td></tr>
-<tr><td><a href="http://tribalepic.ddo.jp/power/">http://tribalepic.ddo.jp/power/</a>(tnx:basswo)</td>
-<td><a href="http://power.daiba.cx/">http://power.daiba.cx/</a>(tnx:nanakochi123456)</td></tr>
-<tr><td><a href="http://www.donet.gr.jp/power/">http://www.donet.gr.jp/power/</a>(tnx:yukimasa)</td>
-<td><a href="http://power.eos1.net/">http://power.eos1.net/</a>(tnx:eos1)</td></tr>
-<tr><td><a href="http://www.gtaku.com/power110314/">http://www.gtaku.com/power110314/</a>(tnx:YAK0U)</td>
-<td><a href="http://denki.tukaenai.info/">http://denki.tukaenai.info/</a>(tnx:fabled10)</td></tr>
-<tr><td colspan=2>ミラーサーバのご協力をいただいている上記方々に感謝いたします。<br>
-<a href="http://bizoole.com/power/mirror.html">ミラー用のファイルセット</a>あります。ミラーサーバの設置にご協力いただける方、ご検討ください。</td></tr>
+<tr><td colspan=2>
+<a href="http://denki.moene.ws/?list">全ミラーリスト(59サイト)</a>
+ミラーサーバのご協力をいただいている59サイトの方々に感謝いたします。<br>
+<tr><td colspan=2>どのサーバを使うか悩んだときは、ランダム転送してくれる<a href="http://denki.moene.ws/">http://denki.moene.ws/</a>をご利用ください(tnx:Kei_Nanigashi)。<br></td></tr>
 </tr></table>
 <br>
 <hr>
@@ -59,12 +45,19 @@ V.1.112
 　<a href="http://bizoole.com/power/history/datahistory.html">データ更新履歴</a>
 </p>
 <b>エンジン更新履歴:</b><br>
+　2011/3/18 14:25 (V1.12 postからgetに変更(tnx:nanakochi123456</a>)。18日以降の表示対応)<br>
 　2011/3/15 20:24 (V1.112 住所ソート表示、16-18日の表示対応)<br>
 　<a href="http://bizoole.com/power/history/">エンジン更新履歴</a>
 </p>
 
 <b>サイトを案内いただきました。ありがとうございます:</b><br>
 　on twitter (so many follower...)<br>
+　<a href="http://tcppjp.ddo.jp/at/article/group2011.shtml">http://tcppjp.ddo.jp/at/article/group2011.shtml</a>(tnx:tcppjp)<br>
+　<a href="http://tcppjp.ddo.jp/g2011.shtml">http://tcppjp.ddo.jp/g2011.shtml</a>(tnx:tcppjp)<br>
+　<a href="http://ameritatto.blog70.fc2.com/blog-entry-1293.html">http://ameritatto.blog70.fc2.com/blog-entry-1293.html</a>(tnx:Ameritatto)<br>
+　<a href="http://ameblo.jp/mirui0921/">http://ameblo.jp/mirui0921/</a>(tnx:anego_mirui)<br>
+　<a href="http://15.xmbs.jp/anegomirui-46663-d_res.php?n=277557&view=1&page=d2&guid=on">http://15.xmbs.jp/anegomirui-46663-d_res.php?n=277557&view=1&page=d2&guid=on</a>(tnx:anego_mirui)<br>
+　<a href="http://toyokiti.p1.bindsite.jp/">http://toyokiti.p1.bindsite.jp/</a>(tnx:toyokiti)<br>
 　<a href="http://forum.hangame.co.jp/thread/read.nhn?threadno=666879">http://forum.hangame.co.jp/thread/read.nhn?threadno=666879</a>(tnx:nanakochi123456)<br>
 　<a href="http://blog.hangame.co.jp/nanakkochi/article/34446372/">http://blog.hangame.co.jp/nanakkochi/article/34446372/</a>(tnx:nanakochi123456)<br>
 　<a href="http://ameblo.jp/mirin-bosi/entry-10830485352.html">http://ameblo.jp/mirin-bosi/entry-10830485352.html</a>(tnx:Mrin_bosi)<br>
@@ -77,14 +70,13 @@ V.1.112
 　<a href="http://www43.atwiki.jp/togekikaku/pages/25.html">http://www43.atwiki.jp/togekikaku/pages/25.html</a>(tnx:shrmrkm)<br>
 </p>
 <b>今後の予定タスク(4月末までの計画停電期間中でできるところまで):</b><br>
-　サーバの移転検討/ミラー検討中(tnx:Tonbi_ko,nontan333,ericrickun,YAKOU,Racer_Kamira,perutake,fabled10,xxxYukihiroxxx,licorice1124)<br>
 　もうすこしまともな画面デザイン<br>
-　最新データへの更新(現データは13日21:40バージョン)<br>
 　GPS対応(tnx:mazzo)<br>
 　郵便番号検索(tnx:kandabako)<br>
 　各地の詳細地域情報の反映(tnx:tk_to)<br>
 　自治体が公開する詳細地域情報の反映(tnx:mochiusagi2000,sk_Lotus)</p>
 <br>
+サイトの<a href="http://bizoole.com/power/mirror.html">ファイルセット</a>あります。サイトの強化にお手伝いいただける方はご利用ください。
 <br>
 問い合わせは、<a href="http://twitter.com/mnakajim">twitter (@mnakajim)</a>へ
 </body>
