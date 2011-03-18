@@ -17,8 +17,8 @@ sub read_timetable() {
 
 	open my $fh, '<', 'timetable.txt' or die $!;
 	while (<$fh>) {
-		my ($date, $group, @hours) = split /\t/, $_;
-		$timetable{$date}{$group} = \@hours;
+		my ($firm, $date, $group, @hours) = split /\t/, $_;
+		$timetable{$firm}{$date}{$group} = \@hours;
 	}
 	close $fh;
 
@@ -57,6 +57,7 @@ my @dates = map {date_str(time + DAY_SECONDS * $_)} 0 .. 2;
 while (<READ>) {
 	chomp;
 	my ($area1,$area2,$area3,$num)=split (/\t/,$_);
+	my $firm = 'T';  # XXX 東電。現状の実装では固定。
 	my $areaorg="$area1$area2$area3";
 	$areaorg=~ s/ //g;
 
@@ -74,7 +75,7 @@ while (<READ>) {
 	}
 
 	my @hours = map {
-		my $hours = $timetable->{$_}{$num};
+		my $hours = $timetable->{$firm}{$_}{$num};
 		$hours ? join(', ', @$hours) : '-';
 	} @dates;
 	$buf.="<tr bgcolor=$bgcolor><td><b>$area1 $area2 $area3</b></td>" . 
