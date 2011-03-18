@@ -128,7 +128,11 @@ if($zip ne '') {
 }
 
 print <<FIN;
-Content-type: text/html;charset=utf-8\n\n<title>計画停電時間検索検索結果$areas</title>
+Content-type: text/html;charset=utf-8
+Cache-Control: max-age=0
+Expires: Mon, 26, Jul 1997 05:00:00 GMT
+
+<title>計画停電時間検索検索結果$areas</title>
 $count件が見つかりました。同一地域で複数登録があるときは、場所によって予定時間が異なります。<BR>
 1日2回の停電予定がある場合、後半の停電予定は状況に応じて実行となります。
 <table border=1><tr bgcolor=#C0C0C0><th>地域</th><th>16日停電時間</th><th>17日停電時間</th><th>18日停電時間</th><th>グループ</th></tr>
