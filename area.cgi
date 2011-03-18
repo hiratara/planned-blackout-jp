@@ -10,15 +10,18 @@ use Jcode;
 require 'gval.pl';
 
 $query=new CGI;
-$getcity=$query->param('city');
-$getcity=Jcode->new($getcity)->utf8;
+my @getcities=$query->param('city');
 $zip1=$query->param('zip1');
 $zip2=$query->param('zip2');
 $out=$query->param('out');
 $comm=$query->param('comm');
 $zip=$zip1 . $zip2;
-$getcity=~ s/ //g;
-$getcity=~ s/　//g;
+@getcities=map {
+	my $getcity = Jcode->new($_)->utf8;
+	$getcity=~ s/ //g;
+	$getcity=~ s/　//g;
+	$getcity;
+} @getcities;
 $getgroup=$query->param('gid');
 if ($getgroup>8 || $getgroup<=0) {
 	$getgroup=0;
@@ -56,8 +59,7 @@ if($zip ne '') {
 					chomp;
 					($area1,$area2,$area3,$num)=split (/\t/,$_);
 					if($kanji1 eq $area1 && $kanji2 eq $area2 && ($area3 =~/$kanji3/ || $kanji3 =~/$area3/)) {
-						$getcity="$area1$area2$area3";
-						last;
+						push @getcities, "$area1$area2$area3";
 					}
 				}
 				close(READ);
@@ -136,12 +138,12 @@ if($out eq 'rss') {
 				}
 			}
 
-
-			if ($getgroup) {
-				if ($areaorg=~ m/$getcity/ and $num eq $getgroup) {
-					for($i=0; $i<$mobileflg; $i++) {
-						$_getcity=&encode($getcity);
-						$xml=<<FIN;
+			for my $getcity (@getcities) {
+				if ($getgroup) {
+					if ($areaorg=~ m/$getcity/ and $num eq $getgroup) {
+						for($i=0; $i<$mobileflg; $i++) {
+							$_getcity=&encode($getcity);
+							$xml=<<FIN;
 <item rdf:about="$::basehref?city=$_getcity&amp;zip1=$zip1&amp;zip2=$zip2&amp;gid=$getgroup">
 <title>【$mon[$i]月$mday[$i]日】$arrea1$area2$area3(グループ$num)の計画停電情報です。</title>
 <link>$::basehref?city=$_getcity&amp;zip1=$zip1&amp;zip2=$zip2&amp;gid=$getgroup</link>
@@ -149,15 +151,16 @@ if($out eq 'rss') {
 <dc:date>$rssdate</dc:date>
 </item>
 FIN
-						$XML{"$date[$i]"}.=$xml;
+							$XML{"$date[$i]"}.=$xml;
+						}
+						++$count;
+						last;
 					}
-					++$count;
-				}
-			} else {
-				if ($areaorg=~ m/$getcity/) {
-					for($i=0; $i<$mobileflg; $i++) {
-						$_getcity=&encode($getcity);
-						$xml=<<FIN;
+				} else {
+					if ($areaorg=~ m/$getcity/) {
+						for($i=0; $i<$mobileflg; $i++) {
+							$_getcity=&encode($getcity);
+							$xml=<<FIN;
 <item rdf:about="$::basehref?city=$_getcity&amp;zip1=$zip1&amp;zip2=$zip2&amp;gid=$getgroup">
 <title>【$mon[$i]月$mday[$i]日】$arrea1$area2$area3(グループ$num)の計画停電情報です。</title>
 <link>$::basehref?city=$_getcity&amp;zip1=$zip1&amp;zip2=$zip2&amp;gid=$getgroup</link>
@@ -165,9 +168,11 @@ FIN
 <dc:date>$rssdate</dc:date>
 </item>
 FIN
-						$XML{"$date[$i]"}.=$xml;
+							$XML{"$date[$i]"}.=$xml;
+						}
+						++$count;
+						last;
 					}
-					++$count;
 				}
 			}
 		}
@@ -280,41 +285,45 @@ if ($zip2 eq "0000") {
 			}
 		}
 
-		if ($count % 2 ==0) {
-			$bgcolor='EEFFFF';
-		} else {
-			$bgcolor='FFEEFF';
-		}
+		for my $getcity (@getcities) {
+			if ($count % 2 ==0) {
+				$bgcolor='EEFFFF';
+			} else {
+				$bgcolor='FFEEFF';
+			}
 
-		if ($getgroup) {
-			if ($areaorg=~ m/$getcity/ and $num eq $getgroup) {
-				$buf.=<<FIN;
+			if ($getgroup) {
+				if ($areaorg=~ m/$getcity/ and $num eq $getgroup) {
+					$buf.=<<FIN;
 <tr bgcolor=$bgcolor><td><b>$area1 $area2 $area3</b></td>
 FIN
-				for($i=0; $i<$mobileflg; $i++) {
-					$buf.=<<FIN;
+					for($i=0; $i<$mobileflg; $i++) {
+						$buf.=<<FIN;
 <td>$g{"$date[$i]_$num"}</td>
 FIN
-				}
-				$buf.=<<FIN;
+					}
+					$buf.=<<FIN;
 <td>第$numグループ</td></tr>
 FIN
-				++$count;
-			}
-		} else {
-			if ($areaorg=~ m/$getcity/) {
-				$buf.=<<FIN;
+					++$count;
+					last;
+				}
+			} else {
+				if ($areaorg=~ m/$getcity/) {
+					$buf.=<<FIN;
 <tr bgcolor=$bgcolor><td><b>$area1 $area2 $area3</b></td></td>
 FIN
-				for($i=0; $i<$mobileflg; $i++) {
-					$buf.=<<FIN;
+					for($i=0; $i<$mobileflg; $i++) {
+						$buf.=<<FIN;
 <td>$g{"$date[$i]_$num"}</td>
 FIN
-				}
-				$buf.=<<FIN;
+					}
+					$buf.=<<FIN;
 <td>第$numグループ</td></tr>
 FIN
-				++$count;
+					++$count;
+					last;
+				}
 			}
 		}
 	}
@@ -329,7 +338,7 @@ FIN
 if($zip ne '') {
 	$areas="〒$zip1-$zip2";
 } else {
-	$areas="$getcity";
+	$areas=join ' ', @getcities;
 }
 $areas=~ s/[;\"\'\$\@\%\(\)]//g;	# by @mnakajim
 
@@ -347,7 +356,7 @@ $head
 $buf
 </table>
 [<a href=./>戻る</a>] 
-[<a href="area.cgi?city=$getcity&zip1=$zip1&zip2=$zip2&gid=$getgroup&out=rss">RSS</a>]
+[<a href="area.cgi?city=${\ $query->param('city')}&zip1=$zip1&zip2=$zip2&gid=$getgroup&out=rss">RSS</a>]
 <hr>
 FIN
 
