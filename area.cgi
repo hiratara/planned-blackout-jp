@@ -116,8 +116,19 @@ if ($zip2 eq "0000") {
 if ($count>400) {
 	$buf="<tr><td colspan=5>該当地域が多すぎです。詳細の地域名を入力してください。</td></tr>";
 }
+
+if (($zip1 ne '' && $zip2 eq '') || ($zip1 eq '' && $zip2 ne '')) {
+	$buf="<tr><td colspan=5>郵便番号が正確に入力されていないようです。</td></tr>";
+}
+
+if($zip ne '') {
+	$areas=" - 〒$zip1-$zip2";
+} else {
+	$areas=" - $getcity";
+}
+
 print <<FIN;
-Content-type: text/html;charset=utf-8\n\n<title>検索結果</title>
+Content-type: text/html;charset=utf-8\n\n<title>計画停電時間検索検索結果$areas</title>
 $count件が見つかりました。同一地域で複数登録があるときは、場所によって予定時間が異なります。<BR>
 1日2回の停電予定がある場合、後半の停電予定は状況に応じて実行となります。
 <table border=1><tr bgcolor=#C0C0C0><th>地域</th><th>16日停電時間</th><th>17日停電時間</th><th>18日停電時間</th><th>グループ</th></tr>
