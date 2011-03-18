@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="ja" />
+<title>計画停電時間検索 WebAPI 解説ページ（開発サスペンド中）</title>
+</head>
+<body>
+LastUpdate: 2011/3/17 14:05 - V.1.112用
+<br>
+<form accept-charset="UTF-8" action="webapi-v2.pl" method="get">
+<table border="1" cellpadding="0" cellspacing="2">
+<tr><td>停電時間検索　WebAPIのテストクエリ</td></tr>
+<tr><td>結果はXMLです,人間には優しくないです. ブラウザだとテストクエリのURLに submit=...とゴミが混じります. APIサーバでは無視するので気にしないでください.</td></tr>
+<tr><td>city 地域名（漢字でおねがします。)<input type="text" name="city" size="20" />
+<input type="submit" name="submit" value="検索" /><br>
+<tr><td>　gid<select name="gid">
+	<option value="0">指定なし</option>
+	<option value="1">グループ1</option>
+	<option value="2">グループ2</option>
+	<option value="3">グループ3</option>
+	<option value="4">グループ4</option>
+	<option value="5">グループ5</option>
+	</select>
+</td></tr>
+</table></form>
+<p>
+<B>もうしわけありません、仕様および、配布方法が固まるまで開発をサスペンドさせてください。とくに固定URLでないWebAPIを提供することの問題点を整理したいとおもいます。</B>
+<P>その他に、多くの機能をもったWebAPIを提供されている方が多いというのも理由の一つです。
+<p>
+このWebAPIは、なかじまさん (<a href="http://twitter.com/mnakajim">twitter:@mnakajim</a>)が立ち上げられた<a href="http://bizoole.com/power/">計画停電時間検索</a>の応援をしようと<a href="http://twitter.com/sigemasa">重政</a>が勝手に作成いたしました。なかじまさんおよび関係者の方々は機能追加および調整のため深夜まで作業されております。ほんとうに便利なサービスをありがとうございます。(tnx: @mnakajim)<p>
+「計画停電時間検索」は、この大災害のなかで「自分でできることをお手伝いしたい」という数多くの有志のみなさんのご努力により多くのサイトで<a href="http://denki.moene.ws/?list">ミラー</a>されており、日々運営されております。数多くの皆様ほんとうに頭が下がります。tnx 多くのみなさん<p>
+
+仕様検討のお手伝いができればと思っております。<p>
+
+<B>リクエスト形式（ベータ品質です特に、Webアプリ制作者、モバイルアプリ制作者の方クエリフォーマット、レスポンスフォーマットについてご意見くださいアプリ側に都合いい形式で出力させて皆さんのお役に立てればと思っています。<a href="http://twitter.com/sigemasa">twitter:@sigemasa</a> </B><p>
+このサービスは以下のように利用します。<p>
+<table CELLSPACING="1" CELLPADDING="3" BGCOLOR="#FFFFCC" bodor="1">
+<tr><td>http://&lt;hostname&gt;/power/webapi-v2.pl?city=地域名&amp;gid=[1-5]</td></tr>
+
+<tr><td>&lt;hostname&gt; = 仕様確定後ミラーにされるサイトになります。URLともに変更になる場合がありますご注意ください。</td></tr>
+<tr><td>city = URLエンコードされたutf-8コードの地域名<br>
+ 神奈川県海老名市 -> %e7%a5%9e%e5%a5%88%e5%b7%9d%e7%9c%8c%e6%b5%b7%e8%80%81%e5%90%8d%e5%b8%82</td></tr>
+<tr><td>gid =  地域グループ番号　[1-5] （必須ではありません)</td></tr>
+</table>
+<ul>
+<li>結果レコードの上限は<b>400件</b>です。その場合は "2.その他の応答" が帰ります。多くの場合地域名が広過ぎることが原因です。(ex. 神奈川県) その場合、狭い地域名を指定してください。(ex.  神奈川県厚木市　や 厚木市 など)
+<li>検索結果が多すぎる場合のテストのために上記のクエリワードを利用できます。
+<li>検索がヒットしないときの状態をテストするに、未入力のまま検索ボタンをクリックしてみてください。
+</ul>
+<P>
+<H3>レスポンス</H3>
+<H4>1.正常応答時</H4>
+<table colspan=2 border=1>
+<TR bgcolor=#66FF00><td colspan=2>&lt;ResultSet DataVersion="V.1.112" ResutRows="N" &gt;</tr>
+<tr><td colspan=2>全体を包含する要素です</td></tr>
+<tr><td>+DataVersion</td><td>   データのバージョンをあらわします。現在は V.1.112</td></tr>
+<tr><td>+ResultRows</td><td>結果の数をあらわします。エラー時も件数は取得されます。正常時には400件を超えることはありません。</td></tr>
+
+<tr bgcolor=#33ffff><td colspan=2>&lt;Result&gt;　結果１地域につき１つ帰ります、ResultRowsの件数の繰り返されます。１つの地域が複数のグループに属す場合は２つになります</tr>
+<tr><td bgcolor=#ffcc33>&lt;Area&gt;～&lt;/Area&gt;</td><td> 地域名を半角スペース区切り（県名 市町村 大字)</td></tr>
+<tr><td bgcolor=#ffcc33>&lt;PowerOutTime&gt;～&lt;/PowerOutTime&gt;</td><td>停電時間 必ず３回繰り返します。当日から３日分です。</td></tr>
+<tr><td bgcolor=#ffcc33>&lt;PowerOutTime&gt;～&lt;/PowerOutTime&gt;</td></tr>
+<tr><td bgcolor=#ffcc33>&lt;PowerOutTime&gt;～&lt;/PowerOutTime&gt;</td></tr>
+<tr><td bgcolor=#ffcc33>&lt;Group&gt;～&lt;/Group&gt;</td><td>所属するグループ番号(1～5)</td></tr>
+<tr bgcolor=#33ffff><td colspan=2>&lt;/Result&gt;</td></tr>
+<tr><td colspan=2>&lt;Result&gt;</td></tr>
+<tr><td colspan=2>･･･</td></tr>
+<tr><td colspan=2>&lt;/Result&gt;</td></tr>
+<tr><td colspan=2>&lt;Result&gt;</td></tr>
+<tr><td colspan=2>･･･</td></tr>
+<tr><td colspan=2>&lt;/Result&gt;</td></tr>
+<tr><td colspan=2>･･･</td></tr>
+<tr><td colspan=2>･･･</td></tr>
+<tr bgcolor=#66ff00><td colspan=2>&lt;/ResultSet&gt;</td></tr>
+</table>
+<table>
+<tr><td bgcolor=#ffcc33>このセットで取得されます</td></tr>
+</table>
+<p>
+<H4>2.その他の応答</H4>
+<table colspan=2 border=1>
+<TR bgcolor=#66FF00><td colspan=2>&lt;ResultSet DataVersion="V.1.112" ResutRows="N" &gt;</tr>
+<tr><td colspan=2>全体を包含する要素です</td></tr>
+<tr><td>+DataVersion</td><td>   データのバージョンをあらわします。現在は V.1.112</td></tr>
+<tr><td>+ResultRows</td><td>結果の数をあらわします。エラー時も件数は取得されます。正常時には400件を超えることはありません。</td></tr>
+
+<tr bgcolor=#33ffff><td colspan=2>&lt;Result&gt;</tr>
+<tr><td bgcolor=#cc33ff>&lt;Message&gt;～&lt;/Message&gt;</td><td>結果が無い場合、もしくは結果が多すぎる場合に返されます。これは１回のみ返されます。</td></tr>
+<tr bgcolor=#33ffff><td colspan=2>&lt;/Result&gt;</td></tr>
+<tr bgcolor=#66ff00><td colspan=2>&lt;/ResultSet&gt;</td></tr>
+</table>
+<table>
+<tr><td bgcolor=#cc33ff>この項目のみが取得されます</td></tr>
+</table>
+</body>
+</html>
+
