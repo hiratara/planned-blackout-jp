@@ -2,16 +2,20 @@
 
 BEGIN {
 	$conv_start = (times)[0];
-	push @INC, 'lib';	# Jcode.pm を ./libディレクトリ配下に置く場合用
 }
 
 use CGI;
-use Jcode;
+use Encode qw(from_to);
+
 require 'gval.pl';
 
 $query=new CGI;
 $getcity=$query->param('city');
-$getcity=Jcode->new($getcity)->utf8;
+$tmp=$getcity;
+$enc=&getcode(\$tmp);
+if($enc ne 'utf8' && $enc ne '') {
+	from_to($getcity,$enc,'utf8');
+}
 $zip1=$query->param('zip1');
 $zip2=$query->param('zip2');
 $out=$query->param('out');
@@ -448,4 +452,77 @@ sub encode {
 	my ($encoded) = @_;
 	$encoded =~ s/(\W)/'%' . unpack('H2', $1)/eg;
 	return $encoded;
+}
+
+
+# jcode.pl & Jcode.pm より移植
+
+sub init {
+    $re_bin  = '[\000-\006\177\377]';
+
+    $re_jis0208_1978 = '\e\$\@';
+    $re_jis0208_1983 = '\e\$B';
+    $re_jis0208_1990 = '\e&\@\e\$B';
+    $re_jis0208 = "$re_jis0208_1978|$re_jis0208_1983|$re_jis0208_1990";
+    $re_jis0212 = '\e\$\(D';
+    $re_jp      = "$re_jis0208|$re_jis0212";
+    $re_asc     = '\e\([BJ]';
+    $re_kana    = '\e\(I';
+
+    $esc_0208 = "\e\$B";
+    $esc_0212 = "\e\$(D";
+    $esc_asc  = "\e(B";
+    $esc_kana = "\e(I";
+
+    $re_sjis_c    = '[\201-\237\340-\374][\100-\176\200-\374]';
+    $re_sjis_kana = '[\241-\337]';
+
+    $re_euc_c    = '[\241-\376][\241-\376]';
+    $re_euc_kana = '\216[\241-\337]';
+    $re_euc_0212 = '\217[\241-\376][\241-\376]';
+
+    $re_utf8 = '[\xc0-\xdf][\x80-\xbf]|[\xe0-\xef][\x80-\xbf][\x80-\xbf]';
+
+    # Use `geta' for undefined character code
+    $undef_sjis = "\x81\xac";
+
+    $cache = 1;
+
+}
+
+sub getcode {
+	&init;
+    local(*s) = @_;
+    local($matched, $code);
+
+    if ($s !~ /[\e\200-\377]/) {	# not Japanese
+	$matched = 0;
+	$code = undef;
+    }					# 'jis'
+    elsif ($s =~ /$re_jp|$re_asc|$re_kana/o) {
+	$matched = 1;
+	$code = 'jis';
+    }
+    elsif ($s =~ /$re_bin/o) {		# 'binary'
+	$matched = 0;
+	$code = 'binary';
+    }
+    else {				# should be 'euc' or 'sjis' or 'utf8'
+	local($sjis, $euc, $utf8) = (0, 0, 0);
+
+	while ($s =~ /(($re_sjis_c)+)/go) {
+	    $sjis += length($1);
+	}
+	while ($s =~ /(($re_euc_c|$re_euc_kana|$re_euc_0212)+)/go) {
+	    $euc  += length($1);
+	}
+    while ($s =~ /(($re_utf8)+)/go) {
+		$utf8 += length($1);
+	}
+	$code = 
+	    ($euc > $sjis and $euc > $utf8) ? 'euc-jp' :
+		($sjis > $euc and $sjis > $utf8) ? 'shiftjis' :
+		    ($utf8 > $euc and $utf8 > $sjis) ? 'utf8' : undef;
+    }
+    $code;
 }
