@@ -7,8 +7,9 @@
 <title>計画停電時間検索</title>
 </head>
 <body>
-V.1.123β3(nanakochi123456)
+V.1.123β4(nanakochi123456)
 <br>
+<!--#include file="header.html" -->
 <table border=1><tr><td>
 <b>停電時間検索</b> (東京電力、東北電力)
 <form action="area.cgi" method="get">
@@ -37,7 +38,7 @@ V.1.123β3(nanakochi123456)
 ミラーサーバや本家よりさらに独自機能を搭載したサーバのご協力をいただいている67サイトの方々に感謝いたします。<br>
 <tr><td colspan=2>どのサーバを使うか悩んだときは、負荷分散機能を持つ<a href="http://denki.moene.ws/">http://denki.moene.ws/</a>(tnx:Kei_Nanigashi)や<a href="http://bit.ly/e6b2XL">http://bit.ly/e6b2XL</a>(tnx:_nat)をご利用ください。<br></td></tr>
 </tr></table>
-<a href="http://power.daiba.cx/power110319-4.tar.gz">最新のミラー用のファイルセット</a>あります。<br>
+<a href="http://power.daiba.cx/power110319-5.tar.gz">最新のミラー用のファイルセット</a>あります。(携帯からダウンロードしないで下さい。）<br>
 本家は、<a href="http://bizoole.com/power/">http://bizoole.com/power/</a>です。
 </td></tr>
 </tr></table>
@@ -45,25 +46,13 @@ V.1.123β3(nanakochi123456)
 <hr>
 <b>データ更新状況:</b><br>
 　2011/3/18 09:35 東京電力データを更新した<br>
-　2011/3/17 07:25 all.allを軽量化した。<br>
-　2011/3/16 07:?? 東北電力を追加した。<br>
-　2011/3/15 20:21 (14日15時データ+茨城更新データ)<br>
+　<a href="http://power.daiba.cx/wiki/?%a5%c7%a1%bc%a5%bf%b9%b9%bf%b7%cd%fa%ce%f2">当方のデータ更新履歴</a><br>
 　<a href="http://bizoole.com/power/history/datahistory.html">データ更新履歴</a>
 </p>
 <b>エンジン更新履歴:</b><br>
-　2011/3/19 11:45 東京電力の発表により、3/20及び3/21の2回目の計画停電がない旨を反映した<br>
-　2011/3/19 11:04 本家と同様に、引数として、comm=verを渡すとバージョン番号を戻すように変更<br>
-　2011/3/19 09:10 RSSの実装<br>
-　2011/3/19 05:26 3/19の東京電力の計画停電なし発表に対応。及び、東北電力の予定を掲載。update.cgiをテスト的に添付してみた。<br>
-　2011/3/18 15:38 タイトルタグ用の正規表現を追記した。及びファイル分割。by @mnakajim<br>
-　2011/3/18 13:35 PCと携帯を区別して、月表示及び日数分表示の違いを変えた。日付も自動変更するようにした。また、データを少し入力しやすくした。ただ、多少重くなるかも；；<br>
-　2011/3/18 09:03 24日までの東京電力のデータを入力した。なお表示は３日分なので、スクリプトをそれぞれ更新する必要がある。<br>
-　2011/3/17 18:50 郵便番号入力の半角のみ(PC)、数字のみ(携帯)にした<br>
-　2011/3/17 18:15 携帯向けのキャッシュを無効にした。(area.cgiのみ)<br>
-　2011/3/17 13;10 検索結果のtitleタグに入力されたものを表示するようにした。これによりブックマークの衝突が防げます。<br>
-　2011/3/17 12:15 POST→GETに変更　ブックマークを可能にした。ただし、Jcode.pmが必要なので必要であれば<a href="jcode.zip">こちら</a>から同じフォルダに展開して下さい。<br>
-　2011/3/16 17:50 郵便番号検索に対応した、東京電力と東北電力を一括した。<br>
-　2011/3/15 20:24 (V1.112 住所ソート表示、16-18日の表示対応)<br>
+　2011/3/19 16:18 SSIで.htmlに関連付けされているサーバーでは、header.html、footer.htmlをincludeするようにできるようにしました。DirectoryIndex で index.shtml を優先使用するようにすれば、index.shtml でも使用可能と思われます。<br>
+　2011/3/19 15:30 ケ を ヶ に変換するようにした。将来使用すると思っていた郵便番号のカナデータを削除した。<br>
+　<a href="http://power.daiba.cx/wiki/?%a5%a8%a5%f3%a5%b8%a5%f3%b9%b9%bf%b7%cd%fa%ce%f2">当方のエンジン更新履歴</a><br>
 　<a href="http://bizoole.com/power/history/">エンジン更新履歴</a>
 </p>
 
@@ -95,10 +84,9 @@ V.1.123β3(nanakochi123456)
 　自治体が公開する詳細地域情報の反映(tnx:mochiusagi2000,sk_Lotus)<br>
 　このバージョンにおけるAPI実装
 </p>
+<hr>
+<!--#include file="footer.html" -->
 <br>
-br>
 問い合わせは、<a href="http://twitter.com/mnakajim">twitter (@mnakajim)</a>へ
 </body>
-
 </html>
-

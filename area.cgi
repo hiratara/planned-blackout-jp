@@ -24,6 +24,8 @@ if ($getgroup>8 || $getgroup<=0) {
 	$getgroup=0;
 }
 
+$getcity=~s/ケ/ヶ/g;
+
 if($comm eq 'ver') {
 	open(R,"index.html");
 	foreach(<R>) {
@@ -49,10 +51,12 @@ if($zip ne '') {
 	close(ZIP);
 	if($zip2 ne "0000") {
 		foreach(@ZIP) {
-			($ziptmp,$kana1,$kana2,$kana3,$kanji1,$kanji2,$kanji3)=split(/\t/,$_);
+			s/ケ/ヶ/g;
+			($ziptmp,$kanji1,$kanji2,$kanji3)=split(/\t/,$_);
 			if($ziptmp eq $zip) {
 				open (READ,"all.all");
 				while (<READ>) {
+					s/ケ/ヶ/g;
 					chomp;
 					($area1,$area2,$area3,$num)=split (/\t/,$_);
 					if($kanji1 eq $area1 && $kanji2 eq $area2 && ($area3 =~/$kanji3/ || $kanji3 =~/$area3/)) {
@@ -118,6 +122,7 @@ if($out eq 'rss') {
 		$buf="郵便番号が正確に入力されていないようです。";
 	} else {
 		while (<READ>) {
+			s/ケ/ヶ/g;
 			chomp;
 			($area1,$area2,$area3,$num)=split (/\t/,$_);
 			$areaorg="$area1$area2$area3";
@@ -262,6 +267,7 @@ if ($zip2 eq "0000") {
 	$buf="<tr><td colspan=5>郵便番号が正確に入力されていないようです。</td></tr>";
 } else {
 	while (<READ>) {
+		s/ケ/ヶ/g;
 		chomp;
 		($area1,$area2,$area3,$num)=split (/\t/,$_);
 		$areaorg="$area1$area2$area3";
