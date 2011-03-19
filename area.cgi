@@ -2,6 +2,7 @@
 
 BEGIN {
 	$conv_start = (times)[0];
+	push @INC, 'lib';	# Jcode.pm を ./libディレクトリ配下に置く場合用
 }
 
 use CGI;
@@ -83,12 +84,12 @@ EOM
 # 携帯かどうか？
 
 $mobileflg=4;
-$mobileflg=3 if($ENV{HTTP_USER_AGENT}=~/DoCoMo|UP\.Browser|KDDI|SoftBank|Voda[F|f]one|J\-PHONE/);
+$mobileflg=2 if($ENV{HTTP_USER_AGENT}=~/DoCoMo|UP\.Browser|KDDI|SoftBank|Voda[F|f]one|J\-PHONE/);
 
 $buf=<<FIN;
 <table border=1><tr bgcolor=#C0C0C0><th>地域</th>
 FIN
-if($mobileflg eq 3) {
+if($mobileflg eq 2) {
 	for($i=0; $i<$mobileflg; $i++) {
 		$buf.=<<FIN;
 	<th>$mday[$i]日停電時間</th>
