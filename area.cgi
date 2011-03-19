@@ -2,12 +2,19 @@
 
 require 'gval.pl';
 
-use Jcode;
+use Encode qw/encode_utf8/;
+use Encode::Guess;
 use CGI;
+
+sub force_utf8($) {
+	my $str = shift || '';
+	my $enc = guess_encoding($str, qw/shiftjis utf8/);
+	return ref $enc ? encode_utf8($enc->decode($str)) : $str;
+}
+
 $query=new CGI;
 $comm=$query->param('comm');
-$getcity=$query->param('city');
-$getcity=Jcode->new($getcity)->utf8;
+$getcity=force_utf8($query->param('city'));
 $titlename=$getcity;
 $getcity=~ s/ //g;
 $getcity=~ s/　//g;
