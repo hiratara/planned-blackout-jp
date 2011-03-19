@@ -15,6 +15,7 @@ $getcity=Jcode->new($getcity)->utf8;
 $zip1=$query->param('zip1');
 $zip2=$query->param('zip2');
 $out=$query->param('out');
+$comm=$query->param('comm');
 $zip=$zip1 . $zip2;
 $getcity=~ s/ //g;
 $getcity=~ s/　//g;
@@ -23,6 +24,21 @@ if ($getgroup>8 || $getgroup<=0) {
 	$getgroup=0;
 }
 
+if($comm eq 'ver') {
+	open(R,"index.html");
+	foreach(<R>) {
+		if(/^V\.(.*)/) {
+			$VER=$1;
+			print <<FIN;
+Content-type: text/plain; charset=utf-8
+
+$VER
+FIN
+		}
+	}
+	close(R);
+	exit;
+}
 
 if($zip ne '') {
 	open (ZIP,"yubin.csv");
