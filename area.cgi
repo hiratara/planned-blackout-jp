@@ -14,6 +14,7 @@ $getcity=$query->param('city');
 $getcity=Jcode->new($getcity)->utf8;
 $zip1=$query->param('zip1');
 $zip2=$query->param('zip2');
+$out=$query->param('out');
 $zip=$zip1 . $zip2;
 $getcity=~ s/ //g;
 $getcity=~ s/　//g;
@@ -85,6 +86,131 @@ EOM
 
 $mobileflg=4;
 $mobileflg=2 if($ENV{HTTP_USER_AGENT}=~/DoCoMo|UP\.Browser|KDDI|SoftBank|Voda[F|f]one|J\-PHONE/);
+
+if($out eq 'rss') {
+	&getbasehref;
+	$buf='';
+	$rssdate=&date("Y-m-dTH:i:s+9:00");
+
+	open (READ,"all.all");
+
+	$count=0;
+
+	if ($zip2 eq "0000") {
+		$buf="郵便番号末尾４桁 0000 では検索できません。";
+	} elsif ($zip ne '' && $zip!~/\d\d\d\d\d\d\d/ && length($zip) ne 7) {
+		$buf="郵便番号が正確に入力されていないようです。";
+	} else {
+		while (<READ>) {
+			chomp;
+			($area1,$area2,$area3,$num)=split (/\t/,$_);
+			$areaorg="$area1$area2$area3";
+			$areaorg=~ s/ //g;
+
+			foreach(@tokyo_denryoku_list) {
+				if($area1 eq $_) {
+					%g=%gto;
+					last;
+				}
+			}
+			foreach(@tohoku_denryoku_list) {
+				if($area1 eq $_) {
+					%g=%gth;
+					last;
+				}
+			}
+
+
+			if ($getgroup) {
+				if ($areaorg=~ m/$getcity/ and $num eq $getgroup) {
+					for($i=0; $i<$mobileflg; $i++) {
+						$_getcity=&encode($getcity);
+						$xml=<<FIN;
+<item rdf:about="$::basehref?city=$_getcity&amp;zip1=$zip1&amp;zip2=$zip2&amp;gid=$getgroup">
+<title>【$mon[$i]月$mday[$i]日】$arrea1$area2$area3(グループ$num)の計画停電情報です。</title>
+<link>$::basehref?city=$_getcity&amp;zip1=$zip1&amp;zip2=$zip2&amp;gid=$getgroup</link>
+<description>$g{"$date[$i]_$num"}です。</description>
+<dc:date>$rssdate</dc:date>
+</item>
+FIN
+						$XML{"$date[$i]"}.=$xml;
+					}
+					++$count;
+				}
+			} else {
+				if ($areaorg=~ m/$getcity/) {
+					for($i=0; $i<$mobileflg; $i++) {
+						$_getcity=&encode($getcity);
+						$xml=<<FIN;
+<item rdf:about="$::basehref?city=$_getcity&amp;zip1=$zip1&amp;zip2=$zip2&amp;gid=$getgroup">
+<title>【$mon[$i]月$mday[$i]日】$arrea1$area2$area3(グループ$num)の計画停電情報です。</title>
+<link>$::basehref?city=$_getcity&amp;zip1=$zip1&amp;zip2=$zip2&amp;gid=$getgroup</link>
+<description>$g{"$date[$i]_$num"}です。</description>
+<dc:date>$rssdate</dc:date>
+</item>
+FIN
+						$XML{"$date[$i]"}.=$xml;
+					}
+					++$count;
+				}
+			}
+		}
+		if (!$count) {
+			$buf="計画停電のないエリアです。";
+		}
+		if ($count>400) {
+			$buf="該当地域が多すぎです。詳細の地域名を入力してください。";
+		}
+	}
+
+	if($zip ne '') {
+		$areas="〒$zip1-$zip2";
+	} else {
+		$areas="$getcity";
+	}
+	$areas=~ s/[;\"\'\$\@\%\(\)]//g;	# by @mnakajim
+
+	print <<FIN;
+Content-type: text/xml;charset=utf-8
+Cache-Control: max-age=0
+Expires: Mon, 26, Jul 1997 05:00:00 GMT
+
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<rdf:RDF
+ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+ xmlns="http://purl.org/rss/1.0/"
+ xmlns:dc="http://purl.org/dc/elements/1.1/"
+>
+FIN
+	if($buf ne '') {
+		print <<FIN;
+<channel rdf:about="$::basehost/index.html">
+ <title>$areasの計画停電予定</title>
+ <link>$::basehost/index.html</link>
+</channel>
+<item rdf:about="$::basehref?city=$_getcity&amp;zip1=$zip1&amp;zip2=$zip2&amp;gid=$getgroup">
+<title>$buf</title>
+<link>$::basehref?city=$_getcity&amp;zip1=$zip1&amp;zip2=$zip2&amp;gid=$getgroup</link>
+<dc:date>$rssdate</dc:date>
+</item>
+FIN
+	} else {
+		print <<FIN;
+<channel rdf:about="$::basehost$basepath">
+<title>$areasの計画停電予定</title>
+<link>$::basehost$basepath</link>
+</channel>
+FIN
+		for($i=0; $i<$mobileflg; $i++) {
+			print $XML{"$date[$i]"};
+		}
+	}
+	print <<FIN;
+</rdf:RDF>
+FIN
+	exit;
+}
 
 $buf=<<FIN;
 <table border=1><tr bgcolor=#C0C0C0><th>地域</th>
@@ -203,7 +329,10 @@ $count件が見つかりました。同一地域で複数登録があるとき�
 このページをブックマークしておくと、ブックマーク呼び出しだけで地域名の入力が不要です。 <BR>
 $head
 $buf
-</table><a href=./>戻る</a><hr>
+</table>
+[<a href=./>戻る</a>] 
+[<a href="area.cgi?city=$getcity&zip1=$zip1&zip2=$zip2&gid=$getgroup&out=rss">RSS</a>]
+<hr>
 FIN
 
 printf("Powered by Perl $] HTML convert time to %.3f sec.",
@@ -242,6 +371,59 @@ sub date {
 	$format =~ s/j/$mday/ge;				# j:1-31
 	$mday = "0" . $mday if ($mday < 10);
 	$format =~ s/d/$mday/ge;				# d:01-31
+
+	# hour
+	$hour = "0" . $hour if ($hour < 10);
+	$format =~ s/H/$hour/ge;				# H:00-23
+
+	# minutes
+	$min = "0" . $min if ($min < 10);
+	$format =~ s/i/$min/ge;					# i:00-59
+
+	# second
+	$sec = "0" . $sec if ($sec < 10);
+	$format =~ s/s/$sec/ge;					# s:00-59
+
 	return $format;
 }
 
+# これも面倒だからpyukiwikiから移植
+sub getbasehref {
+	# Thanks moriyoshi koizumi.
+	$::basehost = "$ENV{'HTTP_HOST'}";
+	$::basehost = 'http://' . $::basehost;
+	# Special Thanks to gyo
+	$::basehost .= ":$ENV{'SERVER_PORT'}"
+		if ($ENV{'SERVER_PORT'} ne '80' && $::basehost !~ /:\d/);
+	# URLの生成
+	my $uri;
+	my $req=$ENV{REQUEST_URI};
+	$req=~s/\?.*//g;
+	if($req ne '') {
+		if($req eq $ENV{SCRIPT_NAME}) {
+			$uri= $ENV{'SCRIPT_NAME'};
+		} else {
+			for(my $i=0; $i<length($ENV{SCRIPT_NAME}); $i++) {
+				if(substr($ENV{SCRIPT_NAME},$i,1) eq substr($req,$i,1)) {
+					$uri.=substr($ENV{SCRIPT_NAME},$i,1);
+				} else {
+					last;
+				}
+			}
+		}
+	} else {
+		$uri .= $ENV{'SCRIPT_NAME'};
+	}
+	$::basehref=$::basehost . $uri;
+	$::basepath=$uri;
+	$::basepath=~s/\/[^\/]*$//g;
+	$::basepath="/" if($::basepath eq '');
+	$::script=$uri if($::script eq '');
+}
+
+# これも面倒だからpyukiwikiから移植
+sub encode {
+	my ($encoded) = @_;
+	$encoded =~ s/(\W)/'%' . unpack('H2', $1)/eg;
+	return $encoded;
+}
