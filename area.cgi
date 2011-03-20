@@ -5,8 +5,7 @@ BEGIN {
 }
 
 use CGI;
-use Encode qw(from_to);
-
+use Encode qw(from_to decode);
 require 'gval.pl';
 
 $query=new CGI;
@@ -37,6 +36,9 @@ if ($getgroup>8 || $getgroup<=0) {
 }
 
 $getcity=~s/ケ/ヶ/g;
+$getcity=~s/の/ノ/g;
+
+&tr(\$getcity,'[0-9]', '[０-９]');
 
 if($comm eq 'ver') {
 	open(R,"index.html");
@@ -64,11 +66,13 @@ if($zip ne '') {
 	if($zip2 ne "0000") {
 		foreach(@ZIP) {
 			s/ケ/ヶ/g;
+			s/の/ノ/g;
 			($ziptmp,$kanji1,$kanji2,$kanji3)=split(/\t/,$_);
 			if($ziptmp eq $zip) {
 				open (READ,"all.all");
 				while (<READ>) {
 					s/ケ/ヶ/g;
+					s/の/ノ/g;
 					chomp;
 					($area1,$area2,$area3,$num)=split (/\t/,$_);
 					if($kanji1 eq $area1 && $kanji2 eq $area2 && ($area3 =~/$kanji3/ || $kanji3 =~/$area3/)) {
@@ -135,6 +139,7 @@ if($out eq 'rss') {
 	} else {
 		while (<READ>) {
 			s/ケ/ヶ/g;
+			s/の/ノ/g;
 			chomp;
 			($area1,$area2,$area3,$num)=split (/\t/,$_);
 			$areaorg="$area1$area2$area3";
@@ -280,6 +285,7 @@ if ($zip2 eq "0000") {
 } else {
 	while (<READ>) {
 		s/ケ/ヶ/g;
+		s/の/ノ/g;
 		chomp;
 		($area1,$area2,$area3,$num)=split (/\t/,$_);
 		$areaorg="$area1$area2$area3";
@@ -373,6 +379,7 @@ printf("Powered by Perl $] HTML convert time to %.3f sec.",
 		((times)[0] - $::_conv_start));
 
 print <<FIN;
+$debug
 </body>
 </html>
 FIN
@@ -533,4 +540,71 @@ sub getcode {
 		    ($utf8 > $euc and $utf8 > $sjis) ? 'utf8' : undef;
     }
     $code;
+}
+
+
+# from jcode.pl
+
+;#
+;# TR function for 2-byte code
+;#
+sub tr {
+    # $prev_from, $prev_to, %table are persistent variables
+    local(*s, $from, $to, $opt) = @_;
+    local(@from, @to);
+    local($n) = (0, 0);
+    
+	from_to($s,'utf8','euc-jp');
+	from_to($from, 'utf8', 'euc-jp');
+	from_to($to, 'utf8', 'euc-jp');
+
+	&_maketable;
+
+    $s =~ s/([\200-\377][\000-\377]|[\000-\377])/
+	defined($table{$1}) && ++$n ? $table{$1} : $1
+    /ge;
+
+	from_to($s,'euc-jp','utf8');
+
+    $n;
+}
+
+sub _maketable {
+    local($ascii) = '(\\\\[\\-\\\\]|[\0-\133\135-\177])';
+
+#    &jis2euc(*to) if $to =~ /$re_jp|$re_asc|$re_kana/o;
+#    &jis2euc(*from) if $from =~ /$re_jp|$re_asc|$re_kana/o;
+
+    grep(s/(([\200-\377])[\200-\377]-\2[\200-\377])/&_expnd2($1)/ge,
+	 $from, $to);
+    grep(s/($ascii-$ascii)/&_expnd1($1)/geo,
+	 $from, $to);
+
+    @to   = $to   =~ /[\200-\377][\000-\377]|[\000-\377]/g;
+    @from = $from =~ /[\200-\377][\000-\377]|[\000-\377]/g;
+    push(@to, ($opt =~ /d/ ? '' : $to[$#to]) x (@from - @to)) if @to < @from;
+    @table{@from} = @to;
+}
+
+sub _expnd1 {
+    local($s) = @_;
+    $s =~ s/\\(.)/$1/g;
+    local($c1, $c2) = unpack('CxC', $s);
+    if ($c1 <= $c2) {
+	for ($s = ''; $c1 <= $c2; $c1++) {
+	    $s .= pack('C', $c1);
+	}
+    }
+    $s;
+}
+
+sub _expnd2 {
+    local($s) = @_;
+    local($c1, $c2, $c3, $c4) = unpack('CCxCC', $s);
+    if ($c1 == $c3 && $c2 <= $c4) {
+	for ($s = ''; $c2 <= $c4; $c2++) {
+	    $s .= pack('CC', $c1, $c2);
+	}
+    }
+    $s;
 }
