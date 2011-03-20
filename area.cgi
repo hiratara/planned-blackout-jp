@@ -16,11 +16,19 @@ $enc=&getcode(\$tmp);
 if($enc ne 'utf8' && $enc ne '') {
 	from_to($getcity,$enc,'utf8');
 }
-$zip1=$query->param('zip1');
-$zip2=$query->param('zip2');
+$zip=$query->param('zip');
+$zip=~s/\-//g;
+if($zip eq '') {
+	$zip1=$query->param('zip1');
+	$zip2=$query->param('zip2');
+	$zip=$zip1 . $zip2;
+}
+if($zip ne '') {
+	$zip1=substr($zip,0,3);
+	$zip2=substr($zip,2,4);
+}
 $out=$query->param('out');
 $comm=$query->param('comm');
-$zip=$zip1 . $zip2;
 $getcity=~ s/ //g;
 $getcity=~ s/　//g;
 $getgroup=$query->param('gid');

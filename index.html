@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -7,16 +8,20 @@
 <title>計画停電時間検索</title>
 </head>
 <body>
-V.1.123β6(nanakochi123456)
-<br>
+V.1.123β7(nanakochi123456)
+<br />
+計画停電の時間やグループを検索できるツールです。東京電力、東北電力の公式データを元にしています。
+<br />
 <!--#include file="header.html" -->
-<table border=1><tr><td>
-<b>停電時間検索</b> (東京電力、東北電力)
+<table border="1"><tr><td>
+<strong>停電時間検索ツール</strong> (東京電力、東北電力)<br /><br />
+計画停電（輪番停電）の時間やグループを簡単に検索できるツールです。<br />自分の住んでいる地域がどこのグループに属するのか、住所の一部などから検索できます。<br /><br />
+
 <form action="area.cgi" method="get">
-    <p>計画停電の予定時間を知りたい市区町村名、地域名<input type="text" name="city" size="20" istyle="1" mode="hiragana" style="ime-mode: active;"/>
-<input type="submit" name="submit" value="検索" /><br>
+    計画停電の予定時間を知りたい市区町村名、地域名<input type="text" name="city" size="20" istyle="1" mode="hiragana" style="ime-mode: active;"/>
+<input type="submit" name="submit" value="検索" /><br />
     または郵便番号<input type="text" name="zip1" maxlength="3" size="3" istyle="4" mode="numeric" style="ime-mode:disabled;" />-<input type="text" name="zip2" maxlength="4" size="4" istyle="4" mode="numeric" style="ime-mode:disabled;" />
-<input type="submit" name="submit" value="検索" /><br>
+<input type="submit" name="submit" value="検索" /><br />
 　　グループ番号で絞り込み<select name="gid">
 	<option value="0">指定なし</option>
 	<option value="1">グループ1</option>
@@ -28,66 +33,64 @@ V.1.123β6(nanakochi123456)
 	<option value="7">グループ7(東北のみ)</option>
 	<option value="8">グループ8(東北のみ)</option>
 	</select></form>
-*Area search and summary of Planned blackout is following link. <a href=http://inferno.soutan.net/power/search>For English</a>
+*Area search and summary of Planned blackout is following link. <a href="http://inferno.soutan.net/power/search">For English</a>
 </td></tr></table>
-<table border=0>
-<tr><td colspan=2>
+<table border="0">
+<tr><td colspan="2">
 アクセス集中でService Temporarily Unavailable表示をすることがあります。ミラーサーバをご利用ください。</td></tr>
-<tr><td colspan=2>
+<tr><td colspan="2">
 <a href="http://denki.moene.ws/?list">全ミラー/機能拡張サーバ 全リスト(67サイト)</a>
-ミラーサーバや本家よりさらに独自機能を搭載したサーバのご協力をいただいている67サイトの方々に感謝いたします。<br>
-<tr><td colspan=2>どのサーバを使うか悩んだときは、負荷分散機能を持つ<a href="http://denki.moene.ws/">http://denki.moene.ws/</a>(tnx:Kei_Nanigashi)や<a href="http://bit.ly/e6b2XL">http://bit.ly/e6b2XL</a>(tnx:_nat)をご利用ください。<br></td></tr>
-</tr></table>
-<a href="http://power.daiba.cx/power110319-7.tar.gz">最新のミラー用のファイルセット</a>あります。(携帯からダウンロードしないで下さい。）<br>
-本家は、<a href="http://bizoole.com/power/">http://bizoole.com/power/</a>です。
-</td></tr>
-</tr></table>
-<br>
-<hr>
-<b>データ更新状況:</b><br>
-　2011/3/19 17:08 東京電力データを更新した<br>
-　<a href="http://power.daiba.cx/wiki/?%a5%c7%a1%bc%a5%bf%b9%b9%bf%b7%cd%fa%ce%f2">当方のデータ更新履歴</a><br>
+ミラーサーバや本家よりさらに独自機能を搭載したサーバのご協力をいただいている67サイトの方々に感謝いたします。<br /></td></tr>
+<tr><td colspan="2">どのサーバを使うか悩んだときは、負荷分散機能を持つ<a href="http://denki.moene.ws/">http://denki.moene.ws/</a>(tnx:Kei_Nanigashi)や<a href="http://bit.ly/e6b2XL">http://bit.ly/e6b2XL</a>(tnx:_nat)をご利用ください。<br /></td></tr>
+</table>
+<a href="http://power.daiba.cx/power110320.tar.gz">最新のミラー用のファイルセット</a>あります。(携帯からダウンロードしないで下さい。）<br />
+本家は、<a href="http://bizoole.com/power/">http://bizoole.com/power/</a>です。<br />
+<hr />
+<strong>データ更新状況:</strong><br />
+　2011/3/19 17:08 東京電力データを更新した<br />
+　<a href="http://power.daiba.cx/wiki/?%a5%c7%a1%bc%a5%bf%b9%b9%bf%b7%cd%fa%ce%f2">当方のデータ更新履歴</a><br />
 　<a href="http://bizoole.com/power/history/datahistory.html">データ更新履歴</a>
-</p>
-<b>エンジン更新履歴:</b><br>
-　2011/3/19 19:43 Jcode.pm を使用しなくてもよくなるように、Encode wrapper 及び jcode.pl ＆ Jcode.pm から移植した文字コード判別ルーチンを作成した。<br>
-　2011/3/19 16:18 SSIで.htmlに関連付けされているサーバーでは、header.html、footer.htmlをincludeするようにできるようにしました。DirectoryIndex で index.shtml を優先使用するようにすれば、index.shtml でも使用可能と思われます。<br>
-　2011/3/19 15:30 ケ を ヶ に変換するようにした。将来使用すると思っていた郵便番号のカナデータを削除した。<br>
-　<a href="http://power.daiba.cx/wiki/?%a5%a8%a5%f3%a5%b8%a5%f3%b9%b9%bf%b7%cd%fa%ce%f2">当方のエンジン更新履歴</a><br>
+<br /><br />
+<strong>エンジン更新履歴:</strong><br />
+　2011/3/20 06:10 20日も計画停電なしの旨をエンジンに反映<br />
+　2011/3/19 19:43 Jcode.pm を使用しなくてもよくなるように、Encode wrapper 及び jcode.pl ＆ Jcode.pm から移植した文字コード判別ルーチンを作成した。<br />
+　2011/3/19 16:18 SSIで.htmlに関連付けされているサーバーでは、header.html、footer.htmlをincludeするようにできるようにしました。DirectoryIndex で index.shtml を優先使用するようにすれば、index.shtml でも使用可能と思われます。<br />
+　2011/3/19 15:30 ケ を ヶ に変換するようにした。将来使用すると思っていた郵便番号のカナデータを削除した。<br />
+　<a href="http://power.daiba.cx/wiki/?%a5%a8%a5%f3%a5%b8%a5%f3%b9%b9%bf%b7%cd%fa%ce%f2">当方のエンジン更新履歴</a><br />
 　<a href="http://bizoole.com/power/history/">エンジン更新履歴</a>
-</p>
-
-<b>サイトを案内いただきました。ありがとうございます:</b><br>
-　on twitter (so many follower...)<br>
-　<a href="http://tcppjp.ddo.jp/at/article/group2011.shtml">http://tcppjp.ddo.jp/at/article/group2011.shtml</a>(tnx:tcppjp)<br>
-　<a href="http://tcppjp.ddo.jp/g2011.shtml">http://tcppjp.ddo.jp/g2011.shtml</a>(tnx:tcppjp)<br>
-　<a href="http://ameritatto.blog70.fc2.com/blog-entry-1293.html">http://ameritatto.blog70.fc2.com/blog-entry-1293.html</a>(tnx:Ameritatto)<br>
-　<a href="http://ameblo.jp/mirui0921/">http://ameblo.jp/mirui0921/</a>(tnx:anego_mirui)<br>
-　<a href="http://15.xmbs.jp/anegomirui-46663-d_res.php?n=277557&view=1&page=d2&guid=on">http://15.xmbs.jp/anegomirui-46663-d_res.php?n=277557&view=1&page=d2&guid=on</a>(tnx:anego_mirui)<br>
-　<a href="http://toyokiti.p1.bindsite.jp/">http://toyokiti.p1.bindsite.jp/</a>(tnx:toyokiti)<br>
-　<a href="http://forum.hangame.co.jp/thread/read.nhn?threadno=666879">http://forum.hangame.co.jp/thread/read.nhn?threadno=666879</a>(tnx:nanakochi123456)<br>
-　<a href="http://blog.hangame.co.jp/nanakkochi/article/34446372/">http://blog.hangame.co.jp/nanakkochi/article/34446372/</a>(tnx:nanakochi123456)<br>
-　<a href="http://ameblo.jp/mirin-bosi/entry-10830485352.html">http://ameblo.jp/mirin-bosi/entry-10830485352.html</a>(tnx:Mrin_bosi)<br>
-　<a href="http://bit.ly/ehnaHX">http://bit.ly/ehnaHX</a>(tnx:redvip)<br>
-　<a href="http://rootless.jp/prayforjapan/">http://rootless.jp/prayforjapan/</a>(tnx:modan)<br>
-　<a href="http://www.geocities.jp/saveeq311/">http://www.geocities.jp/saveeq311/</a>(tnx:masyatam)<br>
-　<a href="http://0324.jp/teiden/">http://0324.jp/teiden/</a>(tnx:tetsu0324)<br>
-　<a href="http://akko.dousetsu.com/teiden.html">http://akko.dousetsu.com/teiden.html</a>(tnx:pgyaaaayk)<br>
-　<a href="http://1341398.info/">http://1341398.info/</a>(tnx:hetyowiz)<br>
-　<a href="http://www43.atwiki.jp/togekikaku/pages/25.html">http://www43.atwiki.jp/togekikaku/pages/25.html</a>(tnx:shrmrkm)<br>
-</p>
-<b>今後の予定タスク(4月末までの計画停電期間中でできるところまで):</b><br>
-　もうすこしまともな画面デザイン<br>
-　最新データへの更新(現データは13日21:40バージョン)<br>
-　GPS対応(tnx:mazzo)<br>
-　郵便番号検索(tnx:kandabako) - 完了 by tnx:nanakochi123456<br>
-　各地の詳細地域情報の反映(tnx:tk_to)<br>
-　自治体が公開する詳細地域情報の反映(tnx:mochiusagi2000,sk_Lotus)<br>
+<hr />
+<strong>サイトを案内いただきました。ありがとうございます:</strong><br />
+　on twitter (so many follower...)<br />
+　<a href="http://tcppjp.ddo.jp/at/article/group2011.shtml">http://tcppjp.ddo.jp/at/article/group2011.shtml</a>(tnx:tcppjp)<br />
+　<a href="http://tcppjp.ddo.jp/g2011.shtml">http://tcppjp.ddo.jp/g2011.shtml</a>(tnx:tcppjp)<br />
+　<a href="http://ameritatto.blog70.fc2.com/blog-entry-1293.html">http://ameritatto.blog70.fc2.com/blog-entry-1293.html</a>(tnx:Ameritatto)<br />
+　<a href="http://ameblo.jp/mirui0921/">http://ameblo.jp/mirui0921/</a>(tnx:anego_mirui)<br />
+　<a href="http://15.xmbs.jp/anegomirui-46663-d_res.php?n=277557&view=1&page=d2&guid=on">http://15.xmbs.jp/anegomirui-46663-d_res.php?n=277557&view=1&page=d2&guid=on</a>(tnx:anego_mirui)<br />
+　<a href="http://toyokiti.p1.bindsite.jp/">http://toyokiti.p1.bindsite.jp/</a>(tnx:toyokiti)<br />
+　<a href="http://forum.hangame.co.jp/thread/read.nhn?threadno=666879">http://forum.hangame.co.jp/thread/read.nhn?threadno=666879</a>(tnx:nanakochi123456)<br />
+　<a href="http://blog.hangame.co.jp/nanakkochi/article/34446372/">http://blog.hangame.co.jp/nanakkochi/article/34446372/</a>(tnx:nanakochi123456)<br />
+　<a href="http://ameblo.jp/mirin-bosi/entry-10830485352.html">http://ameblo.jp/mirin-bosi/entry-10830485352.html</a>(tnx:Mrin_bosi)<br />
+　<a href="http://bit.ly/ehnaHX">http://bit.ly/ehnaHX</a>(tnx:redvip)<br />
+　<a href="http://rootless.jp/prayforjapan/">http://rootless.jp/prayforjapan/</a>(tnx:modan)<br />
+　<a href="http://www.geocities.jp/saveeq311/">http://www.geocities.jp/saveeq311/</a>(tnx:masyatam)<br />
+　<a href="http://0324.jp/teiden/">http://0324.jp/teiden/</a>(tnx:tetsu0324)<br />
+　<a href="http://akko.dousetsu.com/teiden.html">http://akko.dousetsu.com/teiden.html</a>(tnx:pgyaaaayk)<br />
+　<a href="http://1341398.info/">http://1341398.info/</a>(tnx:hetyowiz)<br />
+　<a href="http://www43.atwiki.jp/togekikaku/pages/25.html">http://www43.atwiki.jp/togekikaku/pages/25.html</a>(tnx:shrmrkm)<br />
+<hr />
+<strong>今後の予定タスク(4月末までの計画停電期間中でできるところまで):</strong><br />
+　もうすこしまともな画面デザイン<br />
+　最新データへの更新(現データは13日21:40バージョン)<br />
+　GPS対応(tnx:mazzo)<br />
+　郵便番号検索(tnx:kandabako) - 完了 by tnx:nanakochi123456<br />
+　各地の詳細地域情報の反映(tnx:tk_to)<br />
+　自治体が公開する詳細地域情報の反映(tnx:mochiusagi2000,sk_Lotus)<br />
 　このバージョンにおけるAPI実装
-</p>
-<hr>
+<hr />
 <!--#include file="footer.html" -->
-<br>
-問い合わせは、<a href="http://twitter.com/mnakajim">twitter (@mnakajim)</a>へ
+<br />
+<a href="http://bizoole.com/power">計画停電時間検索ツール</a>本家サイトへ　　原作:<a href="http://twitter.com/mnakajim/">中島昌彦</a>(M.NAKAJIM)<br />
+<br />
+special tnx:10b346(by SEO)
 </body>
 </html>
