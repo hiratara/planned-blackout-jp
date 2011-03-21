@@ -1,0 +1,31 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<title>計画停電時間検索ツール |グループや停電時間を検索できるツール</title>
+</head>
+<body>
+<div style="text-align:center;" align="center">停電時間検索ツール</div>
+<hr>
+<form action="../area.cgi" method="get">
+<div>市区町村名、地域名</div>
+<input type="text" name="city" size="20">
+<br>
+グループ番号で検索<br>
+<select name="gid">
+<option value="0">指定なし</option>
+<option value="1">グループ1</option>
+<option value="2">グループ2</option>
+<option value="3">グループ3</option>
+<option value="4">グループ4</option>
+<option value="5">グループ5</option>
+</select>
+<br>
+<br>
+<input type="submit" name="submit" value="検索">
+</form>
+<hr>
+<div align="center" style="text-align:center;"><a href="http://twitter.com/mnakajim">(c)中島昌彦<br>
+(M.NAKAJIM)</a><br>
+and supporters</div>
+</body>
+</html>

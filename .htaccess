@@ -1,0 +1,51 @@
+# DoCoMo
+RewriteEngine On
+RewriteCond %{HTTP_USER_AGENT} DoCoMo
+RewriteRule ^$ /power/m/ [R]
+
+# Softbank
+RewriteCond %{HTTP_USER_AGENT} J-PHONE
+RewriteRule ^$ /power/m/ [R]
+RewriteCond %{HTTP_USER_AGENT} Vodafone
+RewriteRule ^$ /power/m/ [R]
+RewriteCond %{HTTP_USER_AGENT} SoftBank
+RewriteRule ^$ /power/m/ [R]
+
+# AU KDDI
+RewriteCond %{HTTP_USER_AGENT} KDDI
+RewriteRule ^$ /power/m/ [R]
+RewriteCond %{HTTP_USER_AGENT} UP.Browser
+RewriteRule ^$ /power/m/ [R]
+
+# DDI Pocket
+RewriteCond %{HTTP_USER_AGENT} DDIPOCKET
+RewriteRule ^$ /power/m/ [R]
+
+# WILLCOM
+RewriteCond %{HTTP_USER_AGENT} WILLCOM
+RewriteRule ^$ /power/m/ [R]
+
+# iPod
+RewriteCond %{HTTP_USER_AGENT} iPod
+RewriteRule ^$ /power/m/ [R]
+
+# iPhone
+RewriteCond %{HTTP_USER_AGENT} iPhone
+RewriteRule ^$ /power/m/ [R]
+
+# WILLCOM
+RewriteCond %{HTTP_USER_AGENT} PDA
+RewriteRule ^$ /power/m/ [R]
+
+# PC Internet Explorer Firefox
+RewriteCond %{HTTP_USER_AGENT} Mozilla
+RewriteRule ^$ /power/pc/ [R]
+
+# PC Opera
+RewriteCond %{HTTP_USER_AGENT} Opera
+RewriteRule ^$ /power/pc/ [R]
+
+# Mac Safari
+RewriteCond %{HTTP_USER_AGENT} Safari
+RewriteRule ^$ /power/pc/ [R]
+# < /IfModule>

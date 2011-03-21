@@ -2,12 +2,13 @@
 
 require 'gval.pl';
 
-use Jcode;
+use Encode qw/decode encode_utf8/;
+use Encode::Guess;
 use CGI;
+
 $query=new CGI;
 $comm=$query->param('comm');
-$getcity=$query->param('city');
-$getcity=Jcode->new($getcity)->utf8;
+$getcity=force_utf8($query->param('city'));
 $titlename=$getcity;
 $getcity=~ s/ //g;
 $getcity=~ s/　//g;
@@ -15,7 +16,7 @@ $getgroup=int($query->param('gid'));
 if ($getgroup>5 || $getgroup<=0) {
 	$getgroup=0;
 }
-$ver='1.121';
+$ver='1.122';
 $auth='mnakajim';
 
 if ($comm=~ m/ver/gi) {
@@ -66,8 +67,14 @@ print <<FIN;
 Content-type: text/html;charset=utf-8\n\n<title>$titlenameの計画停電予定</title>
 $count件が見つかりました。同一地域で複数登録があるときは、場所によって予定時間が異なります。<BR>
 1日2回の停電予定がある場合、後半の停電予定は状況に応じて実行となります。<BR>
-このページをブックマークしておくと、ブックマーク呼び出しだけで地域名の入力が不要です。
+このページをブックマークしておくと、次回からは地域名の入力が不要です。
 <table border=1><tr bgcolor=#C0C0C0><th>地域</th><th>$day1[0]日停電時間</th><th>$day2[0]日停電時間</th><th>$day3[0]日停電時間</th><th>グループ</th></tr>
 $buf
 </table><a href=./>戻る</a>
 FIN
+
+sub force_utf8($) {
+	my $str = shift || '';
+	my $enc = guess_encoding($str, qw/shiftjis utf8/);
+	return ref $enc ? encode_utf8($enc->decode($str)) : $str;
+}
