@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 
-$VER="V.1.124(nanakochi123456)";
-$tarball="power110321-2.tar.gz";
+$VER="V.1.125(nanakochi123456)";
+$tarball="power110321-3.tar.gz";
 
 $history=<<EOM;
 <h3>データ更新状況:</h3>
@@ -14,6 +14,7 @@ $history=<<EOM;
 
 <h3>エンジン更新履歴:</h3>
 <ul id="engine">
+<li>2011/3/21 10:57 データ編集方法によってはchompで改行が削除できないことがあるので、変更した。
 <li>2011/3/21 09:00 日本語変換モジュールをhiratara氏のに変更した。
 <li>2011/3/21 06:30 PC/モバイル別にTOPページを指定できるようにした。(注:update.cgiを更新しています。別途<a href="update.txt">こちら</a>から新たに入手して下さい。)</li>
 <li>2011/3/20 19:57 東京電力のtwitterによる発表による、一部グループ見送りの件を追記した。</li>
@@ -907,7 +908,7 @@ $top=<<EOM;
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="Content-Language" content="ja" />
-<title>計画停電時間検索 | 停電グループや停電時間を検索できるツール</title>
+<title>計画停電時間検索</title>
 <meta name="description" content="計画停電の時間やグループを検索できるツールです。市区町村名、地域名など住所の一部や郵便番号などから停電時間を検索できます。">
 <meta name="keywords" content="計画停電,検索,システム,ツール,スケジュール,輪番停電,グループ">$scriptandcss
 </head>
@@ -915,48 +916,44 @@ $top=<<EOM;
 EOM
 
 $mobile_body=<<EOM;
-$VER
+<div style="text-align:center;" align="center">停電時間検索ﾂｰﾙ</div>
+<div style="text-align:center;" align="center">(東京電力､東北電力)</div>
+$VER<br />
 <!include="header.html">
-<table border="1"><tr><td>
-<strong>停電時間検索ツール</strong><br />
-(東京電力、東北電力)<br /><br />
-計画停電（輪番停電）の時間やグループを簡単に検索できるツールです。<br />自分の住んでいる地域がどこのグループに属するのか、住所の一部などから検索できます。<br /><a href="?p">PC向けページ</a>
+<hr />
+<a href="?p">PC向けﾍﾟｰｼﾞ</a>
 <br />
 <form action="area.cgi" method="get">
-    計画停電の予定時間を知りたい市区町村名、地域名<input type="text" name="city" size="20" istyle="1" mode="hiragana" style="ime-mode: active;"/>
-<input type="submit" name="submit" value="検索" /><br />
-    または郵便番号<input type="text" name="zip1" maxlength="3" size="3" istyle="4" mode="numeric" style="ime-mode:disabled;" />-<input type="text" name="zip2" maxlength="4" size="4" istyle="4" mode="numeric" style="ime-mode:disabled;" />
-<input type="submit" name="submit" value="検索" /><br />
-　　グループ番号で絞り込み<select name="gid">
-	<option value="0">指定なし</option>
-	<option value="1">グループ1</option>
-	<option value="2">グループ2</option>
-	<option value="3">グループ3</option>
-	<option value="4">グループ4</option>
-	<option value="5">グループ5</option>
-	<option value="6">グループ6(東北のみ)</option>
-	<option value="7">グループ7(東北のみ)</option>
-	<option value="8">グループ8(東北のみ)</option>
-	</select></form>
-*Area search and summary of Planned blackout is following link. <a href="http://inferno.soutan.net/power/search">For English</a>
-</td></tr></table>
-<table border="0">
-<tr><td colspan="2">
-アクセス集中でService Temporarily Unavailable表示をすることがあります。ミラーサーバをご利用ください。</td></tr>
-<tr><td colspan="2">
-<a href="http://denki.moene.ws/?list">全ミラー/機能拡張サーバ 全リスト(67サイト)</a>
-ミラーサーバや本家よりさらに独自機能を搭載したサーバのご協力をいただいている67サイトの方々に感謝いたします。<br /></td></tr>
-<tr><td colspan="2">どのサーバを使うか悩んだときは、負荷分散機能を持つ<a href="http://denki.moene.ws/">http://denki.moene.ws/</a>(tnx:Kei_Nanigashi)や<a href="http://bit.ly/e6b2XL">http://bit.ly/e6b2XL</a>(tnx:_nat)をご利用ください。<br /></td></tr>
-</table>
-問い合わせは、<a href="http://twitter.com/mnakajim">twitter (\@mnakajim)</a>へ<BR><br>
+<div>市区町村名､地域名</div>
+<input type="text" name="city" size="20" istyle="1" mode="hiragana" />
+<div>または〒</div>
+<input type="text" name="zip1" maxlength="3" size="3" istyle="4" mode="numeric" />-<input type="text" name="zip2" maxlength="4" size="4" istyle="4" mode="numeric" /><br />
+<div>ｸﾞﾙｰﾌﾟ番号で絞り込み</div>
+<select name="gid">
+<option value="0">指定なし</option>
+<option value="1">ｸﾞﾙｰﾌﾟ1</option>
+<option value="2">ｸﾞﾙｰﾌﾟ2</option>
+<option value="3">ｸﾞﾙｰﾌﾟ3</option>
+<option value="4">ｸﾞﾙｰﾌﾟ4</option>
+<option value="5">ｸﾞﾙｰﾌﾟ5</option>
+<option value="6">ｸﾞﾙｰﾌﾟ6(東北)</option>
+<option value="7">ｸﾞﾙｰﾌﾟ7(東北)</option>
+<option value="8">ｸﾞﾙｰﾌﾟ8(東北)</option>
+</select>
+<br />
+<br />
+<input type="submit" name="submit" value="検索" />
+</form>
+<br />
+*<a href="http://inferno.soutan.net/power/search">For English</a><br />
+<a href="http://denki.moene.ws/">ﾐﾗｰ等1</a> や<a href="http://bit.ly/e6b2XL">ﾐﾗｰ等</a>
 <hr />
 <!include="footer.html">
-<a href=http://bizoole.com/power>計画停電時間検索ツール</a>本家サイトへ　　原作:<a href=http://twitter.com/mnakajim/>中島昌彦</a>(M.NAKAJIM)<br>
-<br>
-special tnx:10b346(by SEO)
+<div align="center" style="text-align:center;"><a href="http://twitter.com/mnakajim">(c)中島昌彦<br>
+(M.NAKAJIM)</a><br>
+and supporters</div>
 </body>
 </html>
-
 EOM
 
 $pc_body=<<EOM;
@@ -967,7 +964,7 @@ $pc_body=<<EOM;
 計画停電の時間やグループを検索できるツールです。<br />東京電力、東北電力の公式データを元にしています。<br>
 <a href="?m">モバイル向けページ</a>
 <div id="sArea">
-計画停電（輪番停電）の時間やグループを簡単に検索できるツールです。
+計画停電（輪番停電）の時間やグループを簡単に検索できるツールです。<br />
 自分の住んでいる地域がどこのグループに属するのか、住所の一部などから検索できます。
 <form action="./area.cgi" method="get">
 <div id="sAreaL">
@@ -977,7 +974,7 @@ $pc_body=<<EOM;
 <div id="sAreaR">
 <h2><span class="h2List">▶</span>グループ番号で絞り込み</h2>
 <label>
-<input name="gid" type="radio" value="0" />
+<input name="gid" type="radio" value="0" checked />
 指定なし</label>
 <label>
 <input name="gid" type="radio" value="1" />
@@ -994,6 +991,16 @@ $pc_body=<<EOM;
 <label>
 <input name="gid" type="radio" value="5" />
 グループ5</label>
+以下東北電力管内のみ<br />
+<label>
+<input name="gid" type="radio" value="6" />
+グループ6</label>
+<label>
+<input name="gid" type="radio" value="7" />
+グループ7</label>
+<label>
+<input name="gid" type="radio" value="8" />
+グループ8</label>
 </div>
 <div id="zip">
 <h2><span class="h2List">▶</span>もしくは郵便番号で検索する。</h2>

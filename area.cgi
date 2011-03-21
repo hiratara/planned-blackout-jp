@@ -101,7 +101,7 @@ foreach $line(split(/\n/,$gto)) {
 	($p[0],$p[1],$p[2],$p[3],$p[4],$p[5],$p[6],$p[7],$p[8])=split(/\|/,$line);
 	for($i=0; $i<5; $i++) {
 		if($p[0] eq $date[$i]) {
-			for($grp=1; $grp<=8; $grp++) {
+			for($grp=1; $grp<=5; $grp++) {
 				$gto{"$date[$i]_$grp"}=$p[$grp];
 			}
 		}
@@ -130,19 +130,20 @@ if($out eq 'rss') {
 	$buf='';
 	$rssdate=&date("Y-m-dTH:i:s+9:00");
 
-	open (READ,"all.all");
-
 	$count=0;
 
 	if ($zip2 eq "0000") {
 		$buf="郵便番号末尾４桁 0000 では検索できません。";
 	} elsif ($zip ne '' && $zip!~/\d\d\d\d\d\d\d/ && length($zip) ne 7) {
 		$buf="郵便番号が正確に入力されていないようです。";
+	} elsif($zip eq '' && $getcity eq '') {
+		$buf="地域名、もしくは郵便番号が入力されていません。";
 	} else {
+		open (READ,"all.all");
 		while (<READ>) {
+			s/\x0D\x0A|\x0D|\x0A//g;
 			s/ケ/ヶ/g;
 			s/の/ノ/g;
-			chomp;
 			($area1,$area2,$area3,$num)=split (/\t/,$_);
 			$areaorg="$area1$area2$area3";
 			$areaorg=~ s/ //g;
@@ -276,19 +277,21 @@ FIN
 $head=$buf;
 $buf='';
 
-open (READ,"all.all");
-
 $count=0;
 
 if ($zip2 eq "0000") {
-	$buf="<tr><td colspan=5>郵便番号末尾４桁 0000 では検索できません。</td></tr>";
+	$buf="<tr><td colspan=6>郵便番号末尾４桁 0000 では検索できません。</td></tr>";
 } elsif ($zip ne '' && $zip!~/\d\d\d\d\d\d\d/ && length($zip) ne 7) {
-	$buf="<tr><td colspan=5>郵便番号が正確に入力されていないようです。</td></tr>";
+	$buf="<tr><td colspan=6>郵便番号が正確に入力されていないようです。</td></tr>";
+} elsif($zip eq '' && $getcity eq '') {
+	$buf="<tr><td colspan=6>地域名、もしくは郵便番号が入力されていません。</td></tr>";
 } else {
+	open (READ,"all.all");
 	while (<READ>) {
+		s/\x0D\x0A|\x0D|\x0A//g;
+		chomp;
 		s/ケ/ヶ/g;
 		s/の/ノ/g;
-		chomp;
 		($area1,$area2,$area3,$num)=split (/\t/,$_);
 		$areaorg="$area1$area2$area3";
 		$areaorg=~ s/ //g;
@@ -345,10 +348,10 @@ FIN
 		}
 	}
 	if (!$count) {
-		$buf="<tr><td colspan=5>計画停電のないエリアです。</td></tr>";
+		$buf="<tr><td colspan=6>計画停電のないエリアです。</td></tr>";
 	}
 	if ($count>400) {
-		$buf="<tr><td colspan=5>該当地域が多すぎです。詳細の地域名を入力してください。</td></tr>";
+		$buf="<tr><td colspan=6>該当地域が多すぎです。詳細の地域名を入力してください。</td></tr>";
 	}
 }
 
