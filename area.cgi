@@ -5,6 +5,8 @@ BEGIN {
 }
 
 use CGI;
+use CGI::Carp qw(fatalsToBrowser);
+
 use Encode qw(from_to decode);
 require 'gval.pl';
 
@@ -41,18 +43,22 @@ $getcity=~s/の/ノ/g;
 &tr(\$getcity,'[0-9]', '[０-９]');
 
 if($comm eq 'ver') {
-	open(R,"index.html");
-	foreach(<R>) {
-		if(/^V\.(.*)/) {
-			$VER=$1;
-			print <<FIN;
+	print <<FIN;
 Content-type: text/plain; charset=utf-8
 
-$VER
 FIN
+
+	open(R,"index.cgi");
+	foreach(<R>) {
+		if(/\$VER\=\"V\.(.+)\"\;/) {
+			$VER=$1;
+			print "$VER";
+			close(R);
+			exit;
 		}
 	}
 	close(R);
+	print "What version ? or older";
 	exit;
 }
 

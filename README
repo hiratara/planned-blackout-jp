@@ -11,7 +11,8 @@
 　area.cgi 検索スクリプト(Perl)
   gval.pl(付随ファイル)
 　yubin.csv(郵便番号データファイル　該当地域のみ）
-  index.html(サイトトップのHTML)
+  index.cgi(サイトトップのHTMLのCGI)
+　.htaccess(index.cgiに誘導する)
 
 
 ファイルが足りない、壊れて動かないというときはご連絡ください。Perlモジュールのインストールに関してのご質問は、お控えください。

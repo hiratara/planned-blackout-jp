@@ -1,10 +1,10 @@
 #!/usr/bin/perl
 # update cgi by nanakochi123456
-# ìÆÇ≠Ç©Ç«Ç§Ç©ÇÕ mkdir éüëÊÇ≈ï€è·Ç≈Ç´Ç‹ÇπÇÒÇ™ÅGÅG
+# 2011/03/21 çXêVÇµÇƒÇ¢Ç‹Ç∑ÅB
 
 $WGET="wget";
 $BASEURL="http://power.daiba.cx/";
-$BASEHTML="index.html";
+$BASEHTML="index.cgi";
 $TMPDIR="/tmp/power_tmp";
 $TAR="tar";
 $CP="cp";
@@ -81,7 +81,7 @@ chdir("$PWD");
 print "Dir check: $TMPDIR/$BASEFILE$VERSION\n";
 if(opendir(DIR,"$TMPDIR/$BASEFILE$VERSION")) {
 	while($file=readdir(DIR)) {
-		next if($file=~/^\./);
+		next if($file eq '.' || $file eq '..');
 		print "copy $TMPDIR/$BASEFILE$VERSION/$file $PWD/$file\n";
 		&filecopy("$TMPDIR/$BASEFILE$VERSION/$file","$PWD/$file");
 	}
