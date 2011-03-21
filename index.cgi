@@ -1,11 +1,12 @@
 #!/usr/bin/perl
 
 $VER="V.1.124(nanakochi123456)";
-$tarball="power110321.tar.gz";
+$tarball="power110321-2.tar.gz";
 
 $history=<<EOM;
 <h3>データ更新状況:</h3>
 <ul id="update">
+<li>2011/3/21 09:00 東京電力データを更新した</li>
 <li>2011/3/19 17:08 東京電力データを更新した</li>
 </ul>
 <a href="http://power.daiba.cx/wiki/?%a5%c7%a1%bc%a5%bf%b9%b9%bf%b7%cd%fa%ce%f2">これ以前の当方のデータ更新履歴</a><br />
@@ -13,6 +14,7 @@ $history=<<EOM;
 
 <h3>エンジン更新履歴:</h3>
 <ul id="engine">
+<li>2011/3/21 09:00 日本語変換モジュールをhiratara氏のに変更した。
 <li>2011/3/21 06:30 PC/モバイル別にTOPページを指定できるようにした。(注:update.cgiを更新しています。別途<a href="update.txt">こちら</a>から新たに入手して下さい。)</li>
 <li>2011/3/20 19:57 東京電力のtwitterによる発表による、一部グループ見送りの件を追記した。</li>
 <li>2011/3/20 13:11 文字入力の所で、例　？丁目等の数字が半角であったのを全角に変換できるようにした。</li>
