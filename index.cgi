@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 
-$VER="V.1.126(nanakochi123456)";
-$tarball="power110321-4.tar.gz";
+$VER="V.1.127(nanakochi123456)";
+$tarball="power110321-5.tar.gz";
 
 $history=<<EOM;
 <h3>データ更新状況:</h3>
@@ -15,6 +15,7 @@ $history=<<EOM;
 
 <h3>エンジン更新履歴:</h3>
 <ul id="engine">
+<li>2011/3/21 13:58 ページ読み込み時、入力欄にフォーカスするようにした。携帯版のPC版へのリンク先の位置を変更。</li>
 <li>2011/3/21 12:41 モバイル向けの出力をすべて半角カナ、英数字にした。</li>
 <li>2011/3/21 10:57 データ編集方法によってはchompで改行が削除できないことがあるので、変更した。</li>
 <li>2011/3/21 09:00 日本語変換モジュールをhiratara氏のに変更した。</li>
@@ -922,8 +923,6 @@ $mobile_body=<<EOM;
 <div style="text-align:center;" align="center">(東京電力､東北電力)</div>
 $VER<br />
 <hr />
-<a href="?p">PC向けﾍﾟｰｼﾞ</a>
-<br />
 <form action="area.cgi" method="get">
 <div>市区町村名､地域名</div>
 <input type="text" name="city" size="20" istyle="1" mode="hiragana" />
@@ -947,7 +946,9 @@ $VER<br />
 </form>
 <br />
 *<a href="http://inferno.soutan.net/power/search">For English</a><br />
-<a href="http://denki.moene.ws/">ﾐﾗｰ1</a> や<a href="http://bit.ly/e6b2XL">ﾐﾗｰ2</a>等
+<a href="http://denki.moene.ws/">ﾐﾗｰ1</a> や<a href="http://bit.ly/e6b2XL">ﾐﾗｰ2</a>等<br />
+<br />
+<a href="?p">PC向けﾍﾟｰｼﾞ</a>
 <hr />
 <div align="center" style="text-align:center;"><a href="http://twitter.com/mnakajim">(c)中島昌彦<br>
 (M.NAKAJIM)</a><br>
@@ -957,7 +958,7 @@ and supporters</div>
 EOM
 
 $pc_body=<<EOM;
-<body>
+<body onload="document.form.city.focus()">
 <div id="wrapper">
 <h1>停電時間検索 $VER (東京電力、東北電力)</h1>
 <!include="header.html">
@@ -966,7 +967,7 @@ $pc_body=<<EOM;
 <div id="sArea">
 計画停電（輪番停電）の時間やグループを簡単に検索できるツールです。<br />
 自分の住んでいる地域がどこのグループに属するのか、住所の一部などから検索できます。
-<form action="./area.cgi" method="get">
+<form action="./area.cgi" method="get" name="form">
 <div id="sAreaL">
 <h2><span class="h2List">▶</span>計画停電の予定時間を知りたい市区町村名、地域名</h2>
 <input type="text" name="city" size="20" id="city" />
