@@ -12,7 +12,7 @@ require 'gval.pl';
 $query=new CGI;
 $getcity=$query->param('city');
 $getcity=force_utf8($query->param('city'));
-
+$mflg=$query->param('m');
 $zip=$query->param('zip');
 $zip=~s/\-//g;
 if($zip eq '') {
@@ -36,7 +36,16 @@ if ($getgroup>8 || $getgroup<=0) {
 $getcity=~s/ケ/ヶ/g;
 $getcity=~s/の/ノ/g;
 
-&tr(\$getcity,'[0-9]', '[０-９]');
+$getcity=~s/0/０/g;
+$getcity=~s/1/１/g;
+$getcity=~s/2/２/g;
+$getcity=~s/3/３/g;
+$getcity=~s/4/４/g;
+$getcity=~s/5/５/g;
+$getcity=~s/6/６/g;
+$getcity=~s/7/７/g;
+$getcity=~s/8/８/g;
+$getcity=~s/8/９/g;
 
 if($comm eq 'ver') {
 	print <<FIN;
@@ -123,7 +132,7 @@ EOM
 # 携帯かどうか？
 
 $mobileflg=4;
-$mobileflg=2 if($ENV{HTTP_USER_AGENT}=~/DoCoMo|UP\.Browser|KDDI|SoftBank|Voda[F|f]one|J\-PHONE/);
+$mobileflg=2 if($ENV{HTTP_USER_AGENT}=~/DoCoMo|UP\.Browser|KDDI|SoftBank|Voda[F|f]one|J\-PHONE/) || $mflg eq 1;
 
 if($out eq 'rss') {
 	&getbasehref;
@@ -362,7 +371,7 @@ if($zip ne '') {
 }
 $areas=~ s/[;\"\'\$\@\%\(\)]//g;	# by @mnakajim
 
-print <<FIN;
+$html=<<FIN;
 Content-type: text/html;charset=utf-8
 Cache-Control: max-age=0
 Expires: Mon, 26, Jul 1997 05:00:00 GMT
@@ -376,13 +385,29 @@ $head
 $buf
 </table>
 [<a href=./>戻る</a>] 
-[<a href="area.cgi?city=$getcity&zip1=$zip1&zip2=$zip2&gid=$getgroup&out=rss">RSS</a>]
-<hr>
 FIN
 
-printf("Powered by Perl $] HTML convert time to %.3f sec.",
+if($mobileflg eq 2 || $mflg eq 1) {
+	&z2h(\$html);
+	$html=~s/０/0/g;
+	$html=~s/１/1/g;
+	$html=~s/２/2/g;
+	$html=~s/３/3/g;
+	$html=~s/４/4/g;
+	$html=~s/５/5/g;
+	$html=~s/６/6/g;
+	$html=~s/７/7/g;
+	$html=~s/８/8/g;
+	$html=~s/９/9/g;
+	print $html;
+} else {
+	print<<FIN;
+$html
+[<a href="area.cgi?city=$getcity&zip1=$zip1&zip2=$zip2&gid=$getgroup&out=rss">RSS</a>]
+FIN
+	printf("<hr>\nPowered by Perl $] HTML convert time to %.3f sec.",
 		((times)[0] - $::_conv_start));
-
+}
 print <<FIN;
 $debug
 </body>
@@ -482,65 +507,48 @@ sub force_utf8($) {
 	return ref $enc ? encode_utf8($enc->decode($str)) : $str;
 }
 
-# from jcode.pl
+# カナ→ｶﾅ変換 from jcode.pl
 
-;#
-;# TR function for 2-byte code
-;#
-sub tr {
-    # $prev_from, $prev_to, %table are persistent variables
-    local(*s, $from, $to, $opt) = @_;
-    local(@from, @to);
-    local($n) = (0, 0);
-    
+sub z2h {
+    local(*s, $n) = @_;
+    $re_euc_c    = '[\241-\376][\241-\376]';
+    $re_euc_kana = '\216[\241-\337]';
 	from_to($s,'utf8','euc-jp');
-	from_to($from, 'utf8', 'euc-jp');
-	from_to($to, 'utf8', 'euc-jp');
-
-	&_maketable;
-
-    $s =~ s/([\200-\377][\000-\377]|[\000-\377])/
-	defined($table{$1}) && ++$n ? $table{$1} : $1
-    /ge;
-
+    &init_z2h_euc;
+    $s =~ s/($re_euc_c|$re_euc_kana)/
+	$z2h_euc{$1} ? ($n++, $z2h_euc{$1}) : $1
+    /geo;
 	from_to($s,'euc-jp','utf8');
-
     $n;
 }
 
-sub _maketable {
-    local($ascii) = '(\\\\[\\-\\\\]|[\0-\133\135-\177])';
+sub init_z2h_euc {
+    ($h2z_high = $h2z = <<'__TABLE_END__') =~ tr/\041-\176/\241-\376/;
+!	!#	$	!"	%	!&	"	!V	#	!W
+^	!+	_	!,	0	!<
+'	%!	(	%#	)	%%	*	%'	+	%)
+,	%c	-	%e	.	%g	/	%C
+1	%"	2	%$	3	%&	4	%(	5	%*
+6	%+	7	%-	8	%/	9	%1	:	%3
+6^	%,	7^	%.	8^	%0	9^	%2	:^	%4
+;	%5	<	%7	=	%9	>	%;	?	%=
+;^	%6	<^	%8	=^	%:	>^	%<	?^	%>
+@	%?	A	%A	B	%D	C	%F	D	%H
+@^	%@	A^	%B	B^	%E	C^	%G	D^	%I
+E	%J	F	%K	G	%L	H	%M	I	%N
+J	%O	K	%R	L	%U	M	%X	N	%[
+J^	%P	K^	%S	L^	%V	M^	%Y	N^	%\
+J_	%Q	K_	%T	L_	%W	M_	%Z	N_	%]
+O	%^	P	%_	Q	%`	R	%a	S	%b
+T	%d			U	%f			V	%h
+W	%i	X	%j	Y	%k	Z	%l	[	%m
+\	%o	]	%s	&	%r	3^	%t
+__TABLE_END__
+    %h2z = split(/\s+/, $h2z . $h2z_high);
+    %z2h = reverse %h2z;
 
-    grep(s/(([\200-\377])[\200-\377]-\2[\200-\377])/&_expnd2($1)/ge,
-	 $from, $to);
-    grep(s/($ascii-$ascii)/&_expnd1($1)/geo,
-	 $from, $to);
-
-    @to   = $to   =~ /[\200-\377][\000-\377]|[\000-\377]/g;
-    @from = $from =~ /[\200-\377][\000-\377]|[\000-\377]/g;
-    push(@to, ($opt =~ /d/ ? '' : $to[$#to]) x (@from - @to)) if @to < @from;
-    @table{@from} = @to;
-}
-
-sub _expnd1 {
-    local($s) = @_;
-    $s =~ s/\\(.)/$1/g;
-    local($c1, $c2) = unpack('CxC', $s);
-    if ($c1 <= $c2) {
-	for ($s = ''; $c1 <= $c2; $c1++) {
-	    $s .= pack('C', $c1);
-	}
+    local($k, $s);
+    while (($k, $s) = each %z2h) {
+	$s =~ s/([\241-\337])/\216$1/g && ($z2h_euc{$k} = $s);
     }
-    $s;
-}
-
-sub _expnd2 {
-    local($s) = @_;
-    local($c1, $c2, $c3, $c4) = unpack('CCxCC', $s);
-    if ($c1 == $c3 && $c2 <= $c4) {
-	for ($s = ''; $c2 <= $c4; $c2++) {
-	    $s .= pack('CC', $c1, $c2);
-	}
-    }
-    $s;
 }
