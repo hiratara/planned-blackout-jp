@@ -847,13 +847,13 @@ Spry.Widget.TabbedPanels.prototype.attachBehaviors = function(element)
 </head>
 <body>
 <div id="wrapper">
-<h1>停電時間検索 V.1.122</h1>
+<h1>停電時間検索 V.1.130</h1>
 計画停電の時間やグループを検索できるツールです。東京電力の公式データを元にしています。<br>
-<a href="../m/">携帯電話向けページ</a>
+<a href="indexm.html">携帯電話向けページ</a>
 <div id="sArea">
 計画停電（輪番停電）の時間やグループを簡単に検索できるツールです。
 自分の住んでいる地域がどこのグループに属するのか、住所の一部などから検索できます。
-<form action="../area.cgi" method="get">
+<form action="area.cgi" method="get">
 <div id="sAreaL">
 <h2><span class="h2List">▶</span>計画停電の予定時間を知りたい市区町村名、地域名</h2>
 <input type="text" name="city" size="20" id="city" />
@@ -905,7 +905,7 @@ Spry.Widget.TabbedPanels.prototype.attachBehaviors = function(element)
 <div class="TabbedPanelsContent">
 <h3>ミラーサーバーご協力（順不同）</h3>
 <div class="mrExp">どのサーバを使うか悩んだときは、負荷分散機能を持つ<a href="http://denki.moene.ws/">http://denki.moene.ws/</a>(tnx:Kei_Nanigashi)や<a href="http://bit.ly/e6b2XL">http://bit.ly/e6b2XL</a>(tnx:_nat)をご利用ください。<br>
-<a href="http://denki.moene.ws/?list">全ミラー/機能拡張サーバ 全リスト(70サイト)</a></div>
+<a href="http://denki.moene.ws/?list">全ミラー/機能拡張サーバ 全リスト(72サイト)</a></div>
 <ul>
 <li class="miList"><a href="http://bizoole.com/power/">http://bizoole.com/power/</a> (マスタサイト:@mnakajim)</li>
 <li class="miList"><a href="http://kaji.com/p/">http://kaji.com/p/</a> (@kajimoe)</li>
@@ -1009,11 +1009,13 @@ Spry.Widget.TabbedPanels.prototype.attachBehaviors = function(element)
 <div class="TabbedPanelsContent">
 <h3>データ更新状況:</h3>
 <ul id="update">
+<li>2011/3/21 02:00 20日21時更新データ(東京電力)に更新</li>
 <li>2011/3/18 23:55 18日18時データに更新</li>
 </ul>
 これ以前の<a href="http://bizoole.com/power/history/datahistory.html">データの更新履歴</a><br><br>
 <h3>エンジン更新履歴:</h3>
 <ul id="engine">
+<li>2011/3/21 17:00 V1.130(nyatakasan,hiratara) 時間表取得方法を変更。(tnx:nyatakasan,hiratara)</li>
 <li>2011/3/20 23:02 V1.122 漢字コード変換を変更。短い地名でも検索できます(tnx:hiratara)</li>
 <li>2011/3/19 00:25 V1.121 引数として、comm=verを渡すとバージョン番号を戻すように変更。</li>
 </ul>

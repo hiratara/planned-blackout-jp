@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="ja" />
+<title>計画停電時間検索ツール |グループや停電時間を検索できるツール</title>
+<meta name="description" content="計画停電の時間やグループを検索できるツールです。市区町村名、地域名など住所の一部や郵便番号などから停電時間を検索できます。">
+<meta name="keywords" content="計画停電,検索,システム,ツール,スケジュール,輪番停電,グループ">
+</head>
+<body>
+V.1.130
+計画停電の時間やグループを検索できるツールです。東京電力の公式データを元にしています。
+<br>
+<table border=1><tr><td>
+<b>停電時間検索ツール</b><br><br>
+計画停電（輪番停電）の時間やグループを簡単に検索できるツールです。<br />自分の住んでいる地域がどこのグループに属するのか、住所の一部などから検索できます。
+<form action="area.cgi" method="get">
+    <p>計画停電の予定時間を知りたい市区町村名、地域名<input type="text" name="city" size="20" />
+<input type="submit" name="submit" value="検索" /><br>
+　　グループ番号で絞り込み<select name="gid">
+	<option value="0">指定なし</option>
+	<option value="1">グループ1</option>
+	<option value="2">グループ2</option>
+	<option value="3">グループ3</option>
+	<option value="4">グループ4</option>
+	<option value="5">グループ5</option>
+	</select></form>
+*<a href=http://power.daiba.cx/>東北電力エリア対応版</a>(nanakoch123456)<br>
+*<a href=http://inferno.soutan.net/power/search>For English</a>
+</td></tr></table>
+<table border=0>
+<tr><td colspan=2>
+アクセス集中でService Temporarily Unavailable表示をすることがあります。ミラーサーバをご利用ください。</td></tr>
+<tr><td colspan=2>
+<a href="http://denki.moene.ws/?list">全ミラー/機能拡張サーバ 全リスト(72サイト)</a>
+ミラーサーバや本家よりさらに独自機能を搭載したサーバのご協力をいただいている72サイトの方々に感謝いたします。<br>
+<tr><td colspan=2>どのサーバを使うか悩んだときは、負荷分散機能を持つ<a href="http://denki.moene.ws/">http://denki.moene.ws/</a>(tnx:Kei_Nanigashi)や<a href="http://bit.ly/e6b2XL">http://bit.ly/e6b2XL</a>(tnx:_nat)をご利用ください。<br></td></tr>
+</tr></table>
+<br>
+<hr>
+<b>データ更新状況:</b><br>
+　2011/3/21 02:00 20日21時更新データ(東京電力開示)に更新<br>
+　<a href="http://bizoole.com/power/history/datahistory.html">データ更新履歴</a>
+</p>
+<b>エンジン更新履歴:</b><br>
+　2011/3/21 17:00 V1.130(nyatakasan,hiratara) 時間表取得方法を変更。(tnx:nyatakasan,hiratara)<br>
+　2011/3/20 23:02 V1.122 漢字コード変換を変更。短い地名でも検索できます(tnx:hiratara)。<br>
+　<a href="http://bizoole.com/power/history/">エンジン更新履歴</a>
+</p>
+<br>
+<br>
+問い合わせは、<a href="http://twitter.com/mnakajim">twitter (@mnakajim)</a>へ<BR><br>
+<a href=http://bizoole.com/power>計画停電時間検索ツール</a>本家サイトへ　　原作:<a href=http://twitter.com/mnakajim/>中島昌彦</a>(M.NAKAJIM)<br>
+<br>
+special tnx:10b346(by SEO)
+</body>
+
+</html>
