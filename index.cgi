@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 
-$VER="V.1.127(nanakochi123456)";
-$tarball="power110321-5.tar.gz";
+$VER="V.1.128(nanakochi123456)";
+$tarball="power110321-6.tar.gz";
 
 $history=<<EOM;
 <h3>データ更新状況:</h3>
@@ -15,17 +15,12 @@ $history=<<EOM;
 
 <h3>エンジン更新履歴:</h3>
 <ul id="engine">
+<li>2011/3/21 19:15 22日東京電力の第5グループ1回目実施なし、及び、東北電力の実施なしに対応。</li>
 <li>2011/3/21 13:58 ページ読み込み時、入力欄にフォーカスするようにした。携帯版のPC版へのリンク先の位置を変更。</li>
 <li>2011/3/21 12:41 モバイル向けの出力をすべて半角カナ、英数字にした。</li>
 <li>2011/3/21 10:57 データ編集方法によってはchompで改行が削除できないことがあるので、変更した。</li>
 <li>2011/3/21 09:00 日本語変換モジュールをhiratara氏のに変更した。</li>
 <li>2011/3/21 06:30 PC/モバイル別にTOPページを指定できるようにした。(注:update.cgiを更新しています。別途<a href="update.txt">こちら</a>から新たに入手して下さい。)</li>
-<li>2011/3/20 19:57 東京電力のtwitterによる発表による、一部グループ見送りの件を追記した。</li>
-<li>2011/3/20 13:11 文字入力の所で、例　？丁目等の数字が半角であったのを全角に変換できるようにした。</li>
-<li>2011/3/20 06:10 20日も計画停電なしの旨をエンジンに反映</li>
-<li>2011/3/19 19:43 Jcode.pm を使用しなくてもよくなるように、Encode wrapper 及び jcode.pl ＆ Jcode.pm から移植した文字コード判別ルーチンを作成した。</li>
-<li>2011/3/19 16:18 SSIで.htmlに関連付けされているサーバーでは、header.html、footer.htmlをincludeするようにできるようにしました。DirectoryIndex で index.shtml を優先使用するようにすれば、index.shtml でも使用可能と思われます。</li>
-<li>2011/3/19 15:30 ケ を ヶ に変換するようにした。将来使用すると思っていた郵便番号のカナデータを削除した。</LI>
 </ul>
 <br />
 <a href="http://power.daiba.cx/wiki/?%a5%a8%a5%f3%a5%b8%a5%f3%b9%b9%bf%b7%cd%fa%ce%f2">これ以前の当方のエンジン更新履歴</a><br />
@@ -915,10 +910,10 @@ $top=<<EOM;
 <meta name="description" content="計画停電の時間やグループを検索できるツールです。市区町村名、地域名など住所の一部や郵便番号などから停電時間を検索できます。">
 <meta name="keywords" content="計画停電,検索,システム,ツール,スケジュール,輪番停電,グループ">$scriptandcss
 </head>
-<body>
 EOM
 
 $mobile_body=<<EOM;
+<body>
 <div style="text-align:center;" align="center">停電時間検索ﾂｰﾙ</div>
 <div style="text-align:center;" align="center">(東京電力､東北電力)</div>
 $VER<br />
@@ -1032,7 +1027,7 @@ $pc_body=<<EOM;
 <div class="TabbedPanelsContent">
 <h3>ミラーサーバーご協力（順不同）</h3>
 <div class="mrExp">どのサーバを使うか悩んだときは、負荷分散機能を持つ<a href="http://denki.moene.ws/">http://denki.moene.ws/</a>(tnx:Kei_Nanigashi)や<a href="http://bit.ly/e6b2XL">http://bit.ly/e6b2XL</a>(tnx:_nat)をご利用ください。<br>
-<a href="http://denki.moene.ws/?list">全ミラー/機能拡張サーバ 全リスト(70サイト)</a></div>
+<a href="http://denki.moene.ws/?list">全ミラー/機能拡張サーバ 全リスト(72サイト)</a></div>
 <ul>
 <li class="miList"><a href="http://bizoole.com/power/">http://bizoole.com/power/</a> (マスタサイト:\@mnakajim)</li>
 <li class="miList"><a href="http://kaji.com/p/">http://kaji.com/p/</a> (\@kajimoe)</li>
