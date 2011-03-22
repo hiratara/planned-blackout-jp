@@ -82,8 +82,6 @@ if($zip ne '') {
 			if($ziptmp eq $zip) {
 				open (READ,"all.all");
 				while (<READ>) {
-					s/ケ/ヶ/g;
-					s/の/ノ/g;
 					chomp;
 					($area1,$area2,$area3,$num)=split (/\t/,$_);
 					if($kanji1 eq $area1 && $kanji2 eq $area2 && ($area3 =~/$kanji3/ || $kanji3 =~/$area3/)) {
@@ -150,9 +148,7 @@ if($out eq 'rss') {
 	} else {
 		open (READ,"all.all");
 		while (<READ>) {
-			s/\x0D\x0A|\x0D|\x0A//g;
-			s/ケ/ヶ/g;
-			s/の/ノ/g;
+			chomp;
 			($area1,$area2,$area3,$num)=split (/\t/,$_);
 			$areaorg="$area1$area2$area3";
 			$areaorg=~ s/ //g;
@@ -297,10 +293,7 @@ if ($zip2 eq "0000") {
 } else {
 	open (READ,"all.all");
 	while (<READ>) {
-		s/\x0D\x0A|\x0D|\x0A//g;
 		chomp;
-		s/ケ/ヶ/g;
-		s/の/ノ/g;
 		($area1,$area2,$area3,$num)=split (/\t/,$_);
 		$areaorg="$area1$area2$area3";
 		$areaorg=~ s/ //g;

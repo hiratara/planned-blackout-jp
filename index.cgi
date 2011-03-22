@@ -1,11 +1,12 @@
 #!/usr/bin/perl
 
-$VER="V.1.128(nanakochi123456)";
-$tarball="power110321-6.tar.gz";
+$VER="V.1.129(nanakochi123456)";
+$tarball="power110322.tar.gz";
 
 $history=<<EOM;
 <h3>データ更新状況:</h3>
 <ul id="update">
+<li>2011/3/22 10:30 東京電力のデータを更新した。これにより茨城県がしばらく計画停電の範囲外になる模様です。</li>
 <li>2011/3/21 12:41 東京電力本日の計画停電なしに対応した。</li>
 <li>2011/3/21 09:00 東京電力データを更新した</li>
 <li>2011/3/19 17:08 東京電力データを更新した</li>
@@ -15,6 +16,7 @@ $history=<<EOM;
 
 <h3>エンジン更新履歴:</h3>
 <ul id="engine">
+<li>2011/3/21 10:30 事前にall.allを最適化しておくことで、検索時間をわずかに最適化した。</li>
 <li>2011/3/21 19:15 22日東京電力の第5グループ1回目実施なし、及び、東北電力の実施なしに対応。</li>
 <li>2011/3/21 13:58 ページ読み込み時、入力欄にフォーカスするようにした。携帯版のPC版へのリンク先の位置を変更。</li>
 <li>2011/3/21 12:41 モバイル向けの出力をすべて半角カナ、英数字にした。</li>
@@ -1021,6 +1023,7 @@ $pc_body=<<EOM;
 <li class="TabbedPanelsTab" tabindex="0">データ更新状況</li>
 <li class="TabbedPanelsTab" tabindex="0">API/機能強化</li>
 <li class="TabbedPanelsTab" tabindex="0">Special Thanks</li>
+<li class="TabbedPanelsTab" tabindex="0">リンク</li>
 </ul>
 <div class="TabbedPanelsContentGroup"> 
 <!-- tab 1 //-->
@@ -1160,9 +1163,21 @@ $history
 <li><a href="http://1341398.info/">http://1341398.info/</a>(tnx:hetyowiz)</li>
 <li><a href="http://www43.atwiki.jp/togekikaku/pages/25.html">http://www43.atwiki.jp/togekikaku/pages/25.html</a>(tnx:shrmrkm) </li>
 </ul>
-<!--// media --> 
 </div>
 <!--// tab 4 --> 
+<!-- tab 5 //-->
+<div class="TabbedPanelsContent">
+<h3>関係リンク集</h3>
+<ul id="thList">
+<li><a href="http://www.tepco.co.jp/">東京電力</a> : <a href="http://tepco.mirror.myapp.jp/">そのミラー</a></li>
+<li><a href="http://www.tohoku-epco.co.jp">東北電力</a> : <a href="http://tohoku-epco.mirror.myapp.jp/">そのミラー</a></li>
+<li><a href="http://www.chuden.co.jp/">中部電力</a> : <a href="http://chuden.mirror.myapp.jp/">そのミラー</a></li>
+<li><a href="http://www.kepco.co.jp/">関西電力</a> : <a href="http://kepco.mirror.myapp.jp/">そのミラー</a></li>
+<li><a href="http://www.hepco.co.jp">北海道電力</a> : <a href="http://hepco.mirror.myapp.jp/">そのミラー</a></li>
+</ul>
+<li><a href="http://eq.sakura.ne.jp">公的情報支援サイト</a></li>
+</div>
+<!--// tab 5 --> 
 </div>
 </div>
 <hr />
