@@ -143,7 +143,6 @@ $titlename=~ s/[;\"\'\$\@\%\(\)]//g;
 open my $in, '<', "$Bin/all.all" or die $!;
 
 my @results;
-my $count=0;
 
 my $runtable = read_runtable;
 my $timetable = read_timetable;
@@ -176,15 +175,13 @@ while (<$in>) {
 		hours => \@hours,
 		num => $num, grp => $grp,
 	};
-	++$count;
 }
 close $in;
 
 my $error_message;
-if (!$count) {
+if (! @results) {
 	$error_message = "計画停電のないエリアです。";
-}
-if ($count>400) {
+} elsif (@results > 400) {
 	$error_message = "該当地域が多すぎです。詳細の地域名を入力してください。";
 }
 
