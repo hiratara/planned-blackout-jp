@@ -30,8 +30,6 @@ use CGI;
 use Text::MicroTemplate::File;
 use constant DAY_SECONDS => 24 * 60 * 60;
 
-our %runtable;
-
 sub date_str($) {
 	my $time = shift;
 	my ($d, $m, $y) = (localtime $time)[3, 4, 5];
@@ -52,6 +50,7 @@ sub read_timetable() {
 }
 
 sub read_runtable() {
+	my %runtable;
 
 	open my $fh, '<', 'runtable.txt' or die $!;
 	while (<$fh>) {
@@ -60,6 +59,8 @@ sub read_runtable() {
 		$runtable{$date}{$group} = $state;
 	}
 	close $fh;
+
+	return \%runtable;
 }
 
 sub force_utf8($) {
@@ -147,7 +148,7 @@ open (READ,"$Bin/all.all");
 my @results;
 my $count=0;
 
-&read_runtable;
+my $runtable = read_runtable;
 my $timetable = read_timetable;
 my @dates = map {date_str(time + DAY_SECONDS * $_)} 0 .. 2;
 
@@ -172,7 +173,7 @@ while (<READ>) {
 
 	my @hours = map {
 		my $hours = $timetable->{$firm}{$_}{$num};
-		my $run_str = $runtable{$_}{"$num\-$grp"} || '-';
+		my $run_str = $runtable->{$_}{"$num\-$grp"} || '-';
 		my $hours_str = $hours ? join(', ', @$hours) : '-';
 		decode_utf8 "$hours_str($run_str)";
 	} @dates;
