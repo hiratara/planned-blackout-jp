@@ -73,25 +73,9 @@ sub force_decode($) {
 }
 
 sub addnor($) {
-	my $orgstr=$_[0];
-	$orgstr=~ s/　//g;
-	$orgstr=~ s/ //g;
-	$orgstr=~ s/が//g;
-	$orgstr=~ s/ケ//g;
-	$orgstr=~ s/ヶ//g;
-	$orgstr=~ s/の//g;
-	$orgstr=~ s/ノ//g;
-	$orgstr=~ s/0/０/g;
-	$orgstr=~ s/1/１/g;
-	$orgstr=~ s/2/２/g;
-	$orgstr=~ s/3/３/g;
-	$orgstr=~ s/4/４/g;
-	$orgstr=~ s/5/５/g;
-	$orgstr=~ s/6/６/g;
-	$orgstr=~ s/7/７/g;
-	$orgstr=~ s/8/８/g;
-	$orgstr=~ s/9/９/g;
-	return $orgstr;
+	my $add = shift;
+	$add =~ tr/0-9がケヶのノ　 /０-９ケケケのの/d;
+	return $add;
 }
 
 sub gettimetablever{
