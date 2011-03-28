@@ -62,6 +62,52 @@ sub read_runtable() {
 	close $fh;
 }
 
+sub force_utf8($) {
+	my $str = shift || '';
+	my $enc = guess_encoding($str, qw/shiftjis utf8/);
+	return ref $enc ? encode_utf8($enc->decode($str)) : $str;
+}
+
+sub addnor() {
+	my $orgstr=$_[0];
+	$orgstr=~ s/　//g;
+	$orgstr=~ s/ //g;
+	$orgstr=~ s/が//g;
+	$orgstr=~ s/ケ//g;
+	$orgstr=~ s/ヶ//g;
+	$orgstr=~ s/の//g;
+	$orgstr=~ s/ノ//g;
+	return $orgstr;
+}
+
+sub gettimetablever{
+	open (VREAD,"$Bin/timetable.txt");
+	while(<VREAD>) {
+		chomp;
+		my ($firm,$ver)=split(/\t/,$_);
+		if($firm eq "V") {
+			close(VREAD);
+			return $ver;
+		}
+	}
+	close(VREAD);
+	return '--';
+}
+
+sub getareatablever{
+	open (VREAD,"$Bin/all.all");
+	while(<VREAD>) {
+		chomp;
+		my ($field,$ver)=split(/\t/,$_);
+		if($field eq "version") {
+			close(VREAD);
+			return $ver;
+		}
+	}
+	close(VREAD);
+	return '--';
+}
+
 my $query=new CGI;
 my $comm=$query->param('comm');
 my $getcity=force_utf8($query->param('city'));
@@ -156,49 +202,3 @@ print $mtf->render_file(
 	"$Bin/area.html", 
 	decode_utf8($titlename), \@dates, \@results, decode_utf8($error_message)
 );
-
-sub force_utf8($) {
-	my $str = shift || '';
-	my $enc = guess_encoding($str, qw/shiftjis utf8/);
-	return ref $enc ? encode_utf8($enc->decode($str)) : $str;
-}
-
-sub addnor() {
-	my $orgstr=$_[0];
-	$orgstr=~ s/　//g;
-	$orgstr=~ s/ //g;
-	$orgstr=~ s/が//g;
-	$orgstr=~ s/ケ//g;
-	$orgstr=~ s/ヶ//g;
-	$orgstr=~ s/の//g;
-	$orgstr=~ s/ノ//g;
-	return $orgstr;
-}
-
-sub gettimetablever{
-	open (VREAD,"$Bin/timetable.txt");
-	while(<VREAD>) {
-		chomp;
-		my ($firm,$ver)=split(/\t/,$_);
-		if($firm eq "V") {
-			close(VREAD);
-			return $ver;
-		}
-	}
-	close(VREAD);
-	return '--';
-}
-
-sub getareatablever{
-	open (VREAD,"$Bin/all.all");
-	while(<VREAD>) {
-		chomp;
-		my ($field,$ver)=split(/\t/,$_);
-		if($field eq "version") {
-			close(VREAD);
-			return $ver;
-		}
-	}
-	close(VREAD);
-	return '--';
-}
