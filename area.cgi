@@ -78,6 +78,16 @@ sub addnor($) {
 	$orgstr=~ s/ヶ//g;
 	$orgstr=~ s/の//g;
 	$orgstr=~ s/ノ//g;
+	$orgstr=~ s/0/０/g;
+	$orgstr=~ s/1/１/g;
+	$orgstr=~ s/2/２/g;
+	$orgstr=~ s/3/３/g;
+	$orgstr=~ s/4/４/g;
+	$orgstr=~ s/5/５/g;
+	$orgstr=~ s/6/６/g;
+	$orgstr=~ s/7/７/g;
+	$orgstr=~ s/8/８/g;
+	$orgstr=~ s/9/９/g;
 	return $orgstr;
 }
 
@@ -110,16 +120,6 @@ my $comm=$query->param('comm');
 my $getcity=force_utf8($query->param('city'));
 my $titlename=$getcity;
 $getcity = addnor $getcity;
-$getcity=~ s/0/０/g;
-$getcity=~ s/1/１/g;
-$getcity=~ s/2/２/g;
-$getcity=~ s/3/３/g;
-$getcity=~ s/4/４/g;
-$getcity=~ s/5/５/g;
-$getcity=~ s/6/６/g;
-$getcity=~ s/7/７/g;
-$getcity=~ s/8/８/g;
-$getcity=~ s/9/９/g;
 my $getgroup=int($query->param('gid'));
 if ($getgroup>5 || $getgroup<=0) {
 	$getgroup=0;
