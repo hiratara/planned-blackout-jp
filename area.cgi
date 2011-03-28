@@ -22,9 +22,11 @@
 
 use strict;
 #use warnings;
-use Encode qw/decode encode_utf8/;
+use lib qw/extlib/;
+use Encode qw/decode encode_utf8 decode_utf8/;
 use Encode::Guess;
 use CGI;
+use Text::MicroTemplate::File;
 use constant DAY_SECONDS => 24 * 60 * 60;
 
 our %runtable;
@@ -95,7 +97,7 @@ $titlename=~ s/[;\"\'\$\@\%\(\)]//g;
 
 open (READ,"all.all");
 
-my $buf='';
+my @results;
 my $count=0;
 
 &read_runtable;
@@ -123,34 +125,36 @@ while (<READ>) {
 
 	my @hours = map {
 		my $hours = $timetable->{$firm}{$_}{$num};
-		$hours ? join(', ', @$hours) : '-';
+		my $run_str = $runtable{$_}{"$num\-$grp"} || '-';
+		my $hours_str = $hours ? join(', ', @$hours) : '-';
+		decode_utf8 "$hours_str($run_str)";
 	} @dates;
-	$hours[0] .='('.$runtable{$dates[0]}{$num.'-'.$grp}.')';
-	$hours[1] .='('.$runtable{$dates[1]}{$num.'-'.$grp}.')';
-	$hours[2] .='('.$runtable{$dates[2]}{$num.'-'.$grp}.')';
-	$buf.="<tr bgcolor=$bgcolor><td><b>$area1 $area2 $area3</b></td>" . 
-	      join('', map {"<td>$_</td>"} @hours) . 
-	      "<td>第$num-$grpグループ</td></tr>\n";
+
+	push @results, {
+		bgcolor => $bgcolor,
+		tdfk => (decode_utf8 $area1), 
+		shiku => (decode_utf8 $area2), 
+		machiaza => (decode_utf8 $area3),
+		hours => \@hours,
+		num => $num, grp => $grp,
+	};
 	++$count;
 }
 
+my $error_message;
 if (!$count) {
-	$buf="<tr><td colspan=5>計画停電のないエリアです。</td></tr>";
+	$error_message = "計画停電のないエリアです。";
 }
 if ($count>400) {
-	$buf="<tr><td colspan=5>該当地域が多すぎです。詳細の地域名を入力してください。</td></tr>";
+	$error_message = "該当地域が多すぎです。詳細の地域名を入力してください。";
 }
-print <<FIN;
-Content-type: text/html;charset=utf-8\n\n<title>$titlenameの計画停電予定</title>
-$count件が見つかりました。同一地域で複数登録があるときは、場所によって予定時間が異なります。<BR>
-1日2回の停電予定がある場合、後半の停電予定は状況に応じて実行となります。<BR>
-このページをブックマークしておくと、次回からは地域名の入力が不要です。
-<table border=1><tr bgcolor=#C0C0C0><th>地域</th>${\
-  join('', map {"<th>$_停電時間</th>"} @dates)
-}<th>グループ</th></tr>
-$buf
-</table><a href=./>戻る</a>
-FIN
+
+my $mtf = Text::MicroTemplate::File->new;
+print "Content-Type: text/html;charset=utf-8\n\n";
+print $mtf->render_file(
+	'area.html', 
+	decode_utf8($titlename), \@dates, \@results, decode_utf8($error_message)
+);
 
 sub force_utf8($) {
 	my $str = shift || '';
