@@ -155,11 +155,8 @@ while (<$in>) {
 	my $areaorg="$area1$area2$area3";
 	$areaorg = addnor $areaorg;
 
-	if ($getgroup) {
-		next unless $areaorg=~ m/$getcity/ and $num eq $getgroup;
-	} else {
-		next unless $areaorg=~ m/$getcity/;
-	}
+	next if $getgroup && $num != $getgroup;
+	next unless $areaorg =~ m/$getcity/;
 
 	my @hours = map {
 		my $hours = $timetable->{$firm}{$_}{$num};
