@@ -138,8 +138,6 @@ if ($comm=~ m/ver/gi) {
 }
 
 
-$titlename=~ s/[;\"\'\$\@\%\(\)]//g;
-
 open my $in, '<', "$Bin/all.all" or die $!;
 
 my @results;
