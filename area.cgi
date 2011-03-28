@@ -24,7 +24,7 @@ use strict;
 #use warnings;
 use FindBin qw($Bin);
 BEGIN { require "$Bin/fatlib.pl" }
-use Encode qw/decode encode_utf8 decode_utf8/;
+use Encode qw/encode_utf8 decode_utf8/;
 use Encode::Guess;
 use CGI;
 use Text::MicroTemplate::File;
