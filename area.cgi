@@ -22,7 +22,8 @@
 
 use strict;
 #use warnings;
-use lib qw/extlib/;
+use FindBin qw($Bin);
+use lib "$Bin/extlib";
 use Encode qw/decode encode_utf8 decode_utf8/;
 use Encode::Guess;
 use CGI;
@@ -40,7 +41,7 @@ sub date_str($) {
 sub read_timetable() {
 	my %timetable;
 
-	open my $fh, '<', 'timetable.txt' or die $!;
+	open my $fh, '<', "$Bin/timetable.txt" or die $!;
 	while (<$fh>) {
 		my ($firm, $date, $group, @hours) = split /\t/, $_;
 		$timetable{$firm}{$date}{$group} = \@hours;
@@ -95,7 +96,7 @@ if ($comm=~ m/ver/gi) {
 
 $titlename=~ s/[;\"\'\$\@\%\(\)]//g;
 
-open (READ,"all.all");
+open (READ,"$Bin/all.all");
 
 my @results;
 my $count=0;
@@ -152,7 +153,7 @@ if ($count>400) {
 my $mtf = Text::MicroTemplate::File->new;
 print "Content-Type: text/html;charset=utf-8\n\n";
 print $mtf->render_file(
-	'area.html', 
+	"$Bin/area.html", 
 	decode_utf8($titlename), \@dates, \@results, decode_utf8($error_message)
 );
 
@@ -175,7 +176,7 @@ sub addnor() {
 }
 
 sub gettimetablever{
-	open (VREAD,"timetable.txt");
+	open (VREAD,"$Bin/timetable.txt");
 	while(<VREAD>) {
 		chomp;
 		my ($firm,$ver)=split(/\t/,$_);
@@ -189,7 +190,7 @@ sub gettimetablever{
 }
 
 sub getareatablever{
-	open (VREAD,"all.all");
+	open (VREAD,"$Bin/all.all");
 	while(<VREAD>) {
 		chomp;
 		my ($field,$ver)=split(/\t/,$_);
