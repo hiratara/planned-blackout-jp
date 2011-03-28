@@ -82,30 +82,26 @@ sub addnor($) {
 }
 
 sub gettimetablever{
-	open (VREAD,"$Bin/timetable.txt");
-	while(<VREAD>) {
+	open my $in, '<', "$Bin/timetable.txt" or die $!;
+	while(<$in>) {
 		chomp;
 		my ($firm,$ver)=split(/\t/,$_);
 		if($firm eq "V") {
-			close(VREAD);
 			return $ver;
 		}
 	}
-	close(VREAD);
 	return '--';
 }
 
 sub getareatablever{
-	open (VREAD,"$Bin/all.all");
-	while(<VREAD>) {
+	open my $in, '<', "$Bin/all.all" or die $!;
+	while (<$in>) {
 		chomp;
 		my ($field,$ver)=split(/\t/,$_);
 		if($field eq "version") {
-			close(VREAD);
 			return $ver;
 		}
 	}
-	close(VREAD);
 	return '--';
 }
 
@@ -144,7 +140,7 @@ if ($comm=~ m/ver/gi) {
 
 $titlename=~ s/[;\"\'\$\@\%\(\)]//g;
 
-open (READ,"$Bin/all.all");
+open my $in, '<', "$Bin/all.all" or die $!;
 
 my @results;
 my $count=0;
@@ -153,7 +149,7 @@ my $runtable = read_runtable;
 my $timetable = read_timetable;
 my @dates = map {date_str(time + DAY_SECONDS * $_)} 0 .. 2;
 
-while (<READ>) {
+while (<$in>) {
 	chomp;
 	my ($area1,$area2,$area3,$num,$grp)=split (/\t/,$_);
 	my $firm = 'T';  # XXX 東電。現状の実装では固定。
@@ -189,6 +185,7 @@ while (<READ>) {
 	};
 	++$count;
 }
+close $in;
 
 my $error_message;
 if (!$count) {
