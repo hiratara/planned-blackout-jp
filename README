@@ -8,6 +8,7 @@
   all.all データファイル(東京電力の開示分をテキストファイル化。tnx _natさん)
   fatlib.pl CPANモジュール(App::FatPackerによりまとめたもの)
   area.cgi 検索スクリプト(Perl 協力者はスクリプト内に記載)
+  area.html 検索結果ページ
   timetable.txt(付随ファイルtnx nyatakasan/hirataraさん)
   index.cgi(サイトトップのスクリプト tnx nanakochi123456さん)
   indexpc.html(pc用トップページ tnx Komotoya/10b346)
