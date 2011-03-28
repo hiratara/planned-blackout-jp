@@ -2,8 +2,9 @@
 
 ########################
 # history of updates
+# 2011/3/28 16:10 V1.14alpha 停電実行ステータス対応(runtable.txtの読み込み)、ちょっと高速化処理(nanakochi123456)
 # 2011/3/26 17:50 V1.131(nanakochi123456)入力文字列の正規化、グループ拡張、バージョン番号の拡張。(tnx:nanakochi123456)
-# 2011/3/21 17:00 V1.130(nyatakasan,hiratara) 時間表取得方法を変更。(tnx:nyatakasan,hiratara)
+# 2011/3/21 17:00 V1.130(nyatakasan,hiratara) 時間表取得方法を変更(timetable.txtの読み込み)。(tnx:nyatakasan,hiratara)
 # 2011/3/20 23:02 V1.122 漢字コード変換を変更。短い地名でも検索できます(tnx:hiratara)。
 # 2011/3/19 00:25 V1.121 引数として、comm=verを渡すとバージョン番号を戻すように変更。
 # 2011/3/18 14:25 V1.12 postからgetに変更(tnx:nanakochi123456)。18日以降の表示対応
@@ -26,6 +27,8 @@ use Encode::Guess;
 use CGI;
 use constant DAY_SECONDS => 24 * 60 * 60;
 
+our %runtable;
+
 sub date_str($) {
 	my $time = shift;
 	my ($d, $m, $y) = (localtime $time)[3, 4, 5];
@@ -43,6 +46,17 @@ sub read_timetable() {
 	close $fh;
 
 	return \%timetable;
+}
+
+sub read_runtable() {
+
+	open my $fh, '<', 'runtable.txt' or die $!;
+	while (<$fh>) {
+		chomp;
+		my ($date, $group, $state) = split /\t/, $_;
+		$runtable{$date}{$group} = $state;
+	}
+	close $fh;
 }
 
 my $query=new CGI;
@@ -64,8 +78,8 @@ my $getgroup=int($query->param('gid'));
 if ($getgroup>5 || $getgroup<=0) {
 	$getgroup=0;
 }
-my $ver='1.131';
-my $auth='nakanochi123456(initial release:mnakajim)';
+my $ver='1.14alpha';
+my $auth='mnakajim';
 
 if ($comm=~ m/ver/gi) {
 	my $timetable=&gettimetablever();
@@ -84,6 +98,7 @@ open (READ,"all.all");
 my $buf='';
 my $count=0;
 
+&read_runtable;
 my $timetable = read_timetable;
 my @dates = map {date_str(time + DAY_SECONDS * $_)} 0 .. 2;
 
@@ -94,23 +109,25 @@ while (<READ>) {
 	my $areaorg="$area1$area2$area3";
 	$areaorg=&addnor($areaorg);
 
-	my $bgcolor;
-	if ($count % 2 ==0) {
-		$bgcolor='EEFFFF';
-	} else {
-		$bgcolor='FFEEFF';
-	}
-
 	if ($getgroup) {
 		next unless $areaorg=~ m/$getcity/ and $num eq $getgroup;
 	} else {
 		next unless $areaorg=~ m/$getcity/;
 	}
 
+	my $bgcolor='FFEEFF';
+	if ($count % 2 ==0) {
+		$bgcolor='EEFFFF';
+	}
+
+
 	my @hours = map {
 		my $hours = $timetable->{$firm}{$_}{$num};
 		$hours ? join(', ', @$hours) : '-';
 	} @dates;
+	$hours[0] .='('.$runtable{$dates[0]}{$num.'-'.$grp}.')';
+	$hours[1] .='('.$runtable{$dates[1]}{$num.'-'.$grp}.')';
+	$hours[2] .='('.$runtable{$dates[2]}{$num.'-'.$grp}.')';
 	$buf.="<tr bgcolor=$bgcolor><td><b>$area1 $area2 $area3</b></td>" . 
 	      join('', map {"<td>$_</td>"} @hours) . 
 	      "<td>第$num-$grpグループ</td></tr>\n";
