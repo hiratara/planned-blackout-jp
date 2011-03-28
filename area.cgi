@@ -134,7 +134,8 @@ my $auth='mnakajim';
 if ($comm=~ m/ver/gi) {
 	my $timetable=&gettimetablever();
 	my $areatable=&getareatablever();
-	print "Content-type: text/plain\n\narea.cgi : $ver($auth)\n";
+	print $query->header("text/plain");
+	print "area.cgi : $ver($auth)\n";
 	print "timetable.txt : $timetable\n";
 	print "areatable.txt : $areatable\n";
 	exit;
@@ -198,7 +199,7 @@ if ($count>400) {
 }
 
 my $mtf = Text::MicroTemplate::File->new;
-print "Content-Type: text/html;charset=utf-8\n\n";
+print $query->header("text/html; charset=utf-8");
 print $mtf->render_file(
 	"$Bin/area.html", 
 	decode_utf8($titlename), \@dates, \@results, decode_utf8($error_message)
