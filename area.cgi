@@ -22,13 +22,16 @@
 
 use strict;
 #use warnings;
+use utf8;
 use FindBin qw($Bin);
 BEGIN { require "$Bin/fatlib.pl" }
-use Encode qw/encode_utf8 decode_utf8/;
+use Encode qw/decode_utf8/;
 use Encode::Guess;
 use CGI;
 use Text::MicroTemplate::File;
 use constant DAY_SECONDS => 24 * 60 * 60;
+
+binmode STDOUT, ":utf8";
 
 sub date_str($) {
 	my $time = shift;
@@ -39,7 +42,7 @@ sub date_str($) {
 sub read_timetable() {
 	my %timetable;
 
-	open my $fh, '<', "$Bin/timetable.txt" or die $!;
+	open my $fh, '<:utf8', "$Bin/timetable.txt" or die $!;
 	while (<$fh>) {
 		my ($firm, $date, $group, @hours) = split /\t/, $_;
 		$timetable{$firm}{$date}{$group} = \@hours;
@@ -52,7 +55,7 @@ sub read_timetable() {
 sub read_runtable() {
 	my %runtable;
 
-	open my $fh, '<', 'runtable.txt' or die $!;
+	open my $fh, '<:utf8', 'runtable.txt' or die $!;
 	while (<$fh>) {
 		chomp;
 		my ($date, $group, $state) = split /\t/, $_;
@@ -63,10 +66,10 @@ sub read_runtable() {
 	return \%runtable;
 }
 
-sub force_utf8($) {
+sub force_decode($) {
 	my $str = shift || '';
 	my $enc = guess_encoding($str, qw/shiftjis utf8/);
-	return ref $enc ? encode_utf8($enc->decode($str)) : $str;
+	return ref $enc ? $enc->decode($str) : decode_utf8($str);
 }
 
 sub addnor($) {
@@ -92,7 +95,7 @@ sub addnor($) {
 }
 
 sub gettimetablever{
-	open my $in, '<', "$Bin/timetable.txt" or die $!;
+	open my $in, '<:utf8', "$Bin/timetable.txt" or die $!;
 	while(<$in>) {
 		chomp;
 		my ($firm,$ver)=split(/\t/,$_);
@@ -104,7 +107,7 @@ sub gettimetablever{
 }
 
 sub getareatablever{
-	open my $in, '<', "$Bin/all.all" or die $!;
+	open my $in, '<:utf8', "$Bin/all.all" or die $!;
 	while (<$in>) {
 		chomp;
 		my ($field,$ver)=split(/\t/,$_);
@@ -117,7 +120,7 @@ sub getareatablever{
 
 my $query=new CGI;
 my $comm=$query->param('comm');
-my $getcity=force_utf8($query->param('city'));
+my $getcity = force_decode($query->param('city'));
 my $titlename=$getcity;
 $getcity = addnor $getcity;
 my $getgroup=int($query->param('gid'));
@@ -138,7 +141,7 @@ if ($comm=~ m/ver/gi) {
 }
 
 
-open my $in, '<', "$Bin/all.all" or die $!;
+open my $in, '<:utf8', "$Bin/all.all" or die $!;
 
 my @results;
 
@@ -159,13 +162,13 @@ while (<$in>) {
 		my $hours = $timetable->{$firm}{$_}{$num};
 		my $run_str = $runtable->{$_}{"$num\-$grp"} || '-';
 		my $hours_str = $hours ? join(', ', @$hours) : '-';
-		decode_utf8 "$hours_str($run_str)";
+		"$hours_str($run_str)";
 	} @dates;
 
 	push @results, {
-		tdfk => (decode_utf8 $area1), 
-		shiku => (decode_utf8 $area2), 
-		machiaza => (decode_utf8 $area3),
+		tdfk => $area1, 
+		shiku => $area2, 
+		machiaza => $area3,
 		hours => \@hours,
 		num => $num, grp => $grp,
 	};
@@ -183,5 +186,5 @@ my $mtf = Text::MicroTemplate::File->new;
 print $query->header("text/html; charset=utf-8");
 print $mtf->render_file(
 	"$Bin/area.html", 
-	decode_utf8($titlename), \@dates, \@results, decode_utf8($error_message)
+	$titlename, \@dates, \@results, $error_message
 );
