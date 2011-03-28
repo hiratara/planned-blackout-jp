@@ -132,8 +132,8 @@ my $ver='1.14alpha';
 my $auth='mnakajim';
 
 if ($comm=~ m/ver/gi) {
-	my $timetable=&gettimetablever();
-	my $areatable=&getareatablever();
+	my $timetable = gettimetablever();
+	my $areatable = getareatablever();
 	print $query->header("text/plain");
 	print "area.cgi : $ver($auth)\n";
 	print "timetable.txt : $timetable\n";
