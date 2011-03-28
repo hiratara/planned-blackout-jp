@@ -162,12 +162,6 @@ while (<$in>) {
 		next unless $areaorg=~ m/$getcity/;
 	}
 
-	my $bgcolor='FFEEFF';
-	if ($count % 2 ==0) {
-		$bgcolor='EEFFFF';
-	}
-
-
 	my @hours = map {
 		my $hours = $timetable->{$firm}{$_}{$num};
 		my $run_str = $runtable->{$_}{"$num\-$grp"} || '-';
@@ -176,7 +170,6 @@ while (<$in>) {
 	} @dates;
 
 	push @results, {
-		bgcolor => $bgcolor,
 		tdfk => (decode_utf8 $area1), 
 		shiku => (decode_utf8 $area2), 
 		machiaza => (decode_utf8 $area3),

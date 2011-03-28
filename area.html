@@ -24,8 +24,8 @@
 </tr>
 
 ? unless ($error_message) {
-?     for my $r (@$results) {
-      <tr bgcolor="<?= $r->{bgcolor} ?>">
+?     for my $i (0 .. $#$results) { my $r = $results->[$i];
+      <tr bgcolor="<?= $i % 2 == 0 ? '#EEFFFF' : '#FFEEFF' ?>">
       <td><b><?= $r->{tdfk} ?> <?= $r->{shiku} ?> <?= $r->{machiaza} ?></b></td>
 ?         for my $h (@{$r->{hours}}) {
           <td><?= $h ?></td>
