@@ -69,7 +69,7 @@ sub force_utf8($) {
 	return ref $enc ? encode_utf8($enc->decode($str)) : $str;
 }
 
-sub addnor() {
+sub addnor($) {
 	my $orgstr=$_[0];
 	$orgstr=~ s/　//g;
 	$orgstr=~ s/ //g;
@@ -113,7 +113,7 @@ my $query=new CGI;
 my $comm=$query->param('comm');
 my $getcity=force_utf8($query->param('city'));
 my $titlename=$getcity;
-$getcity=&addnor($getcity);
+$getcity = addnor $getcity;
 $getcity=~ s/0/０/g;
 $getcity=~ s/1/１/g;
 $getcity=~ s/2/２/g;
@@ -157,7 +157,7 @@ while (<READ>) {
 	my ($area1,$area2,$area3,$num,$grp)=split (/\t/,$_);
 	my $firm = 'T';  # XXX 東電。現状の実装では固定。
 	my $areaorg="$area1$area2$area3";
-	$areaorg=&addnor($areaorg);
+	$areaorg = addnor $areaorg;
 
 	if ($getgroup) {
 		next unless $areaorg=~ m/$getcity/ and $num eq $getgroup;
