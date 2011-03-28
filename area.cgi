@@ -2,6 +2,7 @@
 
 ########################
 # history of updates
+# 2011/3/29 00:00 V1.200 HTMLを外部ファイル化。コード整理。(hiratara)
 # 2011/3/28 16:10 V1.14alpha 停電実行ステータス対応(runtable.txtの読み込み)、ちょっと高速化処理(nanakochi123456)
 # 2011/3/26 17:50 V1.131(nanakochi123456)入力文字列の正規化、グループ拡張、バージョン番号の拡張。(tnx:nanakochi123456)
 # 2011/3/21 17:00 V1.130(nyatakasan,hiratara) 時間表取得方法を変更(timetable.txtの読み込み)。(tnx:nyatakasan,hiratara)
@@ -111,7 +112,7 @@ my $getgroup=int($query->param('gid'));
 if ($getgroup>5 || $getgroup<=0) {
 	$getgroup=0;
 }
-my $ver='1.14alpha';
+my $ver='1.200';
 my $auth='mnakajim';
 
 if ($comm=~ m/ver/gi) {
