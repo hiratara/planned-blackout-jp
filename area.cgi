@@ -2,6 +2,7 @@
 
 ########################
 # history of updates
+# 2011/3/29 00:00 V1.200 HTMLを外部ファイル化。コード整理。(hiratara)
 # 2011/3/28 16:10 V1.14alpha 停電実行ステータス対応(runtable.txtの読み込み)、ちょっと高速化処理(nanakochi123456)
 # 2011/3/26 17:50 V1.131(nanakochi123456)入力文字列の正規化、グループ拡張、バージョン番号の拡張。(tnx:nanakochi123456)
 # 2011/3/21 17:00 V1.130(nyatakasan,hiratara) 時間表取得方法を変更(timetable.txtの読み込み)。(tnx:nyatakasan,hiratara)
@@ -22,12 +23,16 @@
 
 use strict;
 #use warnings;
-use Encode qw/decode encode_utf8/;
+use utf8;
+use FindBin qw($Bin);
+BEGIN { require "$Bin/fatlib.pl" }
+use Encode qw/decode_utf8/;
 use Encode::Guess;
 use CGI;
+use Text::MicroTemplate::File;
 use constant DAY_SECONDS => 24 * 60 * 60;
 
-our %runtable;
+binmode STDOUT, ":utf8";
 
 sub date_str($) {
 	my $time = shift;
@@ -38,7 +43,7 @@ sub date_str($) {
 sub read_timetable() {
 	my %timetable;
 
-	open my $fh, '<', 'timetable.txt' or die $!;
+	open my $fh, '<:utf8', "$Bin/timetable.txt" or die $!;
 	while (<$fh>) {
 		my ($firm, $date, $group, @hours) = split /\t/, $_;
 		$timetable{$firm}{$date}{$group} = \@hours;
@@ -49,151 +54,122 @@ sub read_timetable() {
 }
 
 sub read_runtable() {
+	my %runtable;
 
-	open my $fh, '<', 'runtable.txt' or die $!;
+	open my $fh, '<:utf8', 'runtable.txt' or die $!;
 	while (<$fh>) {
 		chomp;
 		my ($date, $group, $state) = split /\t/, $_;
 		$runtable{$date}{$group} = $state;
 	}
 	close $fh;
+
+	return \%runtable;
+}
+
+sub force_decode($) {
+	my $str = shift || '';
+	my $enc = guess_encoding($str, qw/shiftjis utf8/);
+	return ref $enc ? $enc->decode($str) : decode_utf8($str);
+}
+
+sub addnor($) {
+	my $add = shift;
+	$add =~ tr/0-9がケヶのノ　 /０-９ケケケのの/d;
+	return $add;
+}
+
+sub gettimetablever{
+	open my $in, '<:utf8', "$Bin/timetable.txt" or die $!;
+	while(<$in>) {
+		chomp;
+		my ($firm,$ver)=split(/\t/,$_);
+		if($firm eq "V") {
+			return $ver;
+		}
+	}
+	return '--';
+}
+
+sub getareatablever{
+	open my $in, '<:utf8', "$Bin/all.all" or die $!;
+	while (<$in>) {
+		chomp;
+		my ($field,$ver)=split(/\t/,$_);
+		if($field eq "version") {
+			return $ver;
+		}
+	}
+	return '--';
 }
 
 my $query=new CGI;
 my $comm=$query->param('comm');
-my $getcity=force_utf8($query->param('city'));
+my $getcity = force_decode($query->param('city'));
 my $titlename=$getcity;
-$getcity=&addnor($getcity);
-$getcity=~ s/0/０/g;
-$getcity=~ s/1/１/g;
-$getcity=~ s/2/２/g;
-$getcity=~ s/3/３/g;
-$getcity=~ s/4/４/g;
-$getcity=~ s/5/５/g;
-$getcity=~ s/6/６/g;
-$getcity=~ s/7/７/g;
-$getcity=~ s/8/８/g;
-$getcity=~ s/9/９/g;
+$getcity = addnor $getcity;
 my $getgroup=int($query->param('gid'));
 if ($getgroup>5 || $getgroup<=0) {
 	$getgroup=0;
 }
-my $ver='1.14alpha';
+my $ver='1.200';
 my $auth='mnakajim';
 
 if ($comm=~ m/ver/gi) {
-	my $timetable=&gettimetablever();
-	my $areatable=&getareatablever();
-	print "Content-type: text/plain\n\narea.cgi : $ver($auth)\n";
+	my $timetable = gettimetablever();
+	my $areatable = getareatablever();
+	print $query->header("text/plain");
+	print "area.cgi : $ver($auth)\n";
 	print "timetable.txt : $timetable\n";
 	print "areatable.txt : $areatable\n";
 	exit;
 }
 
 
-$titlename=~ s/[;\"\'\$\@\%\(\)]//g;
+open my $in, '<:utf8', "$Bin/all.all" or die $!;
 
-open (READ,"all.all");
+my @results;
 
-my $buf='';
-my $count=0;
-
-&read_runtable;
+my $runtable = read_runtable;
 my $timetable = read_timetable;
 my @dates = map {date_str(time + DAY_SECONDS * $_)} 0 .. 2;
 
-while (<READ>) {
+while (<$in>) {
 	chomp;
 	my ($area1,$area2,$area3,$num,$grp)=split (/\t/,$_);
 	my $firm = 'T';  # XXX 東電。現状の実装では固定。
-	my $areaorg="$area1$area2$area3";
-	$areaorg=&addnor($areaorg);
+	my $areaorg = addnor "$area1$area2$area3";
 
-	if ($getgroup) {
-		next unless $areaorg=~ m/$getcity/ and $num eq $getgroup;
-	} else {
-		next unless $areaorg=~ m/$getcity/;
-	}
-
-	my $bgcolor='FFEEFF';
-	if ($count % 2 ==0) {
-		$bgcolor='EEFFFF';
-	}
-
+	next if $getgroup && $num != $getgroup;
+	next unless $areaorg =~ m/$getcity/;
 
 	my @hours = map {
 		my $hours = $timetable->{$firm}{$_}{$num};
-		$hours ? join(', ', @$hours) : '-';
+		my $run_str = $runtable->{$_}{"$num\-$grp"} || '-';
+		my $hours_str = $hours ? join(', ', @$hours) : '-';
+		"$hours_str($run_str)";
 	} @dates;
-	$hours[0] .='('.$runtable{$dates[0]}{$num.'-'.$grp}.')';
-	$hours[1] .='('.$runtable{$dates[1]}{$num.'-'.$grp}.')';
-	$hours[2] .='('.$runtable{$dates[2]}{$num.'-'.$grp}.')';
-	$buf.="<tr bgcolor=$bgcolor><td><b>$area1 $area2 $area3</b></td>" . 
-	      join('', map {"<td>$_</td>"} @hours) . 
-	      "<td>第$num-$grpグループ</td></tr>\n";
-	++$count;
+
+	push @results, {
+		tdfk => $area1, 
+		shiku => $area2, 
+		machiaza => $area3,
+		hours => \@hours,
+		num => $num, grp => $grp,
+	};
+}
+close $in;
+
+my $error_message;
+if (! @results) {
+	$error_message = "計画停電のないエリアです。";
+} elsif (@results > 400) {
+	$error_message = "該当地域が多すぎです。詳細の地域名を入力してください。";
 }
 
-if (!$count) {
-	$buf="<tr><td colspan=5>計画停電のないエリアです。</td></tr>";
-}
-if ($count>400) {
-	$buf="<tr><td colspan=5>該当地域が多すぎです。詳細の地域名を入力してください。</td></tr>";
-}
-print <<FIN;
-Content-type: text/html;charset=utf-8\n\n<title>$titlenameの計画停電予定</title>
-$count件が見つかりました。同一地域で複数登録があるときは、場所によって予定時間が異なります。<BR>
-1日2回の停電予定がある場合、後半の停電予定は状況に応じて実行となります。<BR>
-このページをブックマークしておくと、次回からは地域名の入力が不要です。
-<table border=1><tr bgcolor=#C0C0C0><th>地域</th>${\
-  join('', map {"<th>$_停電時間</th>"} @dates)
-}<th>グループ</th></tr>
-$buf
-</table><a href=./>戻る</a>
-FIN
-
-sub force_utf8($) {
-	my $str = shift || '';
-	my $enc = guess_encoding($str, qw/shiftjis utf8/);
-	return ref $enc ? encode_utf8($enc->decode($str)) : $str;
-}
-
-sub addnor() {
-	my $orgstr=$_[0];
-	$orgstr=~ s/　//g;
-	$orgstr=~ s/ //g;
-	$orgstr=~ s/が//g;
-	$orgstr=~ s/ケ//g;
-	$orgstr=~ s/ヶ//g;
-	$orgstr=~ s/の//g;
-	$orgstr=~ s/ノ//g;
-	return $orgstr;
-}
-
-sub gettimetablever{
-	open (VREAD,"timetable.txt");
-	while(<VREAD>) {
-		chomp;
-		my ($firm,$ver)=split(/\t/,$_);
-		if($firm eq "V") {
-			close(VREAD);
-			return $ver;
-		}
-	}
-	close(VREAD);
-	return '--';
-}
-
-sub getareatablever{
-	open (VREAD,"all.all");
-	while(<VREAD>) {
-		chomp;
-		my ($field,$ver)=split(/\t/,$_);
-		if($field eq "version") {
-			close(VREAD);
-			return $ver;
-		}
-	}
-	close(VREAD);
-	return '--';
-}
+my $mtf = Text::MicroTemplate::File->new;
+print $query->header("text/html; charset=utf-8");
+print $mtf->render_file(
+	"$Bin/area.html", 
+	$titlename, \@dates, \@results, $error_message
+);
