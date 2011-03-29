@@ -125,9 +125,9 @@ while (<READ>) {
 		my $hours = $timetable->{$firm}{$_}{$num};
 		$hours ? join(', ', @$hours) : '-';
 	} @dates;
-	$hours[0] .='('.$runtable{$dates[0]}{$num.'-'.$grp}.')';
-	$hours[1] .='('.$runtable{$dates[1]}{$num.'-'.$grp}.')';
-	$hours[2] .='('.$runtable{$dates[2]}{$num.'-'.$grp}.')';
+	$hours[0] .='<br>('.$runtable{$dates[0]}{$num.'-'.$grp}.')';
+	$hours[1] .='<br>('.$runtable{$dates[1]}{$num.'-'.$grp}.')';
+	$hours[2] .='<br>('.$runtable{$dates[2]}{$num.'-'.$grp}.')';
 	$buf.="<tr bgcolor=$bgcolor><td><b>$area1 $area2 $area3</b></td>" . 
 	      join('', map {"<td>$_</td>"} @hours) . 
 	      "<td>第$num-$grpグループ</td></tr>\n";
