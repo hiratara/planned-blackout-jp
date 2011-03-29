@@ -27,8 +27,8 @@
 ?     for my $i (0 .. $#$results) { my $r = $results->[$i];
       <tr bgcolor="<?= $i % 2 == 0 ? '#EEFFFF' : '#FFEEFF' ?>">
       <td><b><?= $r->{tdfk} ?> <?= $r->{shiku} ?> <?= $r->{machiaza} ?></b></td>
-?         for my $h (@{$r->{hours}}) {
-          <td><?= $h ?></td>
+?         for my $h (@{$r->{hour_refs}}) {
+          <td><?= $h->{hours_str} ?><br>(<?= $h->{run_str} ?>)</td>
 ?         }
       <td>第<?= $r->{num} ?>-<?= $r->{grp} ?>グループ</td>
       </tr>

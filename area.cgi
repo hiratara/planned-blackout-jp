@@ -143,18 +143,18 @@ while (<$in>) {
 	next if $getgroup && $num != $getgroup;
 	next unless $areaorg =~ m/$getcity/;
 
-	my @hours = map {
+	my @hour_refs = map {
 		my $hours = $timetable->{$firm}{$_}{$num};
 		my $run_str = $runtable->{$_}{"$num\-$grp"} || '-';
 		my $hours_str = $hours ? join(', ', @$hours) : '-';
-		"$hours_str($run_str)";
+		{hours_str => $hours_str, run_str => $run_str};
 	} @dates;
 
 	push @results, {
 		tdfk => $area1, 
 		shiku => $area2, 
 		machiaza => $area3,
-		hours => \@hours,
+		hour_refs => \@hour_refs,
 		num => $num, grp => $grp,
 	};
 }
