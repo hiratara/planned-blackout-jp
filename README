@@ -7,18 +7,24 @@
 ファイルリスト
   all.all データファイル(東京電力の開示分をテキストファイル化。tnx _natさん)
   fatlib.pl CPANモジュール(App::FatPackerによりまとめたもの)
-  area.cgi 検索スクリプト(Perl 協力者はスクリプト内に記載)
+  area.cgi 検索スクリプト(tnx hirataraさん)
   area.html 検索結果ページ
-  timetable.txt(付随ファイルtnx nyatakasan/hirataraさん)
-  runtable.txt 計画停電の実績データ(実施するか否か)
-  index.cgi(サイトトップのスクリプト tnx nanakochi123456さん)
-  indexpc.html(pc用トップページ tnx Komotoya/10b346)
-  indexm.html(モバイル用トップページ)
-
+  timetable.txt グループ時間管理データ(tnx nyatakasan/hirataraさん)
+  runtable.txt 計画停電の実行管理データ(実施するか否か)
+  index.cgi サイトトップのスクリプト(tnx nanakochi123456さん)
+  indexpc.html pc用トップページ(tnx Komotoya/10b346)
+  indexm.html モバイル用トップページ
+  title_s.jpg タイトル画像(tnx watanabe_haruna)
+  twitter_tag.jpg twitter用画像(tnx watanabe_haruna)
 
 ファイルが足りない、壊れて動かないというときはご連絡ください。
+
+ドキュメントディレクトリに、これ以外のファイルがある場合は動作に支障を与えることがあります。意図せずにおいてあるindex.htmlと.htaccessにご注意ください。
+
 
 動作スクリプトの中には、みなさんからいただいたアイディアと知識が含まれています。
 all.allは、東京電力が計画停電エリアとして開示しているExcelデータをテキストファイルに変更したもので構成しています。
 
 V1.200 のご利用、ならびに改変でのご利用にあたり、ソースなりHTMLなり、クレジット記載をお願いします。
+
+*ソースのメンテナンス・管理で、hirataraさんに多大なるご協力をいただいています。
