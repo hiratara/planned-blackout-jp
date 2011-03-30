@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 use Test::More;
-use File::Basename;
+use File::Basename qw/dirname/;
 use Plack::App::WrapCGI;
 use Test::WWW::Mechanize::PSGI;
 

@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use File::Basename;
+use File::Basename qw/dirname/;
 use Plack::App::Directory;
 use Plack::App::WrapCGI;
 
