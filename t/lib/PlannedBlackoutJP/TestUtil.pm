@@ -1,3 +1,5 @@
+package PlannedBlackoutJP::TestUtil;
+
 use strict;
 use warnings;
 use File::Basename qw/dirname/;
@@ -5,8 +7,11 @@ use File::Copy qw/cp/;
 use File::Find qw/find/;
 use File::Spec;
 use Cwd qw/getcwd/;
+use Exporter qw/import/;
 
-sub cgi_to_psgi {
+our @EXPORT = qw/cgi_to_psgi dircopy create_file date_str/;
+
+sub cgi_to_psgi($) {
     my $cgi = shift;
     my $abs_path = File::Spec->rel2abs($cgi);
     my $abs_dir = dirname $abs_path;
@@ -30,7 +35,7 @@ sub cgi_to_psgi {
     };
 }
 
-sub dircopy {
+sub dircopy($$) {
     my ($dir_from, $dir_to) = @_;
     s{/$}{} for $dir_from, $dir_to;
 
@@ -47,16 +52,25 @@ sub dircopy {
     }, $dir_from;
 }
 
-sub create_file {
+sub create_file($$) {
     my ($path, $content) = @_;
     open my $out, '>:utf8', $path or die "$!: $path";
     print $out $content;
 }
 
-sub date_str {
-	my $time = shift;
-	my ($d, $m, $y) = (localtime $time)[3, 4, 5];
-	sprintf '%04d-%02d-%02d', $y + 1900, $m + 1, $d;
+sub date_str($) {
+    my $time = shift;
+    my ($d, $m, $y) = (localtime $time)[3, 4, 5];
+    sprintf '%04d-%02d-%02d', $y + 1900, $m + 1, $d;
 }
 
 1;
+
+__END__
+
+=head1 NAME
+
+PlannedBlackoutJP::TestUtil - Utilities for tests.
+
+=cut
+
