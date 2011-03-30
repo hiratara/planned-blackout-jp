@@ -138,6 +138,9 @@ while (<$in>) {
 	chomp;
 	my ($area1,$area2,$area3,$num,$grp)=split (/\t/,$_);
 	my $firm = 'T';  # XXX 東電。現状の実装では固定。
+
+	next if $area1 eq 'version';
+
 	my $areaorg = addnor "$area1$area2$area3";
 
 	next if $getgroup && $num != $getgroup;

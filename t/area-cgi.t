@@ -60,6 +60,9 @@ for (
     $mech->content_lacks("中止");
 }
 
+$mech->get_ok("/");
+$mech->content_lacks("第-グループ", "shouldn't have empty rows.");
+
 $mech->get_ok("/?comm=ver");
 $mech->content_like(qr/^[\w.\-]+\s*:\s*\w+\.\w+\(\w+\)$/sm);
 
