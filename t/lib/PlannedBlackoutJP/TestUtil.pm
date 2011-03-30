@@ -9,7 +9,7 @@ use File::Spec;
 use Cwd qw/getcwd/;
 use Exporter qw/import/;
 
-our @EXPORT = qw/cgi_to_psgi dircopy create_file date_str/;
+our @EXPORT = qw/cgi_to_psgi dircopy create_file date_str rewrite_shebang/;
 
 sub cgi_to_psgi($) {
     my $cgi = shift;
@@ -56,6 +56,26 @@ sub create_file($$) {
     my ($path, $content) = @_;
     open my $out, '>:utf8', $path or die "$!: $path";
     print $out $content;
+}
+
+sub rewrite_shebang($;$) {
+    my ($root_dir, $perl_exec) = @_;
+    $perl_exec ||= $ENV{BLACKOUT_PERLEXEC};
+
+    return unless defined $perl_exec;
+    -x $perl_exec or die "invalid exec: $perl_exec";
+
+    find sub {
+        /^\.+$/ and return;
+        -f && -x or return;
+
+        open my $in, '<:utf8', $_ or die $!;
+        (my $shebang_line = <$in>) =~ /\bperl\b/ or return;
+        my $left_part = do {local $/; <$in>};
+        close $in;
+
+        create_file $_ => "#!$perl_exec\n$left_part";
+    }, $root_dir;
 }
 
 sub date_str($) {

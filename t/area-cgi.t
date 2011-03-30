@@ -8,7 +8,9 @@ use File::Basename qw/dirname/;
 use File::Temp qw/tempdir/;
 use Plack::App::WrapCGI;
 use Test::WWW::Mechanize::PSGI;
-use PlannedBlackoutJP::TestUtil  qw/cgi_to_psgi dircopy create_file date_str/;
+use PlannedBlackoutJP::TestUtil  qw/
+    cgi_to_psgi dircopy create_file date_str rewrite_shebang
+/;
 
 # A quick hack to stop "Wide character in print" warnings.
 binmode $Test::Builder::Test->output, ':utf8';
@@ -18,6 +20,7 @@ my $today = date_str(time);
 my $doc_root = dirname(__FILE__) . "/../webapp";
 my $testdir = tempdir CLEANUP => 1;
 dircopy($doc_root => $testdir);
+rewrite_shebang $testdir;
 
 create_file("$testdir/all.all" => <<__TEXT__);
 東京都	荒川区	町屋１丁目	5	B
