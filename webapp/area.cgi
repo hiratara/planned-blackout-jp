@@ -56,7 +56,7 @@ sub read_timetable() {
 sub read_runtable() {
 	my %runtable;
 
-	open my $fh, '<:utf8', 'runtable.txt' or die $!;
+	open my $fh, '<:utf8', "$Bin/runtable.txt" or die $!;
 	while (<$fh>) {
 		chomp;
 		my ($date, $group, $state) = split /\t/, $_;
