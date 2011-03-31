@@ -85,6 +85,14 @@ sub search_zip($) {
 	return @cities;
 }
 
+sub send_response($$$) {
+	my ($query, $template, $args) = @_;
+
+	my $mtf = Text::MicroTemplate::File->new;
+	print $query->header("text/html; charset=utf-8");
+	print $mtf->render_file($template, $args);
+}
+
 sub force_decode($) {
 	my $str = shift || '';
 	my $enc = guess_encoding($str, qw/shiftjis utf8/);
@@ -126,6 +134,8 @@ my $comm=$query->param('comm');
 my $criteria = force_decode($query->param('city'));
 my $titlename = $criteria;
 
+my @dates = map {date_str(time + DAY_SECONDS * $_)} 0 .. 2;
+
 my $regex_city;
 if ($criteria =~ /^(\d{3})-?(\d{4})$/) {
 	# called by zip code
@@ -133,13 +143,10 @@ if ($criteria =~ /^(\d{3})-?(\d{4})$/) {
 	my @cities = search_zip $zipcode;
 
 	unless (@cities) {
-		# XXX Should share codes :(
-		my $mtf = Text::MicroTemplate::File->new;
-		print $query->header("text/html; charset=utf-8");
-		print $mtf->render_file(
-			"$Bin/area.html", 
-			$titlename, [], [], qq/郵便番号"$zipcode"は見つかりませんでした。/
-		);
+		send_response $query, "$Bin/area.html", {
+			title => $titlename, dates => \@dates, results => [], 
+			error_message => qq/郵便番号"$zipcode"は見つかりませんでした。/,
+		};
 		exit;
 	}
 
@@ -172,7 +179,6 @@ my @results;
 
 my $runtable = read_runtable;
 my $timetable = read_timetable;
-my @dates = map {date_str(time + DAY_SECONDS * $_)} 0 .. 2;
 
 while (<$in>) {
 	chomp;
@@ -210,9 +216,9 @@ if (! @results) {
 	$error_message = "該当地域が多すぎです。詳細の地域名を入力してください。";
 }
 
-my $mtf = Text::MicroTemplate::File->new;
-print $query->header("text/html; charset=utf-8");
-print $mtf->render_file(
-	"$Bin/area.html", 
-	$titlename, \@dates, \@results, $error_message
-);
+send_response $query, "$Bin/area.html", {
+	title => $titlename, 
+	dates => \@dates, 
+	results => \@results, 
+	error_message => $error_message,
+};

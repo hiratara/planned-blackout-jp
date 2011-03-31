@@ -1,30 +1,30 @@
-? my ($title, $dates, $results, $error_message) = @_;
+? my ($v) = @_;
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="Content-Language" content="ja" />
-<meta name="keywords" content="計画停電,<?= $title ?>,検索,システム,ツール,スケジュール,輪番停電,グループ">
-<title><?= $title ?>の計画停電予定</title>
-<meta name="description" content="<?= $title ?>の計画停電の予定です。今日、明日、明後日の予定を提供しています。">
+<meta name="keywords" content="計画停電,<?= $v->{title} ?>,検索,システム,ツール,スケジュール,輪番停電,グループ">
+<title><?= $v->{title} ?>の計画停電予定</title>
+<meta name="description" content="<?= $v->{title} ?>の計画停電の予定です。今日、明日、明後日の予定を提供しています。">
 </head>
 
 <body>
-<?= scalar @$results ?>件が見つかりました。同一地域で複数登録があるときは、場所によって予定時間が異なります。<BR>
+<?= scalar @{$v->{results}} ?>件が見つかりました。同一地域で複数登録があるときは、場所によって予定時間が異なります。<BR>
 1日2回の停電予定がある場合、後半の停電予定は状況に応じて実行となります。<BR>
 このページをブックマークしておくと、次回からは地域名の入力が不要です。
 
 <table border=1>
 <tr bgcolor=#C0C0C0>
 <th>地域</th>
-? for my $d (@$dates) {
+? for my $d (@{$v->{dates}}) {
 <th><?= $d ?>停電時間</th>
 ? }
 <th>グループ</th>
 </tr>
 
-? unless ($error_message) {
-?     for my $i (0 .. $#$results) { my $r = $results->[$i];
+? unless ($v->{error_message}) {
+?     for my $i (0 .. $#{$v->{results}}) { my $r = $v->{results}->[$i];
       <tr bgcolor="<?= $i % 2 == 0 ? '#EEFFFF' : '#FFEEFF' ?>">
       <td><b><?= $r->{tdfk} ?> <?= $r->{shiku} ?> <?= $r->{machiaza} ?></b></td>
 ?         for my $h (@{$r->{hour_refs}}) {
@@ -34,7 +34,7 @@
       </tr>
 ?     }
 ? } else {
-    <tr><td colspan=5><?= $error_message ?></td></tr>
+    <tr><td colspan=5><?= $v->{error_message} ?></td></tr>
 ? }
 
 </table>
