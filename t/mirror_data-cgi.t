@@ -5,7 +5,6 @@ use Test::More;
 use Test::TCP;
 use File::Basename qw/dirname/;
 use File::Temp qw/tempdir/;
-use Plack::App::WrapCGI;
 use Plack::Loader;
 use Test::WWW::Mechanize::PSGI;
 use PlannedBlackoutJP::TestUtil  qw/cgi_to_psgi dircopy rewrite_shebang/;
