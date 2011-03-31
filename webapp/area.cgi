@@ -130,7 +130,20 @@ my $regex_city;
 if ($criteria =~ /^(\d{3})-?(\d{4})$/) {
 	# called by zip code
 	my $zipcode = "$1$2";
-	$regex_city = join '|', map { quotemeta(addnor $_) } search_zip $zipcode;
+	my @cities = search_zip $zipcode;
+
+	unless (@cities) {
+		# XXX Should share codes :(
+		my $mtf = Text::MicroTemplate::File->new;
+		print $query->header("text/html; charset=utf-8");
+		print $mtf->render_file(
+			"$Bin/area.html", 
+			$titlename, [], [], qq/郵便番号"$zipcode"は見つかりませんでした。/
+		);
+		exit;
+	}
+
+	$regex_city = join '|', map { quotemeta(addnor $_) } @cities;
 } else {
 	$regex_city = addnor $criteria;
 }

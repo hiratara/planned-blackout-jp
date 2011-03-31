@@ -70,6 +70,9 @@ for (
 $mech->get_ok("/");
 $mech->content_lacks("第-グループ", "shouldn't have empty rows.");
 
+$mech->get_ok("/?city=0000000");
+$mech->content_contains("見つかりません", 'a bad zip code');
+
 
 # a zip code search which contains multiple zip lines.
 create_file("$testdir/all.all" => <<__TEXT__);
