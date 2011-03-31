@@ -67,6 +67,24 @@ sub read_runtable() {
 	return \%runtable;
 }
 
+sub search_zip($) {
+	my $zip = shift;  # assumes that $zip has no hyphens.
+
+	my @cities;
+	open my $fh, '<:utf8', "$Bin/yubin.csv" or die $!;
+	while (<$fh>) {
+		chomp;
+		my ($cur_zip, $left) = split /\t/, $_, 2;
+		if ($zip == $cur_zip) {
+			$left =~ tr/\t//d;
+			push @cities, $left;
+		}
+	}
+	close $fh;
+
+	return @cities;
+}
+
 sub force_decode($) {
 	my $str = shift || '';
 	my $enc = guess_encoding($str, qw/shiftjis utf8/);
@@ -105,9 +123,18 @@ sub getareatablever{
 
 my $query=new CGI;
 my $comm=$query->param('comm');
-my $getcity = force_decode($query->param('city'));
-my $titlename=$getcity;
-$getcity = addnor $getcity;
+my $criteria = force_decode($query->param('city'));
+my $titlename = $criteria;
+
+my $regex_city;
+if ($criteria =~ /^(\d{3})-?(\d{4})$/) {
+	# called by zip code
+	my $zipcode = "$1$2";
+	$regex_city = join '|', map { quotemeta(addnor $_) } search_zip $zipcode;
+} else {
+	$regex_city = addnor $criteria;
+}
+
 my $getgroup=int($query->param('gid'));
 if ($getgroup>5 || $getgroup<=0) {
 	$getgroup=0;
@@ -144,7 +171,7 @@ while (<$in>) {
 	my $areaorg = addnor "$area1$area2$area3";
 
 	next if $getgroup && $num != $getgroup;
-	next unless $areaorg =~ m/$getcity/;
+	next unless $areaorg =~ m/$regex_city/;
 
 	my @hour_refs = map {
 		my $hours = $timetable->{$firm}{$_}{$num};

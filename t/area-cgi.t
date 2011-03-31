@@ -41,6 +41,11 @@ $today	3-D	実施予定
 $today	5-B	中止
 __TEXT__
 
+create_file("$testdir/yubin.csv" => <<__TEXT__);
+2220003	神奈川県	横浜市港北区	大曽根
+1160001	東京都	荒川区	町屋
+__TEXT__
+
 my $psgi = cgi_to_psgi "$testdir/area.cgi";
 my $mech = Test::WWW::Mechanize::PSGI->new(app => $psgi);
 
@@ -50,6 +55,8 @@ for (
     "city=" . encode_utf8 '神奈川県　横浜市港北区　大曽根２丁目', 
     "city=" . encode('sjis', '港北区大曽根２丁目'), # for AU's cellphone
     "gid=3",
+    "city=2220003",
+    "city=222-0003",
 ) {
     $mech->get_ok("/?$_");
     $mech->content_contains("大曽根２丁目");
@@ -63,6 +70,40 @@ for (
 $mech->get_ok("/");
 $mech->content_lacks("第-グループ", "shouldn't have empty rows.");
 
+
+# a zip code search which contains multiple zip lines.
+create_file("$testdir/all.all" => <<__TEXT__);
+千葉県	八千代市	高津東１丁目	2	C
+千葉県	八千代市	大和田新田	1	D
+千葉県	八千代市	大和田新田高津団地	2	C
+__TEXT__
+
+create_file("$testdir/timetable.txt" => <<__TEXT__);
+T	$today	1	18:20-22:00
+T	$today	2	09:20-13:00	16:50-20:30
+__TEXT__
+
+create_file("$testdir/runtable.txt" => <<__TEXT__);
+$today	1-D	実施せず
+$today	2-C	実施予定
+__TEXT__
+
+create_file("$testdir/yubin.csv" => <<__TEXT__);
+2760035	千葉県	八千代市	大和田新田
+2760035	千葉県	八千代市	高津
+__TEXT__
+
+$mech->get_ok("/?city=2760035");
+$mech->content_contains("高津東１丁目");
+$mech->content_contains("大和田新田");
+$mech->content_contains("大和田新田高津団地");
+$mech->content_contains("18:20");
+$mech->content_contains("09:20");
+$mech->content_contains("実施せず");
+$mech->content_contains("実施予定");
+
+
+# version strings
 $mech->get_ok("/?comm=ver");
 $mech->content_like(qr/^[\w.\-]+\s*:\s*\w+\.\w+\(\w+\)$/sm);
 
