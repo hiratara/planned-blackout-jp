@@ -74,6 +74,31 @@ $mech->get_ok("/?city=0000000");
 $mech->content_contains("見つかりません", 'a bad zip code');
 
 
+# the special case with '字'
+create_file("$testdir/all.all" => <<__TEXT__);
+千葉県	流山市	大字上貝塚	5	C
+神奈川県	横浜市南区	蒔田町字伊勢山	5	D
+__TEXT__
+
+create_file("$testdir/timetable.txt" => <<__TEXT__);
+T	$today	5	18:20-22:00
+__TEXT__
+
+create_file("$testdir/runtable.txt" => <<__TEXT__);
+$today	5-C	実施予定
+$today	5-D	中止
+__TEXT__
+
+$mech->get_ok(encode_utf8 "/?city=流山市大字上貝塚");
+$mech->content_contains("実施予定");
+$mech->get_ok(encode_utf8 "/?city=流山市上貝塚");
+$mech->content_contains("実施予定");
+$mech->get_ok(encode_utf8 "/?city=横浜市南区蒔田町字伊勢山");
+$mech->content_contains("中止");
+$mech->get_ok(encode_utf8 "/?city=横浜市南区蒔田町伊勢山");
+$mech->content_contains("中止");
+
+
 # a zip code search which contains multiple zip lines.
 create_file("$testdir/all.all" => <<__TEXT__);
 千葉県	八千代市	高津東１丁目	2	C

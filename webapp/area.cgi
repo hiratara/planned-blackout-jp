@@ -102,6 +102,10 @@ sub force_decode($) {
 sub addnor($) {
 	my $add = shift;
 	$add =~ tr/0-9がケヶのノ　 /０-９ケケケのの/d;
+
+	# remove '字' and '大字'
+	$add =~ s/([市区町村])大?字/$1/;
+
 	return $add;
 }
 
