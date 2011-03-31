@@ -28,12 +28,12 @@ sub call_in_dir(&$) {
 
 sub normalize_address($$$) {
     my ($tdfk, $shi, $machi) = @_;
-    return if $machi eq '以下に掲載がない場合';
-    return if $machi =~ /(階|次のビルを除く|地階・階層不明)\）$/;
 
     # ken_all.csv should be broken. Too bad :(
     return if $machi =~ /\）/ && $machi !~ /\（/;
 
+    $machi = '' if $machi =~ /(階|地階・階層不明)\）$/;  # buildings.
+    $machi = '' if $machi eq '以下に掲載がない場合';
     $machi =~ s/\（[^\）]+\）?$//;
 
     return $tdfk, $shi, $machi;
