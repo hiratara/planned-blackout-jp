@@ -8,7 +8,7 @@ use File::Basename qw/dirname/;
 use HTTP::Tiny;
 
 my @files = qw(all.all runtable.txt timetable.txt);
-my $base_url = "http://bizoole.com/power";
+my $base_url = $ENV{BLACKOUT_MASTER_URL} || "http://bizoole.com/power";
 my $base_dir = dirname(__FILE__);
 my $interval = 60 * 60 * 30;  # 30 minutes
 
