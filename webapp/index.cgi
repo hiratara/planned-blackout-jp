@@ -6,11 +6,14 @@
 # 2011/3/13 23:17 initial release(mnakajim tnx:nanakochi123456)
 
 
+use strict;
+use warnings;
+
 use File::Basename qw/dirname/;
 BEGIN { require (dirname(__FILE__) . "/fatlib.pl") }
 use PlannedBlackoutJP::Util qw/is_galapagos/;
 
-$location='indexpc.html';
+my $location='indexpc.html';
 
 if(is_galapagos \%ENV) {
 	$location='indexm.html';
@@ -18,9 +21,9 @@ if(is_galapagos \%ENV) {
 
 print "Content-type: text/html;charset=utf-8\n\n";
 
-open (READ,$location);
+open my $fh, '<:utf8', $location;
 
-while (<READ>) {
+while (<$fh>) {
 	s/<meta http-equiv="refresh" content=".*$//;
 	print;
 }
