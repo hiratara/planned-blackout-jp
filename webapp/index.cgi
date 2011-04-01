@@ -14,6 +14,8 @@ use CGI;
 use PlannedBlackoutJP::Util qw/is_galapagos/;
 use Text::MicroTemplate::File;
 
+binmode STDOUT, ":utf8";
+
 my $q = CGI->new;
 my $view = $q->param('view') || (is_galapagos(\%ENV) ? 'm' : 'p');
 
