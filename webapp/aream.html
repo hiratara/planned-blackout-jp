@@ -1,0 +1,43 @@
+% my ($v) = @_;
+<? xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="ja" />
+<meta http-equiv="Content-Language" content="ja" />
+<meta name="keywords" content="計画停電,<%= $v->{title} %>,検索,システム,ツール,スケジュール,輪番停電,グループ">
+<title><%= $v->{title} %>の計画停電予定</title>
+<meta name="description" content="<%= $v->{title} %>の計画停電の予定です。今日、明日、明後日の予定を提供しています。">
+</head>
+<body>
+<%= scalar @{$v->{areas}} %>件が見つかりました。同一地域で複数登録があるときは、場所によって予定時間が異なります。<br />
+1日2回の停電予定がある場合、後半の停電予定は状況に応じて実行となります。<br />
+このページをブックマークしておくと、次回からは地域名の入力が不要です。<br />
+<br />
+
+% if ($v->{error_message}) {
+<%= $v->{error_message} %>
+% } else {
+%   for my $d (@{$v->{dates}}) {
+【<%= $d %>の予定】<br />
+%     for my $area (@{$v->{areas}}) {
+%       my $h = $v->{schedule_map}{$d}{$area->{id}};
+<%= $area->{tdfk} %><%= $area->{shiku} %><%= $area->{machiaza} %><br />
+[<%= $area->{num} %>-<%= $area->{grp} %>]
+<%= $h->{hours_str} %>(<%= $h->{run_str} %>)<br />
+%     }
+<br />
+%   }
+% }
+
+<br />
+<a href="index.cgi?view=m">戻る</a><br />
+<hr />
+<div align="center" style="text-align:center;">
+<a href="http://bizoole.com/power/">本家へ</a><br>
+<a href="http://twitter.com/mnakajim">(c)中島昌彦<br>
+(M.NAKAJIM)</a><br>
+and supporters</div>
+</body>
+</html>

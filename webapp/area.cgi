@@ -29,6 +29,7 @@ BEGIN { require "$Bin/fatlib.pl" }
 use Encode qw/decode_utf8/;
 use Encode::Guess;
 use CGI;
+use PlannedBlackoutJP::Util qw/is_galapagos/;
 use Text::MicroTemplate::File;
 use constant DAY_SECONDS => 24 * 60 * 60;
 
@@ -137,11 +138,13 @@ sub getareatablever{
 
 my $query=new CGI;
 my $comm=$query->param('comm');
+my $view = $query->param('view') || (is_galapagos(\%ENV) ? 'm' : 'p');
 my $criteria = do {
     my ($city) = grep {$_ ne ''} $query->param('city');  # choice one
     force_decode($city);
 };
 my $titlename = $criteria;
+my $template = $view eq 'm' ? 'aream.html' : 'areapc.html';
 
 my @dates = map {date_str(time + DAY_SECONDS * $_)} 0 .. 2;
 
@@ -152,7 +155,7 @@ if ($criteria =~ /^(\d{3})-?(\d{4})$/) {
 	my @cities = search_zip $zipcode;
 
 	unless (@cities) {
-		send_response $query, "$Bin/area.html", {
+		send_response $query, "$Bin/$template", {
 			title => $titlename, dates => \@dates,
 			areas => [], schedule_map => {}, 
 			error_message => qq/郵便番号"$zipcode"は見つかりませんでした。/,
@@ -231,7 +234,7 @@ if (! @areas) {
 	$error_message = "該当地域が多すぎです。詳細の地域名を入力してください。";
 }
 
-send_response $query, "$Bin/area.html", {
+send_response $query, "$Bin/$template", {
 	title => $titlename, 
 	dates => \@dates, 
 	areas => \@areas, 
