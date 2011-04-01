@@ -88,7 +88,9 @@ sub search_zip($) {
 sub send_response($$$) {
 	my ($query, $template, $args) = @_;
 
-	my $mtf = Text::MicroTemplate::File->new;
+	my $mtf = Text::MicroTemplate::File->new(
+		tag_start => '<%', tag_end => '%>', line_start => '%',
+	);
 	print $query->header("text/html; charset=utf-8");
 	print $mtf->render_file($template, $args);
 }
