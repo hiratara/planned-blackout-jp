@@ -22,8 +22,4 @@ if(is_galapagos \%ENV) {
 print "Content-type: text/html;charset=utf-8\n\n";
 
 open my $fh, '<:utf8', $location;
-
-while (<$fh>) {
-	s/<meta http-equiv="refresh" content=".*$//;
-	print;
-}
+print do {local $/; <$fh>};
