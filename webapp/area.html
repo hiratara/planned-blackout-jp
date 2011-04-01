@@ -10,7 +10,7 @@
 </head>
 
 <body>
-<%= scalar @{$v->{results}} %>件が見つかりました。同一地域で複数登録があるときは、場所によって予定時間が異なります。<BR>
+<%= scalar @{$v->{areas}} %>件が見つかりました。同一地域で複数登録があるときは、場所によって予定時間が異なります。<BR>
 1日2回の停電予定がある場合、後半の停電予定は状況に応じて実行となります。<BR>
 このページをブックマークしておくと、次回からは地域名の入力が不要です。
 
@@ -24,13 +24,14 @@
 </tr>
 
 % unless ($v->{error_message}) {
-%     for my $i (0 .. $#{$v->{results}}) { my $r = $v->{results}->[$i];
+%     for my $i (0 .. $#{$v->{areas}}) { my $area = $v->{areas}->[$i];
       <tr bgcolor="<%= $i % 2 == 0 ? '#EEFFFF' : '#FFEEFF' %>">
-      <td><b><%= $r->{tdfk} %> <%= $r->{shiku} %> <%= $r->{machiaza} %></b></td>
-%         for my $h (@{$r->{hour_refs}}) {
-          <td><%= $h->{hours_str} %><br>(<%= $h->{run_str} %>)</td>
+      <td><b><%= $area->{tdfk} %> <%= $area->{shiku} %> <%= $area->{machiaza} %></b></td>
+%         for my $date (@{$v->{dates}}) {
+%             my $h = $v->{schedule_map}{$date}{$area->{id}};
+              <td><%= $h->{hours_str} %><br>(<%= $h->{run_str} %>)</td>
 %         }
-      <td>第<%= $r->{num} %>-<%= $r->{grp} %>グループ</td>
+      <td>第<%= $area->{num} %>-<%= $area->{grp} %>グループ</td>
       </tr>
 %     }
 % } else {

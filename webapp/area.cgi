@@ -153,7 +153,8 @@ if ($criteria =~ /^(\d{3})-?(\d{4})$/) {
 
 	unless (@cities) {
 		send_response $query, "$Bin/area.html", {
-			title => $titlename, dates => \@dates, results => [], 
+			title => $titlename, dates => \@dates,
+			areas => [], schedule_map => {}, 
 			error_message => qq/郵便番号"$zipcode"は見つかりませんでした。/,
 		};
 		exit;
@@ -182,13 +183,14 @@ if ($comm=~ m/ver/gi) {
 }
 
 
-open my $in, '<:utf8', "$Bin/all.all" or die $!;
-
-my @results;
 
 my $runtable = read_runtable;
 my $timetable = read_timetable;
 
+my @areas;
+# {date => {area_id => {hours_str => '', run_str => '', }, ...}, ...}
+my %schedule_map;
+open my $in, '<:utf8', "$Bin/all.all" or die $!;
 while (<$in>) {
 	chomp;
 	my ($area1,$area2,$area3,$num,$grp)=split (/\t/,$_);
@@ -201,33 +203,38 @@ while (<$in>) {
 	next if $getgroup && $num != $getgroup;
 	next unless $areaorg =~ m/$regex_city/;
 
-	my @hour_refs = map {
-		my $hours = $timetable->{$firm}{$_}{$num};
-		my $run_str = $runtable->{$_}{"$num\-$grp"} || '-';
-		my $hours_str = $hours ? join(', ', @$hours) : '-';
-		{hours_str => $hours_str, run_str => $run_str};
-	} @dates;
-
-	push @results, {
+	my $area_id = @areas + 1;  # sequensial number
+	push @areas, {
+		id => $area_id,
 		tdfk => $area1, 
 		shiku => $area2, 
 		machiaza => $area3,
-		hour_refs => \@hour_refs,
 		num => $num, grp => $grp,
+	};
+
+	for my $date (@dates) {
+		my $hours = $timetable->{$firm}{$date}{$num};
+		my $run_str = $runtable->{$date}{"$num\-$grp"} || '-';
+		my $hours_str = $hours ? join(', ', @$hours) : '-';
+
+		$schedule_map{$date}{$area_id} = {
+			hours_str => $hours_str, run_str => $run_str
+		};
 	};
 }
 close $in;
 
 my $error_message;
-if (! @results) {
+if (! @areas) {
 	$error_message = "計画停電のないエリアです。";
-} elsif (@results > 400) {
+} elsif (@areas > 400) {
 	$error_message = "該当地域が多すぎです。詳細の地域名を入力してください。";
 }
 
 send_response $query, "$Bin/area.html", {
 	title => $titlename, 
 	dates => \@dates, 
-	results => \@results, 
+	areas => \@areas, 
+	schedule_map => \%schedule_map, 
 	error_message => $error_message,
 };
