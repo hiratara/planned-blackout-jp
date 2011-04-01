@@ -135,7 +135,10 @@ sub getareatablever{
 
 my $query=new CGI;
 my $comm=$query->param('comm');
-my $criteria = force_decode($query->param('city'));
+my $criteria = do {
+    my ($city) = grep {$_ ne ''} $query->param('city');  # choice one
+    force_decode($city);
+};
 my $titlename = $criteria;
 
 my @dates = map {date_str(time + DAY_SECONDS * $_)} 0 .. 2;
