@@ -3,6 +3,26 @@
 BEGIN {
 my %fatpacked;
 
+$fatpacked{"PlannedBlackoutJP/Util.pm"} = <<'PLANNEDBLACKOUTJP_UTIL';
+  package PlannedBlackoutJP::Util;
+  use strict;
+  use warnings;
+  
+  use Exporter qw/import/;
+  
+  our @EXPORT = qw/is_galapagos/;
+  
+  sub is_galapagos($) {
+      my $env = shift;
+      return $env->{HTTP_USER_AGENT} =~ /
+          DoCoMo|UP\.Browser|KDDI|SoftBank|Voda[F|f]one|J\-PHONE|DDIPOCKET|
+          WILLCOM|iPod|PDA
+      /x;
+  }
+  
+  1;
+PLANNEDBLACKOUTJP_UTIL
+
 $fatpacked{"Text/MicroTemplate.pm"} = <<'TEXT_MICROTEMPLATE';
   # modified for NanoA by kazuho, some modified by tokuhirom
   # based on Mojo::Template. Copyright (C) 2008, Sebastian Riedel.

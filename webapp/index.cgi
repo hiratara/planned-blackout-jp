@@ -5,9 +5,14 @@
 # 2011/3/13 23:43 V1.001 indexpc.htmlの表示抑制対応 (tnx:nanakochi123456)
 # 2011/3/13 23:17 initial release(mnakajim tnx:nanakochi123456)
 
+
+use File::Basename qw/dirname/;
+BEGIN { require (dirname(__FILE__) . "/fatlib.pl") }
+use PlannedBlackoutJP::Util qw/is_galapagos/;
+
 $location='indexpc.html';
 
-if($ENV{HTTP_USER_AGENT}=~/DoCoMo|UP\.Browser|KDDI|SoftBank|Voda[F|f]one|J\-PHONE|DDIPOCKET|WILLCOM|iPod|PDA/) {
+if(is_galapagos \%ENV) {
 	$location='indexm.html';
 }
 
