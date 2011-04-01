@@ -53,10 +53,11 @@ for (
     "city=" . encode_utf8 '港北区大曽根２丁目', 
     "city=" . encode_utf8 '2丁目', 
     "city=" . encode_utf8 '神奈川県　横浜市港北区　大曽根２丁目', 
-    "city=" . encode('sjis', '港北区大曽根２丁目'), # for AU's cellphone
+    "view=m&city=" . encode('sjis', '港北区大曽根２丁目'), # for AU's cellphone
     "gid=3",
     "city=2220003",
     "city=222-0003",
+    "view=m&city=&city=2220003",  # the request from indexm.html
 ) {
     $mech->get_ok("/?$_");
     $mech->content_contains("大曽根２丁目");

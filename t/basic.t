@@ -20,6 +20,7 @@ for (qw(index.cgi area.cgi)) {
 
     my $mech = Test::WWW::Mechanize::PSGI->new(app => $psgi);
     $mech->get_ok("/");
+    $mech->get_ok("/?view=m");
     ok $mech->content, "shouldn't be empty";
 }
 
