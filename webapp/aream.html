@@ -1,6 +1,6 @@
 % my ($v) = @_;
 <? xml version="1.0" encoding="UTF-8" ?>
-<DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml-basic10.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml-basic10.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -14,7 +14,7 @@
 <%= scalar @{$v->{areas}} %>件が見つかりました。同一地域で複数登録があるときは、場所によって予定時間が異なります。<br />
 1日2回の停電予定がある場合、後半の停電予定は状況に応じて実行となります。<br />
 このページをブックマークしておくと、次回からは地域名の入力が不要です。<br />
-<br />
+<hr />
 
 % if ($v->{error_message}) {
 <%= $v->{error_message} %>
@@ -23,9 +23,11 @@
 【<%= $d %>の予定】<br />
 %     for my $area (@{$v->{areas}}) {
 %       my $h = $v->{schedule_map}{$d}{$area->{id}};
-<%= $area->{tdfk} %><%= $area->{shiku} %><%= $area->{machiaza} %><br />
-[<%= $area->{num} %>-<%= $area->{grp} %>]
+<%= $area->{tdfk} %><%= $area->{shiku} %><br />
+<%= $area->{machiaza} %><br />
+[エリア:<%= $area->{num} %>-<%= $area->{grp} %>]<br />
 <%= $h->{hours_str} %>(<%= $h->{run_str} %>)<br />
+<center>－－－－－</center><br />
 %     }
 <br />
 %   }
