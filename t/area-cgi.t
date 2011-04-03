@@ -55,6 +55,8 @@ for (
     "city=" . encode_utf8 '神奈川県　横浜市港北区　大曽根２丁目', 
     "view=m&city=" . encode('sjis', '港北区大曽根２丁目'), # for AU's cellphone
     "gid=3",
+    "gids=D",
+    "gid=3&gids=D",
     "city=2220003",
     "city=222-0003",
     "view=m&city=&city=2220003",  # the request from indexm.html

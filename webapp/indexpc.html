@@ -170,7 +170,7 @@ div#sAreaR label {
 	display: block;
 	float: left;
 	margin-right: 7px;
-	width: 28%;
+	width: 45%;
 	margin-bottom: 3px;
 	padding: 2px;
 }
@@ -1038,25 +1038,28 @@ Spry.Widget.TabbedPanels.prototype.attachBehaviors = function(element)
 </div>
 <div id="sAreaR">
 <div>
-<h2><span class="h2List">▶</span>グループ番号で絞り込み</h2>
 <label>
-<input name="gid" type="radio" value="0" />
-指定なし</label>
+メイングループ：
+<select name="gid">
+<option value="0">指定なし</option>
+<option value="1">グループ１</option>
+<option value="2">グループ２</option>
+<option value="3">グループ３</option>
+<option value="4">グループ４</option>
+<option value="5">グループ５</option>
+</select>
+</label>
 <label>
-<input name="gid" type="radio" value="1" />
-グループ1</label>
-<label>
-<input name="gid" type="radio" value="2" />
-グループ2</label>
-<label>
-<input name="gid" type="radio" value="3" />
-グループ3</label>
-<label>
-<input name="gid" type="radio" value="4" />
-グループ4</label>
-<label>
-<input name="gid" type="radio" value="5" />
-グループ5</label>
+サブグループ：
+<select name="gids">
+<option value="">指定なし</option>
+<option value="A">グループＡ</option>
+<option value="B">グループＢ</option>
+<option value="C">グループＣ</option>
+<option value="D">グループＤ</option>
+<option value="E">グループＥ</option>
+</select>
+</label>
 </div>
 </div>
 <div style="clear:both;" id="submitArea">

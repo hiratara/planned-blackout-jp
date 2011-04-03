@@ -172,6 +172,9 @@ my $getgroup=int($query->param('gid'));
 if ($getgroup>5 || $getgroup<=0) {
 	$getgroup=0;
 }
+my $getgroup_sub = $query->param('gids');
+$getgroup_sub = '' unless $getgroup_sub =~/^[A-E]$/;
+
 my $ver='1.200';
 my $auth='mnakajim';
 
@@ -204,6 +207,7 @@ while (<$in>) {
 	my $areaorg = addnor "$area1$area2$area3";
 
 	next if $getgroup && $num != $getgroup;
+	next if $getgroup_sub && $grp ne $getgroup_sub;
 	next if $regex_city && $areaorg !~ m/$regex_city/;
 
 	my $area_id = @areas + 1;  # sequensial number
