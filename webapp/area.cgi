@@ -169,9 +169,7 @@ if ($criteria =~ /^(\d{3})-?(\d{4})$/) {
 }
 
 my $getgroup=int($query->param('gid'));
-if ($getgroup>5 || $getgroup<=0) {
-	$getgroup=0;
-}
+$getgroup = '' unless $getgroup =~/^[1-5]$/;
 my $getgroup_sub = $query->param('gids');
 $getgroup_sub = '' unless $getgroup_sub =~/^[A-E]$/;
 
