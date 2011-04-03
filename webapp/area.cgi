@@ -33,6 +33,7 @@ use PlannedBlackoutJP::Util qw/is_galapagos/;
 use Text::MicroTemplate::File;
 use constant DAY_SECONDS => 24 * 60 * 60;
 
+require "counter.pl";
 binmode STDOUT, ":utf8";
 
 sub date_str($) {
@@ -179,10 +180,14 @@ my $auth='mnakajim';
 if ($comm=~ m/ver/gi) {
 	my $timetable = gettimetablever();
 	my $areatable = getareatablever();
+	my $counter = counter_get();
 	print $query->header("text/plain");
-	print "area.cgi : $ver($auth)\n";
-	print "timetable.txt : $timetable\n";
-	print "areatable.txt : $areatable\n";
+	print <<FIN;
+area.cgi : $ver($auth)
+timetable.txt : $timetable
+areatable.txt : $areatable
+$counter
+FIN
 	exit;
 }
 
@@ -243,3 +248,5 @@ send_response $query, "$Bin/$template", {
 	schedule_map => \%schedule_map, 
 	error_message => $error_message,
 };
+
+counter_write();
