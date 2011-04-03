@@ -204,7 +204,7 @@ while (<$in>) {
 	my $areaorg = addnor "$area1$area2$area3";
 
 	next if $getgroup && $num != $getgroup;
-	next unless $areaorg =~ m/$regex_city/;
+	next if $regex_city && $areaorg !~ m/$regex_city/;
 
 	my $area_id = @areas + 1;  # sequensial number
 	push @areas, {
