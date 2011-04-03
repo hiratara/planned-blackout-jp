@@ -1,3 +1,4 @@
+% use PlannedBlackoutJP;
 % my ($v) = @_;
 <? xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml-basic10.dtd">
@@ -12,7 +13,7 @@
 <body>
 <div style="text-align:center;" align="center">停電時間検索ﾂｰﾙ</div>
 <div style="text-align:center;" align="center">(東京電力､東北電力)</div>
-V.<%= $v->{version} %><br />
+V.<%= $PlannedBlackoutJP::VERSION %><br />
 <hr />
 <form action="area.cgi" method="get">
 <div>市区町村名､地域名</div>

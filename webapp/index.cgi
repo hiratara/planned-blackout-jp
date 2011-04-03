@@ -25,4 +25,4 @@ print $q->header("text/html;charset=utf-8");
 my $mtf = Text::MicroTemplate::File->new(
     tag_start => '<%', tag_end => '%>', line_start => '%',
 );
-print $mtf->render_file($template, {version => '1.200'});
+print $mtf->render_file($template, {});

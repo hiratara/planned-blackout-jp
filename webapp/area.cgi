@@ -29,6 +29,7 @@ BEGIN { require "$Bin/fatlib.pl" }
 use Encode qw/decode_utf8/;
 use Encode::Guess;
 use CGI;
+use PlannedBlackoutJP;
 use PlannedBlackoutJP::Util qw/is_galapagos/;
 use Text::MicroTemplate::File;
 use constant DAY_SECONDS => 24 * 60 * 60;
@@ -173,14 +174,13 @@ $getgroup = '' unless $getgroup =~/^[1-5]$/;
 my $getgroup_sub = $query->param('gids');
 $getgroup_sub = '' unless $getgroup_sub =~/^[A-E]$/;
 
-my $ver='1.200';
 my $auth='mnakajim';
 
 if ($comm=~ m/ver/gi) {
 	my $timetable = gettimetablever();
 	my $areatable = getareatablever();
 	print $query->header("text/plain");
-	print "area.cgi : $ver($auth)\n";
+	print "area.cgi : $PlannedBlackoutJP::VERSION($auth)\n";
 	print "timetable.txt : $timetable\n";
 	print "areatable.txt : $areatable\n";
 	exit;

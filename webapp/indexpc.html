@@ -1,3 +1,4 @@
+% use PlannedBlackoutJP;
 % my ($v) = @_;
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -1024,7 +1025,7 @@ Spry.Widget.TabbedPanels.prototype.attachBehaviors = function(element)
 <div id="other">[<a href="index.cgi?view=m">モバイル向けページ</a>] [<a href="http://inferno.soutan.net/power/search">English</a>]</div>
 <div id="header">
 <div id="logo">
-<h1>停電時間検索 <span id="ver">V.<% $v->{version} %></span><br>
+<h1>停電時間検索 <span id="ver">V.<%= $PlannedBlackoutJP::VERSION %></span><br>
 <img src="title_s.jpg"></h1>
 </div>
 </div>

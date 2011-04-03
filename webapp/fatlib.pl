@@ -3,6 +3,16 @@
 BEGIN {
 my %fatpacked;
 
+$fatpacked{"PlannedBlackoutJP.pm"} = <<'PLANNEDBLACKOUTJP';
+  package PlannedBlackoutJP;
+  use strict;
+  use warnings;
+  
+  our $VERSION = '1.200';
+  
+  1;
+PLANNEDBLACKOUTJP
+
 $fatpacked{"PlannedBlackoutJP/Util.pm"} = <<'PLANNEDBLACKOUTJP_UTIL';
   package PlannedBlackoutJP::Util;
   use strict;
