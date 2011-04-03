@@ -136,6 +136,6 @@ $mech->content_contains("実施予定");
 
 # version strings
 $mech->get_ok("/?comm=ver");
-$mech->content_like(qr/^[\w.\-]+\s*:\s*\w+\.\w+\(\w+\)$/sm);
+$mech->content_like(qr/^[\w.\-]+\s*:\s*\w+(\.\w+)+\(\w+\)$/sm);
 
 done_testing;
