@@ -22,7 +22,7 @@
 
 
 use strict;
-#use warnings;
+use warnings;
 use utf8;
 use FindBin qw($Bin);
 BEGIN { require "$Bin/fatlib.pl" }
@@ -48,6 +48,7 @@ sub read_timetable() {
 	open my $fh, '<:utf8', "$Bin/timetable.txt" or die $!;
 	while (<$fh>) {
 		my ($firm, $date, $group, @hours) = split /\t/, $_;
+		next if $firm eq 'V'; # skip version line
 		$timetable{$firm}{$date}{$group} = \@hours;
 	}
 	close $fh;
@@ -98,7 +99,7 @@ sub send_response($$$) {
 }
 
 sub force_decode($) {
-	my $str = shift || '';
+	my $str = shift;
 	my $enc = guess_encoding($str, qw/shiftjis utf8/);
 	return ref $enc ? $enc->decode($str) : decode_utf8($str);
 }
@@ -138,10 +139,11 @@ sub getareatablever{
 }
 
 my $query=new CGI;
-my $comm=$query->param('comm');
+my $comm = $query->param('comm') || '';
 my $view = $query->param('view') || (is_galapagos(\%ENV) ? 'm' : 'p');
 my $criteria = do {
     my ($city) = grep {$_ ne ''} $query->param('city');  # choice one
+    $city = '' unless defined $city;
     force_decode($city);
 };
 my $titlename = $criteria;
@@ -169,9 +171,9 @@ if ($criteria =~ /^(\d{3})-?(\d{4})$/) {
 	$regex_city = addnor $criteria;
 }
 
-my $getgroup=int($query->param('gid'));
+my $getgroup = $query->param('gid') || '';
 $getgroup = '' unless $getgroup =~/^[1-5]$/;
-my $getgroup_sub = $query->param('gids');
+my $getgroup_sub = $query->param('gids') || '';
 $getgroup_sub = '' unless $getgroup_sub =~/^[A-E]$/;
 
 my $auth='mnakajim';
