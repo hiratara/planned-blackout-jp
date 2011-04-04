@@ -92,39 +92,18 @@ sub addnor($) {
 	return $add;
 }
 
-sub gettimetablever{
-	open my $in, '<:utf8', "$Bin/timetable.txt" or die $!;
-	while(<$in>) {
-		chomp;
-		my ($firm,$ver)=split(/\t/,$_);
-		if($firm eq "V") {
-			return $ver;
-		}
-	}
-	return '--';
-}
+sub find_version_line($$) {
+	my ($file, $key) = @_;
+	open my $in, '<:utf8', "$Bin/$file" or die $!;
 
-sub getruntablever{
-	open my $in, '<:utf8', "$Bin/runtable.txt" or die $!;
-	while(<$in>) {
-		chomp;
-		my ($firm, $ver)=split(/\t/,$_);
-		if($firm eq "V") {
-			return $ver;
-		}
-	}
-	return '--';
-}
-
-sub getareatablever{
-	open my $in, '<:utf8', "$Bin/all.all" or die $!;
 	while (<$in>) {
 		chomp;
-		my ($field,$ver)=split(/\t/,$_);
-		if($field eq "version") {
-			return $ver;
+		my ($cur_key, $left) = split /\t/, $_, 2;
+		if ($cur_key eq $key) {
+			return $left;
 		}
 	}
+
 	return '--';
 }
 
@@ -169,9 +148,9 @@ $getgroup_sub = '' unless $getgroup_sub =~/^[A-E]$/;
 my $auth='mnakajim';
 
 if ($comm=~ m/ver/gi) {
-	my $timetable = gettimetablever();
-	my $areatable = getareatablever();
-	my $runtable = getruntablever();
+	my $timetable = find_version_line 'timetable.txt', 'V';
+	my $areatable = find_version_line 'all.all', 'version';
+	my $runtable = find_version_line 'runtable.txt', 'V';
 	print $query->header("text/plain");
 	print "area.cgi : $PlannedBlackoutJP::VERSION($auth)\n";
 	print "timetable.txt : $timetable\n";
