@@ -2,8 +2,8 @@
 use strict;
 use warnings;
 use utf8;
-use FindBin qw($Bin);
-BEGIN { require "$Bin/fatlib.pl" }
+use File::Basename qw/dirname/;
+BEGIN { require (dirname(__FILE__) . "/fatlib.pl") }
 use Encode qw/decode_utf8/;
 use Encode::Guess;
 use CGI;
@@ -12,6 +12,7 @@ use PlannedBlackoutJP::Util qw/is_galapagos/;
 use Text::MicroTemplate::File;
 use constant DAY_SECONDS => 24 * 60 * 60;
 
+my $base_dir = dirname(__FILE__);
 binmode STDOUT, ":utf8";
 
 sub date_str($) {
@@ -23,7 +24,7 @@ sub date_str($) {
 sub read_timetable() {
 	my %timetable;
 
-	open my $fh, '<:utf8', "$Bin/timetable.txt" or die $!;
+	open my $fh, '<:utf8', "$base_dir/timetable.txt" or die $!;
 	while (<$fh>) {
 		my ($firm, $date, $group, @hours) = split /\t/, $_;
 		next if $firm eq 'V'; # skip version line
@@ -37,7 +38,7 @@ sub read_timetable() {
 sub read_runtable() {
 	my %runtable;
 
-	open my $fh, '<:utf8', "$Bin/runtable.txt" or die $!;
+	open my $fh, '<:utf8', "$base_dir/runtable.txt" or die $!;
 	while (<$fh>) {
 		chomp;
 		my ($date, $group, $state) = split /\t/, $_;
@@ -52,7 +53,7 @@ sub search_zip($) {
 	my $zip = shift;  # assumes that $zip has no hyphens.
 
 	my @cities;
-	open my $fh, '<:utf8', "$Bin/yubin.csv" or die $!;
+	open my $fh, '<:utf8', "$base_dir/yubin.csv" or die $!;
 	while (<$fh>) {
 		chomp;
 		my ($cur_zip, $left) = split /\t/, $_, 2;
@@ -94,7 +95,7 @@ sub addnor($) {
 
 sub find_version_line($$) {
 	my ($file, $key) = @_;
-	open my $in, '<:utf8', "$Bin/$file" or die $!;
+	open my $in, '<:utf8', "$base_dir/$file" or die $!;
 
 	while (<$in>) {
 		chomp;
@@ -127,7 +128,7 @@ if ($criteria =~ /^(\d{3})-?(\d{4})$/) {
 	my @cities = search_zip $zipcode;
 
 	unless (@cities) {
-		send_response $query, "$Bin/$template", {
+		send_response $query, "$base_dir/$template", {
 			title => $titlename, dates => \@dates,
 			areas => [], schedule_map => {}, 
 			error_message => qq/郵便番号"$zipcode"は見つかりませんでした。/,
@@ -167,7 +168,7 @@ my $timetable = read_timetable;
 my @areas;
 # {date => {area_id => {hours_str => '', run_str => '', }, ...}, ...}
 my %schedule_map;
-open my $in, '<:utf8', "$Bin/all.all" or die $!;
+open my $in, '<:utf8', "$base_dir/all.all" or die $!;
 while (<$in>) {
 	chomp;
 	my ($area1,$area2,$area3,$num,$grp)=split (/\t/,$_);
@@ -209,7 +210,7 @@ if (! @areas) {
 	$error_message = "該当地域が多すぎです。詳細の地域名を入力してください。";
 }
 
-send_response $query, "$Bin/$template", {
+send_response $query, "$base_dir/$template", {
 	title => $titlename, 
 	dates => \@dates, 
 	areas => \@areas, 
