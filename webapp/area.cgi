@@ -104,6 +104,18 @@ sub gettimetablever{
 	return '--';
 }
 
+sub getruntablever{
+	open my $in, '<:utf8', "$Bin/runtable.txt" or die $!;
+	while(<$in>) {
+		chomp;
+		my ($firm, $ver)=split(/\t/,$_);
+		if($firm eq "V") {
+			return $ver;
+		}
+	}
+	return '--';
+}
+
 sub getareatablever{
 	open my $in, '<:utf8', "$Bin/all.all" or die $!;
 	while (<$in>) {
@@ -159,10 +171,12 @@ my $auth='mnakajim';
 if ($comm=~ m/ver/gi) {
 	my $timetable = gettimetablever();
 	my $areatable = getareatablever();
+	my $runtable = getruntablever();
 	print $query->header("text/plain");
 	print "area.cgi : $PlannedBlackoutJP::VERSION($auth)\n";
 	print "timetable.txt : $timetable\n";
 	print "areatable.txt : $areatable\n";
+	print "runtable.txt : $runtable\n";
 	exit;
 }
 

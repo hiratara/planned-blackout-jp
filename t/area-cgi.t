@@ -39,6 +39,7 @@ create_file("$testdir/runtable.txt" => <<__TEXT__);
 2000-01-01	3-D	中止
 $today	3-D	実施予定
 $today	5-B	中止
+V	2011-01-01 00:00
 __TEXT__
 
 create_file("$testdir/yubin.csv" => <<__TEXT__);
@@ -135,7 +136,22 @@ $mech->content_contains("実施予定");
 
 
 # version strings
+create_file("$testdir/all.all" => <<__TEXT__);
+version	01/01 12:34
+__TEXT__
+
+create_file("$testdir/timetable.txt" => <<__TEXT__);
+V	2011-01-01
+__TEXT__
+
+create_file("$testdir/runtable.txt" => <<__TEXT__);
+V	2011-01-02 11:11
+__TEXT__
 $mech->get_ok("/?comm=ver");
 $mech->content_like(qr/^[\w.\-]+\s*:\s*\w+(\.\w+)+\(\w+\)$/sm);
+$mech->content_like(qr{^areatable\.txt\s*:\s*01/01 12:34$}sm);
+$mech->content_like(qr{^timetable\.txt\s*:\s*2011-01-01$}sm);
+$mech->content_like(qr{^runtable\.txt\s*:\s*2011-01-02 11:11$}sm);
+
 
 done_testing;
