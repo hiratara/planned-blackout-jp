@@ -123,47 +123,106 @@ sub find_version_line($$) {
 	return '--';
 }
 
-my $query=new CGI;
-my $comm = $query->param('comm') || '';
-my $view = $query->param('view') || (is_galapagos(\%ENV) ? 'm' : 'p');
-my $criteria = do {
-    my ($city) = grep {$_ ne ''} $query->param('city');  # choice one
-    $city = '' unless defined $city;
-    force_decode($city);
-};
-my $titlename = $criteria;
-my $template = $view eq 'm' ? 'aream.html' : 'areapc.html';
+sub main_handler {
+	my $query = shift;
+	my $view = $query->param('view') || (is_galapagos(\%ENV) ? 'm' : 'p');
+	my $criteria = do {
+		my ($city) = grep {$_ ne ''} $query->param('city');  # choice one
+		$city = '' unless defined $city;
+		force_decode($city);
+	};
+	my $titlename = $criteria;
+	my $template = $view eq 'm' ? 'aream.html' : 'areapc.html';
 
-my @dates = map {date_str(time + DAY_SECONDS * $_)} 0 .. 2;
+	my @dates = map {date_str(time + DAY_SECONDS * $_)} 0 .. 2;
 
-my $regex_city;
-if ($criteria =~ /^(\d{3})-?(\d{4})$/) {
-	# called by zip code
-	my $zipcode = "$1$2";
-	my @cities = search_zip $zipcode;
+	my $regex_city;
+	if ($criteria =~ /^(\d{3})-?(\d{4})$/) {
+		# called by zip code
+		my $zipcode = "$1$2";
+		my @cities = search_zip $zipcode;
 
-	unless (@cities) {
-		send_response $query, "$base_dir/$template", {
-			title => $titlename, dates => \@dates,
-			areas => [], schedule_map => {}, 
-			error_message => qq/郵便番号"$zipcode"は見つかりませんでした。/,
-		};
-		exit;
+		unless (@cities) {
+			send_response $query, "$base_dir/$template", {
+				title => $titlename, dates => \@dates,
+				areas => [], schedule_map => {}, 
+				error_message => qq/郵便番号"$zipcode"は見つかりませんでした。/,
+			};
+			exit;
+		}
+
+		$regex_city = join '|', map { quotemeta(addnor $_) } @cities;
+	} else {
+		$regex_city = addnor $criteria;
 	}
 
-	$regex_city = join '|', map { quotemeta(addnor $_) } @cities;
-} else {
-	$regex_city = addnor $criteria;
+	my $getgroup = $query->param('gid') || '';
+	$getgroup = '' unless $getgroup =~/^[1-5]$/;
+	my $getgroup_sub = $query->param('gids') || '';
+	$getgroup_sub = '' unless $getgroup_sub =~/^[A-E]$/;
+
+	my $runtable = read_runtable;
+	my $timetable = read_timetable;
+
+	my @areas;
+	# {date => {area_id => {hours_str => '', run_str => '', }, ...}, ...}
+	my %schedule_map;
+	open my $in, '<:utf8', "$base_dir/all.all" or err "all.all";
+	while (<$in>) {
+		chomp;
+		my ($area1,$area2,$area3,$num,$grp)=split (/\t/,$_);
+		my $firm = 'T';  # XXX 東電。現状の実装では固定。
+
+		next if $area1 eq 'version';
+
+		my $areaorg = addnor "$area1$area2$area3";
+
+		next if $getgroup && $num != $getgroup;
+		next if $getgroup_sub && $grp ne $getgroup_sub;
+		next if $regex_city && $areaorg !~ m/$regex_city/;
+
+		my $area_id = @areas + 1;  # sequensial number
+		push @areas, {
+			id => $area_id,
+			tdfk => $area1, 
+			shiku => $area2, 
+			machiaza => $area3,
+			num => $num, grp => $grp,
+		};
+
+		for my $date (@dates) {
+			my $hours = $timetable->{$firm}{$date}{$num};
+			my $run_str = $runtable->{$date}{"$num\-$grp"} || '-';
+			my $hours_str = $hours ? join(', ', @$hours) : '-';
+
+			$schedule_map{$date}{$area_id} = {
+				hours_str => $hours_str, run_str => $run_str
+			};
+		};
+	}
+	close $in;
+
+	my $error_message;
+	if (! @areas) {
+		$error_message = "計画停電のないエリアです。";
+	} elsif (@areas > 400) {
+		$error_message = "該当地域が多すぎです。詳細の地域名を入力してください。";
+	}
+
+	send_response $query, "$base_dir/$template", {
+		title => $titlename, 
+		dates => \@dates, 
+		areas => \@areas, 
+		schedule_map => \%schedule_map, 
+		error_message => $error_message,
+	};
 }
 
-my $getgroup = $query->param('gid') || '';
-$getgroup = '' unless $getgroup =~/^[1-5]$/;
-my $getgroup_sub = $query->param('gids') || '';
-$getgroup_sub = '' unless $getgroup_sub =~/^[A-E]$/;
+sub version_handler {
+	my $query = shift;
 
-my $auth='mnakajim';
+	my $auth = 'mnakajim';
 
-if ($comm=~ m/ver/gi) {
 	my $timetable = find_version_line 'timetable.txt', 'V';
 	my $areatable = find_version_line 'all.all', 'version';
 	my $runtable = find_version_line 'runtable.txt', 'V';
@@ -172,63 +231,16 @@ if ($comm=~ m/ver/gi) {
 	print "timetable.txt : $timetable\n";
 	print "areatable.txt : $areatable\n";
 	print "runtable.txt : $runtable\n";
-	exit;
 }
 
 
+my $query = CGI->new;
+my $comm = $query->param('comm') || '';
 
-my $runtable = read_runtable;
-my $timetable = read_timetable;
+my $handler = $comm=~ m/ver/gi ? \&version_handler : \&main_handler;
 
-my @areas;
-# {date => {area_id => {hours_str => '', run_str => '', }, ...}, ...}
-my %schedule_map;
-open my $in, '<:utf8', "$base_dir/all.all" or err "all.all";
-while (<$in>) {
-	chomp;
-	my ($area1,$area2,$area3,$num,$grp)=split (/\t/,$_);
-	my $firm = 'T';  # XXX 東電。現状の実装では固定。
-
-	next if $area1 eq 'version';
-
-	my $areaorg = addnor "$area1$area2$area3";
-
-	next if $getgroup && $num != $getgroup;
-	next if $getgroup_sub && $grp ne $getgroup_sub;
-	next if $regex_city && $areaorg !~ m/$regex_city/;
-
-	my $area_id = @areas + 1;  # sequensial number
-	push @areas, {
-		id => $area_id,
-		tdfk => $area1, 
-		shiku => $area2, 
-		machiaza => $area3,
-		num => $num, grp => $grp,
-	};
-
-	for my $date (@dates) {
-		my $hours = $timetable->{$firm}{$date}{$num};
-		my $run_str = $runtable->{$date}{"$num\-$grp"} || '-';
-		my $hours_str = $hours ? join(', ', @$hours) : '-';
-
-		$schedule_map{$date}{$area_id} = {
-			hours_str => $hours_str, run_str => $run_str
-		};
-	};
+eval { $handler->($query) };
+if ($@) {
+	print $query->header("text/plain; charset=UTF-8");
+	print $@;
 }
-close $in;
-
-my $error_message;
-if (! @areas) {
-	$error_message = "計画停電のないエリアです。";
-} elsif (@areas > 400) {
-	$error_message = "該当地域が多すぎです。詳細の地域名を入力してください。";
-}
-
-send_response $query, "$base_dir/$template", {
-	title => $titlename, 
-	dates => \@dates, 
-	areas => \@areas, 
-	schedule_map => \%schedule_map, 
-	error_message => $error_message,
-};
