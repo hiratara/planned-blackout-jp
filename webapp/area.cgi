@@ -32,6 +32,31 @@ sub safe_open($) {
 	return $fh;
 }
 
+sub process_template($$) {
+	my ($template, $args) = @_;
+
+	my $mtf = Text::MicroTemplate::File->new(
+		tag_start => '<%', tag_end => '%>', line_start => '%',
+	);
+	return $mtf->render_file($template, $args);
+}
+
+sub force_decode($) {
+	my $str = shift;
+	my $enc = guess_encoding($str, qw/shiftjis utf8/);
+	return ref $enc ? $enc->decode($str) : decode_utf8($str);
+}
+
+sub normalize_address($) {
+	my $add = shift;
+	$add =~ tr/0-9がケヶのノ　 /０-９ケケケのの/d;
+
+	# remove '字' and '大字'
+	$add =~ s/([市区町村])大?字/$1/;
+
+	return $add;
+}
+
 sub read_timetable() {
 	my %timetable;
 
@@ -78,31 +103,6 @@ sub search_zip($) {
 	close $fh;
 
 	return @cities;
-}
-
-sub process_template($$) {
-	my ($template, $args) = @_;
-
-	my $mtf = Text::MicroTemplate::File->new(
-		tag_start => '<%', tag_end => '%>', line_start => '%',
-	);
-	return $mtf->render_file($template, $args);
-}
-
-sub force_decode($) {
-	my $str = shift;
-	my $enc = guess_encoding($str, qw/shiftjis utf8/);
-	return ref $enc ? $enc->decode($str) : decode_utf8($str);
-}
-
-sub normalize_address($) {
-	my $add = shift;
-	$add =~ tr/0-9がケヶのノ　 /０-９ケケケのの/d;
-
-	# remove '字' and '大字'
-	$add =~ s/([市区町村])大?字/$1/;
-
-	return $add;
 }
 
 sub search_area {
