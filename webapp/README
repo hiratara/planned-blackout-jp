@@ -29,4 +29,6 @@ all.allは、東京電力が計画停電エリアとして開示しているExce
 
 V1.201 のご利用、ならびに改変でのご利用にあたり、ソースなりHTMLなり、クレジット記載をお願いします。
 
-*ソースのメンテナンス・管理で、hirataraさんに多大なるご協力をいただいています。
+*開発はGitHub上で行われています。
+
+https://github.com/hiratara/planned-blackout-jp
