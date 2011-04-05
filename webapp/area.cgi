@@ -95,7 +95,7 @@ sub force_decode($) {
 	return ref $enc ? $enc->decode($str) : decode_utf8($str);
 }
 
-sub addnor($) {
+sub normalize_address($) {
 	my $add = shift;
 	$add =~ tr/0-9がケヶのノ　 /０-９ケケケのの/d;
 
@@ -152,9 +152,11 @@ sub main_handler {
 			});
 		}
 
-		$regex_city = join '|', map { quotemeta(addnor $_) } @cities;
+		$regex_city = join '|', map { 
+			quotemeta(normalize_address $_) 
+		} @cities;
 	} else {
-		$regex_city = addnor $criteria;
+		$regex_city = normalize_address $criteria;
 	}
 
 	my $getgroup = $query->param('gid') || '';
@@ -176,7 +178,7 @@ sub main_handler {
 
 		next if $area1 eq 'version';
 
-		my $areaorg = addnor "$area1$area2$area3";
+		my $areaorg = normalize_address "$area1$area2$area3";
 
 		next if $getgroup && $num != $getgroup;
 		next if $getgroup_sub && $grp ne $getgroup_sub;
