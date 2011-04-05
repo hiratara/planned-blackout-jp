@@ -2,6 +2,13 @@ area.cgi、index.cgiの更新履歴です。
 今後の改修予定は、以下のURLを見て下さい。
 https://github.com/hiratara/planned-blackout-jp/issues
 
+1.201 2011/4/6
+      - 郵便番号検索の実装(hiratara, suggested by nanakochi)
+      - モバイルへの表示を最適化(nanakochi123456, Kei_Nanigashi)
+      - サブグループ検索の実装(nanakochi123456)
+      - runtable.txtのバージョン表示(nanakochi123456)
+      - 単体テストの追加、プロジェクト内のファイルの整理
+
 1.200 2011/3/29 00:00
       - HTMLを外部ファイル化。コード整理。(hiratara)
 
