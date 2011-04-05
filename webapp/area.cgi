@@ -132,7 +132,7 @@ sub search_area {
 			tdfk => $area1, 
 			shiku => $area2, 
 			machiaza => $area3,
-			firm => $firm, num => $gr, grp => $subgr,
+			firm => $firm, group => $gr, subgroup => $subgr,
 		};
 	}
 
@@ -148,7 +148,7 @@ sub make_schedule_map($$) {
 	# {date => {area_id => {hours_str => '', run_str => '', }, ...}, ...}
 	my %schedule_map;
 	for (@$areas) {
-		my ($area_id, $firm, $gr, $subgr) = @$_{qw/id firm num grp/};
+		my ($area_id, $firm, $gr, $subgr) = @$_{qw/id firm group subgroup/};
 		for my $date (@$dates) {
 			my $hours = $timetable->{$firm}{$date}{$gr};
 			my $run_str = $runtable->{$date}{"$gr\-$subgr"} || '-';
