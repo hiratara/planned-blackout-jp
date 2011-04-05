@@ -54,8 +54,9 @@ sub read_runtable() {
 	open my $fh, '<:utf8', "$base_dir/runtable.txt" or err "runtable.txt";
 	while (<$fh>) {
 		chomp;
-		my ($date, $group, $state) = split /\t/, $_;
-		$runtable{$date}{$group} = $state;
+		my ($firm, $date, $group, $state) = split /\t/, $_;
+		next if $firm eq 'V'; # skip version line
+		$runtable{$firm}{$date}{$group} = $state;
 	}
 	close $fh;
 
@@ -206,7 +207,7 @@ while (<$in>) {
 
 	for my $date (@dates) {
 		my $hours = $timetable->{$firm}{$date}{$num};
-		my $run_str = $runtable->{$date}{"$num\-$grp"} || '-';
+		my $run_str = $runtable->{$firm}{$date}{"$num\-$grp"} || '-';
 		my $hours_str = $hours ? join(', ', @$hours) : '-';
 
 		$schedule_map{$date}{$area_id} = {

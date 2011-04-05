@@ -35,9 +35,9 @@ V	2011-01-01
 __TEXT__
 
 create_file("$testdir/runtable.txt" => <<__TEXT__);
-2000-01-01	3-D	中止
-$today	3-D	実施予定
-$today	5-B	中止
+T	2000-01-01	3-D	中止
+T	$today	3-D	実施予定
+T	$today	5-B	中止
 V	2011-01-01 00:00
 __TEXT__
 
@@ -88,8 +88,8 @@ T	$today	5	18:20-22:00
 __TEXT__
 
 create_file("$testdir/runtable.txt" => <<__TEXT__);
-$today	5-C	実施予定
-$today	5-D	中止
+T	$today	5-C	実施予定
+T	$today	5-D	中止
 __TEXT__
 
 $mech->get_ok(encode_utf8 "/?city=流山市大字上貝塚");
@@ -115,8 +115,8 @@ T	$today	2	09:20-13:00	16:50-20:30
 __TEXT__
 
 create_file("$testdir/runtable.txt" => <<__TEXT__);
-$today	1-D	実施せず
-$today	2-C	実施予定
+T	$today	1-D	実施せず
+T	$today	2-C	実施予定
 __TEXT__
 
 create_file("$testdir/yubin.csv" => <<__TEXT__);
