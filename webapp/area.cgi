@@ -15,6 +15,19 @@ use constant DAY_SECONDS => 24 * 60 * 60;
 my $base_dir = dirname(__FILE__);
 binmode STDOUT, ":utf8";
 
+sub err() {
+	my($file)=shift;
+	my $query=new CGI;
+	my $view = $query->param('view') || (is_galapagos(\%ENV) ? 'm' : 'p');
+	print $query->header("text/html; charset=utf-8");
+	print <<FIN;
+<html><head><title>Error</title></head>
+<body><h1>Error!</h1><hr /><h2>$file can't read.</h2><br />
+<a href="index.cgi?view=$view">Return</a></body></html>
+FIN
+	exit;
+}
+
 sub date_str($) {
 	my $time = shift;
 	my ($d, $m, $y) = (localtime $time)[3, 4, 5];
@@ -24,7 +37,7 @@ sub date_str($) {
 sub read_timetable() {
 	my %timetable;
 
-	open my $fh, '<:utf8', "$base_dir/timetable.txt" or die $!;
+	open my $fh, '<:utf8', "$base_dir/timetable.txt" or &err("timetable.txt");
 	while (<$fh>) {
 		my ($firm, $date, $group, @hours) = split /\t/, $_;
 		next if $firm eq 'V'; # skip version line
@@ -38,7 +51,7 @@ sub read_timetable() {
 sub read_runtable() {
 	my %runtable;
 
-	open my $fh, '<:utf8', "$base_dir/runtable.txt" or die $!;
+	open my $fh, '<:utf8', "$base_dir/runtable.txt" or &err("runtable.txt");
 	while (<$fh>) {
 		chomp;
 		my ($date, $group, $state) = split /\t/, $_;
@@ -53,7 +66,7 @@ sub search_zip($) {
 	my $zip = shift;  # assumes that $zip has no hyphens.
 
 	my @cities;
-	open my $fh, '<:utf8', "$base_dir/yubin.csv" or die $!;
+	open my $fh, '<:utf8', "$base_dir/yubin.csv" or &err("yubin.csv");
 	while (<$fh>) {
 		chomp;
 		my ($cur_zip, $left) = split /\t/, $_, 2;
@@ -95,7 +108,7 @@ sub addnor($) {
 
 sub find_version_line($$) {
 	my ($file, $key) = @_;
-	open my $in, '<:utf8', "$base_dir/$file" or die $!;
+	open my $in, '<:utf8', "$base_dir/$file" or &err($file);
 
 	while (<$in>) {
 		chomp;
@@ -168,7 +181,7 @@ my $timetable = read_timetable;
 my @areas;
 # {date => {area_id => {hours_str => '', run_str => '', }, ...}, ...}
 my %schedule_map;
-open my $in, '<:utf8', "$base_dir/all.all" or die $!;
+open my $in, '<:utf8', "$base_dir/all.all" or &err("all.all");
 while (<$in>) {
 	chomp;
 	my ($area1,$area2,$area3,$num,$grp)=split (/\t/,$_);
