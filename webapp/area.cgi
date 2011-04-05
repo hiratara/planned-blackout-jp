@@ -159,16 +159,25 @@ sub decide_view($) {
 
 sub main_handler {
 	my $query = shift;
-	my $view = decide_view $query;
+
 	my $criteria = do {
 		my ($city) = grep {$_ ne ''} $query->param('city');  # choice one
 		$city = '' unless defined $city;
 		force_decode($city);
 	};
-	my $titlename = $criteria;
-	my $template = $view eq 'm' ? 'aream.html' : 'areapc.html';
+	my $getgroup = $query->param('gid') || '';
+	$getgroup = '' unless $getgroup =~/^[1-5]$/;
+	my $getgroup_sub = $query->param('gids') || '';
+	$getgroup_sub = '' unless $getgroup_sub =~/^[A-E]$/;
 
-	my @dates = map {date_str(time + DAY_SECONDS * $_)} 0 .. 2;
+	# Correct parameters for the template.
+	my $view = decide_view $query;
+	my $template = $view eq 'm' ? 'aream.html' : 'areapc.html';
+	my %params_base = (
+		title => $criteria,
+		dates => [map {date_str(time + DAY_SECONDS * $_)} 0 .. 2],
+		areas => [],
+	);
 
 	my $regex_city;
 	if ($criteria =~ /^(\d{3})-?(\d{4})$/) {
@@ -178,8 +187,7 @@ sub main_handler {
 
 		unless (@cities) {
 			return process_template("$base_dir/$template", {
-				title => $titlename, dates => \@dates,
-				areas => [], schedule_map => {}, 
+				%params_base,
 				error_message => qq/郵便番号"$zipcode"は見つかりませんでした。/,
 			});
 		}
@@ -191,19 +199,11 @@ sub main_handler {
 		$regex_city = normalize_address $criteria;
 	}
 
-	my $getgroup = $query->param('gid') || '';
-	$getgroup = '' unless $getgroup =~/^[1-5]$/;
-	my $getgroup_sub = $query->param('gids') || '';
-	$getgroup_sub = '' unless $getgroup_sub =~/^[A-E]$/;
-
 	my $areas = search_area(
 		regex_city => $regex_city,
 		group      => $getgroup,
 		subgroup   => $getgroup_sub,
 	);
-
-	my $runtable  = read_runtable;
-	my $timetable = read_timetable;
 
 	my $error_message;
 	if (! @$areas) {
@@ -212,9 +212,11 @@ sub main_handler {
 		$error_message = "該当地域が多すぎです。詳細の地域名を入力してください。";
 	}
 
+	my $runtable  = read_runtable;
+	my $timetable = read_timetable;
+
 	return process_template("$base_dir/$template", {
-		title => $titlename, 
-		dates => \@dates, 
+		%params_base,
 		areas => $areas, 
 		get_hours_str => sub {
 			my ($date, $area) = @_;
