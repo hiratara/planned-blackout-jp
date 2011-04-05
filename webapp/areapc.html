@@ -28,8 +28,8 @@
       <tr bgcolor="<%= $i % 2 == 0 ? '#EEFFFF' : '#FFEEFF' %>">
       <td><b><%= $area->{tdfk} %> <%= $area->{shiku} %> <%= $area->{machiaza} %></b></td>
 %         for my $date (@{$v->{dates}}) {
-%             my $h = $v->{schedule_map}{$date}{$area->{id}};
-              <td><%= $h->{hours_str} %><br>(<%= $h->{run_str} %>)</td>
+              <td><%= $v->{get_hours_str}->($date, $area) %><br>
+              (<%= $v->{get_run_str}->($date, $area) %>)</td>
 %         }
       <td>第<%= $area->{group} %>-<%= $area->{subgroup} %>グループ</td>
       </tr>

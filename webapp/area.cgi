@@ -126,9 +126,7 @@ sub search_area {
 		next if $subgroup && $subgr ne $subgroup;
 		next if $regex_city && $areaorg !~ m/$regex_city/;
 
-		my $area_id = @areas + 1;  # sequensial number
 		push @areas, {
-			id => $area_id,
 			tdfk => $area1, 
 			shiku => $area2, 
 			machiaza => $area3,
@@ -137,30 +135,6 @@ sub search_area {
 	}
 
 	\@areas;
-}
-
-sub make_schedule_map($$) {
-	my ($dates, $areas) = @_;
-
-	my $runtable  = read_runtable;
-	my $timetable = read_timetable;
-
-	# {date => {area_id => {hours_str => '', run_str => '', }, ...}, ...}
-	my %schedule_map;
-	for (@$areas) {
-		my ($area_id, $firm, $gr, $subgr) = @$_{qw/id firm group subgroup/};
-		for my $date (@$dates) {
-			my $hours = $timetable->{$firm}{$date}{$gr};
-			my $run_str = $runtable->{$date}{"$gr\-$subgr"} || '-';
-			my $hours_str = $hours ? join(', ', @$hours) : '-';
-
-			$schedule_map{$date}{$area_id} = {
-				hours_str => $hours_str, run_str => $run_str
-			};
-		};
-	}
-
-	return \%schedule_map;
 }
 
 sub find_version_line($$) {
@@ -228,7 +202,8 @@ sub main_handler {
 		subgroup   => $getgroup_sub,
 	);
 
-	my $schedule_map = make_schedule_map \@dates, $areas;
+	my $runtable  = read_runtable;
+	my $timetable = read_timetable;
 
 	my $error_message;
 	if (! @$areas) {
@@ -241,7 +216,16 @@ sub main_handler {
 		title => $titlename, 
 		dates => \@dates, 
 		areas => $areas, 
-		schedule_map => $schedule_map,
+		get_hours_str => sub {
+			my ($date, $area) = @_;
+			my $hours = $timetable->{$area->{firm}}{$date}{$area->{group}};
+			$hours ? join(',', @$hours) : '-';
+		},
+		get_run_str => sub {
+			my ($date, $area) = @_;
+			my $group_str = "$area->{group}-$area->{subgroup}";
+			$runtable->{$date}{$group_str} || '-';
+		},
 		error_message => $error_message,
 	});
 }

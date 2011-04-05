@@ -22,11 +22,10 @@
 %   for my $d (@{$v->{dates}}) {
 【<%= $d %>の予定】<br />
 %     for my $area (@{$v->{areas}}) {
-%       my $h = $v->{schedule_map}{$d}{$area->{id}};
 <%= $area->{tdfk} %><%= $area->{shiku} %><br />
 <%= $area->{machiaza} %><br />
 [エリア:<%= $area->{group} %>-<%= $area->{subgroup} %>]<br />
-<%= $h->{hours_str} %>(<%= $h->{run_str} %>)<br />
+<%= $v->{get_hours_str}->($d, $area) %>(<%= $v->{get_run_str}->($d, $area) %>)<br />
 <div align="center" style="text-align:center;">-----</div>
 %     }
 %   }
