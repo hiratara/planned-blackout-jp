@@ -11,7 +11,7 @@ use Archive::Tar;
 # update.cgiを実行することで、tgzを取得し、同階層のファイルを入れ替えます
 # 作成 @iRSS http://d.hatena.ne.jp/iRSS/20110317/1300328160
 # 2011/03/18 修正 tarボールファイル名を'power_latest.tgz'に変更
-#
+# 2011/04/05 修正 データファイルの更新も行うようにした
 #
 #tarファイル取得
 my $cgi = CGI->new;
