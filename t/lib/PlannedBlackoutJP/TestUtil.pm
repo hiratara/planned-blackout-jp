@@ -8,6 +8,7 @@ use File::Find qw/find/;
 use File::Spec;
 use Cwd qw/getcwd/;
 use Exporter qw/import/;
+use Plack::App::WrapCGI;
 
 our @EXPORT = qw/cgi_to_psgi dircopy create_file date_str rewrite_shebang/;
 

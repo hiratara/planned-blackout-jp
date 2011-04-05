@@ -6,7 +6,6 @@ use Test::More;
 use Encode qw/encode encode_utf8/;
 use File::Basename qw/dirname/;
 use File::Temp qw/tempdir/;
-use Plack::App::WrapCGI;
 use Test::WWW::Mechanize::PSGI;
 use PlannedBlackoutJP::TestUtil  qw/
     cgi_to_psgi dircopy create_file date_str rewrite_shebang

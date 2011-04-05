@@ -3,7 +3,6 @@ use warnings;
 use lib qw(t/lib);
 use File::Basename qw/dirname/;
 use Plack::App::Directory;
-use Plack::App::WrapCGI;
 use PlannedBlackoutJP::TestUtil qw/cgi_to_psgi/;
 
 my $doc_root = (dirname __FILE__) . "/webapp";
