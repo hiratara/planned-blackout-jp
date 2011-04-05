@@ -2,31 +2,19 @@
 use strict;
 use warnings;
 use utf8;
-use File::Basename qw/dirname/;
+use File::Basename qw/dirname basename/;
 BEGIN { require (dirname(__FILE__) . "/fatlib.pl") }
 use Encode qw/decode_utf8/;
 use Encode::Guess;
 use CGI;
 use PlannedBlackoutJP;
 use PlannedBlackoutJP::Util qw/is_galapagos/;
+use Text::MicroTemplate qw/render_mt/;
 use Text::MicroTemplate::File;
 use constant DAY_SECONDS => 24 * 60 * 60;
 
 my $base_dir = dirname(__FILE__);
 binmode STDOUT, ":utf8";
-
-sub err($) {
-	my($file)=shift;
-	my $query=new CGI;
-	my $view = $query->param('view') || (is_galapagos(\%ENV) ? 'm' : 'p');
-	print $query->header("text/html; charset=utf-8");
-	print <<FIN;
-<html><head><title>Error</title></head>
-<body><h1>Error!</h1><hr /><h2>$file can't read.</h2><br />
-<a href="index.cgi?view=$view">Return</a></body></html>
-FIN
-	exit;
-}
 
 sub date_str($) {
 	my $time = shift;
@@ -34,10 +22,20 @@ sub date_str($) {
 	sprintf '%04d-%02d-%02d', $y + 1900, $m + 1, $d;
 }
 
+sub safe_open($) {
+	my $file = shift;
+	my $result = open my $fh, '<:utf8', "$file";
+	unless ($result) {
+		warn "$!: $file";
+		die basename($file) . " can't read.\n";
+	}
+	return $fh;
+}
+
 sub read_timetable() {
 	my %timetable;
 
-	open my $fh, '<:utf8', "$base_dir/timetable.txt" or err "timetable.txt";
+	my $fh = safe_open "$base_dir/timetable.txt";
 	while (<$fh>) {
 		chomp;
 		my ($firm, $date, $group, @hours) = split /\t/, $_;
@@ -52,7 +50,7 @@ sub read_timetable() {
 sub read_runtable() {
 	my %runtable;
 
-	open my $fh, '<:utf8', "$base_dir/runtable.txt" or err "runtable.txt";
+	my $fh = safe_open "$base_dir/runtable.txt";
 	while (<$fh>) {
 		chomp;
 		my ($date, $group, $state) = split /\t/, $_;
@@ -68,7 +66,7 @@ sub search_zip($) {
 	my $zip = shift;  # assumes that $zip has no hyphens.
 
 	my @cities;
-	open my $fh, '<:utf8', "$base_dir/yubin.csv" or err "yubin.csv";
+	my $fh = safe_open "$base_dir/yubin.csv";
 	while (<$fh>) {
 		chomp;
 		my ($cur_zip, $left) = split /\t/, $_, 2;
@@ -109,7 +107,7 @@ sub addnor($) {
 
 sub find_version_line($$) {
 	my ($file, $key) = @_;
-	open my $in, '<:utf8', "$base_dir/$file" or err $file;
+	my $in = safe_open "$base_dir/$file";
 
 	while (<$in>) {
 		chomp;
@@ -122,9 +120,14 @@ sub find_version_line($$) {
 	return '--';
 }
 
+sub decide_view($) {
+	my $query = shift;
+	$query->param('view') || (is_galapagos(\%ENV) ? 'm' : 'p');
+}
+
 sub main_handler {
 	my $query = shift;
-	my $view = $query->param('view') || (is_galapagos(\%ENV) ? 'm' : 'p');
+	my $view = decide_view $query;
 	my $criteria = do {
 		my ($city) = grep {$_ ne ''} $query->param('city');  # choice one
 		$city = '' unless defined $city;
@@ -165,7 +168,7 @@ sub main_handler {
 	my @areas;
 	# {date => {area_id => {hours_str => '', run_str => '', }, ...}, ...}
 	my %schedule_map;
-	open my $in, '<:utf8', "$base_dir/all.all" or err "all.all";
+	my $in = safe_open "$base_dir/all.all";
 	while (<$in>) {
 		chomp;
 		my ($area1,$area2,$area3,$num,$grp)=split (/\t/,$_);
@@ -239,8 +242,14 @@ my $handler = $comm=~ m/ver/gi ? \&version_handler : \&main_handler;
 
 my ($body, $content_type) = eval { $handler->($query) };
 if ($@) {
-	print $query->header("text/plain; charset=UTF-8");
-	print $@;
+	warn $@;
+	print $query->header("text/html; charset=UTF-8");
+	print render_mt(<<'__HTML__', $@, decide_view($query))->as_string;
+<html><head><title>Error</title></head>
+<body><h1>Error!</h1><hr /><h2><?= $_[0] ?></h2><br />
+<a href="index.cgi?view=<?= $_[1] ?>">Return</a></body></html>
+__HTML__
+
 } else {
 	print $query->header($content_type || "text/html; charset=UTF-8");
 	print $body;
