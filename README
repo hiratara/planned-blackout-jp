@@ -1,30 +1,3 @@
-計画停電時間検索ツールの運用ファイル一式をご利用いただきありがとうございます。
+This is the CGI program to search schedules of planned blackout in Japan.
 
-ぜひ計画停電時間検索サイトの強化にご参加ください。
-
-運用者:中島昌彦(pwr.bizoole@gmail.com)
-
-ファイルリスト
-  all.all データファイル(東京電力の開示分をテキストファイル化。tnx _natさん)
-  fatlib.pl CPANモジュール(App::FatPackerによりまとめたもの)
-  area.cgi 検索スクリプト(tnx hirataraさん)
-  area.html 検索結果ページ
-  timetable.txt グループ時間管理データ(tnx nyatakasan/hirataraさん)
-  runtable.txt 計画停電の実行管理データ(実施するか否か)
-  index.cgi サイトトップのスクリプト(tnx nanakochi123456さん)
-  indexpc.html pc用トップページ(tnx Komotoya/10b346)
-  indexm.html モバイル用トップページ
-  title_s.jpg タイトル画像(tnx watanabe_haruna)
-  twitter_tag.jpg twitter用画像(tnx watanabe_haruna)
-
-ファイルが足りない、壊れて動かないというときはご連絡ください。
-
-ドキュメントディレクトリに、これ以外のファイルがある場合は動作に支障を与えることがあります。意図せずにおいてあるindex.htmlと.htaccessにご注意ください。
-
-
-動作スクリプトの中には、みなさんからいただいたアイディアと知識が含まれています。
-all.allは、東京電力が計画停電エリアとして開示しているExcelデータをテキストファイルに変更したもので構成しています。
-
-V1.200.01dev のご利用、ならびに改変でのご利用にあたり、ソースなりHTMLなり、クレジット記載をお願いします。
-
-*ソースのメンテナンス・管理で、hirataraさんに多大なるご協力をいただいています。
+See webapp/README to get detail information.
