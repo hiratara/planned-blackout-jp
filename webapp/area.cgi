@@ -105,6 +105,64 @@ sub normalize_address($) {
 	return $add;
 }
 
+sub search_area {
+	my %criteria = @_;
+	my $regex_city = delete $criteria{regex_city};
+	my $group      = delete $criteria{group};
+	my $subgroup   = delete $criteria{subgroup};
+
+	my @areas;
+	my $in = safe_open "$base_dir/all.all";
+	while (<$in>) {
+		chomp;
+		my ($area1, $area2, $area3, $gr, $subgr)=split (/\t/,$_);
+		my $firm = 'T';  # XXX 東電。現状の実装では固定。
+
+		next if $area1 eq 'version';
+
+		my $areaorg = normalize_address "$area1$area2$area3";
+
+		next if $group && $gr != $group;
+		next if $subgroup && $subgr ne $subgroup;
+		next if $regex_city && $areaorg !~ m/$regex_city/;
+
+		my $area_id = @areas + 1;  # sequensial number
+		push @areas, {
+			id => $area_id,
+			tdfk => $area1, 
+			shiku => $area2, 
+			machiaza => $area3,
+			firm => $firm, num => $gr, grp => $subgr,
+		};
+	}
+
+	\@areas;
+}
+
+sub make_schedule_map($$) {
+	my ($dates, $areas) = @_;
+
+	my $runtable  = read_runtable;
+	my $timetable = read_timetable;
+
+	# {date => {area_id => {hours_str => '', run_str => '', }, ...}, ...}
+	my %schedule_map;
+	for (@$areas) {
+		my ($area_id, $firm, $gr, $subgr) = @$_{qw/id firm num grp/};
+		for my $date (@$dates) {
+			my $hours = $timetable->{$firm}{$date}{$gr};
+			my $run_str = $runtable->{$date}{"$gr\-$subgr"} || '-';
+			my $hours_str = $hours ? join(', ', @$hours) : '-';
+
+			$schedule_map{$date}{$area_id} = {
+				hours_str => $hours_str, run_str => $run_str
+			};
+		};
+	}
+
+	return \%schedule_map;
+}
+
 sub find_version_line($$) {
 	my ($file, $key) = @_;
 	my $in = safe_open "$base_dir/$file";
@@ -164,59 +222,26 @@ sub main_handler {
 	my $getgroup_sub = $query->param('gids') || '';
 	$getgroup_sub = '' unless $getgroup_sub =~/^[A-E]$/;
 
-	my $runtable = read_runtable;
-	my $timetable = read_timetable;
+	my $areas = search_area(
+		regex_city => $regex_city,
+		group      => $getgroup,
+		subgroup   => $getgroup_sub,
+	);
 
-	my @areas;
-	# {date => {area_id => {hours_str => '', run_str => '', }, ...}, ...}
-	my %schedule_map;
-	my $in = safe_open "$base_dir/all.all";
-	while (<$in>) {
-		chomp;
-		my ($area1,$area2,$area3,$num,$grp)=split (/\t/,$_);
-		my $firm = 'T';  # XXX 東電。現状の実装では固定。
-
-		next if $area1 eq 'version';
-
-		my $areaorg = normalize_address "$area1$area2$area3";
-
-		next if $getgroup && $num != $getgroup;
-		next if $getgroup_sub && $grp ne $getgroup_sub;
-		next if $regex_city && $areaorg !~ m/$regex_city/;
-
-		my $area_id = @areas + 1;  # sequensial number
-		push @areas, {
-			id => $area_id,
-			tdfk => $area1, 
-			shiku => $area2, 
-			machiaza => $area3,
-			num => $num, grp => $grp,
-		};
-
-		for my $date (@dates) {
-			my $hours = $timetable->{$firm}{$date}{$num};
-			my $run_str = $runtable->{$date}{"$num\-$grp"} || '-';
-			my $hours_str = $hours ? join(', ', @$hours) : '-';
-
-			$schedule_map{$date}{$area_id} = {
-				hours_str => $hours_str, run_str => $run_str
-			};
-		};
-	}
-	close $in;
+	my $schedule_map = make_schedule_map \@dates, $areas;
 
 	my $error_message;
-	if (! @areas) {
+	if (! @$areas) {
 		$error_message = "計画停電のないエリアです。";
-	} elsif (@areas > 400) {
+	} elsif (@$areas > 400) {
 		$error_message = "該当地域が多すぎです。詳細の地域名を入力してください。";
 	}
 
 	return process_template("$base_dir/$template", {
 		title => $titlename, 
 		dates => \@dates, 
-		areas => \@areas, 
-		schedule_map => \%schedule_map, 
+		areas => $areas, 
+		schedule_map => $schedule_map,
 		error_message => $error_message,
 	});
 }
