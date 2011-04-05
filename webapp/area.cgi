@@ -82,14 +82,13 @@ sub search_zip($) {
 	return @cities;
 }
 
-sub send_response($$$) {
-	my ($query, $template, $args) = @_;
+sub process_template($$) {
+	my ($template, $args) = @_;
 
 	my $mtf = Text::MicroTemplate::File->new(
 		tag_start => '<%', tag_end => '%>', line_start => '%',
 	);
-	print $query->header("text/html; charset=utf-8");
-	print $mtf->render_file($template, $args);
+	return $mtf->render_file($template, $args);
 }
 
 sub force_decode($) {
@@ -143,12 +142,11 @@ sub main_handler {
 		my @cities = search_zip $zipcode;
 
 		unless (@cities) {
-			send_response $query, "$base_dir/$template", {
+			return process_template("$base_dir/$template", {
 				title => $titlename, dates => \@dates,
 				areas => [], schedule_map => {}, 
 				error_message => qq/郵便番号"$zipcode"は見つかりませんでした。/,
-			};
-			exit;
+			});
 		}
 
 		$regex_city = join '|', map { quotemeta(addnor $_) } @cities;
@@ -209,28 +207,28 @@ sub main_handler {
 		$error_message = "該当地域が多すぎです。詳細の地域名を入力してください。";
 	}
 
-	send_response $query, "$base_dir/$template", {
+	return process_template("$base_dir/$template", {
 		title => $titlename, 
 		dates => \@dates, 
 		areas => \@areas, 
 		schedule_map => \%schedule_map, 
 		error_message => $error_message,
-	};
+	});
 }
 
 sub version_handler {
 	my $query = shift;
-
 	my $auth = 'mnakajim';
 
 	my $timetable = find_version_line 'timetable.txt', 'V';
 	my $areatable = find_version_line 'all.all', 'version';
 	my $runtable = find_version_line 'runtable.txt', 'V';
-	print $query->header("text/plain");
-	print "area.cgi : $PlannedBlackoutJP::VERSION($auth)\n";
-	print "timetable.txt : $timetable\n";
-	print "areatable.txt : $areatable\n";
-	print "runtable.txt : $runtable\n";
+	return <<__BODY__ => "text/plain";
+area.cgi : $PlannedBlackoutJP::VERSION($auth)
+timetable.txt : $timetable
+areatable.txt : $areatable
+runtable.txt : $runtable
+__BODY__
 }
 
 
@@ -239,8 +237,11 @@ my $comm = $query->param('comm') || '';
 
 my $handler = $comm=~ m/ver/gi ? \&version_handler : \&main_handler;
 
-eval { $handler->($query) };
+my ($body, $content_type) = eval { $handler->($query) };
 if ($@) {
 	print $query->header("text/plain; charset=UTF-8");
 	print $@;
+} else {
+	print $query->header($content_type || "text/html; charset=UTF-8");
+	print $body;
 }
