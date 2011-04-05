@@ -39,6 +39,7 @@ sub read_timetable() {
 
 	open my $fh, '<:utf8', "$base_dir/timetable.txt" or err "timetable.txt";
 	while (<$fh>) {
+		chomp;
 		my ($firm, $date, $group, @hours) = split /\t/, $_;
 		next if $firm eq 'V'; # skip version line
 		$timetable{$firm}{$date}{$group} = \@hours;
@@ -55,6 +56,7 @@ sub read_runtable() {
 	while (<$fh>) {
 		chomp;
 		my ($date, $group, $state) = split /\t/, $_;
+		next if $date eq 'V'; # skip version line
 		$runtable{$date}{$group} = $state;
 	}
 	close $fh;
