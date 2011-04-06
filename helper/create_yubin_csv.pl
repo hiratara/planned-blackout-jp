@@ -74,3 +74,51 @@ while (<$in>) {
 }
 close $in;
 close $out;
+
+__END__
+
+=encoding utf8
+
+=head1 NAME
+
+create_yubin_csv.pl - yubin.csv の作成
+
+=head1 SYNOPSIS
+
+  $ helper/create_yubin_csv.pl
+
+=head1 DESCRIPTION
+
+郵政省のホームページからデータを取得し、webapp/yubin.csv を作成する。
+
+実行にはlha(http://lha.sourceforge.jp/)を必要とする。
+
+=head1 PRINCIPLE
+
+郵政省の提供するken_all.csv より、以下の方針で必要なデータを抽出する。
+最終的に、「郵便場号7桁、都道府県、市区、町字」を列とするTSVを出力する。
+
+  - 計画停電の対象である都道府県の郵便番号のみを選択する
+  - ビル名称は無視し、町字を空とする
+  - "以下に掲載がない場合"は無視し、町字を空とする
+  - 住所末尾の"（...）"は無視し、取り除く
+
+これらの動作により、郵便番号に紐づく住所はken_all.csvの記述が実際に意図する
+地域よりも広い地域となる。
+
+例:
+
+  ・ken_all.csvの〒150-6001の住所
+  　東京都渋谷区恵比寿恵比寿ガーデンプレイス（１階）
+  ↓
+  ・yubin.csvの〒150-6001の住所
+  　東京都渋谷区
+
+  ・ken_all.csvの〒171-0014の住所
+  　東京都豊島区池袋（２〜４丁目）
+  ↓
+  ・yubin.csvの〒171-0014の住所
+  　東京都豊島区池袋
+
+=cut
+

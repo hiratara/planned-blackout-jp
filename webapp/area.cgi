@@ -405,6 +405,12 @@ Text::MicroTemplate::Fileのrender_fileのショートカット。
   # "東京都武蔵村山市中藤" などを表示
   print $_, "\n" for @cities;
 
+この住所文字列はyubin.csv内に含まれるそのままの文字列であり、
+normalize_address()による正規化はされていない。よって、精度としては
+ユーザが入力した住所文字列と大差ないといえる。
+
+yubin.csvに含まれる住所文字列に関しては、helper/create_yubin_csv.pl も参照。
+
 =head2 search_area
 
 グループ分けファイルより、検索条件に合致する行を返す。
