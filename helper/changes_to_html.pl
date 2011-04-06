@@ -1,3 +1,4 @@
+#!/usr/bin/env perl
 use strict;
 use warnings;
 use Text::MicroTemplate qw/render_mt/;
