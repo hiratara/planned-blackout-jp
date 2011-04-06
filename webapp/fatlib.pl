@@ -8,7 +8,7 @@ $fatpacked{"PlannedBlackoutJP.pm"} = <<'PLANNEDBLACKOUTJP';
   use strict;
   use warnings;
   
-  our $VERSION = '1.201';
+  our $VERSION = '1.201.01dev';
   
   1;
 PLANNEDBLACKOUTJP
