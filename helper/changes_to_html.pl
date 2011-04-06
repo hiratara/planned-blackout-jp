@@ -19,9 +19,7 @@ while (<$in>) {
     }
 }
 
-print +(render_mt do {local $/; <DATA>}, \@histories)->as_string;
-
-__END__
+print +(render_mt <<'__TEMPLATE__', \@histories)->as_string;
 ? for (@{$_[0]}) {
 <li><?= $_->{date} ?> V<?= $_->{ver} ?>
   <ul>
@@ -31,3 +29,24 @@ __END__
   </ul>
 </li>
 ? }
+__TEMPLATE__
+
+__END__
+
+=encoding utf8
+
+=head1 NAME
+
+changes_to_html.pl - Changesファイルの内容をhtml化する
+
+=head1 SYNOPSIS
+
+  $ helper/changes_to_html.pl > changes_lists.html
+
+=head1 DESCRIPTION
+
+Changesファイルの内容をパースし、<ul>...</ul>内に記述できるリスト形式の
+htmlを標準出力へ出力する。
+
+=cut
+
