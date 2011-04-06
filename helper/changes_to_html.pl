@@ -10,7 +10,7 @@ my @histories;
 my $cur_slot;
 while (<$in>) {
     chomp;
-    if (my ($ver, $date) = m{^(\d(?:\.\d+\w*)+) (\d+/\d+/\d+ \d+:\d+)}) {
+    if (my ($ver, $date) = m{^(\d(?:\.\d+\w*)+) (\d+/\d+/\d+(?:\s*\d+:\d+)?)}) {
         # header line
         $cur_slot = {ver => $ver, date => $date};
         push @histories, $cur_slot;

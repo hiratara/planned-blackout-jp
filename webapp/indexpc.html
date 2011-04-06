@@ -1034,7 +1034,7 @@ Spry.Widget.TabbedPanels.prototype.attachBehaviors = function(element)
 <div id="sArea">
 <form action="area.cgi" method="get">
 <div id="sAreaL">
-<h2><span class="h2List">▶</span>計画停電の予定時間を知りたい市区町村名、地域名</h2>
+<h2><span class="h2List">▶</span>計画停電の予定時間を知りたい市区町村名、地域名。または郵便番号（例：1000000 100-0000)</h2>
 <input type="text" name="city" size="20" id="city" />
 </div>
 <div id="sAreaR">
@@ -1203,20 +1203,21 @@ Spry.Widget.TabbedPanels.prototype.attachBehaviors = function(element)
 <div class="TabbedPanelsContent">
 <h3>データ更新状況:</h3>
 <ul id="update">
-<li>2011/3/30 02:05 29日20時35分更新データ(東京電力開示)に更新</li>
-<li>2011/3/29 02:05 28日19時40分更新データ(東京電力開示)に更新</li>
-<li>2011/3/27 22:40 27日20時00分更新データ(東京電力開示)に更新</li>
+<li>2011/4/01 00:00 データは逐次更新しています。<a href=../area.cgi?comm=ver>現在の最終データ更新時間</a></li>
 </ul>
 これ以前の<a href="http://bizoole.com/power/history/datahistory.html">データの更新履歴</a><br>
 <br>
 <h3>エンジン更新履歴:</h3>
 <ul id="engine">
-<li>2011/3/29 00:00 V1.200 HTMLを外部ファイル化。コード整理。(hiratara)</li>
-<li>2011/3/28 16:10 V1.14alpha 停電実行ステータス対応(runtable.txtの読み込み)、ちょっと高速化処理(nanakochi123456)</li>
-<li>2011/3/26 17:50 V1.131(nanakochi123456)入力文字列の正規化、グループ拡張、バージョン表記拡張。(tnx:nanakochi123456)</li>
-<li>2011/3/21 17:00 V1.130(nyatakasan,hiratara) 時間表取得方法を変更。(tnx:nyatakasan,hiratara)</li>
-<li>2011/3/20 23:02 V1.122 漢字コード変換を変更。短い地名でも検索できます(tnx:hiratara)</li>
-<li>2011/3/19 00:25 V1.121 引数として、comm=verを渡すとバージョン番号を戻すように変更。</li>
+<li>2011/4/6 V1.201
+  <ul>
+    <li>郵便番号検索の実装(hiratara, suggested by nanakochi)</li>
+    <li>モバイルへの表示を最適化(nanakochi123456, Kei_Nanigashi)</li>
+    <li>サブグループ検索の実装(nanakochi123456)</li>
+    <li>runtable.txtのバージョン表示(nanakochi123456)</li>
+    <li>単体テストの追加、プロジェクト内のファイルの整理</li>
+  </ul>
+</li>
 </ul>
 これ以前の<a href="http://bizoole.com/power/history/">エンジンの更新履歴</a><br>
 <br>
@@ -1282,7 +1283,8 @@ Spry.Widget.TabbedPanels.prototype.attachBehaviors = function(element)
 <div id="copyright">
 <ul>
 <li> 本家サイトへ:<a href="http://bizoole.com/power/">停電時間検索ツール</a> 運営:中島昌彦(pwr.bizoole@gmail.com)</li>
-<a href=http://www.kandabako.info/~power/teiden_icons/><img src=twitter_tag.jpg width=50%></a>
+</ul>
+<br><a href=http://www.kandabako.info/~power/teiden_icons/><img src=twitter_tag.jpg width=300></a>
 <!--twitter用スクリプト http://www.twitstat.us/-->
 <div class="twitstatus_badge_container" id="twitstat_badge_871"></div>
 <script type="text/javascript" src="http://twitstat.us/twitstat.us-min.js"></script>
@@ -1305,7 +1307,6 @@ twitstat.badge.init({
 <!--ここまでtwitter用スクリプト -->
 
 
-</ul>
 <div id="supported">
 <ul id="supporter">
 <li>Supported by</li>
