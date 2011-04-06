@@ -267,3 +267,194 @@ __HTML__
 	print $query->header($content_type || "text/html; charset=UTF-8");
 	print $body;
 }
+
+__END__
+
+=encoding utf8
+
+=head1 NAME
+
+area.cgi - 計画停電の検索
+
+=head1 DESCRIPTION
+
+計画停電の時間を住所、郵便番号、停電グループなどの条件から検索する。
+
+=head1 HANDLERS
+
+このCGIでは、リクエストパラメータ"comm="の値によって実行されるハンドラが
+決まる。各ハンドラは、CGIオブジェクトを受け取り、出力文字列とContent-Type
+を返す関数である。
+
+  my ($body, $content_type) = $handler->(CGI->new);
+
+Content-Typeの省略時には、"text/html; charset=utf8"となる。
+
+=head2 main_handler (デフォルト)
+
+今日〜３日後までの計画停電の予定を検索する。検索条件として以下のリクエスト
+パラメータを受け取る。
+
+=over
+
+=item view
+
+検索結果の出力形式を指定する。"m"(携帯)または"p"(PC)の値を指定できる。
+省略時はUserAgentにより自動的に決定される。
+
+=item city
+
+検索したい文字列を指定する。"0000000"または"000-0000"の形式の場合は郵便番号
+を指定した物と見なされる。それ以外の場合は、住所の一部分が指定されたと見なす。
+
+文字列はUTF-8またはShift_JISにて指定する(後者はAU携帯のため)。
+
+=item gid
+
+検索したい計画停電のグループを数値で指定する。
+
+=item gids
+
+検索したい計画停電のサブグループをアルファベット一文字で指定する。
+
+=back
+
+検索結果が多すぎる場合には、結果を出力せずエラーを表示して終了する。
+
+=head2 version_handler (comm=ver)
+
+CGI、データファイルのバージョン情報を出力する。
+
+=head1 FUNCTIONS
+
+=head2 date_str
+
+epoch秒を"YYYY-MM-DD"という表現の文字列にする。
+
+  my $date = date_str time;
+
+=head2 safe_open
+
+open関数と同等の処理を行う。openに失敗した場合には、ブラウザに表示されても
+差し支えない文字列を例外として投げる。
+
+  my $fh = safe_open "/path/to/your_file.txt";
+
+=head2 process_template
+
+Text::MicroTemplate::Fileのrender_fileのショートカット。
+与えられたファイルをテンプレートとし、引数を渡して実行する。
+
+  process_template "/path/to/template.txt", 
+                   {arg1 => $arg1, arg2 => $arg2, ...};
+
+=head2 force_decode
+
+文字コードが不明確な文字列を、Perlの内部文字列へデコードする。
+特にAUの携帯電話ではShift_JISによってフォームデータをエスケープするため、
+これをguess_encodingによって適切に判定する。
+
+  my $string = force_decode $unknown_bytes;
+
+=head2 normalize_address
+
+住所文字列を正規化する。同じ住所を表す異なる文字列を入力した場合に、
+同一の文字列が生成されることを目標とする。
+
+  # 以下はすべて"茅ケ崎市香川１丁目"となる。
+  my $addr1 = normalize_address "茅ヶ崎市香川１丁目";
+  my $addr2 = normalize_address "茅が崎市香川１丁目";
+  my $addr3 = normalize_address "茅ケ崎市　香川1丁目";
+
+=head2 read_timetable
+
+計画停電時間ファイルを読み込み、hash-refとして返す。
+ファイル内の各列がキーとなり、停電時間の列をarray-refとしたものが値となる。
+バージョン行は出力に含まない。
+
+  my $table = read_timetable;
+
+  # 東電(T)の4/1の3グループの停電時間
+  my $hours = $table->{T}{'2011-04-01'}{3};
+
+  # "18:20-22:10" などを表示
+  print $_, "\n" for @$hours;
+
+=head2 read_runtable
+
+計画停電実績ファイルを読み込み、hash-refとして返す。
+ファイル内の各列がキーとなり、実績を表す列が値となる。
+バージョン行は出力に含まない。
+
+  my $table = read_runtable;
+
+  # 4/1の3-Cグループの停電実績
+  my $result_str = $table->{'2011-04-01'}{"3-C"};
+
+  # "実施せず" などを表示
+  print $result_str, "\n";
+
+=head2 search_zip
+
+郵便番号ファイルより、該当する郵便番号の住所を検索して返す。
+郵便番号はハイフンを含めない7桁の数字を入力する。出力される住所文字列は、
+郵便番号ファイル内の都道府県、市区、町字をすべて連結したものとなる。
+
+  my @cities = search_zip "2080001";
+
+  # "東京都武蔵村山市中藤" などを表示
+  print $_, "\n" for @cities;
+
+=head2 search_area
+
+グループ分けファイルより、検索条件に合致する行を返す。
+
+  my $areas = search_area regex_city => '横浜市|川崎市';
+
+  for (@$areas) {
+      print $areas->{tdfk}    , "\n"; # "神奈川県" など
+      print $areas->{shiku}   , "\n"; # "川崎市麻生区" など
+      print $areas->{machiaza}, "\n"; # "岡上" など
+      print $areas->{firm}    , "\n"; # "T"(東京電力) など
+      print $areas->{group}   , "\n"; # "2" など
+      print $areas->{subgroup}, "\n"; # "D" など
+  }
+
+検索条件は、以下の項目をand検索として指定する。
+
+=over
+
+=item regex_city
+
+住所文字列を正規表現で指定する。normalize_address()にて正規化された住所に
+マッチする正規表現を指定する必要がある。
+
+=item group
+
+グループ番号を数値で指定する。
+
+=item subgroup
+
+サブグループ番号をアルファベットで指定する。
+
+=back
+
+=head2 find_version_line
+
+指定したTSVファイルからバージョン番号行を見つけ、バージョン番号を返す。
+バージョン番号行を見つけるため、バージョン番号を表す行の最も左の列の値を
+指定する必要がある。
+
+  my $version_string = find_version_line "/pathto/tsv.txt", "key_of_ver_line";
+
+=head2 decide_view
+
+このリクエストにおける表示形式を返す。携帯向け表示を行う場合は"m"、
+PC向け表示を行う場合は"p"が返される。表示形式はUserAgentなどによって
+自動的に決定されるが、HTTPリクエストのパラメータ"view="にて直接指定
+することもできる。
+
+  my $view = decide_view(CGI->new);
+
+=cut
+
