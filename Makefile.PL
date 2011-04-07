@@ -7,6 +7,7 @@ test_requires 'Test::WWW::Mechanize::PSGI';
 test_requires 'Plack';
 requires 'Text::MicroTemplate'; # to create Changes html
 requires 'LWP'; # to download ken_all.lzh
+requires 'Archive::Tar'; # to use helper/update.cgi on perl-5.8.x
 
 auto_install;
 
