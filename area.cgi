@@ -273,7 +273,7 @@ FIN
 <item rdf:about="$basehref?city=$_getcity&amp;gid=$getgroup">
 <title>$xmltitle</title>
 <link>$basehref?city=$_getcity&amp;zip1=$zip1&amp;zip2=$zip2&amp;gid=$getgroup</link>
-<description>@{[$arearoma=~m/$getcity/ ? ($_=~/なし/ ? 'none' : $_) : '$_です。']}</description>
+<description>@{[$arearoma=~m/$getcity/ ? ($_=~/なし/ ? 'none' : $_) : "$_です。"]}</description>
 <dc:date>$rssdate</dc:date>
 </item>
 FIN
