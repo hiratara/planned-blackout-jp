@@ -3,10 +3,11 @@
 use strict;
 
 my $VER="V.1.143(nanakochi123456  1st release:mnakajim)";
-my $tarball="power110327-2.tar.gz";
+my $tarball="power110327-3.tar.gz";
 my $history=<<EOM;
 <h3>データ更新状況:</h3>
 <ul id="update">
+<li>2011/3/27 22:07 東京電力のデータを更新した。またtwitter情報によりグループ２の詳細を入力した。</li>
 <li>2011/3/27 12:54 東北電力のデータを更新した。なお省略部分がある為、市町村までの入力で一度検索してみて下さい。</li>
 <li>2011/3/27 20:11 東京電力側のデータに欠損があった為、反映した。</li>
 <li>2011/3/27 13:17 本家に対応しやすいように、all.allを変更した。</li>
