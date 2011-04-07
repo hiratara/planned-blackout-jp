@@ -1,5 +1,5 @@
 ? my ($title, $dates, $results, $error_message, $version_message, $rssurl, $qrurl, $converttime, $version) = @_;
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml-basic10.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -30,11 +30,11 @@
 ?           my $h=$r->{hour_refs}[$c];
 ?           my $hs=$h->{hours_str};
 ?           my $rs=$h->{run_str};
-            [<?= $r->{grp} ?>]<?= $hs ?>
+            [エリア:<?= $r->{grp} ?>]<br /><?= $hs ?>
 ?           if($rs) {
               (<?= $rs ?>)
 ?           }
-          <br />
+            <div align="center" style="text-align:center;">-----</div>
 ?         }
           <br />
 ?         $c++;
@@ -43,6 +43,6 @@
 ?    }
 ? }
 
-[<a href=./?m>戻る</a>] 
+[<a href="./?m" accesskey="#">#.戻る</a>] 
 </body>
 </html>
