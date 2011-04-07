@@ -19,6 +19,7 @@
   update.cgi(自動アップデート用のスクリプト）
 　pc.html(PC用出力ファイル）
 　mobile.html(携帯用出力ファイル）
+　mobile_update.html(携帯用更新履歴出力ファイル）
 　english.html(英語用出力ファイル）
 　update.cgi(http://power.daiba.cx/ から自動アップデートするスクリプト)
 　title_s.jpg(渡邊 春菜さん作のTOPページの上の画像）

@@ -2,12 +2,11 @@
 
 use strict;
 
-my $VER="V.1.148(nanakochi123456  1st release:mnakajim)";
-my $tarball="power110330-2.tar.gz";
-my $history=<<EOM;
-<h3>データ更新状況:</h3>
-<ul id="update">
-<li>2011/3/29 13:35 東京電力、３１日計画停電実施なしに対応。</li>
+my $VER="V.1.200(nanakochi123456  1st release:mnakajim)";
+my $tarball="power110331.tar.gz";
+my $data_update=<<EOM;
+<li>2011/3/31 07:40 東京電力データを更新。</li>
+<li>2011/3/30 13:35 東京電力、３１日計画停電実施なしに対応。</li>
 <li>2011/3/30 08:53 東京電力データを更新。</li>
 <li>2011/3/29 15:49 runtable.txtを正式採用した。</li>
 <li>2011/3/29 14:00 東京電力、３０日計画停電実施なしに対応。</li>
@@ -23,12 +22,10 @@ my $history=<<EOM;
 <li>2011/3/26 03:16 東京電力２５グループ化に対応した。なお、東京都は現状ではデータがない為、今まで通りの表示となります。</li>
 <li>2011/3/25 18:40 東京電力２６日、２７日実施なしに対応した。</li>
 <li>2011/3/25 03:14 東京電力データを更新した。</li>
-</ul>
-<a href="http://power.daiba.cx/wiki/?%a5%c7%a1%bc%a5%bf%b9%b9%bf%b7%cd%fa%ce%f2">これ以前の当方のデータ更新履歴</a><br />
-<a href="http://bizoole.com/power/history/datahistory.html">これ以前の本家のデータ更新履歴</a>
+EOM
 
-<h3>エンジン更新履歴:</h3>
-<ul id="engine">
+my $engine_update=<<EOM;
+<li>2011/3/31 08:10 モバイルでもエンジン及びデータの更新履歴を見れるようにした。</li>
 <li>2011/3/29 15:49 runtable.txtを正式採用した。</li>
 <li>2011/3/29 15:07 一部郵便番号で検索できなくなっていたのを修正した。</li>
 <li>2011/3/29 13:00 runtable.txtから詳細情報を取得するようにした（α版）</li>
@@ -39,13 +36,10 @@ my $history=<<EOM;
 <li>2011/3/27 07:30 area.cgi?comm=ver の返り値を本家とほぼ同じにした。文字正規化方法を本家と同じにした。携帯版での色出力を抑制した(パケ代節約のため)</li>
 <li>2011/3/25 13:16 本家に対応しやすいように、エンジンを変更した。</li>
 <li>2011/3/25 18:40 東京電力のグループが 1-Aや、5-Cになるのを仮対応した。</li>
-</ul>
-<br />
-<a href="http://power.daiba.cx/wiki/?%a5%a8%a5%f3%a5%b8%a5%f3%b9%b9%bf%b7%cd%fa%ce%f2">これ以前の当方のエンジン更新履歴</a><br />
-<a href="http://bizoole.com/power/history/">これ以前のエンジン更新履歴</a>
 EOM
 
 #------------
+use Encode qw/decode encode_utf8 from_to/;
 require "common.pl";
 
 $VER=~s/\(.*//g;
@@ -62,12 +56,18 @@ $nojapaneseflg=1 if($ENV{QUERY_STRING} eq 'e');
 my $english_file="english.html";
 my $mobile_file="mobile.html";
 my $pc_file="pc.html";
+my $mobile_update_file="mobile_update.html";
 
 &gzip_compress("Content-type: text/html; charset=utf-8");
 my $body;
 my $file;
+my $kanaflg=0;
+my $updatetitle;
 if($nojapaneseflg) {
 	$file=$english_file;
+} elsif($ENV{QUERY_STRING} eq 'mu') {
+	$file=$mobile_update_file;
+	$kanaflg=1;
 } elsif($mobileflg) {
 	$file=$mobile_file;
 } else {
@@ -81,7 +81,8 @@ if(open(R,$file)) {
 			s/\@\@VER\@\@/$VER/;
 			s/\@\@INCLUDE\=\"(.+)\"\@\@/@{[&include($1)]}/;
 			s/\@\@QRCODE\@\@/@{[&qrcode_link]}/;
-			s/\@\@HISTORY\@\@/$history/;
+			s/\@\@DATAUPDATE\@\@/$data_update/;
+			s/\@\@ENGINEUPDATE\@\@/$engine_update/;
 			s/\@\@TARBALL\@\@/$tarball/;
 		}
 		$body.=$_;
@@ -90,10 +91,21 @@ if(open(R,$file)) {
 } else {
 	$body="$file not found. sorry.";
 }
-
+if($kanaflg) {
+	$body=&z2h($body);
+	$body=~s/０/0/g;
+	$body=~s/１/1/g;
+	$body=~s/２/2/g;
+	$body=~s/３/3/g;
+	$body=~s/４/4/g;
+	$body=~s/５/5/g;
+	$body=~s/６/6/g;
+	$body=~s/７/7/g;
+	$body=~s/８/8/g;
+	$body=~s/９/9/g;
+}
 print "$body\n";
-
-#close(STDOUT);
+close(STDOUT);
 exit;
 
 sub include {
