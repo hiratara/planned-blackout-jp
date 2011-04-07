@@ -3,7 +3,7 @@
 use strict;
 
 my $VER="V.1.200(nanakochi123456  1st release:mnakajim)";
-my $tarball="power110401-2.tar.gz";
+my $tarball="power110401-3.tar.gz";
 my $data_update=<<EOM;
 <li>2011/4/01 11:10 東京電力、２～４日計画停電なしに対応。</li>
 <li>2011/3/31 19:55 東京電力データを更新。</li>
@@ -21,6 +21,7 @@ my $data_update=<<EOM;
 EOM
 
 my $engine_update=<<EOM;
+<li>2011/4/01 14:34 gdモジュール、またはGD.pmがなく、GD::Barcode.pmがある環境で正常になるようにした。</li>
 <li>2011/3/31 08:10 モバイルでもエンジン及びデータの更新履歴を見れるようにした。</li>
 <li>2011/3/29 15:49 runtable.txtを正式採用した。</li>
 <li>2011/3/29 15:07 一部郵便番号で検索できなくなっていたのを修正した。</li>
@@ -126,7 +127,7 @@ EOM
 sub qrcode_link {
 	my($basehref, $basehost, $basepath)=&getbasehref;
 	my $string=&encode("$basehost$basepath");
-	if(&load_module("GD::Barcode")) {
+	if(&load_module("GD") && &load_module("GD::Barcode")) {
 		return <<FIN;
 携帯へURLを送るには、こちらのQRコードをご利用下さい。<br />
 <img alt="QRCode" src="$basehost$basepath/area.cgi?m=qr\&amp;str=$string" />

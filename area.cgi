@@ -827,7 +827,7 @@ sub read_runtable() {
 # QRコードの画像のリンクを作成
 sub make_link_qrcode {
 	my ($string) = shift;
-	if(&load_module("GD::Barcode")) {
+	if(&load_module("GD") && &load_module("GD::Barcode")) {
 		if($englishflg) {
 			$buf="<br />If you have mobile phone to transfer this result, use this barcode.";
 		} else {
