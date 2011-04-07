@@ -1,11 +1,12 @@
 #!/usr/bin/perl
 
-$VER="V.1.131b4(nanakochi123456 1st release:mnakajim)";
-$tarball="power110323-2.tar.gz";
+$VER="V.1.131b5(nanakochi123456 1st release:mnakajim)";
+$tarball="power110323-3.tar.gz";
 
 $history=<<EOM;
 <h3>データ更新状況:</h3>
 <ul id="update">
+<li>2011/3/23 14:30 ローマ字データが一部変換をミスっていたのを修正した。</li>
 <li>2011/3/23 05:55 東京電力のデータを更新した。</li>
 <li>2011/3/22 10:30 東京電力のデータを更新した。これにより茨城県がしばらく計画停電の範囲外になる模様です。</li>
 </ul>
