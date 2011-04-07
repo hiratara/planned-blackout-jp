@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 
-$VER="V.1.131b5(nanakochi123456 1st release:mnakajim)";
-$tarball="power110323-3.tar.gz";
+$VER="V.1.132(nanakochi123456 1st release:mnakajim)";
+$tarball="power110323-4.tar.gz";
 
 $history=<<EOM;
 <h3>データ更新状況:</h3>
@@ -15,6 +15,7 @@ $history=<<EOM;
 
 <h3>エンジン更新履歴:</h3>
 <ul id="engine">
+<li>2011/3/23 17:23 検索結果のQRコードを出力できるようにした。GD::Barcodeモジュールがない場合は出力されません。</li>
 <li>2011/3/23 13:26 エンジン最新にして、軽量化を図った。RSSで郵便番号で検索した場合、一部バグるのを修正した。</li>
 <li>2011/3/22 19:00 23日の東京電力の1回目の１、２グループにおいて実施しないことを反映した。</li>
 <li>2011/3/22 17:30 英語版にて、１文字目大文字、それ以上の文字を小文字にしました。また、area.cgiにおいてもgzip圧縮をしました。</li>

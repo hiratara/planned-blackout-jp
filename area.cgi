@@ -36,6 +36,12 @@ if ($getgroup>8 || $getgroup<=0) {
 	$getgroup=0;
 }
 
+if($mode eq 'qr') {
+	$string=$query->param('str');
+	&make_qrcode($string);
+	exit;
+}
+
 # 東京電力リスト
 @tokyo_denryoku_list=("茨城県","栃木県","群馬県","埼玉県","千葉県","東京都","神奈川県","山梨県","静岡県");
 
@@ -79,6 +85,7 @@ FIN
 	exit;
 }
 
+&getbasehref;
 
 if($zip ne '') {
 	open (ZIP,"yubin.csv");
@@ -124,7 +131,6 @@ my $timetable = &read_timetable;
 my @dates = map {$date[$_]} 0 .. ($mobileflg - 1);
 
 if($out eq 'rss') {
-	&getbasehref;
 	$buf='';
 	$rssdate=&date("Y-m-dTH:i:s+9:00");
 
@@ -190,18 +196,18 @@ if($out eq 'rss') {
 						$_="none";
 					}
 					$xmldate[$i].=<<FIN;
-<item rdf:about="$::basehref?city=$_getcity&amp;gid=$getgroup">
+<item rdf:about="$basehref?city=$_getcity&amp;gid=$getgroup">
 <title>[$mon[$i]/$mday[$i]] @{[&roma($areaen1)]} @{[&roma($areaen2)]} @{[&roma($areaen3)]} (group $num) of rolliing blackout infomation.</title>
-<link>$::basehref?city=$_getcity&amp;zip1=$zip1&amp;zip2=$zip2&amp;gid=$getgroup</link>
+<link>$basehref?city=$_getcity&amp;zip1=$zip1&amp;zip2=$zip2&amp;gid=$getgroup</link>
 <description>$_</description>
 <dc:date>$rssdate</dc:date>
 </item>
 FIN
 				} else {
 					$xmldate[$i].=<<FIN;
-<item rdf:about="$::basehref?city=$_getcity&amp;gid=$getgroup">
+<item rdf:about="$basehref?city=$_getcity&amp;gid=$getgroup">
 <title>【$mon[$i]月$mday[$i]日】$area1$area2$area3(グループ$num)の計画停電情報です。</title>
-<link>$::basehref?city=$_getcity&amp;zip1=$zip1&amp;zip2=$zip2&amp;gid=$getgroup</link>
+<link>$basehref?city=$_getcity&amp;zip1=$zip1&amp;zip2=$zip2&amp;gid=$getgroup</link>
 <description>$_です。</description>
 <dc:date>$rssdate</dc:date>
 </item>
@@ -257,21 +263,21 @@ FIN
 	if($englishflg) {
 		if($buf ne '') {
 			print <<FIN;
-<channel rdf:about="$::basehost/index.cgi">
+<channel rdf:about="$basehost/index.cgi">
 <title>$areas of rolling blackout schedule</title>
-<link>$::basehost/index.html</link>
+<link>$basehost/index.html</link>
 </channel>
-<item rdf:about="$::basehref?city=$_getcity&amp;gid=$getgroup">
+<item rdf:about="$basehref?city=$_getcity&amp;gid=$getgroup">
 <title>$buf</title>
-<link>$::basehref?city=$_getcity&amp;zip1=$zip1&amp;zip2=$zip2&amp;gid=$getgroup</link>
+<link>$basehref?city=$_getcity&amp;zip1=$zip1&amp;zip2=$zip2&amp;gid=$getgroup</link>
 <dc:date>$rssdate</dc:date>
 </item>
 FIN
 		} else {
 			print <<FIN;
-<channel rdf:about="$::basehost$basepath">
+<channel rdf:about="$basehost$basepath">
 <title>$areas of rolling blackout schedule</title>
-<link>$::basehost$basepath</link>
+<link>$basehost$basepath</link>
 </channel>
 FIN
 		}
@@ -279,21 +285,21 @@ FIN
 	} else {
 		if($buf ne '') {
 			print <<FIN;
-<channel rdf:about="$::basehost/index.cgi">
+<channel rdf:about="$basehost/index.cgi">
 <title>$areasの計画停電予定</title>
-<link>$::basehost/index.html</link>
+<link>$basehost/index.html</link>
 </channel>
-<item rdf:about="$::basehref?city=$_getcity&amp;zip1=$zip1&amp;zip2=$zip2&amp;gid=$getgroup">
+<item rdf:about="$basehref?city=$_getcity&amp;zip1=$zip1&amp;zip2=$zip2&amp;gid=$getgroup">
 <title>$buf</title>
-<link>$::basehref?city=$_getcity&amp;gid=$getgroup</link>
+<link>$basehref?city=$_getcity&amp;gid=$getgroup</link>
 <dc:date>$rssdate</dc:date>
 </item>
 FIN
 		} else {
 			print <<FIN;
-<channel rdf:about="$::basehost$basepath">
+<channel rdf:about="$basehost$basepath">
 <title>$areasの計画停電予定</title>
-<link>$::basehost$basepath</link>
+<link>$basehost$basepath</link>
 </channel>
 FIN
 		}
@@ -531,10 +537,12 @@ if($mobileflg eq 2 || $mflg eq 1) {
 	$html=~s/９/9/g;
 	print $html;
 } else {
+	$_getcity=&encode($getcity);
 	print<<FIN;
 $html
-[<a href="area.cgi?city=$getcity&zip1=$zip1&zip2=$zip2&gid=$getgroup&out=rss&m=$mode">RSS</a>]
+[<a href="area.cgi?city=$_getcity&zip1=$zip1&zip2=$zip2&gid=$getgroup&out=rss&m=$mode">RSS</a>]
 FIN
+	print &make_link_qrcode("$basehref?city=$_getcity&amp;gid=$getgroup&amp;m=$mode");
 	printf("<hr>\nPowered by Perl $] HTML convert time to %.3f sec.",
 		((times)[0] - $::_conv_start));
 }
@@ -605,11 +613,11 @@ sub date {
 # これも面倒だからpyukiwikiから移植
 sub getbasehref {
 	# Thanks moriyoshi koizumi.
-	$::basehost = "$ENV{'HTTP_HOST'}";
-	$::basehost = 'http://' . $::basehost;
+	$basehost = "$ENV{'HTTP_HOST'}";
+	$basehost = 'http://' . $basehost;
 	# Special Thanks to gyo
-	$::basehost .= ":$ENV{'SERVER_PORT'}"
-		if ($ENV{'SERVER_PORT'} ne '80' && $::basehost !~ /:\d/);
+	$basehost .= ":$ENV{'SERVER_PORT'}"
+		if ($ENV{'SERVER_PORT'} ne '80' && $basehost !~ /:\d/);
 	# URLの生成
 	my $uri;
 	my $req=$ENV{REQUEST_URI};
@@ -629,11 +637,11 @@ sub getbasehref {
 	} else {
 		$uri .= $ENV{'SCRIPT_NAME'};
 	}
-	$::basehref=$::basehost . $uri;
-	$::basepath=$uri;
-	$::basepath=~s/\/[^\/]*$//g;
-	$::basepath="/" if($::basepath eq '');
-	$::script=$uri if($::script eq '');
+	$basehref=$basehost . $uri;
+	$basepath=$uri;
+	$basepath=~s/\/[^\/]*$//g;
+	$basepath="/" if($basepath eq '');
+	$script=$uri if($script eq '');
 }
 
 # これも面倒だからpyukiwikiから移植
@@ -710,3 +718,65 @@ sub read_timetable() {
 
 	return \%timetable;
 }
+
+sub load_module{
+	my $mod = shift;
+	eval qq( require $mod; );
+	unless($@) {
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+sub make_link_qrcode {
+	my ($string) = shift;
+	if(&load_module("GD::Barcode")) {
+		if($englishflg) {
+			$buf="If you have movile phone to transfer this result, use this barcode.";
+		} else {
+			$buf="この検索結果を携帯に転送するには、このQRコードを読み込んで下さい。";
+		}
+		$string=&encode($string);
+		return <<EOM;
+<br />$buf<br />
+<img alt="QRCode" src="$basehref?m=qr\&amp;str=$string" />
+EOM
+	}
+	'';
+}
+
+sub make_qrcode {
+	my ($string) = shift;
+	my %hParm;
+	my $oGdBar;
+
+	$defaultECC='M';
+	$defaultVersion=0;
+	$defaultSize=3;
+
+	if(&load_module("GD::Barcode")) {
+		$hParm{Ecc}=$defaultECC;
+		$hParm{ModuleSize}=$defaultSize;
+		$hParm{Version}=1+int(
+			length($string) / (
+				($defaultECC eq 'H' ? 8 : $defaultECC eq 'Q' ? 12
+		 		: $defaultECC eq 'M' ? 15 : 18)
+				-2));
+		$hParm{Version}=10;
+		$oGdBar = GD::Barcode->new(
+			'QRcode',
+			$string,
+			\%hParm);
+		die($GD::Barcode::errStr) unless($oGdBar);
+
+		binmode(STDOUT);
+		print <<FIN;
+Content-type: image/png
+
+FIN
+		print $oGdBar->plot->png;
+		exit;
+	}
+}
+
