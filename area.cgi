@@ -207,10 +207,12 @@ if($out eq 'rss') {
 		open (READ,"all.all");
 		while (<READ>) {
 			chomp;
-			my ($area1,$area2,$area3,$num,$areaen1,$areaen2,$areaen3,$areakana1,$areakana2,$areakana3)=split (/\t/,$_);
+			my ($area1,$area2,$area3,$grp,$areaen1,$areaen2,$areaen3,$areakana1,$areakana2,$areakana3)=split (/\t/,$_);
 			my $areaorg="$area1$area2$area3$areaen1$areaen2$areaen3$areakana1$areakana2$areakana3";
 			my $areakana="$areakana1$areakana2$areakana3";
 			my $arearoma="$areaen1$areaen2$areaen3";
+			my $num=$grp;
+			$num=~s/\-.*//g;
 			$areaorg=~ s/ //g;
 			$areakana=~ s/ //;
 
@@ -248,7 +250,7 @@ if($out eq 'rss') {
 					}
 					$xmldate[$i].=<<FIN;
 <item rdf:about="$basehref?city=$_getcity&amp;gid=$getgroup">
-<title>[$mon[$i]/$mday[$i]] @{[&roma($areaen1)]} @{[&roma($areaen2)]} @{[&roma($areaen3)]} (group $num) of rolliing blackout infomation.</title>
+<title>[$mon[$i]/$mday[$i]] @{[&roma($areaen1)]} @{[&roma($areaen2)]} @{[&roma($areaen3)]} (group $grp) of rolliing blackout infomation.</title>
 <link>$basehref?city=$_getcity&amp;zip1=$zip1&amp;zip2=$zip2&amp;gid=$getgroup</link>
 <description>$_</description>
 <dc:date>$rssdate</dc:date>
@@ -259,13 +261,13 @@ FIN
 					my $xmltitle;
 					if($areakana=~ m/$getcity/) {
 						$outarea="$areakana1 $areakana2 $areakana3";
-						$xmltitle="【$mon[$i]月$mday[$i]日】$outarea(グループ$num)の計画停電情報です。";
+						$xmltitle="【$mon[$i]月$mday[$i]日】$outarea(グループ$grp)の計画停電情報です。";
 					} elsif($arearoma=~ m/$getcity/) {
 						$outarea="$areaen1 $areaen2 $areaen3";
-						$xmltitle="[$mon[$i]/$mday[$i]日] $outarea (group $num) of rolliing blackout infomation.";
+						$xmltitle="[$mon[$i]/$mday[$i]日] $outarea (group $grp) of rolliing blackout infomation.";
 					} else {
 						$outarea="$area1$area2$area3";
-						$xmltitle="【$mon[$i]月$mday[$i]日】$outarea(グループ$num)の計画停電情報です。";
+						$xmltitle="【$mon[$i]月$mday[$i]日】$outarea(グループ$grp)の計画停電情報です。";
 					}
 					$xmldate[$i].=<<FIN;
 <item rdf:about="$basehref?city=$_getcity&amp;gid=$getgroup">
@@ -454,11 +456,13 @@ if($getcity=~/^(バージョン|試験|更新|[Uu][Pp][Dd][Aa][Tt][Ee]|[Vv][Ee][
 	my $bgcolor;
 	while (<READ>) {
 		chomp;
-		my ($area1,$area2,$area3,$num,$areaen1,$areaen2,$areaen3,$areakana1,$areakana2,$areakana3)=split (/\t/,$_);
+		my ($area1,$area2,$area3,$grp,$areaen1,$areaen2,$areaen3,$areakana1,$areakana2,$areakana3)=split (/\t/,$_);
 		my $areaorg="$area1$area2$area3$areaen1$areaen2$areaen3$areakana1$areakana2$areakana3";
 		my $areakanji="$area1$area2$area3";
 		my $areakana="$areakana1$areakana2$areakana3";
 		my $arearoma="$areaen1$areaen2$areaen3";
+		my $num=$grp;
+		$num=~s/\-.*//g;
 		$areaorg=~ s/ //g;
 		$areakana=~ s/ //;
 		foreach(@tokyo_denryoku_list) {
@@ -494,22 +498,22 @@ if($getcity=~/^(バージョン|試験|更新|[Uu][Pp][Dd][Aa][Tt][Ee]|[Vv][Ee][
 		if($englishflg) {
 			$buf.="<tr bgcolor=$bgcolor><td><b>@{[&roma($areaen1)]} @{[&roma($areaen2)]} @{[&roma($areaen3)]}</b></td>" . 
 			      join('', map {"<td>@{[$_=~/なし/ ? 'none' : $_]}</td>"} @hours) . 
-			      "<td>Group $num</td></tr>\n";
+			      "<td>Group $grp</td></tr>\n";
 
 		} else {
 			if($areakanji=~ m/$getcity/) {
 				$buf.="<tr bgcolor=$bgcolor><td><b>$area1 $area2 $area3</b></td>"
 					. join('', map {"<td>$_</td>"} @hours) . 
-					      "<td>第$numグループ</td></tr>\n";
+					      "<td>第$grpグループ</td></tr>\n";
 
 			} elsif($areakana=~ m/$getcity/) {
 				$buf.="<tr bgcolor=$bgcolor><td><b>$areakana1 $areakana2 $areakana3</b></td>"
 					. join('', map {"<td>$_</td>"} @hours) . 
-					      "<td>ダイ$numグループ</td></tr>\n";
+					      "<td>ダイ$grpグループ</td></tr>\n";
 			} elsif($arearoma=~ m/$getcity/) {
 				$buf.="<tr bgcolor=$bgcolor><td><b>$areaen1 $areaen2 $areaen3</b></td>"
 					. join('', map {"<td>@{[$_ =~/なし/ ? 'none' : $_]}</td>"} @hours) . 
-					      "<td>Group $num</td></tr>\n";
+					      "<td>Group $grp</td></tr>\n";
 			}
 		}
 		++$count;

@@ -2,11 +2,12 @@
 
 use strict;
 
-my $VER="V.1.139(nanakochi123456 version nyatakasan/hiratara 1st release:mnakajim)";
-my $tarball="power110325-2.tar.gz";
+my $VER="V.1.140(nanakochi123456 version nyatakasan/hiratara 1st release:mnakajim)";
+my $tarball="power110325-3.tar.gz";
 my $history=<<EOM;
 <h3>データ更新状況:</h3>
 <ul id="update">
+<li>2011/3/25 18:40 東京電力２６日、２７日実施なしに対応した。</li>
 <li>2011/3/25 03:14 東京電力データを更新した。</li>
 <li>2011/3/24 18:43 25日の１，３，４，５グループの計画停電なしに対応した。</li>
 <li>2011/3/24 12:00 英語版のローマ字振りの一部が変換されていなかったのを修正した。</li>
@@ -21,6 +22,7 @@ my $history=<<EOM;
 
 <h3>エンジン更新履歴:</h3>
 <ul id="engine">
+<li>2011/3/25 18:40 東京電力のグループが 1-Aや、5-Cになるのを仮対応した。</li>
 <li>2011/3/24 09:44 カタカナ、及びローマ字で検索できるようにした。</li>
 <li>2011/3/24 08:28 index.cgi を書き換えた。そのため、出力ファイル3ファイルが追加されます。</li>
 <li>2011/3/24 13:32 バージョン (または 試験、更新、update、ver）を検索文字列に入れると、エンジンのバージョン及びデータベース等のタイムスタンプを出力するようにした。</li>
