@@ -7,16 +7,15 @@ BEGIN {
 use CGI;
 use Encode qw/decode encode_utf8 from_to/;
 use Encode::Guess;
-require 'gval.pl';
 
 $query=new CGI;
 $getcity=$query->param('city');
 $getcity=force_utf8($query->param('city'));
-$mflg=$query->param('m');
 $zip=$query->param('zip');
 $mode=$query->param('m');
 $englishflg=0;
 $englishflg=1 if($mode eq 'e');
+$mflg=1 if($mode eq 'm');
 
 $zip=~s/\-//g;
 if($zip eq '') {
@@ -24,9 +23,9 @@ if($zip eq '') {
 	$zip2=$query->param('zip2');
 	$zip=$zip1 . $zip2;
 }
-if($zip ne '') {
-	$zip1=substr($zip,0,3);
-	$zip2=substr($zip,2,4);
+if($zip=~/(\d\d\d)(\d\d\d\d)/) {
+	$zip1=$1;
+	$zip2=$2;
 }
 $out=$query->param('out');
 $comm=$query->param('comm');
@@ -36,6 +35,12 @@ $getgroup=$query->param('gid');
 if ($getgroup>8 || $getgroup<=0) {
 	$getgroup=0;
 }
+
+# 東京電力リスト
+@tokyo_denryoku_list=("茨城県","栃木県","群馬県","埼玉県","千葉県","東京都","神奈川県","山梨県","静岡県");
+
+# 東北電力リスト
+@tohoku_denryoku_list=("青森県","秋田県","岩手県","宮城県","山形県","福島県","新潟県");
 
 $getcity=~s/ケ/ヶ/g;
 $getcity=~s/の/ノ/g;
@@ -74,6 +79,7 @@ FIN
 	exit;
 }
 
+
 if($zip ne '') {
 	open (ZIP,"yubin.csv");
 	while(<ZIP>) {
@@ -103,41 +109,19 @@ if($zip ne '') {
 }
 
 # 日付取得
-for($i=0; $i<5; $i++) {
-	$date[$i]=&date("Y/m/d",,time+86400*$i);
+for($i=0; $i<5; $i++) { 
+	$date[$i]=&date("Y-m-d",,time+86400*$i);
 	$mon[$i]=&date("n",,time+86400*$i);
 	$mday[$i] = &date("j",,time+86400*$i);
-}
-
-# タイムテーブル解析
-
-foreach $line(split(/\n/,$gto)) {
-	($p[0],$p[1],$p[2],$p[3],$p[4],$p[5],$p[6],$p[7],$p[8])=split(/\|/,$line);
-	for($i=0; $i<5; $i++) {
-		if($p[0] eq $date[$i]) {
-			for($grp=1; $grp<=5; $grp++) {
-				$gto{"$date[$i]_$grp"}=$p[$grp];
-			}
-		}
-	}
-}
-
-foreach $line(split(/\n/,$gth)) {
-	($p[0],$p[1],$p[2],$p[3],$p[4],$p[5],$p[6],$p[7],$p[8])=split(/\|/,$line);
-	for($i=0; $i<5; $i++) {
-		if($p[0] eq $date[$i]) {
-			for($grp=1; $grp<=8; $grp++) {
-				$gth{"$date[$i]_$grp"}=$p[$grp];
-EOM
-			}
-		}
-	}
 }
 
 # 携帯かどうか？
 
 $mobileflg=4;
 $mobileflg=2 if($ENV{HTTP_USER_AGENT}=~/DoCoMo|UP\.Browser|KDDI|SoftBank|Voda[F|f]one|J\-PHONE/) || $mflg eq 1;
+
+my $timetable = &read_timetable;
+my @dates = map {$date[$_]} 0 .. ($mobileflg - 1);
 
 if($out eq 'rss') {
 	&getbasehref;
@@ -175,78 +159,60 @@ if($out eq 'rss') {
 
 			foreach(@tokyo_denryoku_list) {
 				if($area1 eq $_) {
-					%g=%gto;
+					$firm = 'T';
 					last;
 				}
 			}
 			foreach(@tohoku_denryoku_list) {
 				if($area1 eq $_) {
-					%g=%gth;
+					$firm = 'H';
 					last;
 				}
 			}
 
 			if ($getgroup) {
-				if ($areaorg=~ m/$getcity/ and $num eq $getgroup) {
-					for($i=0; $i<$mobileflg; $i++) {
-						$_getcity=&encode($getcity);
-						if ($englishflg) {
-							if($g{"$date[$i]_$num"}=~/なし/) {
-								$g{"$date[$i]_$num"}="none";
-							}
-							$xml=<<FIN;
-<item rdf:about="$::basehref?city=$_getcity&amp;zip1=$zip1&amp;zip2=$zip2&amp;gid=$getgroup">
-<title>[$mon[$i]/$mday[$i]] @{[&roma($areaen1)]} @{[&roma($areaen2)]} @{[&roma($areaen3)]} (group $num) of rolliing blackout infomation.</title>
-<link>$::basehref?city=$_getcity&amp;zip1=$zip1&amp;zip2=$zip2&amp;gid=$getgroup</link>
-<description>$g{"$date[$i]_$num"}</description>
-<dc:date>$rssdate</dc:date>
-</item>
-FIN
-						} else {
-							$xml=<<FIN;
-<item rdf:about="$::basehref?city=$_getcity&amp;zip1=$zip1&amp;zip2=$zip2&amp;gid=$getgroup">
-<title>【$mon[$i]月$mday[$i]日】$area1$area2$area3(グループ$num)の計画停電情報です。</title>
-<link>$::basehref?city=$_getcity&amp;zip1=$zip1&amp;zip2=$zip2&amp;gid=$getgroup</link>
-<description>$g{"$date[$i]_$num"}です。</description>
-<dc:date>$rssdate</dc:date>
-</item>
-FIN
-						}
-						$XML{"$date[$i]"}.=$xml;
-					}
-					++$count;
-				}
+				next unless $areaorg=~ m/$getcity/ and $num eq $getgroup;
 			} else {
-				if ($areaorg=~ m/$getcity/) {
-					for($i=0; $i<$mobileflg; $i++) {
-						$_getcity=&encode($getcity);
-						if ($englishflg) {
-							if($g{"$date[$i]_$num"}=~/なし/) {
-								$g{"$date[$i]_$num"}="none";
-							}
-							$xml=<<FIN;
-<item rdf:about="$::basehref?city=$_getcity&amp;zip1=$zip1&amp;zip2=$zip2&amp;gid=$getgroup">
+				next unless $areaorg=~ m/$getcity/;
+			}
+
+			my @hours = map {
+				my $hours = $timetable->{$firm}{$_}{$num};
+				$hours ? join(', ', @$hours) : '-';
+			} @dates;
+
+			$i=0;
+			foreach(@hours) {
+				$_getcity=&encode($getcity);
+				$hour ? join(', ', @$hours) : '-';
+				if ($englishflg) {
+					if(/なし/) {
+						$_="none";
+					}
+					$xmldate[$i].=<<FIN;
+<item rdf:about="$::basehref?city=$_getcity&amp;gid=$getgroup">
 <title>[$mon[$i]/$mday[$i]] @{[&roma($areaen1)]} @{[&roma($areaen2)]} @{[&roma($areaen3)]} (group $num) of rolliing blackout infomation.</title>
 <link>$::basehref?city=$_getcity&amp;zip1=$zip1&amp;zip2=$zip2&amp;gid=$getgroup</link>
-<description>$g{"$date[$i]_$num"}</description>
+<description>$_</description>
 <dc:date>$rssdate</dc:date>
 </item>
 FIN
-						} else {
-							$xml=<<FIN;
-<item rdf:about="$::basehref?city=$_getcity&amp;zip1=$zip1&amp;zip2=$zip2&amp;gid=$getgroup">
+				} else {
+					$xmldate[$i].=<<FIN;
+<item rdf:about="$::basehref?city=$_getcity&amp;gid=$getgroup">
 <title>【$mon[$i]月$mday[$i]日】$area1$area2$area3(グループ$num)の計画停電情報です。</title>
 <link>$::basehref?city=$_getcity&amp;zip1=$zip1&amp;zip2=$zip2&amp;gid=$getgroup</link>
-<description>$g{"$date[$i]_$num"}です。</description>
+<description>$_です。</description>
 <dc:date>$rssdate</dc:date>
 </item>
 FIN
-						}
-						$XML{"$date[$i]"}.=$xml;
-					}
-					++$count;
 				}
+				++$i;
 			}
+			++$count;
+		}
+		for($i=0; $i<$mobileflg; $i++) {
+			$xml.=$xmldate[$i];
 		}
 		if (!$count) {
 			if($englishflg) {
@@ -295,7 +261,7 @@ FIN
 <title>$areas of rolling blackout schedule</title>
 <link>$::basehost/index.html</link>
 </channel>
-<item rdf:about="$::basehref?city=$_getcity&amp;zip1=$zip1&amp;zip2=$zip2&amp;gid=$getgroup">
+<item rdf:about="$::basehref?city=$_getcity&amp;gid=$getgroup">
 <title>$buf</title>
 <link>$::basehref?city=$_getcity&amp;zip1=$zip1&amp;zip2=$zip2&amp;gid=$getgroup</link>
 <dc:date>$rssdate</dc:date>
@@ -309,9 +275,7 @@ FIN
 </channel>
 FIN
 		}
-		for($i=0; $i<$mobileflg; $i++) {
-			print $XML{"$date[$i]"};
-		}
+		print $xml;
 	} else {
 		if($buf ne '') {
 			print <<FIN;
@@ -321,7 +285,7 @@ FIN
 </channel>
 <item rdf:about="$::basehref?city=$_getcity&amp;zip1=$zip1&amp;zip2=$zip2&amp;gid=$getgroup">
 <title>$buf</title>
-<link>$::basehref?city=$_getcity&amp;zip1=$zip1&amp;zip2=$zip2&amp;gid=$getgroup</link>
+<link>$::basehref?city=$_getcity&amp;gid=$getgroup</link>
 <dc:date>$rssdate</dc:date>
 </item>
 FIN
@@ -333,9 +297,7 @@ FIN
 </channel>
 FIN
 		}
-		for($i=0; $i<$mobileflg; $i++) {
-			print $XML{"$date[$i]"};
-		}
+		print $xml;
 	}
 
 	print <<FIN;
@@ -410,6 +372,7 @@ if ($zip2 eq "0000") {
 	}
 } else {
 	open (READ,"all.all");
+	my $film;
 	while (<READ>) {
 		chomp;
 		($area1,$area2,$area3,$num,$areaen1,$areaen2,$areaen3)=split (/\t/,$_);
@@ -419,13 +382,13 @@ if ($zip2 eq "0000") {
 
 		foreach(@tokyo_denryoku_list) {
 			if($area1 eq $_) {
-				%g=%gto;
+				$firm = 'T';
 				last;
 			}
 		}
 		foreach(@tohoku_denryoku_list) {
 			if($area1 eq $_) {
-				%g=%gth;
+				$firm = 'H';
 				last;
 			}
 		}
@@ -437,70 +400,28 @@ if ($zip2 eq "0000") {
 		}
 
 		if ($getgroup) {
-			if ($areaorg=~ m/$getcity/ and $num eq $getgroup) {
-				if($englishflg) {
-					$buf.=<<FIN;
-<tr bgcolor=$bgcolor><td><b>@{[&roma($areaen1)]} @{[&roma($areaen2)]} @{[&roma($areaen3)]}</b></td>
-FIN
-				} else {
-					$buf.=<<FIN;
-<tr bgcolor=$bgcolor><td><b>$area1 $area2 $area3</b></td>
-FIN
-				}
-				for($i=0; $i<$mobileflg; $i++) {
-					if($englishflg) {
-						if($g{"$date[$i]_$num"}=~/なし/) {
-							$g{"$date[$i]_$num"}="none";
-						}
-					}
-					$buf.=<<FIN;
-<td>$g{"$date[$i]_$num"}</td>
-FIN
-				}
-				if($englishflg) {
-					$buf.=<<FIN;
-<td>Group $num</td></tr>
-FIN
-				} else {
-					$buf.=<<FIN;
-<td>第$numグループ</td></tr>
-FIN
-				}
-				++$count;
-			}
+			next unless $areaorg=~ m/$getcity/ and $num eq $getgroup;
 		} else {
-			if ($areaorg=~ m/$getcity/) {
-				if($englishflg) {
-					$buf.=<<FIN;
-<tr bgcolor=$bgcolor><td><b>@{[&roma($areaen1)]} @{[&roma($areaen2)]} @{[&roma($areaen3)]}</b></td>
-FIN
-				} else {
-					$buf.=<<FIN;
-<tr bgcolor=$bgcolor><td><b>$area1 $area2 $area3</b></td>
-FIN
-				}
-				for($i=0; $i<$mobileflg; $i++) {
-					if($englishflg) {
-						if($g{"$date[$i]_$num"}=~/なし/) {
-							$g{"$date[$i]_$num"}="none";
-						}
-					}
-					$buf.=<<FIN;
-<td>$g{"$date[$i]_$num"}</td>
-FIN
-				}
-				if($englishflg) {
-					$buf.=<<FIN;
-<td>Group $num</td></tr>
-FIN
-				} else {
-					$buf.=<<FIN;
-<td>第$numグループ</td></tr>
-FIN
-				}
-				++$count;
-			}
+			next unless $areaorg=~ m/$getcity/;
 		}
+
+		my @hours = map {
+			my $hours = $timetable->{$firm}{$_}{$num};
+			$hours ? join(', ', @$hours) : '-';
+		} @dates;
+
+		if($englishflg) {
+			$buf.="<tr bgcolor=$bgcolor><td><b>@{[&roma($areaen1)]} @{[&roma($areaen2)]} @{[&roma($areaen3)]}</b></td>" . 
+			      join('', map {"<td>@{[$_=~/なし/ ? 'none' : $_]}</td>"} @hours) . 
+			      "<td>Group $num</td></tr>\n";
+
+		} else {
+			$buf.="<tr bgcolor=$bgcolor><td><b>$area1 $area2 $area3</b></td>" . 
+			      join('', map {"<td>$_</td>"} @hours) . 
+			      "<td>第$numグループ</td></tr>\n";
+
+		}
+		++$count;
 	}
 	if (!$count) {
 		if($englishflg) {
@@ -774,4 +695,18 @@ __TABLE_END__
     while (($k, $s) = each %z2h) {
 	$s =~ s/([\241-\337])/\216$1/g && ($z2h_euc{$k} = $s);
     }
+}
+
+sub read_timetable() {
+	my %timetable;
+
+	open my $fh, '<', 'timetable.txt' or die $!;
+	while (<$fh>) {
+		chomp;
+		my ($firm, $date, $group, @hours) = split /\t/, $_;
+		$timetable{$firm}{$date}{$group} = \@hours;
+	}
+	close $fh;
+
+	return \%timetable;
 }

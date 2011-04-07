@@ -1,33 +1,25 @@
 #!/usr/bin/perl
 
-$VER="V.1.131b3(nanakochi123456)";
-$tarball="power110323.tar.gz";
+$VER="V.1.131b4(nanakochi123456 1st release:mnakajim)";
+$tarball="power110323-2.tar.gz";
 
 $history=<<EOM;
 <h3>データ更新状況:</h3>
 <ul id="update">
 <li>2011/3/23 05:55 東京電力のデータを更新した。</li>
 <li>2011/3/22 10:30 東京電力のデータを更新した。これにより茨城県がしばらく計画停電の範囲外になる模様です。</li>
-<li>2011/3/21 12:41 東京電力本日の計画停電なしに対応した。</li>
-<li>2011/3/21 09:00 東京電力データを更新した</li>
-<li>2011/3/19 17:08 東京電力データを更新した</li>
 </ul>
 <a href="http://power.daiba.cx/wiki/?%a5%c7%a1%bc%a5%bf%b9%b9%bf%b7%cd%fa%ce%f2">これ以前の当方のデータ更新履歴</a><br />
 <a href="http://bizoole.com/power/history/datahistory.html">これ以前の本家のデータ更新履歴</a>
 
 <h3>エンジン更新履歴:</h3>
 <ul id="engine">
+<li>2011/3/23 13:26 エンジン最新にして、軽量化を図った。RSSで郵便番号で検索した場合、一部バグるのを修正した。</li>
 <li>2011/3/22 19:00 23日の東京電力の1回目の１、２グループにおいて実施しないことを反映した。</li>
 <li>2011/3/22 17:30 英語版にて、１文字目大文字、それ以上の文字を小文字にしました。また、area.cgiにおいてもgzip圧縮をしました。</li>
 <li>2011/3/22 16:00 英語版（β）を作成した。なお、地名変換には、Kakasiを使用しています。</li>
 <li>2011/3/22 11:40 22日東京電力　第１及び５グループ２回目計画停電なしに対応。</li>
 <li>2011/3/22 10:30 事前にall.allを最適化しておくことで、検索時間をわずかに最適化した。</li>
-<li>2011/3/21 19:15 22日東京電力の第5グループ1回目実施なし、及び、東北電力の実施なしに対応。</li>
-<li>2011/3/21 13:58 ページ読み込み時、入力欄にフォーカスするようにした。携帯版のPC版へのリンク先の位置を変更。</li>
-<li>2011/3/21 12:41 モバイル向けの出力をすべて半角カナ、英数字にした。</li>
-<li>2011/3/21 10:57 データ編集方法によってはchompで改行が削除できないことがあるので、変更した。</li>
-<li>2011/3/21 09:00 日本語変換モジュールをhiratara氏のに変更した。</li>
-<li>2011/3/21 06:30 PC/モバイル別にTOPページを指定できるようにした。(注:update.cgiを更新しています。別途<a href="update.txt">こちら</a>から新たに入手して下さい。)</li>
 </ul>
 <br />
 <a href="http://power.daiba.cx/wiki/?%a5%a8%a5%f3%a5%b8%a5%f3%b9%b9%bf%b7%cd%fa%ce%f2">これ以前の当方のエンジン更新履歴</a><br />
@@ -936,7 +928,7 @@ $VER<br />
 <div>Refine group number</div>
 <select name="gid">
 <option value="0">none</option>
-<option value="1">Gropup 1</option>
+<option value="1">Group 1</option>
 <option value="2">Group 2</option>
 <option value="3">Group 3</option>
 <option value="4">Group 4</option>
@@ -985,6 +977,7 @@ $VER<br />
 </select>
 <br />
 <br />
+<input type="hidden" name="m" value="m" />
 <input type="submit" name="submit" value="検索" />
 </form>
 <br />
@@ -1005,7 +998,7 @@ EOM
 $pc_body=<<EOM;
 <body onload="document.form.city.focus()">
 <div id="wrapper">
-<h1>停電時間検索 $VER (東京電力、東北電力)</h1>
+<h1>停電時間検索 $VER<br />(東京電力、東北電力)</h1>
 <!include="header.html">
 計画停電の時間やグループを検索できるツールです。<br />東京電力、東北電力の公式データを元にしています。<br>
 [<a href="?m">モバイル向けページ</a>] [<a href="?e">English</a>]
