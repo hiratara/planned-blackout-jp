@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 
-$VER="V.1.130(nanakochi123456)";
-$tarball="power110322-2.tar.gz";
+$VER="V.1.131b1(nanakochi123456)";
+$tarball="power110322-3.tar.gz";
 
 $history=<<EOM;
 <h3>データ更新状況:</h3>
@@ -16,6 +16,7 @@ $history=<<EOM;
 
 <h3>エンジン更新履歴:</h3>
 <ul id="engine">
+<li>2011/3/22 16:00 英語版（β）を作成した。なお、地名変換には、Kakasiを使用しています。</li>
 <li>2011/3/22 11:40 22日東京電力　第１及び５グループ２回目計画停電なしに対応。</li>
 <li>2011/3/22 10:30 事前にall.allを最適化しておくことで、検索時間をわずかに最適化した。</li>
 <li>2011/3/21 19:15 22日東京電力の第5グループ1回目実施なし、及び、東北電力の実施なしに対応。</li>
@@ -31,14 +32,17 @@ $history=<<EOM;
 EOM
 
 #------------
-
+$nojapaneseflg=0;
+$nojapaneseflg=1 if($ENV{HTTP_ACCEPT_LANGUAGE}!~/ja/);
 $mobileflg=0;
 $mobileflg=1 if($ENV{HTTP_USER_AGENT}=~/DoCoMo|UP\.Browser|KDDI|SoftBank|Voda[F|f]one|J\-PHONE|DDIPOCKET|WILLCOM|iPod|PDA/);
 
 $mobileflg=0 if($ENV{QUERY_STRING} eq 'p');
 $mobileflg=1 if($ENV{QUERY_STRING} eq 'm');
+$nojapaneseflg=1 if($ENV{QUERY_STRING} eq 'e');
+$nojapaneseflg=0 if($ENV{QUERY_STRING} eq 'p');
 
-$scriptandcss=<<EOM if ($mobileflg eq 0);
+$scriptandcss=<<EOM if ($mobileflg eq 0 && $nojapaneseflg eq 0);
 <style type="text/css">
 \@charset "UTF-8";
 //reset html {
@@ -909,10 +913,48 @@ $top=<<EOM;
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="Content-Language" content="ja" />
-<title>計画停電時間検索</title>
+<title>@{[$nojapaneseflg ? "Search time rolling blackouts" : "計画停電時間検索"]}</title>
 <meta name="description" content="計画停電の時間やグループを検索できるツールです。市区町村名、地域名など住所の一部や郵便番号などから停電時間を検索できます。">
 <meta name="keywords" content="計画停電,検索,システム,ツール,スケジュール,輪番停電,グループ">$scriptandcss
 </head>
+EOM
+
+$english_body=<<EOM;
+<body>
+<div style="text-align:center;" align="center">Power failure search tool for Japan</div>
+<div style="text-align:center;" align="center">(TEPCO,Tohoku-Denryoku)</div>
+$VER<br />
+<hr />
+<form action="area.cgi" method="get">
+<div>City or AreaName (egg..Tokyo is toukyou, City is shi....Roman alphabet)</div>
+<input type="text" name="city" size="20" />
+<div>or ZIP code</div>
+<input type="text" name="zip1" maxlength="3" size="3" istyle="4" mode="numeric" />-<input type="text" name="zip2" maxlength="4" size="4" istyle="4" mode="numeric" /><br />
+<div>Refine group number</div>
+<select name="gid">
+<option value="0">none</option>
+<option value="1">Gropup 1</option>
+<option value="2">Group 2</option>
+<option value="3">Group 3</option>
+<option value="4">Group 4</option>
+<option value="5">Group 5</option>
+<option value="6">Group 6(tohoku)</option>
+<option value="7">Group 7(tohoku)</option>
+<option value="8">Group 8(tohoku)</option>
+</select>
+<br />
+<br />
+<input type="hidden" name="m" value="e" />
+<input type="submit" name="submit" value="Search" />
+</form>
+<br />
+<a href="?p">Japanese</a>
+<hr />
+<div align="center" style="text-align:center;"><a href="http://twitter.com/mnakajim">(c)M.NAKAJIM</a><br>
+and supporters</div>
+<!-- update href="http://power.daiba.cx/$tarball" -->
+</body>
+</html>
 EOM
 
 $mobile_body=<<EOM;
@@ -946,7 +988,9 @@ $VER<br />
 *<a href="http://inferno.soutan.net/power/search">For English</a><br />
 <a href="http://denki.moene.ws/">ﾐﾗｰ1</a> や<a href="http://bit.ly/e6b2XL">ﾐﾗｰ2</a>等<br />
 <br />
-<a href="?p">PC向けﾍﾟｰｼﾞ</a>
+<a href="?p">PC向けﾍﾟｰｼﾞ</a><br />
+<a href="?e">English</a>
+
 <hr />
 <div align="center" style="text-align:center;"><a href="http://twitter.com/mnakajim">(c)中島昌彦<br>
 (M.NAKAJIM)</a><br>
@@ -961,7 +1005,7 @@ $pc_body=<<EOM;
 <h1>停電時間検索 $VER (東京電力、東北電力)</h1>
 <!include="header.html">
 計画停電の時間やグループを検索できるツールです。<br />東京電力、東北電力の公式データを元にしています。<br>
-<a href="?m">モバイル向けページ</a>
+[<a href="?m">モバイル向けページ</a>] [<a href="?e">English</a>]
 <div id="sArea">
 計画停電（輪番停電）の時間やグループを簡単に検索できるツールです。<br />
 自分の住んでいる地域がどこのグループに属するのか、住所の一部などから検索できます。
@@ -1240,6 +1284,8 @@ if ($gzip_header ne '') {
 
 if($mobileflg) {
 	$body=$mobile_body;
+} elsif($nojapaneseflg) {
+	$body=$english_body;
 } else {
 	$body=$pc_body;
 }

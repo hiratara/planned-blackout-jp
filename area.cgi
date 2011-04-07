@@ -14,6 +14,10 @@ $getcity=$query->param('city');
 $getcity=force_utf8($query->param('city'));
 $mflg=$query->param('m');
 $zip=$query->param('zip');
+$mode=$query->param('m');
+$englishflg=0;
+$englishflg=1 if($mode eq 'e');
+
 $zip=~s/\-//g;
 if($zip eq '') {
 	$zip1=$query->param('zip1');
@@ -47,6 +51,9 @@ $getcity=~s/7/７/g;
 $getcity=~s/8/８/g;
 $getcity=~s/8/９/g;
 
+if($englishflg) {
+	$getcity=~tr/[a-z]/[A-Z/;
+}
 if($comm eq 'ver') {
 	print <<FIN;
 Content-type: text/plain; charset=utf-8
@@ -140,17 +147,30 @@ if($out eq 'rss') {
 	$count=0;
 
 	if ($zip2 eq "0000") {
-		$buf="郵便番号末尾４桁 0000 では検索できません。";
+		if($englishflg) {
+			$buf="Ending in 0000 can not find the ZIP code.";
+		} else {
+			$buf="郵便番号末尾４桁 0000 では検索できません。";
+		}
 	} elsif ($zip ne '' && $zip!~/\d\d\d\d\d\d\d/ && length($zip) ne 7) {
-		$buf="郵便番号が正確に入力されていないようです。";
+		if($englishflg) {
+			$buf="The ZIP code seems not to be input accurately.";
+		} else {
+			$buf="郵便番号が正確に入力されていないようです。";
+		}
 	} elsif($zip eq '' && $getcity eq '') {
-		$buf="地域名、もしくは郵便番号が入力されていません。";
+		if($englishflg) {
+			$buf="It's not input city name or ZIP code.";
+		} else {
+			$buf="地域名、もしくは郵便番号が入力されていません。";
+		}
 	} else {
 		open (READ,"all.all");
 		while (<READ>) {
 			chomp;
-			($area1,$area2,$area3,$num)=split (/\t/,$_);
+			($area1,$area2,$area3,$num,$areaen1,$areaen2,$areaen3)=split (/\t/,$_);
 			$areaorg="$area1$area2$area3";
+			$areaorg="$area1$area2$area3$areaen1$areaen2$areaen3" if($englishflg);
 			$areaorg=~ s/ //g;
 
 			foreach(@tokyo_denryoku_list) {
@@ -166,19 +186,32 @@ if($out eq 'rss') {
 				}
 			}
 
-
 			if ($getgroup) {
 				if ($areaorg=~ m/$getcity/ and $num eq $getgroup) {
 					for($i=0; $i<$mobileflg; $i++) {
 						$_getcity=&encode($getcity);
-						$xml=<<FIN;
+						if ($englishflg) {
+							if($g{"$date[$i]_$num"}=~/なし/) {
+								$g{"$date[$i]_$num"}="none";
+							}
+							$xml=<<FIN;
 <item rdf:about="$::basehref?city=$_getcity&amp;zip1=$zip1&amp;zip2=$zip2&amp;gid=$getgroup">
-<title>【$mon[$i]月$mday[$i]日】$arrea1$area2$area3(グループ$num)の計画停電情報です。</title>
+<title>[$mon[$i]/$mday[$i]] $areaen1 $areaen2 $areaen3(group $num) of rolliing blackout infomation.</title>
+<link>$::basehref?city=$_getcity&amp;zip1=$zip1&amp;zip2=$zip2&amp;gid=$getgroup</link>
+<description>$g{"$date[$i]_$num"}</description>
+<dc:date>$rssdate</dc:date>
+</item>
+FIN
+						} else {
+							$xml=<<FIN;
+<item rdf:about="$::basehref?city=$_getcity&amp;zip1=$zip1&amp;zip2=$zip2&amp;gid=$getgroup">
+<title>【$mon[$i]月$mday[$i]日】$area1$area2$area3(グループ$num)の計画停電情報です。</title>
 <link>$::basehref?city=$_getcity&amp;zip1=$zip1&amp;zip2=$zip2&amp;gid=$getgroup</link>
 <description>$g{"$date[$i]_$num"}です。</description>
 <dc:date>$rssdate</dc:date>
 </item>
 FIN
+						}
 						$XML{"$date[$i]"}.=$xml;
 					}
 					++$count;
@@ -187,14 +220,28 @@ FIN
 				if ($areaorg=~ m/$getcity/) {
 					for($i=0; $i<$mobileflg; $i++) {
 						$_getcity=&encode($getcity);
-						$xml=<<FIN;
+						if ($englishflg) {
+							if($g{"$date[$i]_$num"}=~/なし/) {
+								$g{"$date[$i]_$num"}="none";
+							}
+							$xml=<<FIN;
 <item rdf:about="$::basehref?city=$_getcity&amp;zip1=$zip1&amp;zip2=$zip2&amp;gid=$getgroup">
-<title>【$mon[$i]月$mday[$i]日】$arrea1$area2$area3(グループ$num)の計画停電情報です。</title>
+<title>[$mon[$i]/$mday[$i]] $areaen1 $areaen2 $areaen3(group $num) of rolliing blackout infomation.</title>
+<link>$::basehref?city=$_getcity&amp;zip1=$zip1&amp;zip2=$zip2&amp;gid=$getgroup</link>
+<description>$g{"$date[$i]_$num"}</description>
+<dc:date>$rssdate</dc:date>
+</item>
+FIN
+						} else {
+							$xml=<<FIN;
+<item rdf:about="$::basehref?city=$_getcity&amp;zip1=$zip1&amp;zip2=$zip2&amp;gid=$getgroup">
+<title>【$mon[$i]月$mday[$i]日】$area1$area2$area3(グループ$num)の計画停電情報です。</title>
 <link>$::basehref?city=$_getcity&amp;zip1=$zip1&amp;zip2=$zip2&amp;gid=$getgroup</link>
 <description>$g{"$date[$i]_$num"}です。</description>
 <dc:date>$rssdate</dc:date>
 </item>
 FIN
+						}
 						$XML{"$date[$i]"}.=$xml;
 					}
 					++$count;
@@ -202,15 +249,27 @@ FIN
 			}
 		}
 		if (!$count) {
-			$buf="計画停電のないエリアです。";
+			if($englishflg) {
+				$buf="Not found of rolling blakout area.";
+			} else {
+				$buf="計画停電のないエリアです。";
+			}
 		}
 		if ($count>400) {
-			$buf="該当地域が多すぎです。詳細の地域名を入力してください。";
+			if($englishflg) {
+				$buf="There are a lot of pertinent regions. Please input a regional name of details.";
+			} else {
+				$buf="該当地域が多すぎです。詳細の地域名を入力してください。";
+			}
 		}
 	}
 
 	if($zip ne '') {
-		$areas="〒$zip1-$zip2";
+		if($englishflg) {
+			$areas="ZIP:$zip1-$zip2";
+		} else {
+			$areas="〒$zip1-$zip2";
+		}
 	} else {
 		$areas="$getcity";
 	}
@@ -229,11 +288,12 @@ Expires: Mon, 26, Jul 1997 05:00:00 GMT
  xmlns:dc="http://purl.org/dc/elements/1.1/"
 >
 FIN
-	if($buf ne '') {
-		print <<FIN;
-<channel rdf:about="$::basehost/index.html">
- <title>$areasの計画停電予定</title>
- <link>$::basehost/index.html</link>
+	if($englishflg) {
+		if($buf ne '') {
+			print <<FIN;
+<channel rdf:about="$::basehost/index.cgi">
+<title>$areas of rolling blackout schedule</title>
+<link>$::basehost/index.html</link>
 </channel>
 <item rdf:about="$::basehref?city=$_getcity&amp;zip1=$zip1&amp;zip2=$zip2&amp;gid=$getgroup">
 <title>$buf</title>
@@ -241,61 +301,120 @@ FIN
 <dc:date>$rssdate</dc:date>
 </item>
 FIN
+		} else {
+			print <<FIN;
+<channel rdf:about="$::basehost$basepath">
+<title>$areas of rolling blackout schedule</title>
+<link>$::basehost$basepath</link>
+</channel>
+FIN
+		}
+		for($i=0; $i<$mobileflg; $i++) {
+			print $XML{"$date[$i]"};
+		}
 	} else {
-		print <<FIN;
+		if($buf ne '') {
+			print <<FIN;
+<channel rdf:about="$::basehost/index.cgi">
+<title>$areasの計画停電予定</title>
+<link>$::basehost/index.html</link>
+</channel>
+<item rdf:about="$::basehref?city=$_getcity&amp;zip1=$zip1&amp;zip2=$zip2&amp;gid=$getgroup">
+<title>$buf</title>
+<link>$::basehref?city=$_getcity&amp;zip1=$zip1&amp;zip2=$zip2&amp;gid=$getgroup</link>
+<dc:date>$rssdate</dc:date>
+</item>
+FIN
+		} else {
+			print <<FIN;
 <channel rdf:about="$::basehost$basepath">
 <title>$areasの計画停電予定</title>
 <link>$::basehost$basepath</link>
 </channel>
 FIN
+		}
 		for($i=0; $i<$mobileflg; $i++) {
 			print $XML{"$date[$i]"};
 		}
 	}
+
 	print <<FIN;
 </rdf:RDF>
 FIN
 	exit;
 }
 
-$buf=<<FIN;
+if($englishflg) {
+	$buf=<<FIN;
+<table border=1><tr bgcolor=#C0C0C0><th>Areas</th>
+FIN
+	if($mobileflg eq 2) {
+		for($i=0; $i<$mobileflg; $i++) {
+			$buf.=<<FIN;
+<th>$mon[$i]/$mday[$i] Blackout time.</th>
+FIN
+		}
+	} else {
+		for($i=0; $i<$mobileflg; $i++) {
+			$buf.=<<FIN;
+<th>$mon[$i]/$mday[$i] Blackout time.</th>
+FIN
+		}
+	}
+	$buf.=<<FIN;
+<th>Group No</th></tr></tr>
+FIN
+} else {
+	$buf=<<FIN;
 <table border=1><tr bgcolor=#C0C0C0><th>地域</th>
 FIN
-if($mobileflg eq 2) {
-	for($i=0; $i<$mobileflg; $i++) {
-		$buf.=<<FIN;
-	<th>$mday[$i]日停電時間</th>
+	if($mobileflg eq 2) {
+		for($i=0; $i<$mobileflg; $i++) {
+			$buf.=<<FIN;
+<th>$mday[$i]日停電時間</th>
 FIN
-	}
-} else {
-	for($i=0; $i<$mobileflg; $i++) {
-		$buf.=<<FIN;
-	<th>$mon[$i]月$mday[$i]日停電時間</th>
+		}
+	} else {
+		for($i=0; $i<$mobileflg; $i++) {
+			$buf.=<<FIN;
+<th>$mon[$i]月$mday[$i]日停電時間</th>
 FIN
+		}
 	}
-}
-
-$buf.=<<FIN;
+	$buf.=<<FIN;
 <th>グループ</th></tr></tr>
 FIN
+}
 
 $head=$buf;
 $buf='';
 
 $count=0;
-
 if ($zip2 eq "0000") {
-	$buf="<tr><td colspan=6>郵便番号末尾４桁 0000 では検索できません。</td></tr>";
+	if($englishflg) {
+		$buf="<tr><td colspan=6>Ending in 0000 can not find the ZIP code.</td></tr>";
+	} else {
+		$buf="<tr><td colspan=6>郵便番号末尾４桁 0000 では検索できません。</td></tr>";
+	}
 } elsif ($zip ne '' && $zip!~/\d\d\d\d\d\d\d/ && length($zip) ne 7) {
-	$buf="<tr><td colspan=6>郵便番号が正確に入力されていないようです。</td></tr>";
+	if($englishflg) {
+		$buf="<tr><td colspan=6>The ZIP code seems not to be input accurately.</td></tr>";
+	} else {
+		$buf="<tr><td colspan=6>郵便番号が正確に入力されていないようです。</td></tr>";
+	}
 } elsif($zip eq '' && $getcity eq '') {
-	$buf="<tr><td colspan=6>地域名、もしくは郵便番号が入力されていません。</td></tr>";
+	if($englishflg) {
+		$buf="<tr><td colspan=6>It's not input city name or ZIP code.</td></tr>";
+	} else {
+		$buf="<tr><td colspan=6>地域名、もしくは郵便番号が入力されていません。</td></tr>";
+	}
 } else {
 	open (READ,"all.all");
 	while (<READ>) {
 		chomp;
-		($area1,$area2,$area3,$num)=split (/\t/,$_);
+		($area1,$area2,$area3,$num,$areaen1,$areaen2,$areaen3)=split (/\t/,$_);
 		$areaorg="$area1$area2$area3";
+		$areaorg="$area1$area2$area3$areaen1$areaen2$areaen3" if($englishflg);
 		$areaorg=~ s/ //g;
 
 		foreach(@tokyo_denryoku_list) {
@@ -319,52 +438,115 @@ if ($zip2 eq "0000") {
 
 		if ($getgroup) {
 			if ($areaorg=~ m/$getcity/ and $num eq $getgroup) {
-				$buf.=<<FIN;
+				if($englishflg) {
+					$buf.=<<FIN;
+<tr bgcolor=$bgcolor><td><b>$areaen1 $areaen2 $areaen3</b></td>
+FIN
+				} else {
+					$buf.=<<FIN;
 <tr bgcolor=$bgcolor><td><b>$area1 $area2 $area3</b></td>
 FIN
+				}
 				for($i=0; $i<$mobileflg; $i++) {
+					if($englishflg) {
+						if($g{"$date[$i]_$num"}=~/なし/) {
+							$g{"$date[$i]_$num"}="none";
+						}
+					}
 					$buf.=<<FIN;
 <td>$g{"$date[$i]_$num"}</td>
 FIN
 				}
-				$buf.=<<FIN;
+				if($englishflg) {
+					$buf.=<<FIN;
+<td>Group $num</td></tr>
+FIN
+				} else {
+					$buf.=<<FIN;
 <td>第$numグループ</td></tr>
 FIN
+				}
 				++$count;
 			}
 		} else {
 			if ($areaorg=~ m/$getcity/) {
-				$buf.=<<FIN;
-<tr bgcolor=$bgcolor><td><b>$area1 $area2 $area3</b></td></td>
+				if($englishflg) {
+					$buf.=<<FIN;
+<tr bgcolor=$bgcolor><td><b>$areaen1 $areaen2 $areaen3</b></td>
 FIN
+				} else {
+					$buf.=<<FIN;
+<tr bgcolor=$bgcolor><td><b>$area1 $area2 $area3</b></td>
+FIN
+				}
 				for($i=0; $i<$mobileflg; $i++) {
+					if($englishflg) {
+						if($g{"$date[$i]_$num"}=~/なし/) {
+							$g{"$date[$i]_$num"}="none";
+						}
+					}
 					$buf.=<<FIN;
 <td>$g{"$date[$i]_$num"}</td>
 FIN
 				}
-				$buf.=<<FIN;
+				if($englishflg) {
+					$buf.=<<FIN;
+<td>Group $num</td></tr>
+FIN
+				} else {
+					$buf.=<<FIN;
 <td>第$numグループ</td></tr>
 FIN
+				}
 				++$count;
 			}
 		}
 	}
 	if (!$count) {
-		$buf="<tr><td colspan=6>計画停電のないエリアです。</td></tr>";
+		if($englishflg) {
+			$buf="<tr><td colspan=6>Not found of rolling blakout area.</td></tr>";
+		} else {
+			$buf="<tr><td colspan=6>計画停電のないエリアです。</td></tr>";
+		}
 	}
 	if ($count>400) {
-		$buf="<tr><td colspan=6>該当地域が多すぎです。詳細の地域名を入力してください。</td></tr>";
+		if($englishflg) {
+			$buf="<tr><td colspan=6>There are a lot of pertinent regions. Please input a regional name of details.</td></tr>";
+		} else {
+			$buf="<tr><td colspan=6>該当地域が多すぎです。詳細の地域名を入力してください。</td></tr>";
+		}
 	}
 }
 
 if($zip ne '') {
-	$areas="〒$zip1-$zip2";
+	if($englishflg) {
+		$areas="ZIP:$zip1-$zip2";
+	} else {
+		$areas="〒$zip1-$zip2";
+	}
 } else {
 	$areas="$getcity";
 }
 $areas=~ s/[;\"\'\$\@\%\(\)]//g;	# by @mnakajim
 
-$html=<<FIN;
+if($englishflg) {
+	$html=<<FIN;
+Content-type: text/html;charset=utf-8
+Cache-Control: max-age=0
+Expires: Mon, 26, Jul 1997 05:00:00 GMT
+
+<html><head>
+<title>$areas of Rolling blackout schedule</title></head>
+Found $count. The schedule time is different when there are two or more registration in the same region according to the place.<BR>
+When the power failure twice a day is scheduled, the power failure schedule in the latter half is executed according to the situation. <BR>
+When this page is boomarked, No input of city or ZIP code.<BR>
+$head
+$buf
+</table>
+[<a href=./>Return</a>] 
+FIN
+} else {
+	$html=<<FIN;
 Content-type: text/html;charset=utf-8
 Cache-Control: max-age=0
 Expires: Mon, 26, Jul 1997 05:00:00 GMT
@@ -373,13 +555,13 @@ Expires: Mon, 26, Jul 1997 05:00:00 GMT
 <title>$areasの計画停電予定</title></head>
 $count件が見つかりました。同一地域で複数登録があるときは、場所によって予定時間が異なります。<BR>
 1日2回の停電予定がある場合、後半の停電予定は状況に応じて実行となります。<BR>
-このページをブックマークしておくと、ブックマーク呼び出しだけで地域名の入力が不要です。 <BR>
+このページをブックマークしておくと、ブックマーク呼び出しだけで地域名または郵便番号の入力が不要です。 <BR>
 $head
 $buf
 </table>
 [<a href=./>戻る</a>] 
 FIN
-
+}
 if($mobileflg eq 2 || $mflg eq 1) {
 	&z2h(\$html);
 	$html=~s/０/0/g;
@@ -396,7 +578,7 @@ if($mobileflg eq 2 || $mflg eq 1) {
 } else {
 	print<<FIN;
 $html
-[<a href="area.cgi?city=$getcity&zip1=$zip1&zip2=$zip2&gid=$getgroup&out=rss">RSS</a>]
+[<a href="area.cgi?city=$getcity&zip1=$zip1&zip2=$zip2&gid=$getgroup&out=rss&m=$mode">RSS</a>]
 FIN
 	printf("<hr>\nPowered by Perl $] HTML convert time to %.3f sec.",
 		((times)[0] - $::_conv_start));
