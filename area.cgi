@@ -30,6 +30,9 @@ my $mflg=0;
 $mflg=1 if($mode eq 'm');
 my $kanaflg=0;
 
+$getcity=~ s/　//g;
+$getcity=~ s/ //g;
+
 $zip=~s/\-//g;
 
 # 携帯向け
@@ -513,6 +516,7 @@ if($getcity=~/^(バージョン|試験|更新|[Uu][Pp][Dd][Aa][Tt][Ee]|[Vv][Ee][
 		} else {
 			$areakanji=&addnor("$area1$area2$area3");
 			$areakana=&addnor("$areakana1$areakana2$areakana3");
+			$arearoma=&addnor("$areaen1$areaen2$areaen3");
 			if($areakanji=~ m/$getcity/) {
 				$buf.="<tr$bgcolor><td><b>$area1 $area2 $area3</b></td>"
 					. join('', map {"<td>$_</td>"} @hours) . 
