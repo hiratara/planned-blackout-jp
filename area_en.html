@@ -1,0 +1,68 @@
+? my ($title, $dates, $results, $error_message, $version_message, $rssurl, $qrurl, $converttime, $version) = @_;
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="ja" />
+<title><?= $title ?> of Rolling blackout schedule</title>
+<meta name="description" content="<?= $title ?> of Rolling blackout schedule">
+</head>
+<body>
+<table><tr><td><img src="kekka_eng.jpg" width="200"></td><td>
+Found <?= scalar @$results ?>. The schedule time is different when there are two or more registration in the same region according to the place.<br />
+When the power failure twice a day is scheduled, the power failure schedule in the latter half is executed according to the situation. <br />
+You can bookmark rhis page for next use. <br />
+</td></tr></table>
+
+<table border="1">
+<tr bgcolor="#C0C0C0">
+<th>Areas</th>
+? for my $d (@$dates) {
+<th><?= $d ?> Blackout time.</th>
+? }
+<th>Group No</th>
+</tr>
+
+? if (@$version_message) {
+      <tr><td colspan="6">
+?     for my $v (@$version_message) {
+        <?= $v ?><br />
+?     }
+? } else {
+?    if ($error_message) {
+    <tr><td colspan=6><?= $error_message ?></td></tr>
+?   } else {
+?     for my $i (0 .. $#$results) { my $r = $results->[$i];
+      <tr bgcolor="<?= $i % 2 == 0 ? '#EEFFFF' : '#FFEEFF' ?>">
+      <td><b><?= $r->{tdfk} ?> <?= $r->{shiku} ?> <?= $r->{machiaza} ?></b></td>
+?         for my $h (@{$r->{hour_refs}}) {
+          	<td><?= $h->{hours_str} ?>
+?           if($h->{run_str}) {
+              <br />(<?= $h->{run_str} ?>)
+?           }
+            </td>
+?         }
+      <td>Group <?= $r->{grp} ?></td>
+      </tr>
+?     }
+?   }
+? }
+
+</table>
+
+[<a href=./?e>Return</a>] 
+
+? if ($rssurl && ! $error_message) {
+[<a href="<?= $rssurl ?>">RSS</a>]
+? }
+
+? if ($qrurl && ! $error_message) {
+	<br />If you have mobile phone to transfer this result, use this barcode.<br />
+    <br />
+	<img alt="QRcode" src="<?= $qrurl ?>" />
+? }
+
+<hr />
+<?= $converttime ?>
+</body>
+</html>

@@ -35,7 +35,7 @@ my $engine_update=<<EOM;
 EOM
 
 #------------
-use Encode qw/decode encode_utf8 from_to/;
+use Encode;
 require "common.pl";
 
 $VER=~s/\(.*//g;
@@ -129,7 +129,7 @@ EOM
 
 sub qrcode_link {
 	my($basehref, $basehost, $basepath)=&getbasehref;
-	my $string=&encode("$basehost$basepath");
+	my $string=&enc("$basehost$basepath");
 	if(&load_module("GD") && &load_module("GD::Barcode")) {
 		return <<FIN;
 携帯へURLを送るには、こちらのQRコードをご利用下さい。<br />
@@ -142,7 +142,7 @@ FIN
 
 sub qrcode_link_en {
 	my($basehref, $basehost, $basepath)=&getbasehref;
-	my $string=&encode("$basehost$basepath?e");
+	my $string=&enc("$basehost$basepath?e");
 	if(&load_module("GD::Barcode")) {
 		return <<FIN;
 If you have mobile phone to transfer this site, use this barcode.
