@@ -3,8 +3,9 @@
 use strict;
 
 my $VER="V.1.200(nanakochi123456  1st release:mnakajim)";
-my $tarball="power110331.tar.gz";
+my $tarball="power110331-2.tar.gz";
 my $data_update=<<EOM;
+<li>2011/3/31 14:55 東京電力、１日計画停電実施なしに対応。対応遅くなり申し訳ありません。</li>
 <li>2011/3/31 07:40 東京電力データを更新。</li>
 <li>2011/3/30 13:35 東京電力、３１日計画停電実施なしに対応。</li>
 <li>2011/3/30 08:53 東京電力データを更新。</li>
