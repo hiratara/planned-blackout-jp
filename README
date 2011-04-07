@@ -5,12 +5,14 @@
 
 元提供者:中島昌彦(http://twitter.com/mnakajim)
 改造者：ななこっち★(http://twitter.com/nanakochi123456)
+画像提供：渡邊 春菜さん(http://twitter.com//watanabe_haruna)
 
 ファイルリスト
 　all.all データファイル
 　area.cgi 検索スクリプト(Perl)
   common.pl(付随ファイル)
   timetable.txt(付随ファイル)
+  runtable.txtx(付随ファイル)
 　yubin.csv(郵便番号データファイル　該当地域のみ）
   index.cgi(サイトトップのHTMLのCGI)
 　.htaccess(index.cgiに誘導する)
@@ -19,6 +21,11 @@
 　mobile.html(携帯用出力ファイル）
 　english.html(英語用出力ファイル）
 　update.cgi(http://power.daiba.cx/ から自動アップデートするスクリプト)
+　title_s.jpg(渡邊 春菜さん作のTOPページの上の画像）
+　twitter_tag.jpg(渡邊 春菜さん作のtwiiter タグの画像）
+　title_eng.jpg(渡邊 春菜さん作の英語版TOPページ上の画像）
+　kekka.jpg(渡邊 春菜さん作の検索結果画面の画像)
+　kekka_eng.jpg(渡邊 春菜さん作の英語版検索結果の画像)
 
 ファイルが足りない、壊れて動かないというときはご連絡ください。
 

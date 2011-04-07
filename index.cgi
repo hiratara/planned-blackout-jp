@@ -3,10 +3,11 @@
 use strict;
 
 my $VER="V.1.148(nanakochi123456  1st release:mnakajim)";
-my $tarball="power110329-3.tar.gz";
+my $tarball="power110330.tar.gz";
 my $history=<<EOM;
 <h3>データ更新状況:</h3>
 <ul id="update">
+<li>2011/3/30 08:53 東京電力データを更新。</li>
 <li>2011/3/29 15:49 runtable.txtを正式採用した。</li>
 <li>2011/3/29 14:00 東京電力、３０日計画停電実施なしに対応。</li>
 <li>2011/3/28 20:33 東京電力データを更新。</li>
