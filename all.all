@@ -470,6 +470,8 @@
 千葉県	匝瑳市	八辺	3	C	CHIBAKEN	SOUSASHI	HACHIHEN	チバケン	ソウサシ	ハチヘン
 千葉県	匝瑳市	公崎	3	C	CHIBAKEN	SOUSASHI	KOUSAKI	チバケン	ソウサシ	コウサキ
 千葉県	匝瑳市	内山	3	C	CHIBAKEN	SOUSASHI	UCHIYAMA	チバケン	ソウサシ	ウチヤマ
+千葉県	匝瑳市	内山新田	3	C	CHIBAKEN	SOUSASHI	UCHIYAMANITTA	チバケン	ソウサシ	ウチヤマニッタ
+千葉県	匝瑳市	加多古	3	C	CHIBAKEN	SOUSASHI	KATAKO	チバケン	ソウサシ	カタコ
 千葉県	匝瑳市	南山崎	3	C	CHIBAKEN	SOUSASHI	NANZANSAKI	チバケン	ソウサシ	ナンザンサキ
 千葉県	匝瑳市	南神崎	3	C	CHIBAKEN	SOUSASHI	MINAMIKANZAKI	チバケン	ソウサシ	ミナミカンザキ
 千葉県	匝瑳市	吉崎	3	C	CHIBAKEN	SOUSASHI	YOSHIZAKI	チバケン	ソウサシ	ヨシザキ
@@ -513,11 +515,13 @@
 千葉県	匝瑳市	貝塚	3	C	CHIBAKEN	SOUSASHI	KAIDUKA	チバケン	ソウサシ	カイヅカ
 千葉県	匝瑳市	野手	3	C	CHIBAKEN	SOUSASHI	YASHU	チバケン	ソウサシ	ヤシュ
 千葉県	匝瑳市	金原	3	C	CHIBAKEN	SOUSASHI	KANEHARA	チバケン	ソウサシ	カネハラ
+千葉県	匝瑳市	長丘	3	C	CHIBAKEN	SOUSASHI	CHOUOKA	チバケン	ソウサシ	チョウオカ
 千葉県	匝瑳市	長岡	3	C	CHIBAKEN	SOUSASHI	NAGAOKA	チバケン	ソウサシ	ナガオカ
 千葉県	匝瑳市	長谷	3	C	CHIBAKEN	SOUSASHI	HASE	チバケン	ソウサシ	ハセ
 千葉県	匝瑳市	飯倉	3	C	CHIBAKEN	SOUSASHI	IIKURA	チバケン	ソウサシ	イイクラ
 千葉県	匝瑳市	飯倉台	3	C	CHIBAKEN	SOUSASHI	IIKURADAI	チバケン	ソウサシ	イイクラダイ
 千葉県	匝瑳市	飯塚	3	C	CHIBAKEN	SOUSASHI	IIDUKA	チバケン	ソウサシ	イイヅカ
+千葉県	匝瑳市	飯多香	3	C	CHIBAKEN	SOUSASHI	MESHITAKAORI	チバケン	ソウサシ	メシタカオリ
 千葉県	匝瑳市	飯高	3	C	CHIBAKEN	SOUSASHI	IIDAKA	チバケン	ソウサシ	イイダカ
 千葉県	匝瑳市	高	3	C	CHIBAKEN	SOUSASHI	TAKA	チバケン	ソウサシ	タカ
 千葉県	匝瑳市	高野	3	C	CHIBAKEN	SOUSASHI	TAKANO	チバケン	ソウサシ	タカノ
@@ -1115,6 +1119,7 @@
 千葉県	印旛郡酒々井町	中央台３丁目	3	C	CHIBAKEN	INBAGUNSAKEIMACHI	CHUUOUDAI3CHOUME	チバケン	インバグンサケイマチ	チュウオウダイ３チョウメ
 千葉県	印旛郡酒々井町	中央台４丁目	3	C	CHIBAKEN	INBAGUNSAKEIMACHI	CHUUOUDAI4CHOUME	チバケン	インバグンサケイマチ	チュウオウダイ４チョウメ
 千葉県	印旛郡酒々井町	中川	3	C	CHIBAKEN	INBAGUNSAKEIMACHI	NAKAGAWA	チバケン	インバグンサケイマチ	ナカガワ
+千葉県	印旛郡酒々井町	今倉新田	3	C	CHIBAKEN	INBAGUNSAKEIMACHI	IMAKURANITTA	チバケン	インバグンサケイマチ	イマクラニッタ
 千葉県	印旛郡酒々井町	伊篠	3	C	CHIBAKEN	INBAGUNSAKEIMACHI	ISHINO	チバケン	インバグンサケイマチ	イシノ
 千葉県	印旛郡酒々井町	伊篠新田	3	C	CHIBAKEN	INBAGUNSAKEIMACHI	ISHINONITTA	チバケン	インバグンサケイマチ	イシノニッタ
 千葉県	印旛郡酒々井町	墨	3	C	CHIBAKEN	INBAGUNSAKEIMACHI	SUMI	チバケン	インバグンサケイマチ	スミ
@@ -4501,6 +4506,7 @@
 埼玉県	さいたま市岩槻区	加倉２丁目	3	B	SAITAMAKEN	SAITAMASHIIWATSUKIKU	KAKURA2CHOUME	サイタマケン	サイタマシイワツキク	カクラ２チョウメ
 埼玉県	さいたま市岩槻区	加倉３丁目	3	B	SAITAMAKEN	SAITAMASHIIWATSUKIKU	KAKURA3CHOUME	サイタマケン	サイタマシイワツキク	カクラ３チョウメ
 埼玉県	さいたま市岩槻区	加倉４丁目	3	B	SAITAMAKEN	SAITAMASHIIWATSUKIKU	KAKURA4CHOUME	サイタマケン	サイタマシイワツキク	カクラ４チョウメ
+埼玉県	さいたま市岩槻区	加倉５丁目	2	B	SAITAMAKEN	SAITAMASHIIWATSUKIKU	KAKURA5CHOUME	サイタマケン	サイタマシイワツキク	カクラ５チョウメ
 埼玉県	さいたま市岩槻区	加倉５丁目	3	B	SAITAMAKEN	SAITAMASHIIWATSUKIKU	KAKURA5CHOUME	サイタマケン	サイタマシイワツキク	カクラ５チョウメ
 埼玉県	さいたま市岩槻区	原町	2	B	SAITAMAKEN	SAITAMASHIIWATSUKIKU	HARAMACHI	サイタマケン	サイタマシイワツキク	ハラマチ
 埼玉県	さいたま市岩槻区	城南１丁目	2	B	SAITAMAKEN	SAITAMASHIIWATSUKIKU	JOUNAN1CHOUME	サイタマケン	サイタマシイワツキク	ジョウナン１チョウメ
@@ -4548,6 +4554,7 @@
 埼玉県	さいたま市岩槻区	大字長宮	3	B	SAITAMAKEN	SAITAMASHIIWATSUKIKU	OOAZACHOUMIYA	サイタマケン	サイタマシイワツキク	オオアザチョウミヤ
 埼玉県	さいたま市岩槻区	大字飯塚	2	B	SAITAMAKEN	SAITAMASHIIWATSUKIKU	OOAZAIIDUKA	サイタマケン	サイタマシイワツキク	オオアザイイヅカ
 埼玉県	さいたま市岩槻区	大字馬込	3	B	SAITAMAKEN	SAITAMASHIIWATSUKIKU	OOAZAUMAGOME	サイタマケン	サイタマシイワツキク	オオアザウマゴメ
+埼玉県	さいたま市岩槻区	大字馬込	4	B	SAITAMAKEN	SAITAMASHIIWATSUKIKU	OOAZAUMAGOME	サイタマケン	サイタマシイワツキク	オオアザウマゴメ
 埼玉県	さいたま市岩槻区	大字高曽根	2	B	SAITAMAKEN	SAITAMASHIIWATSUKIKU	OOAZATAKASONE	サイタマケン	サイタマシイワツキク	オオアザタカソネ
 埼玉県	さいたま市岩槻区	大字黒谷	2	B	SAITAMAKEN	SAITAMASHIIWATSUKIKU	OOAZAKUROTANI	サイタマケン	サイタマシイワツキク	オオアザクロタニ
 埼玉県	さいたま市岩槻区	太田１丁目	3	B	SAITAMAKEN	SAITAMASHIIWATSUKIKU	OOTA1CHOUME	サイタマケン	サイタマシイワツキク	オオタ１チョウメ
@@ -4592,7 +4599,6 @@
 埼玉県	さいたま市岩槻区	諏訪２丁目	3	B	SAITAMAKEN	SAITAMASHIIWATSUKIKU	SUWA2CHOUME	サイタマケン	サイタマシイワツキク	スワ２チョウメ
 埼玉県	さいたま市岩槻区	諏訪４丁目	3	B	SAITAMAKEN	SAITAMASHIIWATSUKIKU	SUWA4CHOUME	サイタマケン	サイタマシイワツキク	スワ４チョウメ
 埼玉県	さいたま市岩槻区	諏訪５丁目	3	B	SAITAMAKEN	SAITAMASHIIWATSUKIKU	SUWA5CHOUME	サイタマケン	サイタマシイワツキク	スワ５チョウメ
-埼玉県	さいたま市岩槻区	馬込	4	B	SAITAMAKEN	SAITAMASHIIWATSUKIKU	UMAGOME	サイタマケン	サイタマシイワツキク	ウマゴメ
 埼玉県	さいたま市桜区	中島１丁目	4	B	SAITAMAKEN	SAITAMASHISAKURAKU	NAKASHIMA1CHOUME	サイタマケン	サイタマシサクラク	ナカシマ１チョウメ
 埼玉県	さいたま市桜区	中島２丁目	4	B	SAITAMAKEN	SAITAMASHISAKURAKU	NAKASHIMA2CHOUME	サイタマケン	サイタマシサクラク	ナカシマ２チョウメ
 埼玉県	さいたま市桜区	中島３丁目	4	B	SAITAMAKEN	SAITAMASHISAKURAKU	NAKASHIMA3CHOUME	サイタマケン	サイタマシサクラク	ナカシマ３チョウメ
@@ -5143,7 +5149,6 @@
 埼玉県	上尾市	今泉１丁目	3	B	SAITAMAKEN	AGEOSHI	IMAIZUMI1CHOUME	サイタマケン	アゲオシ	イマイズミ１チョウメ
 埼玉県	上尾市	仲町１丁目	3	B	SAITAMAKEN	AGEOSHI	NAKAMACHI1CHOUME	サイタマケン	アゲオシ	ナカマチ１チョウメ
 埼玉県	上尾市	仲町２丁目	3	B	SAITAMAKEN	AGEOSHI	NAKAMACHI2CHOUME	サイタマケン	アゲオシ	ナカマチ２チョウメ
-埼玉県	上尾市	別所町	3	B	SAITAMAKEN	AGEOSHI	BESSHOMACHI	サイタマケン	アゲオシ	ベッショマチ
 埼玉県	上尾市	原市中１丁目	4	B	SAITAMAKEN	AGEOSHI	HARASHICHUU1CHOUME	サイタマケン	アゲオシ	ハラシチュウ１チョウメ
 埼玉県	上尾市	原市中３丁目	4	B	SAITAMAKEN	AGEOSHI	HARASHICHUU3CHOUME	サイタマケン	アゲオシ	ハラシチュウ３チョウメ
 埼玉県	上尾市	原市北１丁目	4	B	SAITAMAKEN	AGEOSHI	HARASHIKITA1CHOUME	サイタマケン	アゲオシ	ハラシキタ１チョウメ
@@ -6958,7 +6963,6 @@
 埼玉県	幸手市	香日向１丁目	4	B	SAITAMAKEN	SATTESHI	KAORIHYUUGA1CHOUME	サイタマケン	サッテシ	カオリヒュウガ１チョウメ
 埼玉県	幸手市	香日向２丁目	4	B	SAITAMAKEN	SATTESHI	KAORIHYUUGA2CHOUME	サイタマケン	サッテシ	カオリヒュウガ２チョウメ
 埼玉県	幸手市	香日向３丁目	4	B	SAITAMAKEN	SATTESHI	KAORIHYUUGA3CHOUME	サイタマケン	サッテシ	カオリヒュウガ３チョウメ
-埼玉県	幸手市	香日向４丁目	4	B	SAITAMAKEN	SATTESHI	KAORIHYUUGA4CHOUME	サイタマケン	サッテシ	カオリヒュウガ４チョウメ
 埼玉県	志木市	上宗岡１丁目	1	C	SAITAMAKEN	SHIKISHI	UESHUUOKA1CHOUME	サイタマケン	シキシ	ウエシュウオカ１チョウメ
 埼玉県	志木市	上宗岡２丁目	1	C	SAITAMAKEN	SHIKISHI	UESHUUOKA2CHOUME	サイタマケン	シキシ	ウエシュウオカ２チョウメ
 埼玉県	志木市	下宗岡２丁目	1	C	SAITAMAKEN	SHIKISHI	SHITASHUUOKA2CHOUME	サイタマケン	シキシ	シタシュウオカ２チョウメ
@@ -6969,7 +6973,6 @@
 埼玉県	志木市	幸町３丁目	3	B	SAITAMAKEN	SHIKISHI	SAIWAICHOU3CHOUME	サイタマケン	シキシ	サイワイチョウ３チョウメ
 埼玉県	志木市	幸町４丁目	1	C	SAITAMAKEN	SHIKISHI	SAIWAICHOU4CHOUME	サイタマケン	シキシ	サイワイチョウ４チョウメ
 埼玉県	志木市	幸町４丁目	3	B	SAITAMAKEN	SHIKISHI	SAIWAICHOU4CHOUME	サイタマケン	シキシ	サイワイチョウ４チョウメ
-埼玉県	志木市	志木	1	C	SAITAMAKEN	SHIKISHI	SHIKI	サイタマケン	シキシ	シキ
 埼玉県	志木市	本町１丁目	1	C	SAITAMAKEN	SHIKISHI	HONCHOU1CHOUME	サイタマケン	シキシ	ホンチョウ１チョウメ
 埼玉県	志木市	本町２丁目	1	C	SAITAMAKEN	SHIKISHI	HONCHOU2CHOUME	サイタマケン	シキシ	ホンチョウ２チョウメ
 埼玉県	志木市	本町４丁目	1	C	SAITAMAKEN	SHIKISHI	HONCHOU4CHOUME	サイタマケン	シキシ	ホンチョウ４チョウメ
@@ -7420,7 +7423,7 @@
 埼玉県	春日部市	梅田３丁目	3	B	SAITAMAKEN	KASUKABESHI	UMEDA3CHOUME	サイタマケン	カスカベシ	ウメダ３チョウメ
 埼玉県	春日部市	椚	2	B	SAITAMAKEN	KASUKABESHI	KUNUGI	サイタマケン	カスカベシ	クヌギ
 埼玉県	春日部市	榎	2	B	SAITAMAKEN	KASUKABESHI	ENOKI	サイタマケン	カスカベシ	エノキ
-埼玉県	春日部市	武里中野	2	B	SAITAMAKEN	KASUKABESHI	TAKESHISATONAKANO	サイタマケン	カスカベシ	タケシサトナカノ
+埼玉県	春日部市	武里中野	3	B	SAITAMAKEN	KASUKABESHI	TAKESHISATONAKANO	サイタマケン	カスカベシ	タケシサトナカノ
 埼玉県	春日部市	水角	2	B	SAITAMAKEN	KASUKABESHI	MIZUKAKU	サイタマケン	カスカベシ	ミズカク
 埼玉県	春日部市	永沼	2	B	SAITAMAKEN	KASUKABESHI	EINUMA	サイタマケン	カスカベシ	エイヌマ
 埼玉県	春日部市	永沼	3	B	SAITAMAKEN	KASUKABESHI	EINUMA	サイタマケン	カスカベシ	エイヌマ
@@ -9237,7 +9240,6 @@
 埼玉県	越谷市	赤山町３丁目	2	B	SAITAMAKEN	KOSHIGAYASHI	AKAYAMAMACHI3CHOUME	サイタマケン	コシガヤシ	アカヤママチ３チョウメ
 埼玉県	越谷市	赤山町４丁目	2	B	SAITAMAKEN	KOSHIGAYASHI	AKAYAMAMACHI4CHOUME	サイタマケン	コシガヤシ	アカヤママチ４チョウメ
 埼玉県	越谷市	赤山町５丁目	2	B	SAITAMAKEN	KOSHIGAYASHI	AKAYAMAMACHI5CHOUME	サイタマケン	コシガヤシ	アカヤママチ５チョウメ
-埼玉県	越谷市	赤山町６丁目	2	B	SAITAMAKEN	KOSHIGAYASHI	AKAYAMAMACHI6CHOUME	サイタマケン	コシガヤシ	アカヤママチ６チョウメ
 埼玉県	越谷市	越ヶ谷	2	B	SAITAMAKEN	KOSHIGAYASHI	ETSUGATANI	サイタマケン	コシガヤシ	エツガタニ
 埼玉県	越谷市	越ヶ谷本町	2	B	SAITAMAKEN	KOSHIGAYASHI	ETSUGATANIMOTOMACHI	サイタマケン	コシガヤシ	エツガタニモトマチ
 埼玉県	越谷市	越ヶ谷１丁目	2	B	SAITAMAKEN	KOSHIGAYASHI	ETSUGATANI1CHOUME	サイタマケン	コシガヤシ	エツガタニ１チョウメ
@@ -16340,7 +16342,6 @@
 東京都	東久留米市	本町３丁目	1	C	TOUKYOUTO	HIGASHIKURUMESHI	HONCHOU3CHOUME	トウキョウト	ヒガシクルメシ	ホンチョウ３チョウメ
 東京都	東久留米市	本町４丁目	1	C	TOUKYOUTO	HIGASHIKURUMESHI	HONCHOU4CHOUME	トウキョウト	ヒガシクルメシ	ホンチョウ４チョウメ
 東京都	東久留米市	東本町	1	C	TOUKYOUTO	HIGASHIKURUMESHI	HIGASHIHONCHOU	トウキョウト	ヒガシクルメシ	ヒガシホンチョウ
-東京都	東久留米市	柳窪５丁目	3	B	TOUKYOUTO	HIGASHIKURUMESHI	YANAGIKUBO5CHOUME	トウキョウト	ヒガシクルメシ	ヤナギクボ５チョウメ
 東京都	東久留米市	氷川台１丁目	1	C	TOUKYOUTO	HIGASHIKURUMESHI	HIKAWADAI1CHOUME	トウキョウト	ヒガシクルメシ	ヒカワダイ１チョウメ
 東京都	東久留米市	氷川台２丁目	1	C	TOUKYOUTO	HIGASHIKURUMESHI	HIKAWADAI2CHOUME	トウキョウト	ヒガシクルメシ	ヒカワダイ２チョウメ
 東京都	東久留米市	浅間町１丁目	1	C	TOUKYOUTO	HIGASHIKURUMESHI	ASAMAMACHI1CHOUME	トウキョウト	ヒガシクルメシ	アサママチ１チョウメ
@@ -27016,4 +27017,4 @@
 静岡県	駿東郡長泉町	竹原	2	E	SHIZUOKAKEN	SHUNTOUGUNCHOUIZUMIMACHI	TAKEHARA	シズオカケン	シュントウグンチョウイズミマチ	タケハラ
 静岡県	駿東郡長泉町	竹原	3	E	SHIZUOKAKEN	SHUNTOUGUNCHOUIZUMIMACHI	TAKEHARA	シズオカケン	シュントウグンチョウイズミマチ	タケハラ
 静岡県	駿東郡長泉町	納米里	2	E	SHIZUOKAKEN	SHUNTOUGUNCHOUIZUMIMACHI	NOUKOMESATO	シズオカケン	シュントウグンチョウイズミマチ	ノウコメサト
-version	2011-03-31 19:54
+version	2011-04-01 20:23
