@@ -2,8 +2,8 @@
 
 use strict;
 
-my $VER="V.1.201(nanakochi123456  1st release:mnakajim)";
-my $tarball="power110401-5.tar.gz";
+my $VER="V.1.202(nanakochi123456  1st release:mnakajim)";
+my $tarball="power110402.tar.gz";
 my $data_update=<<EOM;
 <li>2011/4/01 20:24 東京電力データを更新。</li>
 <li>2011/4/01 11:10 東京電力、２～４日計画停電なしに対応。</li>
@@ -22,6 +22,7 @@ my $data_update=<<EOM;
 EOM
 
 my $engine_update=<<EOM;
+<li>2011/4/02 11:01 サブグループも含めた検索を実装した。携帯の出力を変更した。</li>
 <li>2011/4/01 18:27 カウンターを実装してみました。ただし、カウンターの結果は comm=ver の時のみ出力されます。ユーザー権限がないサーバーでは、chmod 777 counter をするか、それをせずカウンターを動作させない方法があります。</li>
 <li>2011/4/01 14:34 gdモジュール、またはGD.pmがなく、GD::Barcode.pmがある環境で正常になるようにした。</li>
 <li>2011/3/31 08:10 モバイルでもエンジン及びデータの更新履歴を見れるようにした。</li>

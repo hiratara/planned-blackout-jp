@@ -171,13 +171,13 @@ div#sAreaR label {
 	display: block;
 	float: left;
 	margin-right: 7px;
-	width: 28%;
+	width: 40%;
 	margin-bottom: 3px;
 	padding: 2px;
 }
 div#submitArea {
 	text-align: center;
-	width: 100%;
+	width: 680px;
 }
 div#submitArea input {
 	padding: 5px;
@@ -1055,42 +1055,52 @@ Spry.Widget.TabbedPanels.prototype.attachBehaviors = function(element)
 </div>
 <div id="sAreaR">
 <div>
-<h2><span class="h2List">▶</span>グループ番号で絞り込み（サブグループ指定不可）</h2>
+<h2><span class="h2List">▶</span>グループ番号で絞り込み</h2>
 <label>
-<input name="gid" type="radio" value="0" checked />
-指定なし</label>
+東京電力：
+<select name="gid">
+<option value="0">指定なし</option>
+<option value="1-A">グループ１－Ａ</option>
+<option value="1-B">グループ１－Ｂ</option>
+<option value="1-C">グループ１－Ｃ</option>
+<option value="1-D">グループ１－Ｄ</option>
+<option value="1-E">グループ１－Ｅ</option>
+<option value="2-A">グループ２－Ａ</option>
+<option value="2-B">グループ２－Ｂ</option>
+<option value="2-C">グループ２－Ｃ</option>
+<option value="2-D">グループ２－Ｄ</option>
+<option value="2-E">グループ２－Ｅ</option>
+<option value="3-A">グループ３－Ａ</option>
+<option value="3-B">グループ３－Ｂ</option>
+<option value="3-C">グループ３－Ｃ</option>
+<option value="3-D">グループ３－Ｄ</option>
+<option value="3-E">グループ３－Ｅ</option>
+<option value="4-A">グループ４－Ａ</option>
+<option value="4-B">グループ４－Ｂ</option>
+<option value="4-C">グループ４－Ｃ</option>
+<option value="4-D">グループ４－Ｄ</option>
+<option value="4-E">グループ４－Ｅ</option>
+<option value="5-A">グループ５－Ａ</option>
+<option value="5-B">グループ５－Ｂ</option>
+<option value="5-C">グループ５－Ｃ</option>
+<option value="5-D">グループ５－Ｄ</option>
+<option value="5-E">グループ５－Ｅ</option>
+</select>
+</label>
 <label>
-<input name="gid" type="radio" value="1" />
-グループ1</label>
-<label>
-<input name="gid" type="radio" value="2" />
-グループ2</label>
-<label>
-<input name="gid" type="radio" value="3" />
-グループ3</label>
-<label>
-<input name="gid" type="radio" value="4" />
-グループ4</label>
-<label>
-<input name="gid" type="radio" value="5" />
-グループ5</label>
-</div>
-</div>
-<div id="sAreaL">
-&nbsp;
-</div>
-<div id="sAreaR">
-<div>
-以下東北電力管内のみ<br />
-<label>
-<input name="gid" type="radio" value="6" />
-グループ6</label>
-<label>
-<input name="gid" type="radio" value="7" />
-グループ7</label>
-<label>
-<input name="gid" type="radio" value="8" />
-グループ8</label>
+東北電力：
+<select name="gidh">
+<option value="0">指定なし</option>
+<option value="1">グループ１</option>
+<option value="2">グループ２</option>
+<option value="3">グループ３</option>
+<option value="4">グループ４</option>
+<option value="5">グループ５</option>
+<option value="6">グループ６</option>
+<option value="7">グループ７</option>
+<option value="8">グループ８</option>
+</select>
+</label>
 </div>
 </div>
 <div style="clear:both;" id="submitArea">

@@ -172,13 +172,13 @@ div#sAreaR label {
 	display: block;
 	float: left;
 	margin-right: 7px;
-	width: 28%;
+	width: 40%;
 	margin-bottom: 3px;
 	padding: 2px;
 }
 div#submitArea {
 	text-align: center;
-	width: 100%;
+	width: 680px;
 }
 div#submitArea input {
 	padding: 5px;
@@ -1051,7 +1051,7 @@ Spry.Widget.TabbedPanels.prototype.attachBehaviors = function(element)
 <div id="sArea">
 <form action="area.cgi" method="get" name="form">
 <div id="sAreaL">
-<h2><span class="h2List">▶</span>Want to know scaduled time on rolling blackout of city name or areaname (egg..Tokyo is toukyou, City is shi....Roman alphabet) or ZIP code. (egg..100-0000 or 1000000)<br />
+<h2><span class="h2List">▶</span>City or AreaName (egg..Tokyo is toukyou, City is shi....Roman alphabet) or ZIP code. (egg..100-0000 or 1000000)<br />
 When can't search, Please use ZIP code.
 </h2>
 <input type="text" name="city" size="20" id="city" />
@@ -1060,45 +1060,55 @@ When can't search, Please use ZIP code.
 <div>
 <h2><span class="h2List">▶</span>Narrowing group number</h2>
 <label>
-<input name="gid" type="radio" value="0" checked />
-none</label>
+Tepco Area:
+<select name="gid">
+<option value="0">none</option>
+<option value="1-A">Group 1-A</option>
+<option value="1-B">Group 1-B</option>
+<option value="1-C">Group 1-C</option>
+<option value="1-D">Group 1-D</option>
+<option value="1-E">Group 1-E</option>
+<option value="2-A">Group 2-A</option>
+<option value="2-B">Group 2-B</option>
+<option value="2-C">Group 2-C</option>
+<option value="2-D">Group 2-D</option>
+<option value="2-E">Group 2-E</option>
+<option value="3-A">Group 3-A</option>
+<option value="3-B">Group 3-B</option>
+<option value="3-C">Group 3-C</option>
+<option value="3-D">Group 3-D</option>
+<option value="3-E">Group 3-E</option>
+<option value="4-A">Group 4-A</option>
+<option value="4-B">Group 4-B</option>
+<option value="4-C">Group 4-C</option>
+<option value="4-D">Group 4-D</option>
+<option value="4-E">Group 4-E</option>
+<option value="5-A">Group 5-A</option>
+<option value="5-B">Group 5-B</option>
+<option value="5-C">Group 5-C</option>
+<option value="5-D">Group 5-D</option>
+<option value="5-E">Group 5-E</option>
+</select>
+</label>
 <label>
-<input name="gid" type="radio" value="1" />
-Group 1</label>
-<label>
-<input name="gid" type="radio" value="2" />
-Group 2</label>
-<label>
-<input name="gid" type="radio" value="3" />
-Group 3</label>
-<label>
-<input name="gid" type="radio" value="4" />
-Group 4</label>
-<label>
-<input name="gid" type="radio" value="5" />
-Group 5</label>
-</div>
-</div>
-<div id="sAreaL">
-&nbsp;
-</div>
-<div id="sAreaR">
-<div>
-Forrows of Tohooku area only<br />
-<label>
-<input name="gid" type="radio" value="6" />
-Group 6</label>
-<label>
-<input name="gid" type="radio" value="7" />
-Group 7</label>
-<label>
-<input name="gid" type="radio" value="8" />
-Group 8</label>
+Tohooku Area:
+<select name="gidh">
+<option value="0">none</option>
+<option value="1">Group 1</option>
+<option value="2">Group 2</option>
+<option value="3">Group 3</option>
+<option value="4">Group 4</option>
+<option value="5">Group 5</option>
+<option value="6">Group 6</option>
+<option value="7">Group 7</option>
+<option value="8">Group 8</option>
+</select>
+</label>
 </div>
 </div>
 <div style="clear:both;" id="submitArea">
 <input type="hidden" name="m" value="e" />
-<input type="submit" name="submit" value="Search" />
+<input type="submit" name="submit" value="検索" />
 </div>
 </form>
 </div>
