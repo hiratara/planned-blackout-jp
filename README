@@ -9,11 +9,12 @@
 
 ファイルリスト
 　all.all データファイル
-　area.cgi 検索スクリプト(Perl)
+　area.cgi 検索スクリプト
   common.pl(付随ファイル)
 　counter.pl(付属ファイル)
+　fatlib.pl(付属ファイル)
   timetable.txt(付随ファイル)
-  runtable.txtx(付随ファイル)
+  runtable.txt(付随ファイル)
 　yubin.csv(郵便番号データファイル　該当地域のみ）
   index.cgi(サイトトップのHTMLのCGI)
 　.htaccess(index.cgiに誘導する)
@@ -22,6 +23,13 @@
 　mobile.html(携帯用出力ファイル）
 　mobile_update.html(携帯用更新履歴出力ファイル）
 　english.html(英語用出力ファイル）
+　english_mobile.html(英語用携帯出力ファイル）
+　area_jp.html(出力結果の日本語のPC版）
+　area_en.html(出力結果の英語語のPC版）
+　area_jp_m.html(出力結果の日本語の携帯版）
+　area_en_m.html(出力結果の英語語の携帯版）
+　area_jp_rss.xml(出力結果の日本語のRSS版 - このままでは通りません）
+　area_en_rss.xml(出力結果の英語語のRSS版 - このままでは通りません）
 　update.cgi(http://power.daiba.cx/ から自動アップデートするスクリプト)
 　title_s.jpg(渡邊 春菜さん作のTOPページの上の画像）
 　twitter_tag.jpg(渡邊 春菜さん作のtwiiter タグの画像）

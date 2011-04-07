@@ -9,7 +9,7 @@ BEGIN {
 use utf8;
 use strict;
 use CGI;
-use Encode qw/decode encode_utf8 from_to decode_utf8/;
+use Encode qw/decode decode_utf8/;
 use Encode::Guess;
 use Text::MicroTemplate::File;
 
@@ -66,28 +66,13 @@ if($zip=~/(\d\d\d)(\d\d\d\d)/) {
 
 my $out=$query->param('out');
 my $comm=$query->param('comm');
-my $getgroup_tepco=$query->param('gid');
-my $getgroup_tepco_sub=$query->param('gids');
-my $getgroup_tohoku=$query->param('gidh');
-my $getgroup;
-if($getgroup_tepco=~/^(\d)\-(.)$/) {
-	if($1>5 || $1<=0) {
-		$getgroup=0;
-	} else {
-		$getgroup="$1-$2";
-	}
-} elsif($getgroup_tepco=~/^(\d)$/ && $getgroup_tepco_sub=~/^[ABCDE]$/) {
-	if($getgroup_tepco>5 || $getgroup_tepco<=0) {
-		$getgroup=0;
-	} else {
-		$getgroup="$getgroup_tepco\-$getgroup_tepco_sub";
-	}
-} elsif($getgroup_tohoku=~/^(\d)$/) {
-	if($getgroup_tohoku>8 || $getgroup_tohoku<=0) {
-		$getgroup=0;
-	} else {
-		$getgroup=$getgroup_tohoku;
-	}
+my $getgroup=$query->param('gid');
+my $getgroup_sub=$query->param('gids');
+if($getgroup>8 || $getgroup<=0) {
+	$getgroup=0;
+}
+if($getgroup_sub!~/[0ABCDE]/) {
+	$getgroup_sub=0;
 }
 
 # 地域名入力欄から郵便番号を取得する。
@@ -161,33 +146,9 @@ my($basehref, $basehost, $basepath)=&getbasehref;
 
 # 郵便番号検索
 if($zip ne '') {
-	my @ZIP=();
-	open my $in, '<:utf8', "yubin.csv" || &err("yubin.csv can't read");
-	while(<$in>) {
-		chomp;
-		push(@ZIP,$_);
-	}
-	close($in);
-	if($zip2 ne "0000") {
-		foreach(@ZIP) {
-			s/ケ/ヶ/g;
-			s/の/ノ/g;
-			my ($ziptmp,$kanji1,$kanji2,$kanji3)=split(/\t/,$_);
-			if($ziptmp eq $zip) {
-				open my $in, '<:utf8', "all.all" || &err("all.all can't read");
-				while (<$in>) {
-					chomp;
-					my ($area1,$area2,$area3,$num)=split (/\t/,$_);
-					if($kanji1 eq $area1 && $kanji2 eq $area2 && ($area3 =~/$kanji3/ || $kanji3 =~/$area3/)) {
-						$getcity="$area1$area2$area3";
-						$getcity=&addnor($getcity);
-						last;
-					}
-				}
-				close($in);
-			}
-		}
-	}
+	my %citys=&getzip($zip);
+	$getcity="$citys{pref_ja}$citys{city_ja}$citys{town_ja}";
+	$getcity=&addnor($getcity);
 }
 
 # 日付取得
@@ -215,237 +176,8 @@ my @dates = map {$date[$_]} 0 .. 3;
 # 実行状況取得
 my $runtable = &read_runtable;
 
-# rss出力
-if($out eq 'rss') {
-	my $buf='';
-	my $rssdate=&date("Y-m-dTH:i:s+9:00");
+# 日付文字列を生成する。
 
-	my $count=0;
-	my $_getcity=&enc($getcity);
-	my $xml;
-
-	if ($zip2 eq "0000") {
-		if($englishflg) {
-			$buf="Ending in 0000 can not find the ZIP code.";
-		} else {
-			$buf="郵便番号末尾４桁 0000 では検索できません。";
-		}
-	} elsif ($zip ne '' && $zip!~/\d\d\d\d\d\d\d/ && length($zip) ne 7) {
-		if($englishflg) {
-			$buf="The ZIP code seems not to be input accurately.";
-		} else {
-			$buf="郵便番号が正確に入力されていないようです。";
-		}
-	} elsif($zip eq '' && $getcity eq '') {
-		if($englishflg) {
-			$buf="It's not input city name or ZIP code.";
-		} else {
-			$buf="地域名、もしくは郵便番号が入力されていません。";
-		}
-	} else {
-		my $firm;
-		my @xmldate;
-		open my $in, '<:utf8', "all.all" || &err("all.all can't read");
-		while (<$in>) {
-			chomp;
-			my ($area1,$area2,$area3,$num,$subgrp,$areaen1,$areaen2,$areaen3,$areakana1,$areakana2,$areakana3)=split (/\t/,$_);
-			my $areaorg="$area1$area2$area3$areaen1$areaen2$areaen3$areakana1$areakana2$areakana3";
-			$areaorg=&addnor($areaorg);
-			my $areakanji;
-			my $areakana;
-			my $arearoma="$areaen1$areaen2$areaen3";
-			my $grp=$subgrp ne '' ? "$num-$subgrp" : $num;
-
-			if ($getgroup) {
-				next unless $areaorg=~ m/$getcity/ and $grp eq $getgroup;
-			} else {
-				next unless $areaorg=~ m/$getcity/;
-			}
-
-			foreach(@tokyo_denryoku_list) {
-				if($area1 eq $_) {
-					$firm = 'T';
-					last;
-				}
-			}
-			foreach(@tohoku_denryoku_list) {
-				if($area1 eq $_) {
-					$firm = 'H';
-					last;
-				}
-			}
-
-			my @hours = map {
-				my $hours = $timetable->{$firm}{$_}{$num};
-				$hours ? join(', ', @$hours) : '-';
-			} @dates;
-
-			for(my $i=0; $i<4; $i++) {
-				my $tmp=$runtable->{$firm}{$date[$i]}{$grp};
-				if($englishflg) {
-					if($tmp=~/午前/) {
-						$tmp="AM only";
-					} elsif($tmp=~/午後/) {
-						$tmp="PM only";
-					} elsif($tmp=~/せず/ || $tmp=~/中止/) {
-						$tmp="No execution";
-					} elsif($tmp=~/予定/) {
-						$tmp="Scheduled";
-					} elsif($tmp eq '') {
-						$tmp="";
-					} else {
-						$tmp="Execution";
-					}
-					if($hours[$i]=~/なし/) {
-						$hours[$i]="No execution";
-					}
-				}
-				$hours[$i] .='('.$tmp.')' if($tmp ne '');
-			}
-
-			my $i=0;
-			foreach(@hours) {
-				my $hours = $timetable->{$firm}{$_}{$num};
-				my $hour ? join(', ', @$hours) : '-';
-				if ($englishflg) {
-					if(/なし/) {
-						$_="No execution";
-					}
-					$xmldate[$i].=<<FIN;
-<item rdf:about="$basehref?city=$_getcity&amp;gid=$getgroup_tepco&amp;gids=$getgroup_tepco_sub&amp;gidh=$getgroup_tohoku">
-<title>[$mon[$i]/$mday[$i]] @{[&roma($areaen1)]} @{[&roma($areaen2)]} @{[&roma($areaen3)]} (group $grp) of rolliing blackout infomation.</title>
-<link>$basehref?city=$_getcity&amp;zip1=$zip1&amp;zip2=$zip2&amp;gid=$getgroup_tepco&amp;gids=$getgroup_tepco_sub&amp;gidh=$getgroup_tohoku</link>
-<description>$_</description>
-<dc:date>$rssdate</dc:date>
-</item>
-FIN
-				} else {
-					my $outarea;
-					my $xmltitle;
-					$areakanji=&addnor("$area1$area2$area3");
-					$areakana=&addnor("$areakana1$areakana2$areakana3");
-					if($areakana=~ m/$getcity/) {
-						$outarea="$areakana1 $areakana2 $areakana3";
-						$xmltitle="【$mon[$i]月$mday[$i]日】$outarea(グループ$grp)の計画停電情報です。";
-					} elsif($arearoma=~ m/$getcity/) {
-						$outarea="$areaen1 $areaen2 $areaen3";
-						$xmltitle="[$mon[$i]/$mday[$i]日] $outarea (group $grp) of rolliing blackout infomation.";
-					} else {
-						$outarea="$area1$area2$area3";
-						$xmltitle="【$mon[$i]月$mday[$i]日】$outarea(グループ$grp)の計画停電情報です。";
-					}
-					$xmldate[$i].=<<FIN;
-<item rdf:about="$basehref?city=$_getcity&amp;gid=$getgroup_tepco&amp;gids=$getgroup_tepco_sub&amp;gidh=$getgroup_tohoku">
-<title>$xmltitle</title>
-<link>$basehref?city=$_getcity&amp;zip1=$zip1&amp;zip2=$zip2&amp;gid=$getgroup_tepco&amp;gids=$getgroup_tepco_sub&amp;gidh=$getgroup_tohoku</link>
-<description>@{[$arearoma=~m/$getcity/ ? ($_=~/なし/ ? 'No execution' : $_) : "$_ です。"]}</description>
-<dc:date>$rssdate</dc:date>
-</item>
-FIN
-				}
-				++$i;
-			}
-			++$count;
-		}
-		for(my $i=0; $i<4; $i++) {
-			$xml.=$xmldate[$i];
-		}
-		if (!$count) {
-			if($englishflg) {
-				$buf="Not found of rolling blakout area.";
-			} else {
-				$buf="計画停電のないエリアです。";
-			}
-		}
-		if ($count>400) {
-			if($englishflg) {
-				$buf="There are a lot of pertinent regions. Please input a regional name of details.";
-			} else {
-				$buf="該当地域が多すぎです。詳細の地域名を入力してください。";
-			}
-		}
-		close($in);
-	}
-
-	my $areas;
-	if($zip ne '') {
-		if($englishflg) {
-			$areas="ZIP:$zip1-$zip2";
-		} else {
-			$areas="〒$zip1-$zip2";
-		}
-	} else {
-		$areas=$titlename;
-	}
-	$areas=~ s/[;\"\'\$\@\%\(\)]//g;	# by @mnakajim
-
-	print <<FIN;
-Content-type: text/xml;charset=utf-8
-Cache-Control: max-age=0
-Expires: Mon, 26, Jul 1997 05:00:00 GMT
-
-<?xml version="1.0" encoding="UTF-8" ?>
-
-<rdf:RDF
- xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
- xmlns="http://purl.org/rss/1.0/"
- xmlns:dc="http://purl.org/dc/elements/1.1/"
->
-FIN
-	if($englishflg) {
-		if($buf ne '') {
-			print <<FIN;
-<channel rdf:about="$basehost$basepath">
-<title>$areas of rolling blackout schedule</title>
-<link>$basehref</link>
-</channel>
-<item rdf:about="$basehref?city=$_getcity&amp;gid=$getgroup_tepco&amp;gids=$getgroup_tepco_sub&amp;gidh=$getgroup_tohoku">
-<title>$buf</title>
-<link>$basehref?city=$_getcity&amp;zip1=$zip1&amp;zip2=$zip2&amp;gid=$getgroup_tepco&amp;gids=$getgroup_tepco_sub&amp;gidh=$getgroup_tohoku</link>
-<dc:date>$rssdate</dc:date>
-</item>
-FIN
-		} else {
-			print <<FIN;
-<channel rdf:about="$basehost$basepath">
-<title>$areas of rolling blackout schedule</title>
-<link>$basehost$basepath</link>
-</channel>
-FIN
-		}
-		print $xml;
-	} else {
-		if($buf ne '') {
-			print <<FIN;
-<channel rdf:about="$basehost$basepath">
-<title>$areas の計画停電予定</title>
-<link>$basehost/index.html</link>
-</channel>
-<item rdf:about="$basehref?city=$_getcity&amp;zip1=$zip1&amp;zip2=$zip2&amp;gid=$getgroup_tepco&amp;gids=$getgroup_tepco_sub&amp;gidh=$getgroup_tohoku">
-<title>$buf</title>
-<link>$basehref?city=$_getcity&amp;gid=$getgroup_tepco&amp;gids=$getgroup_tepco_sub&amp;gidh=$getgroup_tohoku</link>
-<dc:date>$rssdate</dc:date>
-</item>
-FIN
-		} else {
-			print <<FIN;
-<channel rdf:about="$basehost$basepath">
-<title>$areas の計画停電予定</title>
-<link>$basehost$basepath</link>
-</channel>
-FIN
-		}
-		print $xml;
-	}
-
-	print <<FIN;
-</rdf:RDF>
-FIN
-	exit;
-}
-
-# HTML出力
-# 最初のtableタグの１行目を生成する。
 if($englishflg) {
 	for(my $i=0; $i<4; $i++) {
 		$date_str[$i]="$mon[$i]/$mday[$i]";
@@ -485,13 +217,14 @@ if($getcity=~/^(バージョン|試験|更新|[Uu][Pp][Dd][Aa][Tt][Ee]|[Vv][Ee][
 		my ($area1,$area2,$area3,$num,$subgrp,$areaen1,$areaen2,$areaen3,$areakana1,$areakana2,$areakana3)=split (/\t/,$_);
 		my $areaorg="$area1$area2$area3$areaen1$areaen2$areaen3$areakana1$areakana2$areakana3";
 		$areaorg=&addnor($areaorg);
+
+		next if $getgroup && $num != $getgroup;
+		next if $subgrp ne '' && $getgroup_sub ne '0' && $subgrp ne $getgroup_sub;
+		next unless $areaorg =~ m/$getcity/;
 		my $areakanji;
 		my $areakana;
 		my $arearoma="$areaen1$areaen2$areaen3";
 		my $grp=$subgrp ne '' ? "$num-$subgrp" : $num;
-
-		next if $getgroup && $grp != $getgroup;
-		next unless $areaorg =~ m/$getcity/;
 
 		foreach(@tokyo_denryoku_list) {
 			if($area1 eq $_) {
@@ -598,54 +331,110 @@ if($zip ne '') {
 }
 $areas=~ s/[;\"\'\$\@\%\(\)]//g;	# by @mnakajim
 
-&gzip_compress("Content-type: text/html; charset=utf-8\nCache-Control: max-age=0\nExpires: Mon, 26, Jul 1997 05:00:00 GMT");
+if($out eq 'rss') {
+	&gzip_compress("Content-type: text/xml;charset=utf-8\nCache-Control: max-age=0\nExpires: Mon, 26, Jul 1997 05:00:00 GMT");
+} else {
+	&gzip_compress("Content-type: text/html; charset=utf-8\nCache-Control: max-age=0\nExpires: Mon, 26, Jul 1997 05:00:00 GMT");
+}
 
-my $_getcity=&enc($getcity);
+my $_getcity=&enc($titlename);
 my $mtf = Text::MicroTemplate::File->new;
 my $rss_link;
 if($getcity!~/^(バージョン|試験|更新|[Uu][Pp][Dd][Aa][Tt][Ee]|[Vv][Ee][Rr])/) {
-	$rss_link="area.cgi?city=$_getcity&zip1=$zip1&zip2=$zip2&gid=$getgroup_tepco&gids=$getgroup_tepco_sub&gidh=$getgroup_tohoku&out=rss&m=$mode";
+	$rss_link="area.cgi?city=$_getcity&zip1=$zip1&zip2=$zip2&gid=$getgroup&gids=$getgroup_sub&out=rss&m=$mode";
 }
 my $html;
 my $template;
 if($englishflg) {
-	if($mobileflg eq 2) {
+	if($out eq 'rss') {
+		$template="area_en_rss.xml";
+	} elsif($mobileflg eq 2) {
 		$template="area_en_m.html";
 	} else {
 		$template="area_en.html";
 	}
 } else {
-	if($mobileflg eq 2) {
+	if($out eq 'rss') {
+		$template="area_jp_rss.xml";
+	} elsif($mobileflg eq 2) {
 		$template="area_jp_m.html";
 	} else {
 		$template="area_jp.html";
 	}
 }
-my $html = $mtf->render_file(
-	$template,
-	$areas, \@date_str, \@results,
-	$error_message, \@version_message, $rss_link,
-	&make_link_qrcode("$basehref?city=$_getcity&amp;gid=$getgroup_tepco&amp;gids=$getgroup_tepco_sub&amp;gidh=$getgroup_tohoku&amp;m=$mode"),
-	sprintf("Powered by Perl $] HTML convert time to %.3f sec.",
-		((times)[0] - $::conv_start))
-);
-if($mobileflg eq 2) {
-	$html=&z2h($html);
-	$html=~s/０/0/g;
-	$html=~s/１/1/g;
-	$html=~s/２/2/g;
-	$html=~s/３/3/g;
-	$html=~s/４/4/g;
-	$html=~s/５/5/g;
-	$html=~s/６/6/g;
-	$html=~s/７/7/g;
-	$html=~s/８/8/g;
-	$html=~s/９/9/g;
+if($out eq 'rss') {
+	$html = $mtf->render_file(
+		$template,
+		$areas, \@date_str, \@results, $error_message, "$basehost$basepath",
+		"$basehref?city=$_getcity&zip1=$zip1&zip2=$zip2&gid=$getgroup&gids=$getgroup_sub&m=$mode",
+		&date("Y-m-dTH:i:s+9:00")
+	);
+} else {
+	$html = $mtf->render_file(
+		$template,
+		$areas, \@date_str, \@results,
+		$error_message, \@version_message, $rss_link,
+		&make_link_qrcode("$basehref?city=$_getcity&amp;gid=$getgroup&amp;gids=$getgroup_sub&amp;m=$mode"),
+		sprintf("Powered by Perl $] HTML convert time to %.3f sec.",
+			((times)[0] - $::conv_start))
+	);
+
+	if($mobileflg eq 2) {
+		$html=&z2h($html);
+	}
 }
 print <<EOM;
 <?xml version="1.0" encoding="UTF-8" ?>
 $html$debug
 EOM
+
+# 郵便番号→住所
+sub getzip {
+	my %citys;
+	my($zip)=shift;
+	my $zip1;
+	my $zip2;
+	if($zip=~/(\d\d\d)(\d\d\d\d)/) {
+		$zip1=$1;
+		$zip2=$2;
+		$zip=$zip1 . $zip2;
+	} else {
+		return %citys;
+	}
+
+	my @ZIP=();
+	open my $in, '<:utf8', "yubin.csv" || &err("yubin.csv can't read");
+	while(<$in>) {
+		chomp;
+		push(@ZIP,$_);
+	}
+	close($in);
+	if($zip2 ne "0000") {
+		foreach(@ZIP) {
+			s/ケ/ヶ/g;
+			s/の/ノ/g;
+			my ($ziptmp,$kanji1,$kanji2,$kanji3)=split(/\t/,$_);
+			if($ziptmp eq $zip) {
+				open my $in, '<:utf8', "all.all" || &err("all.all can't read");
+				while (<$in>) {
+					chomp;
+					my ($area1,$area2,$area3,$num,$subgrp,$areaen1,$areaen2,$areaen3,$areakana1,$areakana2,$areakana3)=split (/\t/,$_);
+					if($kanji1 eq $area1 && $kanji2 eq $area2 && ($area3 =~/$kanji3/ || $kanji3 =~/$area3/)) {
+						$citys{pref_ja}="$area1";
+						$citys{city_ja}="$area2";
+						$citys{town_ja}="$area3";
+						$citys{pref_en}=&roma("$areaen1");
+						$citys{city_en}=&roma("$areaen2");
+						$citys{town_en}=&roma("$areaen3");
+						last;
+					}
+				}
+				close($in);
+			}
+		}
+	}
+	return %citys;
+}
 
 # ローマ字の1文字目を大文字、それ以降を小文字にする。
 sub roma {

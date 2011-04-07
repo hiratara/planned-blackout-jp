@@ -1,15 +1,27 @@
 use utf8;
 use strict;
+use Encode;
 use Encode::JP::H2Z;
 
 # カナ→ｶﾅ変換 for Encode.pm
 
-sub z2h {
-	my($s) = shift;
-	Encode::JP::H2Z::z2h($s);
-	return $s;
+sub z2h{
+	my $string = shift;
+	$string=~s/～/-/g;
+	$string=~s/０/0/g;
+	$string=~s/１/1/g;
+	$string=~s/２/2/g;
+	$string=~s/３/3/g;
+	$string=~s/４/4/g;
+	$string=~s/５/5/g;
+	$string=~s/６/6/g;
+	$string=~s/７/7/g;
+	$string=~s/８/8/g;
+	$string=~s/９/9/g;
+	$string = Encode::encode("euc-jp", $string);
+	Encode::JP::H2Z::z2h(\$string);
+	return Encode::decode("euc-jp", $string);
 }
-
 # QUERY_STRINGエンコード
 sub enc {
 	my ($encoded) = shift;
@@ -127,7 +139,7 @@ sub make_qrcode {
 		$defaultSize=3;
 	}
 
-	if(&load_module("GD::Barcode")) {
+	if(&load_module("GD") && &load_module("GD::Barcode")) {
 		$hParm{Ecc}=$defaultECC;
 		$hParm{ModuleSize}=$defaultSize;
 		$hParm{Version}=$defaultVersion;

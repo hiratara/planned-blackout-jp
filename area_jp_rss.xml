@@ -1,0 +1,45 @@
+? my ($title, $dates, $results, $error_message, $baseurl, $resulturl, $rssdate) = @_;
+<rdf:RDF
+ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+ xmlns="http://purl.org/rss/1.0/"
+ xmlns:dc="http://purl.org/dc/elements/1.1/"
+>
+
+? if ($error_message) {
+<channel rdf:about="$baseurl">
+<title><?= $title ?> の計画停電予定</title>
+<link><?= $baseurl ?></link>
+</channel>
+<item rdf:about="<?= $resulturl ?>">
+<title><?= $error_message ?></title>
+<link><?= $resulturl ?></link>
+<dc:date><?= $rssdate ?></dc:date>
+</item>
+? } else {
+<channel rdf:about="<?= $baseurl ?>">
+<title><?= $title ?> の計画停電予定</title>
+<link><?= $baseurl ?></link>
+</channel>
+
+?     my $c=0;
+?     for my $d(@$dates) {
+?         for my $i (0 .. $#$results) { my $r = $results->[$i];
+<item rdf:about="<?= $resulturl ?>">
+<title>【<?= $d ?>】<?= $r->{tdfk} ?> <?= $r->{shiku} ?> <?= $r->{machiaza} ?>（グループ<?= $r->{grp} ?>）の計画停電情報です。</title>
+<link><?= $resulturl ?></link>
+<description>
+?         my $h=$r->{hour_refs}[$c];
+?         my $hs=$h->{hours_str};
+?         my $rs=$h->{run_str};
+<?= $hs ?>
+?         if($rs) {
+(<?= $rs ?>)
+?         }
+です。</description>
+<dc:date><?= $rssdate ?></dc:date>
+</item>
+?      }
+?      $c++;
+?    }
+? }
+</rdf:RDF>

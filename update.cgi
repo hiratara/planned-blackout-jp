@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 # update cgi by nanakochi123456
-# 2011/04/01 更新しています。
+# 2011/04/03 更新しています。
 
 $WGET="wget";
 $BASEURL="http://power.daiba.cx/";
@@ -94,6 +94,28 @@ if(opendir(DIR,"$TMPDIR/$BASEFILE$VERSION")) {
 		print "Found $PWD/.htaccess.org\n";
 		&filecopy("$PWD/.htaccess.org","$PWD/.htaccess");
 		print "copy $PWD/.htaccess.org $PWD/.htaccess\n";
+	}
+	if(opendir(DIR,"$PWD")) {
+		while($file=readdir(DIR)) {
+			next if($file!~/(.*)\.html\.org$/);
+			if(-r "$PWD/$1.html.org") {
+				print "Found $PWD/$1.html.org\n";
+				&filecopy("$PWD/$1.html.org","$PWD/$1.html");
+				print "copy $PWD/$1.html.org $PWD/$1.html\n";
+			}
+		}
+		closedir(DIR);
+	}
+	if(opendir(DIR,"$PWD")) {
+		while($file=readdir(DIR)) {
+			next if($file=~/(.+)\.xml\.org$/);
+			if(-r "$PWD/$1.html.org") {
+				print "Found $PWD/$1.xml.org\n";
+				&filecopy("$PWD/$1.xml.org","$PWD/$1.xml");
+				print "copy $PWD/$1.xml.org $PWD/$1.xml\n";
+			}
+		}
+		closedir(DIR);
 	}
 	print "mkdir&chmod $PWD/$COUNTERDIR\n";
 	&shell("mkdir $PWD/$COUNTERDIR\n");
