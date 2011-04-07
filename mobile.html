@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="ja" />
+<title>計画停電時間検索 | 停電グループや停電時間を検索できるツール</title>
+<meta name="description" content="計画停電の時間やグループを検索できるツールです。市区町村名、地域名など住所の一部や郵便番号などから停電時間を検索できます。">
+<meta name="keywords" content="計画停電,検索,システム,ツール,スケジュール,輪番停電,グループ">
+<body>
+<div style="text-align:center;" align="center">停電時間検索ﾂｰﾙ</div>
+<div style="text-align:center;" align="center">(東京電力､東北電力)</div>
+@@VER@@<br />
+<hr />
+<form action="area.cgi" method="get">
+<div>市区町村名､地域名</div>
+<input type="text" name="city" size="20" istyle="1" mode="hiragana" />
+<div>または〒(7桁)</div>
+<input type="text" name="zip" maxlength="7" size="7" istyle="4" mode="numeric" /><br />
+<div>ｸﾞﾙｰﾌﾟ番号で絞り込み</div>
+<select name="gid">
+<option value="0">指定なし</option>
+<option value="1">ｸﾞﾙｰﾌﾟ1</option>
+<option value="2">ｸﾞﾙｰﾌﾟ2</option>
+<option value="3">ｸﾞﾙｰﾌﾟ3</option>
+<option value="4">ｸﾞﾙｰﾌﾟ4</option>
+<option value="5">ｸﾞﾙｰﾌﾟ5</option>
+<option value="6">ｸﾞﾙｰﾌﾟ6(東北)</option>
+<option value="7">ｸﾞﾙｰﾌﾟ7(東北)</option>
+<option value="8">ｸﾞﾙｰﾌﾟ8(東北)</option>
+</select>
+<br />
+<br />
+<input type="hidden" name="m" value="m" />
+<input type="submit" name="submit" value="検索" />
+</form>
+<br />
+<a href="http://denki.moene.ws/">ﾐﾗｰ1</a> や<a href="http://bit.ly/e6b2XL">ﾐﾗｰ2</a>等<br />
+<br />
+<a href="?p">PC向けﾍﾟｰｼﾞ</a><br />
+<a href="?e">English</a>
+<hr />
+<div align="center" style="text-align:center;"><a href="http://twitter.com/mnakajim">(c)中島昌彦<br>
+(M.NAKAJIM)</a><br>
+and supporters</div>
+</body>
+</html>

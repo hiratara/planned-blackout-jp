@@ -3,25 +3,30 @@
 # nanakochi123456 version nyatakasan/hiratara 1st release:mnakajim
 
 BEGIN {
-	$conv_start = (times)[0];
+	my $conv_start = (times)[0];
 }
 
+use strict;
 use CGI;
 use Encode qw/decode encode_utf8 from_to/;
 use Encode::Guess;
 
+my $debug;
 require "common.pl";
 
 # query 取得等
 
-$query=new CGI;
-$getcity=$query->param('city');
+my $query=new CGI;
+my $getcity=$query->param('city');
 $getcity=force_utf8($query->param('city'));
-$zip=$query->param('zip');
-$mode=$query->param('m');
-$qr=$query->param('qr');
-$englishflg=0;
+my $zip=$query->param('zip');
+my $zip1;
+my $zip2;
+my $mode=$query->param('m');
+my $qr=$query->param('qr');
+my $englishflg=0;
 $englishflg=1 if($mode eq 'e');
+my $mflg=0;
 $mflg=1 if($mode eq 'm');
 
 $zip=~s/\-//g;
@@ -39,17 +44,17 @@ if($zip=~/(\d\d\d)(\d\d\d\d)/) {
 	$zip=$zip1 . $zip2;
 }
 
-$out=$query->param('out');
-$comm=$query->param('comm');
+my $out=$query->param('out');
+my $comm=$query->param('comm');
 $getcity=~ s/ //g;
 $getcity=~ s/　//g;
-$getgroup=$query->param('gid');
+my $getgroup=$query->param('gid');
 if ($getgroup>8 || $getgroup<=0) {
 	$getgroup=0;
 }
 
 # 地域名入力欄から郵便番号を取得する。
-$ziptmp=$getcity;
+my $ziptmp=$getcity;
 $ziptmp=~s/０/0/g;
 $ziptmp=~s/１/1/g;
 $ziptmp=~s/２/2/g;
@@ -73,16 +78,16 @@ if($ziptmp=~/(\d\d\d)(\d\d\d\d)/) {
 # QRコードモードならイメージ生成のみをする。
 
 if($mode eq 'qr') {
-	$string=$query->param('str');
+	my $string=$query->param('str');
 	&make_qrcode($string,$qr);
 	exit;
 }
 
 # 東京電力リスト
-@tokyo_denryoku_list=("茨城県","栃木県","群馬県","埼玉県","千葉県","東京都","神奈川県","山梨県","静岡県");
+my @tokyo_denryoku_list=("茨城県","栃木県","群馬県","埼玉県","千葉県","東京都","神奈川県","山梨県","静岡県");
 
 # 東北電力リスト
-@tohoku_denryoku_list=("青森県","秋田県","岩手県","宮城県","山形県","福島県","新潟県");
+my @tohoku_denryoku_list=("青森県","秋田県","岩手県","宮城県","山形県","福島県","新潟県");
 
 # 各種変換
 $getcity=~s/ケ/ヶ/g;
@@ -105,46 +110,38 @@ if($englishflg) {
 }
 
 # バージョン情報表示
-if($comm eq 'ver' || $getcity=~/試験|更新|[Uu][Pp][Dd][Aa][Tt][Ee]|[Vv][Ee][Rr]/) {
+if($comm eq 'ver') {
+	my $ver=&getengineversion;
 	print <<FIN;
 Content-type: text/plain; charset=utf-8
 
+$ver
 FIN
-	open(R,"index.cgi");
-	foreach(<R>) {
-		if(/\$VER\=\"V\.(.+)\"\;/) {
-			$VER=$1;
-			print "$VER";
-			close(R);
-			exit;
-		}
-	}
-	close(R);
-	print "What version ? or older";
 	exit;
 }
 
 # $getbasehref に スクリプトの実パスが入る。
-&getbasehref;
+my($basehref, $basehost, $basepath)=&getbasehref;
 
 # 郵便番号検索
 if($zip ne '') {
-	open (ZIP,"yubin.csv");
-	while(<ZIP>) {
+	my @ZIP=();
+	open (R,"yubin.csv");
+	while(<R>) {
 		chomp;
 		push(@ZIP,$_);
 	}
-	close(ZIP);
+	close(R);
 	if($zip2 ne "0000") {
 		foreach(@ZIP) {
 			s/ケ/ヶ/g;
 			s/の/ノ/g;
-			($ziptmp,$kanji1,$kanji2,$kanji3)=split(/\t/,$_);
+			my ($ziptmp,$kanji1,$kanji2,$kanji3)=split(/\t/,$_);
 			if($ziptmp eq $zip) {
 				open (READ,"all.all");
 				while (<READ>) {
 					chomp;
-					($area1,$area2,$area3,$num)=split (/\t/,$_);
+					my ($area1,$area2,$area3,$num)=split (/\t/,$_);
 					if($kanji1 eq $area1 && $kanji2 eq $area2 && ($area3 =~/$kanji3/ || $kanji3 =~/$area3/)) {
 						$getcity="$area1$area2$area3";
 						last;
@@ -157,7 +154,11 @@ if($zip ne '') {
 }
 
 # 日付取得
-for($i=0; $i<5; $i++) { 
+my @date;
+my @mon;
+my @mday;
+
+for(my $i=0; $i<5; $i++) { 
 	$date[$i]=&date("Y-m-d",,time+86400*$i);
 	$mon[$i]=&date("n",,time+86400*$i);
 	$mday[$i] = &date("j",,time+86400*$i);
@@ -165,6 +166,7 @@ for($i=0; $i<5; $i++) {
 
 # 携帯かどうか？ ループ数カウントも含めるため、それぞれの数字になってます。
 
+my $mobileflg;
 $mobileflg=4;
 $mobileflg=2 if($ENV{HTTP_USER_AGENT}=~/DoCoMo|UP\.Browser|KDDI|SoftBank|Voda[F|f]one|J\-PHONE/) || $mflg eq 1;
 
@@ -175,10 +177,12 @@ my @dates = map {$date[$_]} 0 .. ($mobileflg - 1);
 
 # rss出力
 if($out eq 'rss') {
-	$buf='';
-	$rssdate=&date("Y-m-dTH:i:s+9:00");
+	my $buf='';
+	my $rssdate=&date("Y-m-dTH:i:s+9:00");
 
-	$count=0;
+	my $count=0;
+	my $_getcity=&encode($getcity);
+	my $xml;
 
 	if ($zip2 eq "0000") {
 		if($englishflg) {
@@ -199,11 +203,13 @@ if($out eq 'rss') {
 			$buf="地域名、もしくは郵便番号が入力されていません。";
 		}
 	} else {
+		my $firm;
+		my @xmldate;
 		open (READ,"all.all");
 		while (<READ>) {
 			chomp;
-			($area1,$area2,$area3,$num,$areaen1,$areaen2,$areaen3)=split (/\t/,$_);
-			$areaorg="$area1$area2$area3";
+			my ($area1,$area2,$area3,$num,$areaen1,$areaen2,$areaen3)=split (/\t/,$_);
+			my $areaorg="$area1$area2$area3";
 			$areaorg="$area1$area2$area3$areaen1$areaen2$areaen3" if($englishflg);
 			$areaorg=~ s/ //g;
 
@@ -231,10 +237,10 @@ if($out eq 'rss') {
 				$hours ? join(', ', @$hours) : '-';
 			} @dates;
 
-			$i=0;
+			my $i=0;
 			foreach(@hours) {
-				$_getcity=&encode($getcity);
-				$hour ? join(', ', @$hours) : '-';
+				my $hours = $timetable->{$firm}{$_}{$num};
+				my $hour ? join(', ', @$hours) : '-';
 				if ($englishflg) {
 					if(/なし/) {
 						$_="none";
@@ -261,7 +267,7 @@ FIN
 			}
 			++$count;
 		}
-		for($i=0; $i<$mobileflg; $i++) {
+		for(my $i=0; $i<$mobileflg; $i++) {
 			$xml.=$xmldate[$i];
 		}
 		if (!$count) {
@@ -280,6 +286,7 @@ FIN
 		}
 	}
 
+	my $areas;
 	if($zip ne '') {
 		if($englishflg) {
 			$areas="ZIP:$zip1-$zip2";
@@ -307,9 +314,9 @@ FIN
 	if($englishflg) {
 		if($buf ne '') {
 			print <<FIN;
-<channel rdf:about="$basehost/index.cgi">
+<channel rdf:about="$basehost$basepath">
 <title>$areas of rolling blackout schedule</title>
-<link>$basehost/index.html</link>
+<link>$basehref</link>
 </channel>
 <item rdf:about="$basehref?city=$_getcity&amp;gid=$getgroup">
 <title>$buf</title>
@@ -329,7 +336,7 @@ FIN
 	} else {
 		if($buf ne '') {
 			print <<FIN;
-<channel rdf:about="$basehost/index.cgi">
+<channel rdf:about="$basehost$basepath">
 <title>$areasの計画停電予定</title>
 <link>$basehost/index.html</link>
 </channel>
@@ -358,19 +365,20 @@ FIN
 
 # HTML出力
 
+my $buf;
 # 最初のtableタグの１行目を生成する。
 if($englishflg) {
 	$buf=<<FIN;
 <table border=1><tr bgcolor=#C0C0C0><th>Areas</th>
 FIN
 	if($mobileflg eq 2) {
-		for($i=0; $i<$mobileflg; $i++) {
+		for(my $i=0; $i<$mobileflg; $i++) {
 			$buf.=<<FIN;
 <th>$mon[$i]/$mday[$i] Blackout time.</th>
 FIN
 		}
 	} else {
-		for($i=0; $i<$mobileflg; $i++) {
+		for(my $i=0; $i<$mobileflg; $i++) {
 			$buf.=<<FIN;
 <th>$mon[$i]/$mday[$i] Blackout time.</th>
 FIN
@@ -384,13 +392,13 @@ FIN
 <table border=1><tr bgcolor=#C0C0C0><th>地域</th>
 FIN
 	if($mobileflg eq 2) {
-		for($i=0; $i<$mobileflg; $i++) {
+		for(my $i=0; $i<$mobileflg; $i++) {
 			$buf.=<<FIN;
 <th>$mday[$i]日停電時間</th>
 FIN
 		}
 	} else {
-		for($i=0; $i<$mobileflg; $i++) {
+		for(my $i=0; $i<$mobileflg; $i++) {
 			$buf.=<<FIN;
 <th>$mon[$i]月$mday[$i]日停電時間</th>
 FIN
@@ -401,13 +409,15 @@ FIN
 FIN
 }
 
-$head=$buf;
+my $head=$buf;
 $buf='';
 
-$count=0;
+my $count=0;
 
 # エラー出力
-if ($zip2 eq "0000") {
+if($getcity=~/^(バージョン|試験|更新|[Uu][Pp][Dd][Aa][Tt][Ee]|[Vv][Ee][Rr])/) {
+	$buf="<tr><td colspan=1>Engine Version:</td><td colspan=5>@{[&getengineversion]}</td></tr><tr><td colspan=1>DataBase Version: </td><td colspan=5>@{[&getdatabaseversion]}</td></tr><tr><td colspan=1>TimeTable Version:</td><td colspan=5>@{[&gettimetableversion]}</td></tr><tr><td colspan=1>ZIP Database Version: </td><td colspan=5>@{[&getzipdatabaseversion]}";
+} elsif ($zip2 eq "0000") {
 	if($englishflg) {
 		$buf="<tr><td colspan=6>Ending in 0000 can not find the ZIP code.</td></tr>";
 	} else {
@@ -427,11 +437,12 @@ if ($zip2 eq "0000") {
 	}
 } else {
 	open (READ,"all.all");
-	my $film;
+	my $firm;
+	my $bgcolor;
 	while (<READ>) {
 		chomp;
-		($area1,$area2,$area3,$num,$areaen1,$areaen2,$areaen3)=split (/\t/,$_);
-		$areaorg="$area1$area2$area3";
+		my ($area1,$area2,$area3,$num,$areaen1,$areaen2,$areaen3)=split (/\t/,$_);
+		my $areaorg="$area1$area2$area3";
 		$areaorg="$area1$area2$area3$areaen1$areaen2$areaen3" if($englishflg);
 		$areaorg=~ s/ //g;
 
@@ -494,6 +505,8 @@ if ($zip2 eq "0000") {
 	}
 }
 
+my $areas;
+
 if($zip ne '') {
 	if($englishflg) {
 		$areas="ZIP:$zip1-$zip2";
@@ -505,48 +518,9 @@ if($zip ne '') {
 }
 $areas=~ s/[;\"\'\$\@\%\(\)]//g;	# by @mnakajim
 
-# gzip圧縮
+&gzip_compress("Content-type: text/html; charset=utf-8\nCache-Control: max-age=0\nExpires: Mon, 26, Jul 1997 05:00:00 GMT");
 
-$gzip_command="gzip";
-
-foreach(split(/:/,$ENV{PATH})) {
-	if(-x "$_/$gzip_command") {
-		$gzip_path="$_/$gzip_command" ;
-		if(open(PIPE,"$::gzip_path --help 2>&1|")) {
-			foreach(<PIPE>) {
-				$forceflag="--force" if(/(\-\-force)/);
-				$fastflag="--fast" if(/(\-\-fast)/);
-			}
-			close(PIPE);
-		}
-	}
-}
-$gzip_path="$gzip_path $fastflag $forceflag";
-if ($gzip_path ne '') {
-	if(($ENV{'HTTP_ACCEPT_ENCODING'}=~/gzip/)) {
-		if($ENV{'HTTP_ACCEPT_ENCODING'}=~/x-gzip/) {
-			$gzip_header="Content-Encoding: x-gzip\n";
-		} else {
-			$gzip_header="Content-Encoding: gzip\n";
-		}
-	}
-}
-
-# サーバー出力
-print<<END;
-Content-type: text/html; charset=utf-8
-Cache-Control: max-age=0
-Expires: Mon, 26, Jul 1997 05:00:00 GMT
-END
-
-print "$gzip_header" if($gzip_header ne '');
-print "\n";
-
-if ($gzip_header ne '') {
-	open(STDOUT,"| $gzip_path");
-	binmode(STDOUT);
-}
-
+my $html;
 if($englishflg) {
 	$html=<<FIN;
 <html><head>
@@ -557,7 +531,7 @@ When this page is boomarked, No input of city or ZIP code.<BR>
 $head
 $buf
 </table>
-[<a href=./>Return</a>] 
+[<a href=./?e>Return</a>] 
 FIN
 } else {
 	$html=<<FIN;
@@ -575,7 +549,7 @@ FIN
 
 # 携帯なら、全角数字を及び全角カナを半角に変換する。
 if($mobileflg eq 2 || $mflg eq 1) {
-	&z2h(\$html);
+	$html=&z2h($html);
 	$html=~s/０/0/g;
 	$html=~s/１/1/g;
 	$html=~s/２/2/g;
@@ -589,7 +563,7 @@ if($mobileflg eq 2 || $mflg eq 1) {
 	print $html;
 } else {
 # PC用出力
-	$_getcity=&encode($getcity);
+	my $_getcity=&encode($getcity);
 	print<<FIN;
 $html
 [<a href="area.cgi?city=$_getcity&zip1=$zip1&zip2=$zip2&gid=$getgroup&out=rss&m=$mode">RSS</a>]
@@ -705,48 +679,119 @@ sub force_utf8($) {
 
 # カナ→ｶﾅ変換 from jcode.pl
 
+#my %z2h_euc;
 sub z2h {
-    local(*s, $n) = @_;
-    $re_euc_c    = '[\241-\376][\241-\376]';
-    $re_euc_kana = '\216[\241-\337]';
+    my($s) = shift;
+    my $re_euc_c    = '[\241-\376][\241-\376]';
+    my $re_euc_kana = '\216[\241-\337]';
 	from_to($s,'utf8','euc-jp');
-    &init_z2h_euc;
-    $s =~ s/($re_euc_c|$re_euc_kana)/
-	$z2h_euc{$1} ? ($n++, $z2h_euc{$1}) : $1
-    /geo;
+
+	my %_H2Z = (
+		 "\x8e\xa1"	=>	"\xa1\xa3",	#。
+		 "\x8e\xa2"	=>	"\xa1\xd6",	#「
+		 "\x8e\xa3"	=>	"\xa1\xd7",	#」
+		 "\x8e\xa4"	=>	"\xa1\xa2",	#、
+		 "\x8e\xa5"	=>	"\xa1\xa6",	#・
+		 "\x8e\xa6"	=>	"\xa5\xf2",	#ヲ
+		 "\x8e\xa7"	=>	"\xa5\xa1",	#ァ
+		 "\x8e\xa8"	=>	"\xa5\xa3",	#ィ
+		 "\x8e\xa9"	=>	"\xa5\xa5",	#ゥ
+		 "\x8e\xaa"	=>	"\xa5\xa7",	#ェ
+		 "\x8e\xab"	=>	"\xa5\xa9",	#ォ
+		 "\x8e\xac"	=>	"\xa5\xe3",	#ャ
+		 "\x8e\xad"	=>	"\xa5\xe5",	#ュ
+		 "\x8e\xae"	=>	"\xa5\xe7",	#ョ
+		 "\x8e\xaf"	=>	"\xa5\xc3",	#ッ
+		 "\x8e\xb0"	=>	"\xa1\xbc",	#ー
+		 "\x8e\xb1"	=>	"\xa5\xa2",	#ア
+		 "\x8e\xb2"	=>	"\xa5\xa4",	#イ
+		 "\x8e\xb3"	=>	"\xa5\xa6",	#ウ
+		 "\x8e\xb4"	=>	"\xa5\xa8",	#エ
+		 "\x8e\xb5"	=>	"\xa5\xaa",	#オ
+		 "\x8e\xb6"	=>	"\xa5\xab",	#カ
+		 "\x8e\xb7"	=>	"\xa5\xad",	#キ
+		 "\x8e\xb8"	=>	"\xa5\xaf",	#ク
+		 "\x8e\xb9"	=>	"\xa5\xb1",	#ケ
+		 "\x8e\xba"	=>	"\xa5\xb3",	#コ
+		 "\x8e\xbb"	=>	"\xa5\xb5",	#サ
+		 "\x8e\xbc"	=>	"\xa5\xb7",	#シ
+		 "\x8e\xbd"	=>	"\xa5\xb9",	#ス
+		 "\x8e\xbe"	=>	"\xa5\xbb",	#セ
+		 "\x8e\xbf"	=>	"\xa5\xbd",	#ソ
+		 "\x8e\xc0"	=>	"\xa5\xbf",	#タ
+		 "\x8e\xc1"	=>	"\xa5\xc1",	#チ
+		 "\x8e\xc2"	=>	"\xa5\xc4",	#ツ
+		 "\x8e\xc3"	=>	"\xa5\xc6",	#テ
+		 "\x8e\xc4"	=>	"\xa5\xc8",	#ト
+		 "\x8e\xc5"	=>	"\xa5\xca",	#ナ
+		 "\x8e\xc6"	=>	"\xa5\xcb",	#ニ
+		 "\x8e\xc7"	=>	"\xa5\xcc",	#ヌ
+		 "\x8e\xc8"	=>	"\xa5\xcd",	#ネ
+		 "\x8e\xc9"	=>	"\xa5\xce",	#ノ
+		 "\x8e\xca"	=>	"\xa5\xcf",	#ハ
+		 "\x8e\xcb"	=>	"\xa5\xd2",	#ヒ
+		 "\x8e\xcc"	=>	"\xa5\xd5",	#フ
+		 "\x8e\xcd"	=>	"\xa5\xd8",	#ヘ
+		 "\x8e\xce"	=>	"\xa5\xdb",	#ホ
+		 "\x8e\xcf"	=>	"\xa5\xde",	#マ
+		 "\x8e\xd0"	=>	"\xa5\xdf",	#ミ
+		 "\x8e\xd1"	=>	"\xa5\xe0",	#ム
+		 "\x8e\xd2"	=>	"\xa5\xe1",	#メ
+		 "\x8e\xd3"	=>	"\xa5\xe2",	#モ
+		 "\x8e\xd4"	=>	"\xa5\xe4",	#ヤ
+		 "\x8e\xd5"	=>	"\xa5\xe6",	#ユ
+		 "\x8e\xd6"	=>	"\xa5\xe8",	#ヨ
+		 "\x8e\xd7"	=>	"\xa5\xe9",	#ラ
+		 "\x8e\xd8"	=>	"\xa5\xea",	#リ
+		 "\x8e\xd9"	=>	"\xa5\xeb",	#ル
+		 "\x8e\xda"	=>	"\xa5\xec",	#レ
+		 "\x8e\xdb"	=>	"\xa5\xed",	#ロ
+		 "\x8e\xdc"	=>	"\xa5\xef",	#ワ
+		 "\x8e\xdd"	=>	"\xa5\xf3",	#ン
+		 "\x8e\xde"	=>	"\xa1\xab",	#゛
+		 "\x8e\xdf"	=>	"\xa1\xac",	#゜
+	);
+
+	my %_D2Z = (
+		 "\x8e\xb6\x8e\xde"	=>	"\xa5\xac",	#ガ
+		 "\x8e\xb7\x8e\xde"	=>	"\xa5\xae",	#ギ
+		 "\x8e\xb8\x8e\xde"	=>	"\xa5\xb0",	#グ
+		 "\x8e\xb9\x8e\xde"	=>	"\xa5\xb2",	#ゲ
+		 "\x8e\xba\x8e\xde"	=>	"\xa5\xb4",	#ゴ
+		 "\x8e\xbb\x8e\xde"	=>	"\xa5\xb6",	#ザ
+		 "\x8e\xbc\x8e\xde"	=>	"\xa5\xb8",	#ジ
+		 "\x8e\xbd\x8e\xde"	=>	"\xa5\xba",	#ズ
+		 "\x8e\xbe\x8e\xde"	=>	"\xa5\xbc",	#ゼ
+		 "\x8e\xbf\x8e\xde"	=>	"\xa5\xbe",	#ゾ
+		 "\x8e\xc0\x8e\xde"	=>	"\xa5\xc0",	#ダ
+		 "\x8e\xc1\x8e\xde"	=>	"\xa5\xc2",	#ヂ
+		 "\x8e\xc2\x8e\xde"	=>	"\xa5\xc5",	#ヅ
+		 "\x8e\xc3\x8e\xde"	=>	"\xa5\xc7",	#デ
+		 "\x8e\xc4\x8e\xde"	=>	"\xa5\xc9",	#ド
+		 "\x8e\xca\x8e\xde"	=>	"\xa5\xd0",	#バ
+		 "\x8e\xcb\x8e\xde"	=>	"\xa5\xd3",	#ビ
+		 "\x8e\xcc\x8e\xde"	=>	"\xa5\xd6",	#ブ
+		 "\x8e\xcd\x8e\xde"	=>	"\xa5\xd9",	#ベ
+		 "\x8e\xce\x8e\xde"	=>	"\xa5\xdc",	#ボ
+		 "\x8e\xca\x8e\xdf"	=>	"\xa5\xd1",	#パ
+		 "\x8e\xcb\x8e\xdf"	=>	"\xa5\xd4",	#ピ
+		 "\x8e\xcc\x8e\xdf"	=>	"\xa5\xd7",	#プ
+		 "\x8e\xcd\x8e\xdf"	=>	"\xa5\xda",	#ペ
+		 "\x8e\xce\x8e\xdf"	=>	"\xa5\xdd",	#ポ
+		 "\x8e\xb3\x8e\xde"     =>      "\xa5\xf4",     #ヴ
+	);
+	my %_Z2H = reverse %_H2Z;
+	my %_Z2D = reverse %_D2Z;
+
+    my $n = (
+	     $s =~ s(
+			  ($re_euc_c|$re_euc_kana)
+			  ){
+		 $_Z2D{$1} || $_Z2H{$1} || $1;
+		 }eogx
+	     );
 	from_to($s,'euc-jp','utf8');
-    $n;
-}
-
-sub init_z2h_euc {
-    ($h2z_high = $h2z = <<'__TABLE_END__') =~ tr/\041-\176/\241-\376/;
-!	!#	$	!"	%	!&	"	!V	#	!W
-^	!+	_	!,	0	!<
-'	%!	(	%#	)	%%	*	%'	+	%)
-,	%c	-	%e	.	%g	/	%C
-1	%"	2	%$	3	%&	4	%(	5	%*
-6	%+	7	%-	8	%/	9	%1	:	%3
-6^	%,	7^	%.	8^	%0	9^	%2	:^	%4
-;	%5	<	%7	=	%9	>	%;	?	%=
-;^	%6	<^	%8	=^	%:	>^	%<	?^	%>
-@	%?	A	%A	B	%D	C	%F	D	%H
-@^	%@	A^	%B	B^	%E	C^	%G	D^	%I
-E	%J	F	%K	G	%L	H	%M	I	%N
-J	%O	K	%R	L	%U	M	%X	N	%[
-J^	%P	K^	%S	L^	%V	M^	%Y	N^	%\
-J_	%Q	K_	%T	L_	%W	M_	%Z	N_	%]
-O	%^	P	%_	Q	%`	R	%a	S	%b
-T	%d			U	%f			V	%h
-W	%i	X	%j	Y	%k	Z	%l	[	%m
-\	%o	]	%s	&	%r	3^	%t
-__TABLE_END__
-    %h2z = split(/\s+/, $h2z . $h2z_high);
-    %z2h = reverse %h2z;
-
-    local($k, $s);
-    while (($k, $s) = each %z2h) {
-	$s =~ s/([\241-\337])/\216$1/g && ($z2h_euc{$k} = $s);
-    }
+    $s;
 }
 
 # タイムテーブル読み込み
@@ -781,4 +826,60 @@ sub make_link_qrcode {
 EOM
 	}
 	'';
+}
+
+sub getengineversion {
+	my $VER;
+	open(R,"index.cgi");
+	foreach(<R>) {
+		if(/my\s\$VER\=\"V\.(.+)\"\;/) {
+			$VER=$1;
+			close(R);
+			return $VER;
+		}
+	}
+	close(R);
+	return "What version ? or older";
+}
+
+sub getdatabaseversion {
+	open (READ,"all.all");
+	while (<READ>) {
+		chomp;
+		my ($field,$ver)=split (/\t/,$_);
+		if($field eq "version") {
+			close(READ);
+			return $ver;
+		}
+	}
+	close(READ);
+	return "What version ? or older";
+}
+
+sub getzipdatabaseversion {
+	open (READ,"yubin.csv");
+	while (<READ>) {
+		chomp;
+		my ($field,$ver)=split (/\t/,$_);
+		if($field eq "version") {
+			close(READ);
+			return $ver;
+		}
+	}
+	close(READ);
+	return "What version ? or older";
+}
+
+sub gettimetableversion {
+	open (READ,"timetable.txt");
+	while(<READ>) {
+		chomp;
+		my ($firm,$ver)=split(/\t/,$_);
+		if($firm eq "V") {
+			close(READ);
+			return $ver;
+		}
+	}
+	close(READ);
+	return "What version ? or older";
 }

@@ -1,3 +1,5 @@
+use strict;
+
 # QUERY_STRINGエンコード - これも面倒だからpyukiwikiから移植
 sub encode {
 	my ($encoded) = @_;
@@ -8,7 +10,7 @@ sub encode {
 # $basehref, $basepath 取得 - これも面倒だからpyukiwikiから移植
 sub getbasehref {
 	# Thanks moriyoshi koizumi.
-	$basehost = "$ENV{'HTTP_HOST'}";
+	my $basehost = "$ENV{'HTTP_HOST'}";
 	$basehost = 'http://' . $basehost;
 	# Special Thanks to gyo
 	$basehost .= ":$ENV{'SERVER_PORT'}"
@@ -32,9 +34,52 @@ sub getbasehref {
 	} else {
 		$uri .= $ENV{'SCRIPT_NAME'};
 	}
-	$basepath=$uri;
+	my $basepath=$uri;
 	$basepath=~s/\/[^\/]*$//g;
-	$basehref=$basehost . $uri;
+	my $basehref=$basehost . $uri;
+	return($basehref, $basehost, $basepath);
+}
+
+# gzip圧縮
+sub gzip_compress {
+	my $header=shift;
+	my $gzip_command="gzip";
+	my $gzip_path;
+	my $gzip_header;
+	my $fastflag;
+	my $forceflag;
+	foreach(split(/:/,$ENV{PATH})) {
+		if(-x "$_/$gzip_command") {
+			$gzip_path="$_/$gzip_command" ;
+			if(open(PIPE,"$gzip_path --help 2>&1|")) {
+				foreach(<PIPE>) {
+					$forceflag="--force" if(/(\-\-force)/);
+					$fastflag="--fast" if(/(\-\-fast)/);
+				}
+				close(PIPE);
+			}
+		}
+	}
+	$gzip_path="$gzip_path $fastflag $forceflag";
+	if ($gzip_path ne '') {
+		if(($ENV{'HTTP_ACCEPT_ENCODING'}=~/gzip/)) {
+			if($ENV{'HTTP_ACCEPT_ENCODING'}=~/x-gzip/) {
+				$gzip_header="Content-Encoding: x-gzip\n";
+			} else {
+				$gzip_header="Content-Encoding: gzip\n";
+			}
+		}
+	}
+
+	# サーバー出力
+	print "$header\n";
+	print "$gzip_header" if($gzip_header ne '');
+	print "\n";
+
+	if ($gzip_header ne '') {
+		open(STDOUT,"| $gzip_path");
+		binmode(STDOUT);
+	}
 }
 
 # use モジュールと同等、なくても動作するようになっています。
@@ -57,13 +102,17 @@ sub make_qrcode {
 	my %hParm;
 	my $oGdBar;
 
+	my $defaultECC;
+	my $defaultVersion;
+	my $defaultSize;
+
 	if($mode eq 'result') {
 		$defaultECC='M';
 		$defaultVersion=15;
 		$defaultSize=3;
 	} else {
 		$defaultECC='M';
-		$defaultVersion=5;
+		$defaultVersion=6;
 		$defaultSize=3;
 	}
 

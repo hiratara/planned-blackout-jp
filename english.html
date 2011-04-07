@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="ja" />
+<title>Search time rolling blackouts for Japan</title>
+<meta name="description" content="Search time rolling blackouts for Earthquake on Japan (11, Mar 2011)">
+<meta name="keywords" content="search,time,rolling,blackouts,earthquake,japan,tepco,tohoku,denryoku,power">
+</head>
+<body>
+<div style="text-align:center;" align="center">Power failure search tool for Japan</div>
+<div style="text-align:center;" align="center">(TEPCO,Tohoku-Denryoku)</div>
+@@VER@@<br />
+<hr />
+<form action="area.cgi" method="get">
+<div>City or AreaName (egg..Tokyo is toukyou, City is shi....Roman alphabet)</div>
+<div>or ZIP code.(egg..100-0000 or 1000000)</div>
+<div>When can't search, Please use ZIP code.</div>
+<input type="text" name="city" size="20" style="ime-mode:active;"/><br />
+<div>Refine group number</div>
+<select name="gid">
+<option value="0">none</option>
+<option value="1">Group 1</option>
+<option value="2">Group 2</option>
+<option value="3">Group 3</option>
+<option value="4">Group 4</option>
+<option value="5">Group 5</option>
+<option value="6">Group 6(tohoku)</option>
+<option value="7">Group 7(tohoku)</option>
+<option value="8">Group 8(tohoku)</option>
+</select>
+<br />
+<br />
+<input type="hidden" name="m" value="e" />
+<input type="submit" name="submit" value="Search" />
+</form>
+<br />
+<a href="?p">Japanese</a>
+<hr />
+<div align="center" style="text-align:center;"><a href="http://twitter.com/mnakajim">(c)M.NAKAJIM</a><br>
+and supporters</div>
+<!-- update href="http://power.daiba.cx/@@TARBALL@@" -->
+</body>
+</html>
