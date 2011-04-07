@@ -1221,6 +1221,7 @@
 千葉県	印西市	松崎台２丁目	2	C	CHIBAKEN	INNISHISHI	MATSUZAKIDAI2CHOUME	チバケン	インニシシ	マツザキダイ２チョウメ
 千葉県	印西市	松木	2	C	CHIBAKEN	INNISHISHI	MATSUKI	チバケン	インニシシ	マツキ
 千葉県	印西市	松虫	2	C	CHIBAKEN	INNISHISHI	MATSUMUSHI	チバケン	インニシシ	マツムシ
+千葉県	印西市	桜野	2	C	CHIBAKEN	INNISHISHI	SAKURANO	チバケン	インニシシ	サクラノ
 千葉県	印西市	武西	2	C	CHIBAKEN	INNISHISHI	TAKESHINISHI	チバケン	インニシシ	タケシニシ
 千葉県	印西市	武西学園台１丁目	2	C	CHIBAKEN	INNISHISHI	TAKESHINISHIGAKUENDAI1CHOUME	チバケン	インニシシ	タケシニシガクエンダイ１チョウメ
 千葉県	印西市	武西学園台２丁目	2	C	CHIBAKEN	INNISHISHI	TAKESHINISHIGAKUENDAI2CHOUME	チバケン	インニシシ	タケシニシガクエンダイ２チョウメ
@@ -1258,6 +1259,7 @@
 千葉県	印西市	草深	2	C	CHIBAKEN	INNISHISHI	KUSASHIN	チバケン	インニシシ	クサシン
 千葉県	印西市	荒野	2	C	CHIBAKEN	INNISHISHI	KOUYA	チバケン	インニシシ	コウヤ
 千葉県	印西市	萩原	2	C	CHIBAKEN	INNISHISHI	HAGIWARA	チバケン	インニシシ	ハギワラ
+千葉県	印西市	萩埜	2	C	CHIBAKEN	INNISHISHI	HAGINO	チバケン	インニシシ	ハギノ
 千葉県	印西市	行徳	2	C	CHIBAKEN	INNISHISHI	YUKINORI	チバケン	インニシシ	ユキノリ
 千葉県	印西市	西ノ原１丁目	2	C	CHIBAKEN	INNISHISHI	NISHINOHARA1CHOUME	チバケン	インニシシ	ニシノハラ１チョウメ
 千葉県	印西市	西ノ原２丁目	2	C	CHIBAKEN	INNISHISHI	NISHINOHARA2CHOUME	チバケン	インニシシ	ニシノハラ２チョウメ
@@ -15323,7 +15325,6 @@
 東京都	三鷹市	上連雀９丁目	2	D	TOUKYOUTO	MITAKASHI	UERENJAKU9CHOUME	トウキョウト	ミタカシ	ウエレンジャク９チョウメ
 東京都	三鷹市	下連雀１丁目	1	C	TOUKYOUTO	MITAKASHI	SHIMORENJAKU1CHOUME	トウキョウト	ミタカシ	シモレンジャク１チョウメ
 東京都	三鷹市	下連雀２丁目	1	C	TOUKYOUTO	MITAKASHI	SHIMORENJAKU2CHOUME	トウキョウト	ミタカシ	シモレンジャク２チョウメ
-東京都	三鷹市	下連雀４丁目	2	D	TOUKYOUTO	MITAKASHI	SHIMORENJAKU4CHOUME	トウキョウト	ミタカシ	シモレンジャク４チョウメ
 東京都	三鷹市	中原２丁目	2	D	TOUKYOUTO	MITAKASHI	NAKAHARA2CHOUME	トウキョウト	ミタカシ	ナカハラ２チョウメ
 東京都	三鷹市	中原３丁目	2	D	TOUKYOUTO	MITAKASHI	NAKAHARA3CHOUME	トウキョウト	ミタカシ	ナカハラ３チョウメ
 東京都	三鷹市	中原４丁目	2	D	TOUKYOUTO	MITAKASHI	NAKAHARA4CHOUME	トウキョウト	ミタカシ	ナカハラ４チョウメ
@@ -16378,8 +16379,8 @@
 東京都	東大和市	向原４丁目	3	B	TOUKYOUTO	HIGASHIYAMATOSHI	MUKAIHARA4CHOUME	トウキョウト	ヒガシヤマトシ	ムカイハラ４チョウメ
 東京都	東大和市	向原５丁目	3	B	TOUKYOUTO	HIGASHIYAMATOSHI	MUKAIHARA5CHOUME	トウキョウト	ヒガシヤマトシ	ムカイハラ５チョウメ
 東京都	東大和市	向原６丁目	3	B	TOUKYOUTO	HIGASHIYAMATOSHI	MUKAIHARA6CHOUME	トウキョウト	ヒガシヤマトシ	ムカイハラ６チョウメ
-東京都	東大和市	多摩湖１丁目	1	Ｃ	TOUKYOUTO	HIGASHIYAMATOSHI	TAMAMIZUUMI1CHOUME	トウキョウト	ヒガシヤマトシ	タマミズウミ１チョウメ
-東京都	東大和市	多摩湖２丁目	1	Ｃ	TOUKYOUTO	HIGASHIYAMATOSHI	TAMAMIZUUMI2CHOUME	トウキョウト	ヒガシヤマトシ	タマミズウミ２チョウメ
+東京都	東大和市	多摩湖１丁目	1	C	TOUKYOUTO	HIGASHIYAMATOSHI	TAMAMIZUUMI1CHOUME	トウキョウト	ヒガシヤマトシ	タマミズウミ１チョウメ
+東京都	東大和市	多摩湖２丁目	1	C	TOUKYOUTO	HIGASHIYAMATOSHI	TAMAMIZUUMI2CHOUME	トウキョウト	ヒガシヤマトシ	タマミズウミ２チョウメ
 東京都	東大和市	多摩湖２丁目	3	B	TOUKYOUTO	HIGASHIYAMATOSHI	TAMAMIZUUMI2CHOUME	トウキョウト	ヒガシヤマトシ	タマミズウミ２チョウメ
 東京都	東大和市	多摩湖３丁目	3	B	TOUKYOUTO	HIGASHIYAMATOSHI	TAMAMIZUUMI3CHOUME	トウキョウト	ヒガシヤマトシ	タマミズウミ３チョウメ
 東京都	東大和市	多摩湖４丁目	3	B	TOUKYOUTO	HIGASHIYAMATOSHI	TAMAMIZUUMI4CHOUME	トウキョウト	ヒガシヤマトシ	タマミズウミ４チョウメ
@@ -27015,4 +27016,4 @@
 静岡県	駿東郡長泉町	竹原	2	E	SHIZUOKAKEN	SHUNTOUGUNCHOUIZUMIMACHI	TAKEHARA	シズオカケン	シュントウグンチョウイズミマチ	タケハラ
 静岡県	駿東郡長泉町	竹原	3	E	SHIZUOKAKEN	SHUNTOUGUNCHOUIZUMIMACHI	TAKEHARA	シズオカケン	シュントウグンチョウイズミマチ	タケハラ
 静岡県	駿東郡長泉町	納米里	2	E	SHIZUOKAKEN	SHUNTOUGUNCHOUIZUMIMACHI	NOUKOMESATO	シズオカケン	シュントウグンチョウイズミマチ	ノウコメサト
-version	2011-03-31 07:39
+version	2011-03-31 19:54
