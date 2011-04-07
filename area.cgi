@@ -245,6 +245,16 @@ if($out eq 'rss') {
 				$hours ? join(', ', @$hours) : '-';
 			} @dates;
 
+
+			for(my $i=0; $i<$#hours; $i++) {
+				if($hours[$i]=~/\((.+)\)/) {
+					if($1!~/$subgrp/) {
+						$hours[$i]="実施なし";
+					} else {
+						$hours[$i]=~s/\(.*//;
+					}
+				}
+			}
 			my $i=0;
 			foreach(@hours) {
 				my $hours = $timetable->{$firm}{$_}{$num};
@@ -508,6 +518,15 @@ if($getcity=~/^(バージョン|試験|更新|[Uu][Pp][Dd][Aa][Tt][Ee]|[Vv][Ee][
 			$hours ? join(', ', @$hours) : '-';
 		} @dates;
 
+		for(my $i=0; $i<$#hours; $i++) {
+			if($hours[$i]=~/\((.+)\)/) {
+				if($1!~/$subgrp/) {
+					$hours[$i]="実施なし";
+				} else {
+					$hours[$i]=~s/\(.*//;
+				}
+			}
+		}
 		if($englishflg) {
 			$buf.="<tr$bgcolor><td><b>@{[&roma($areaen1)]} @{[&roma($areaen2)]} @{[&roma($areaen3)]}</b></td>" . 
 			      join('', map {"<td>@{[$_=~/なし/ ? 'none' : $_]}</td>"} @hours) . 
@@ -860,7 +879,7 @@ sub make_link_qrcode {
 	my ($string) = shift;
 	if(&load_module("GD::Barcode")) {
 		if($englishflg) {
-			$buf="If you have movile phone to transfer this result, use this barcode.";
+			$buf="If you have mobile phone to transfer this result, use this barcode.";
 		} else {
 			$buf="この検索結果を携帯に転送するには、このQRコードを読み込んで下さい。";
 		}
