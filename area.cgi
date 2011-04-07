@@ -1,5 +1,7 @@
 #!/usr/bin/perl
 
+# nanakochi123456 version nyatakasan/hiratara 1st release:mnakajim
+
 BEGIN {
 	$conv_start = (times)[0];
 }
@@ -8,25 +10,35 @@ use CGI;
 use Encode qw/decode encode_utf8 from_to/;
 use Encode::Guess;
 
+require "common.pl";
+
+# query 取得等
+
 $query=new CGI;
 $getcity=$query->param('city');
 $getcity=force_utf8($query->param('city'));
 $zip=$query->param('zip');
 $mode=$query->param('m');
+$qr=$query->param('qr');
 $englishflg=0;
 $englishflg=1 if($mode eq 'e');
 $mflg=1 if($mode eq 'm');
 
 $zip=~s/\-//g;
+
+# 携帯向け
 if($zip eq '') {
 	$zip1=$query->param('zip1');
 	$zip2=$query->param('zip2');
 	$zip=$zip1 . $zip2;
 }
+
 if($zip=~/(\d\d\d)(\d\d\d\d)/) {
 	$zip1=$1;
 	$zip2=$2;
+	$zip=$zip1 . $zip2;
 }
+
 $out=$query->param('out');
 $comm=$query->param('comm');
 $getcity=~ s/ //g;
@@ -36,9 +48,33 @@ if ($getgroup>8 || $getgroup<=0) {
 	$getgroup=0;
 }
 
+# 地域名入力欄から郵便番号を取得する。
+$ziptmp=$getcity;
+$ziptmp=~s/０/0/g;
+$ziptmp=~s/１/1/g;
+$ziptmp=~s/２/2/g;
+$ziptmp=~s/３/3/g;
+$ziptmp=~s/４/4/g;
+$ziptmp=~s/５/5/g;
+$ziptmp=~s/６/6/g;
+$ziptmp=~s/７/7/g;
+$ziptmp=~s/８/8/g;
+$ziptmp=~s/９/9/g;
+$ziptmp=~s/－//g;
+$ziptmp=~s/ー//g;
+$ziptmp=~s/-//g;
+
+if($ziptmp=~/(\d\d\d)(\d\d\d\d)/) {
+	$zip1=$1;
+	$zip2=$2;
+	$zip=$zip1 . $zip2;
+}
+
+# QRコードモードならイメージ生成のみをする。
+
 if($mode eq 'qr') {
 	$string=$query->param('str');
-	&make_qrcode($string);
+	&make_qrcode($string,$qr);
 	exit;
 }
 
@@ -48,6 +84,7 @@ if($mode eq 'qr') {
 # 東北電力リスト
 @tohoku_denryoku_list=("青森県","秋田県","岩手県","宮城県","山形県","福島県","新潟県");
 
+# 各種変換
 $getcity=~s/ケ/ヶ/g;
 $getcity=~s/の/ノ/g;
 
@@ -62,15 +99,17 @@ $getcity=~s/7/７/g;
 $getcity=~s/8/８/g;
 $getcity=~s/8/９/g;
 
+# 英語モードの時、一時大文字変換をする。
 if($englishflg) {
 	$getcity=~tr/[a-z]/[A-Z/;
 }
-if($comm eq 'ver') {
+
+# バージョン情報表示
+if($comm eq 'ver' || $getcity=~/試験|更新|[Uu][Pp][Dd][Aa][Tt][Ee]|[Vv][Ee][Rr]/) {
 	print <<FIN;
 Content-type: text/plain; charset=utf-8
 
 FIN
-
 	open(R,"index.cgi");
 	foreach(<R>) {
 		if(/\$VER\=\"V\.(.+)\"\;/) {
@@ -85,8 +124,10 @@ FIN
 	exit;
 }
 
+# $getbasehref に スクリプトの実パスが入る。
 &getbasehref;
 
+# 郵便番号検索
 if($zip ne '') {
 	open (ZIP,"yubin.csv");
 	while(<ZIP>) {
@@ -122,14 +163,17 @@ for($i=0; $i<5; $i++) {
 	$mday[$i] = &date("j",,time+86400*$i);
 }
 
-# 携帯かどうか？
+# 携帯かどうか？ ループ数カウントも含めるため、それぞれの数字になってます。
 
 $mobileflg=4;
 $mobileflg=2 if($ENV{HTTP_USER_AGENT}=~/DoCoMo|UP\.Browser|KDDI|SoftBank|Voda[F|f]one|J\-PHONE/) || $mflg eq 1;
 
+# タイムテーブル取得
+
 my $timetable = &read_timetable;
 my @dates = map {$date[$_]} 0 .. ($mobileflg - 1);
 
+# rss出力
 if($out eq 'rss') {
 	$buf='';
 	$rssdate=&date("Y-m-dTH:i:s+9:00");
@@ -312,6 +356,9 @@ FIN
 	exit;
 }
 
+# HTML出力
+
+# 最初のtableタグの１行目を生成する。
 if($englishflg) {
 	$buf=<<FIN;
 <table border=1><tr bgcolor=#C0C0C0><th>Areas</th>
@@ -358,6 +405,8 @@ $head=$buf;
 $buf='';
 
 $count=0;
+
+# エラー出力
 if ($zip2 eq "0000") {
 	if($englishflg) {
 		$buf="<tr><td colspan=6>Ending in 0000 can not find the ZIP code.</td></tr>";
@@ -456,7 +505,7 @@ if($zip ne '') {
 }
 $areas=~ s/[;\"\'\$\@\%\(\)]//g;	# by @mnakajim
 
-#-- gzip圧縮
+# gzip圧縮
 
 $gzip_command="gzip";
 
@@ -483,7 +532,7 @@ if ($gzip_path ne '') {
 	}
 }
 
-#-- サーバー出力
+# サーバー出力
 print<<END;
 Content-type: text/html; charset=utf-8
 Cache-Control: max-age=0
@@ -523,6 +572,8 @@ $buf
 [<a href=./>戻る</a>] 
 FIN
 }
+
+# 携帯なら、全角数字を及び全角カナを半角に変換する。
 if($mobileflg eq 2 || $mflg eq 1) {
 	&z2h(\$html);
 	$html=~s/０/0/g;
@@ -537,12 +588,16 @@ if($mobileflg eq 2 || $mflg eq 1) {
 	$html=~s/９/9/g;
 	print $html;
 } else {
+# PC用出力
 	$_getcity=&encode($getcity);
 	print<<FIN;
 $html
 [<a href="area.cgi?city=$_getcity&zip1=$zip1&zip2=$zip2&gid=$getgroup&out=rss&m=$mode">RSS</a>]
 FIN
+
+# QRコード生成
 	print &make_link_qrcode("$basehref?city=$_getcity&amp;gid=$getgroup&amp;m=$mode");
+# 変換時間表示
 	printf("<hr>\nPowered by Perl $] HTML convert time to %.3f sec.",
 		((times)[0] - $::_conv_start));
 }
@@ -566,7 +621,7 @@ sub roma {
 	$out;
 }
 
-# 面倒なのでpyukiwikiから移植ｗ
+# 日付取得 - 面倒なのでpyukiwikiから移植ｗ
 
 sub date {
 	my ($format, $tm, $gmtime) = @_;
@@ -610,7 +665,7 @@ sub date {
 	return $format;
 }
 
-# これも面倒だからpyukiwikiから移植
+# $basehref 取得 - これも面倒だからpyukiwikiから移植
 sub getbasehref {
 	# Thanks moriyoshi koizumi.
 	$basehost = "$ENV{'HTTP_HOST'}";
@@ -638,20 +693,9 @@ sub getbasehref {
 		$uri .= $ENV{'SCRIPT_NAME'};
 	}
 	$basehref=$basehost . $uri;
-	$basepath=$uri;
-	$basepath=~s/\/[^\/]*$//g;
-	$basepath="/" if($basepath eq '');
-	$script=$uri if($script eq '');
 }
 
-# これも面倒だからpyukiwikiから移植
-sub encode {
-	my ($encoded) = @_;
-	$encoded =~ s/(\W)/'%' . unpack('H2', $1)/eg;
-	return $encoded;
-}
-
-# by hiratara
+# by hiratara 携帯のGETでShiftJISが送信される可能性をUTF8に強制変換する。
 
 sub force_utf8($) {
 	my $str = shift || '';
@@ -705,6 +749,8 @@ __TABLE_END__
     }
 }
 
+# タイムテーブル読み込み
+
 sub read_timetable() {
 	my %timetable;
 
@@ -719,16 +765,7 @@ sub read_timetable() {
 	return \%timetable;
 }
 
-sub load_module{
-	my $mod = shift;
-	eval qq( require $mod; );
-	unless($@) {
-		return 1;
-	} else {
-		return 0;
-	}
-}
-
+# QRコードの画像のリンクを作成
 sub make_link_qrcode {
 	my ($string) = shift;
 	if(&load_module("GD::Barcode")) {
@@ -740,43 +777,8 @@ sub make_link_qrcode {
 		$string=&encode($string);
 		return <<EOM;
 <br />$buf<br />
-<img alt="QRCode" src="$basehref?m=qr\&amp;str=$string" />
+<img alt="QRCode" src="$basehref?m=qr\&amp;str=$string\&amp;qr=result" />
 EOM
 	}
 	'';
 }
-
-sub make_qrcode {
-	my ($string) = shift;
-	my %hParm;
-	my $oGdBar;
-
-	$defaultECC='M';
-	$defaultVersion=0;
-	$defaultSize=3;
-
-	if(&load_module("GD::Barcode")) {
-		$hParm{Ecc}=$defaultECC;
-		$hParm{ModuleSize}=$defaultSize;
-		$hParm{Version}=1+int(
-			length($string) / (
-				($defaultECC eq 'H' ? 8 : $defaultECC eq 'Q' ? 12
-		 		: $defaultECC eq 'M' ? 15 : 18)
-				-2));
-		$hParm{Version}=10;
-		$oGdBar = GD::Barcode->new(
-			'QRcode',
-			$string,
-			\%hParm);
-		die($GD::Barcode::errStr) unless($oGdBar);
-
-		binmode(STDOUT);
-		print <<FIN;
-Content-type: image/png
-
-FIN
-		print $oGdBar->plot->png;
-		exit;
-	}
-}
-

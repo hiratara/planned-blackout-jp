@@ -9,6 +9,7 @@
 ファイルリスト
 　all.all データファイル
 　area.cgi 検索スクリプト(Perl)
+  common.pl(付随ファイル)
   timetable.txt(付随ファイル)
 　yubin.csv(郵便番号データファイル　該当地域のみ）
   index.cgi(サイトトップのHTMLのCGI)

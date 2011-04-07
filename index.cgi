@@ -1,11 +1,13 @@
 #!/usr/bin/perl
 
-$VER="V.1.132(nanakochi123456 1st release:mnakajim)";
-$tarball="power110323-4.tar.gz";
+$VER="V.1.135(nanakochi123456 version nyatakasan/hiratara 1st release:mnakajim)";
+$tarball="power110324-4.tar.gz";
 
 $history=<<EOM;
 <h3>データ更新状況:</h3>
 <ul id="update">
+<li>2011/3/24 06:06 東京電力の第２、第３、第４グループの実施なしに対応した。また東北電力も実施なしです。</li>
+<li>2011/3/24 00:40 東京電力のデータを更新した。一番最後の終了時刻が22:10になっていたのを修正した。</li>
 <li>2011/3/23 14:30 ローマ字データが一部変換をミスっていたのを修正した。</li>
 <li>2011/3/23 05:55 東京電力のデータを更新した。</li>
 <li>2011/3/22 10:30 東京電力のデータを更新した。これにより茨城県がしばらく計画停電の範囲外になる模様です。</li>
@@ -15,6 +17,9 @@ $history=<<EOM;
 
 <h3>エンジン更新履歴:</h3>
 <ul id="engine">
+<li>2011/3/24 10:20 TOPページにも可能であればQRコードを表示できるようにした。また、一部ファイルを分割した。</li>
+<li>2011/3/24 06:40 地域名入力と郵便番号入力フォームを統合した。なお、携帯版のみ入力の簡易化の為に残してあります。</li>
+<li>2011/3/24 00:40 TOPページにおいて携帯から英語ページに行こうとしても、英語ページにいけなくなったのを修正した。</li>
 <li>2011/3/23 17:23 検索結果のQRコードを出力できるようにした。GD::Barcodeモジュールがない場合は出力されません。</li>
 <li>2011/3/23 13:26 エンジン最新にして、軽量化を図った。RSSで郵便番号で検索した場合、一部バグるのを修正した。</li>
 <li>2011/3/22 19:00 23日の東京電力の1回目の１、２グループにおいて実施しないことを反映した。</li>
@@ -29,6 +34,9 @@ $history=<<EOM;
 EOM
 
 #------------
+require "common.pl";
+
+$VER=~s/\(.*//g;
 $nojapaneseflg=0;
 $nojapaneseflg=1 if($ENV{HTTP_ACCEPT_LANGUAGE}!~/ja/);
 $mobileflg=0;
@@ -36,8 +44,8 @@ $mobileflg=1 if($ENV{HTTP_USER_AGENT}=~/DoCoMo|UP\.Browser|KDDI|SoftBank|Voda[F|
 
 $mobileflg=0 if($ENV{QUERY_STRING} eq 'p');
 $mobileflg=1 if($ENV{QUERY_STRING} eq 'm');
-$nojapaneseflg=1 if($ENV{QUERY_STRING} eq 'e');
 $nojapaneseflg=0 if($ENV{QUERY_STRING} eq 'p');
+$nojapaneseflg=1 if($ENV{QUERY_STRING} eq 'e');
 
 $scriptandcss=<<EOM if ($mobileflg eq 0 && $nojapaneseflg eq 0);
 <style type="text/css">
@@ -126,15 +134,6 @@ div#sAreaL, div#sAreaR {
 	padding-bottom: 0;
 	padding-left: 15px;
 }
-div#zip {
-	width:680px;
-	float:left;
-	color: #000;
-	padding-top: 0;
-	padding-right: 15px;
-	padding-bottom: 0;
-	padding-left: 15px;
-}
 
 div#sArea h2 {
 	margin-bottom: 6px;
@@ -174,16 +173,6 @@ input#city {
 	width: 100%;
 	font-size: 18px;
 }
-input#zip {
-	border-top-style: none;
-	border-right-style: none;
-	border-bottom-style: none;
-	border-left-style: none;
-	padding: 3px;
-	width: 20%;
-	font-size: 18px;
-}
-
 p.notice {
 	font-size: 0.9em;
 	margin-bottom: 10px;
@@ -924,9 +913,8 @@ $VER<br />
 <hr />
 <form action="area.cgi" method="get">
 <div>City or AreaName (egg..Tokyo is toukyou, City is shi....Roman alphabet)</div>
-<input type="text" name="city" size="20" style="ime-mode:active;"/>
-<div>or ZIP code</div>
-<input type="text" name="zip1" maxlength="3" size="3" istyle="4" mode="numeric" style="ime-mode:disabled;" />-<input type="text" name="zip2" maxlength="4" size="4" istyle="4" mode="numeric" style="ime-mode:disabled;"/><br />
+<div>or ZIP code.(egg..100-0000 or 1000000)</div>
+<input type="text" name="city" size="20" style="ime-mode:active;"/><br />
 <div>Refine group number</div>
 <select name="gid">
 <option value="0">none</option>
@@ -963,8 +951,8 @@ $VER<br />
 <form action="area.cgi" method="get">
 <div>市区町村名､地域名</div>
 <input type="text" name="city" size="20" istyle="1" mode="hiragana" />
-<div>または〒</div>
-<input type="text" name="zip1" maxlength="3" size="3" istyle="4" mode="numeric" />-<input type="text" name="zip2" maxlength="4" size="4" istyle="4" mode="numeric" /><br />
+<div>または〒(7桁)</div>
+<input type="text" name="zip" maxlength="7" size="7" istyle="4" mode="numeric" /><br />
 <div>ｸﾞﾙｰﾌﾟ番号で絞り込み</div>
 <select name="gid">
 <option value="0">指定なし</option>
@@ -983,12 +971,10 @@ $VER<br />
 <input type="submit" name="submit" value="検索" />
 </form>
 <br />
-*<a href="http://inferno.soutan.net/power/search">For English</a><br />
 <a href="http://denki.moene.ws/">ﾐﾗｰ1</a> や<a href="http://bit.ly/e6b2XL">ﾐﾗｰ2</a>等<br />
 <br />
 <a href="?p">PC向けﾍﾟｰｼﾞ</a><br />
 <a href="?e">English</a>
-
 <hr />
 <div align="center" style="text-align:center;"><a href="http://twitter.com/mnakajim">(c)中島昌彦<br>
 (M.NAKAJIM)</a><br>
@@ -1009,7 +995,7 @@ $pc_body=<<EOM;
 自分の住んでいる地域がどこのグループに属するのか、住所の一部などから検索できます。
 <form action="./area.cgi" method="get" name="form">
 <div id="sAreaL">
-<h2><span class="h2List">▶</span>計画停電の予定時間を知りたい市区町村名、地域名</h2>
+<h2><span class="h2List">▶</span>計画停電の予定時間を知りたい市区町村名、地域名。または郵便番号（例：1000000 100-0000)</h2>
 <input type="text" name="city" size="20" style="ime-mode:active;"id="city" />
 </div>
 <div id="sAreaR">
@@ -1042,10 +1028,6 @@ $pc_body=<<EOM;
 <label>
 <input name="gid" type="radio" value="8" />
 グループ8</label>
-</div>
-<div id="zip">
-<h2><span class="h2List">▶</span>もしくは郵便番号で検索する。</h2>
-<input type="text" name="zip1" maxlength="3" size="3" istyle="4" mode="numeric" style="ime-mode:disabled;" id="zip" />－<input type="text" name="zip2" maxlength="4" size="4" istyle="4" mode="numeric" style="ime-mode:disabled;" id="zip" />
 </div>
 <div style="clear:both;" id="submitArea">
 <input type="submit" name="submit" value="検索" />
@@ -1217,13 +1199,14 @@ $history
 <li><a href="http://www.chuden.co.jp/">中部電力</a> : <a href="http://chuden.mirror.myapp.jp/">そのミラー</a></li>
 <li><a href="http://www.kepco.co.jp/">関西電力</a> : <a href="http://kepco.mirror.myapp.jp/">そのミラー</a></li>
 <li><a href="http://www.hepco.co.jp">北海道電力</a> : <a href="http://hepco.mirror.myapp.jp/">そのミラー</a></li>
-</ul>
 <li><a href="http://eq.sakura.ne.jp">公的情報支援サイト</a></li>
+<li><a href="http://teidenjapan.appspot.com/">Google Map上に地図上でのエリアがわかるサイト</a></li>
+</ul>
 </div>
 <!--// tab 5 --> 
 </div>
 </div>
-<hr />
+@{[&qrcode_link()]}<hr />
 <!include="footer.html">
 <p>当サイト版の<a href="http://power.daiba.cx/$tarball">ファイルセット</a>あります。サイトの機能強化・運営強化にご協力いただける方、ご利用ください。
 <p class="contact">オリジナル・運営:<a href="http://twitter.com/mnakajim">中島昌彦</a>(M.NAKAJIM)</p>
@@ -1280,10 +1263,10 @@ if ($gzip_header ne '') {
 	binmode(STDOUT);
 }
 
-if($mobileflg) {
-	$body=$mobile_body;
-} elsif($nojapaneseflg) {
+if($nojapaneseflg) {
 	$body=$english_body;
+} elsif($mobileflg) {
+	$body=$mobile_body;
 } else {
 	$body=$pc_body;
 }
@@ -1307,3 +1290,15 @@ foreach $line(split(/\n/,$body)) {
 print "$top\n$bodys\n";
 
 close(STDOUT);
+
+sub qrcode_link {
+	&getbasehref;
+	$string=&encode("$basehost$basepath");
+	if(&load_module("GD::Barcode")) {
+		return <<FIN;
+携帯へURLを送るには、こちらのQRコードをご利用下さい。<br />
+<img alt="QRCode" src="$basehost$basepath/area.cgi?m=qr\&amp;str=$string" />
+FIN
+	}
+	'';
+}
