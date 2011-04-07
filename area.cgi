@@ -115,12 +115,14 @@ if($comm eq 'ver') {
 	my $ver=&getengineversion;
 	my $timetable=&gettimetableversion();
 	my $areatable=&getdatabaseversion();
+	my $runtable=&getruntableversion();
 	print <<FIN;
 Content-type: text/plain; charset=utf-8
 
 area.cgi : $ver
 timetable.txt : $timetable
 areatable.txt : $areatable
+runtable.txt  : $runtable
 FIN
 	exit;
 }
@@ -149,6 +151,7 @@ if($zip ne '') {
 					my ($area1,$area2,$area3,$num)=split (/\t/,$_);
 					if($kanji1 eq $area1 && $kanji2 eq $area2 && ($area3 =~/$kanji3/ || $kanji3 =~/$area3/)) {
 						$getcity="$area1$area2$area3";
+						$getcity=&addnor($getcity);
 						last;
 					}
 				}
@@ -179,6 +182,9 @@ $mobileflg=2 if($ENV{HTTP_USER_AGENT}=~/DoCoMo|UP\.Browser|KDDI|SoftBank|Voda[F|
 
 my $timetable = &read_timetable;
 my @dates = map {$date[$_]} 0 .. ($mobileflg - 1);
+
+# 実行状況取得
+my $runtable = &read_runtable;
 
 # rss出力
 if($out eq 'rss') {
@@ -245,23 +251,36 @@ if($out eq 'rss') {
 				$hours ? join(', ', @$hours) : '-';
 			} @dates;
 
-
-			for(my $i=0; $i<$#hours; $i++) {
-				if($hours[$i]=~/\((.+)\)/) {
-					if($1!~/$subgrp/) {
-						$hours[$i]="実施なし";
+			for(my $i=0; $i<$mobileflg; $i++) {
+				my $tmp=$runtable->{$firm}{$date[$i]}{$grp};
+				if($englishflg) {
+					if($tmp=~/午前/) {
+						$tmp="AM only";
+					} elsif($tmp=~/午後/) {
+						$tmp="PM only";
+					} elsif($tmp=~/せず/ || $tmp=~/中止/) {
+						$tmp="No execution";
+					} elsif($tmp=~/予定/) {
+						$tmp="Scheduled";
+					} elsif($tmp eq '') {
+						$tmp="";
 					} else {
-						$hours[$i]=~s/\(.*//;
+						$tmp="Execution";
+					}
+					if($hours[$i]=~/なし/) {
+						$hours[$i]="No execution";
 					}
 				}
+				$hours[$i] .='('.$tmp.')' if($tmp ne '');
 			}
+
 			my $i=0;
 			foreach(@hours) {
 				my $hours = $timetable->{$firm}{$_}{$num};
 				my $hour ? join(', ', @$hours) : '-';
 				if ($englishflg) {
 					if(/なし/) {
-						$_="none";
+						$_="No execution";
 					}
 					$xmldate[$i].=<<FIN;
 <item rdf:about="$basehref?city=$_getcity&amp;gid=$getgroup">
@@ -290,7 +309,7 @@ FIN
 <item rdf:about="$basehref?city=$_getcity&amp;gid=$getgroup">
 <title>$xmltitle</title>
 <link>$basehref?city=$_getcity&amp;zip1=$zip1&amp;zip2=$zip2&amp;gid=$getgroup</link>
-<description>@{[$arearoma=~m/$getcity/ ? ($_=~/なし/ ? 'none' : $_) : "$_です。"]}</description>
+<description>@{[$arearoma=~m/$getcity/ ? ($_=~/なし/ ? 'No execution' : $_) : "$_です。"]}</description>
 <dc:date>$rssdate</dc:date>
 </item>
 FIN
@@ -454,7 +473,7 @@ my $count=0;
 
 # エラー出力
 if($getcity=~/^(バージョン|試験|更新|[Uu][Pp][Dd][Aa][Tt][Ee]|[Vv][Ee][Rr])/) {
-	$buf="<tr><td colspan=1>Engine Version:</td><td colspan=5>@{[&getengineversion]}</td></tr><tr><td colspan=1>DataBase Version: </td><td colspan=5>@{[&getdatabaseversion]}</td></tr><tr><td colspan=1>TimeTable Version:</td><td colspan=5>@{[&gettimetableversion]}</td></tr><tr><td colspan=1>ZIP Database Version: </td><td colspan=5>@{[&getzipdatabaseversion]}";
+	$buf="<tr><td colspan=1>Engine Version:</td><td colspan=5>@{[&getengineversion]}</td></tr><tr><td colspan=1>DataBase Version: </td><td colspan=5>@{[&getdatabaseversion]}</td></tr><tr><td colspan=1>TimeTable Version:</td><td colspan=5>@{[&gettimetableversion]}</td></tr><tr><td colspan=1>RunTable Version:</td><td colspan=5>@{[&getruntableversion]}</td></tr><tr><td colspan=1>ZIP Database Version: </td><td colspan=5>@{[&getzipdatabaseversion]}";
 } elsif ($zip2 eq "0000") {
 	if($englishflg) {
 		$buf="<tr><td colspan=6>Ending in 0000 can not find the ZIP code.</td></tr>";
@@ -518,18 +537,32 @@ if($getcity=~/^(バージョン|試験|更新|[Uu][Pp][Dd][Aa][Tt][Ee]|[Vv][Ee][
 			$hours ? join(', ', @$hours) : '-';
 		} @dates;
 
-		for(my $i=0; $i<$#hours; $i++) {
-			if($hours[$i]=~/\((.+)\)/) {
-				if($1!~/$subgrp/) {
-					$hours[$i]="実施なし";
+		for(my $i=0; $i<$mobileflg; $i++) {
+			my $tmp=$runtable->{$firm}{$date[$i]}{$grp};
+			if($englishflg) {
+				if($tmp=~/午前/) {
+					$tmp="AM only";
+				} elsif($tmp=~/午後/) {
+					$tmp="PM only";
+				} elsif($tmp=~/せず/ || $tmp=~/中止/) {
+					$tmp="No execution";
+				} elsif($tmp=~/予定/) {
+					$tmp="Scheduled";
+				} elsif($tmp eq '') {
+					$tmp="";
 				} else {
-					$hours[$i]=~s/\(.*//;
+					$tmp="Execution";
+				}
+				if($hours[$i]=~/なし/) {
+					$hours[$i]="No execution";
 				}
 			}
+			$hours[$i] .='<br />('.$tmp.')' if($tmp ne '');
 		}
+
 		if($englishflg) {
 			$buf.="<tr$bgcolor><td><b>@{[&roma($areaen1)]} @{[&roma($areaen2)]} @{[&roma($areaen3)]}</b></td>" . 
-			      join('', map {"<td>@{[$_=~/なし/ ? 'none' : $_]}</td>"} @hours) . 
+			      join('', map {"<td>$_</td>"} @hours) . 
 			      "<td>Group $grp</td></tr>\n";
 
 		} else {
@@ -547,7 +580,7 @@ if($getcity=~/^(バージョン|試験|更新|[Uu][Pp][Dd][Aa][Tt][Ee]|[Vv][Ee][
 					      "<td>ダイ$grpグループ</td></tr>\n";
 			} elsif($arearoma=~ m/$getcity/) {
 				$buf.="<tr$bgcolor><td><b>$areaen1 $areaen2 $areaen3</b></td>"
-					. join('', map {"<td>@{[$_ =~/なし/ ? 'none' : $_]}</td>"} @hours) . 
+					. join('', map {"<td>@{[$_ =~/なし/ ? 'No execution' : $_]}</td>"} @hours) . 
 					      "<td>Group $grp</td></tr>\n";
 			}
 		}
@@ -894,6 +927,20 @@ sub read_timetable() {
 	return \%timetable;
 }
 
+# 実行テーブル読み込み
+
+sub read_runtable() {
+	my %runtable;
+	open my $fh, '<', 'runtable.txt' or die $!;
+	while (<$fh>) {
+		chomp;
+		my ($firm,$date, $group, $state) = split /\t/, $_;
+		$runtable{$firm}{$date}{$group} = $state;
+	}
+	close $fh;
+	return \%runtable;
+}
+
 # QRコードの画像のリンクを作成
 sub make_link_qrcode {
 	my ($string) = shift;
@@ -956,6 +1003,20 @@ sub getzipdatabaseversion {
 
 sub gettimetableversion {
 	open (READ,"timetable.txt");
+	while(<READ>) {
+		chomp;
+		my ($firm,$ver)=split(/\t/,$_);
+		if($firm eq "V") {
+			close(READ);
+			return $ver;
+		}
+	}
+	close(READ);
+	return "What version ? or older";
+}
+
+sub getruntableversion {
+	open (READ,"runtable.txt");
 	while(<READ>) {
 		chomp;
 		my ($firm,$ver)=split(/\t/,$_);

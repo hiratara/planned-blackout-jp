@@ -2,11 +2,12 @@
 
 use strict;
 
-my $VER="V.1.147(nanakochi123456  1st release:mnakajim)";
-my $tarball="power110329-2.tar.gz";
+my $VER="V.1.148(nanakochi123456  1st release:mnakajim)";
+my $tarball="power110329-3.tar.gz";
 my $history=<<EOM;
 <h3>データ更新状況:</h3>
 <ul id="update">
+<li>2011/3/29 15:49 runtable.txtを正式採用した。</li>
 <li>2011/3/29 14:00 東京電力、３０日計画停電実施なしに対応。</li>
 <li>2011/3/28 20:33 東京電力データを更新。</li>
 <li>2011/3/28 18:00 東京電力、２９日計画停電実施なしに対応。</li>
@@ -26,6 +27,9 @@ my $history=<<EOM;
 
 <h3>エンジン更新履歴:</h3>
 <ul id="engine">
+<li>2011/3/29 15:49 runtable.txtを正式採用した。</li>
+<li>2011/3/29 15:07 一部郵便番号で検索できなくなっていたのを修正した。</li>
+<li>2011/3/29 13:00 runtable.txtから詳細情報を取得するようにした（α版）</li>
 <li>2011/3/29 11:40 アイコンを付けてみました。ICON素材 by watanabe_haruna</li>
 <li>2011/3/28 20:34 バージョン情報へのリンクを追加した。また、バージョン情報の表示時にQRコード及びRSSのリンクを出力しないようにした</li>
 <li>2011/3/28 08:04 東京電力が速報で一部サブグループのみの実施となった場合に、きちんと計画停電を実施するかしないかを明確にできるようにした。</li>
