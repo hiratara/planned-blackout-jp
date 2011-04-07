@@ -207,14 +207,19 @@ if($out eq 'rss') {
 		open (READ,"all.all");
 		while (<READ>) {
 			chomp;
-			my ($area1,$area2,$area3,$grp,$areaen1,$areaen2,$areaen3,$areakana1,$areakana2,$areakana3)=split (/\t/,$_);
+			my ($area1,$area2,$area3,$num,$subgrp,$areaen1,$areaen2,$areaen3,$areakana1,$areakana2,$areakana3)=split (/\t/,$_);
 			my $areaorg="$area1$area2$area3$areaen1$areaen2$areaen3$areakana1$areakana2$areakana3";
 			my $areakana="$areakana1$areakana2$areakana3";
 			my $arearoma="$areaen1$areaen2$areaen3";
-			my $num=$grp;
-			$num=~s/\-.*//g;
+			my $grp=$subgrp ne '' ? "$num-$subgrp" : $num;
 			$areaorg=~ s/ //g;
 			$areakana=~ s/ //;
+
+			if ($getgroup) {
+				next unless $areaorg=~ m/$getcity/ and $num eq $getgroup;
+			} else {
+				next unless $areaorg=~ m/$getcity/;
+			}
 
 			foreach(@tokyo_denryoku_list) {
 				if($area1 eq $_) {
@@ -227,12 +232,6 @@ if($out eq 'rss') {
 					$firm = 'H';
 					last;
 				}
-			}
-
-			if ($getgroup) {
-				next unless $areaorg=~ m/$getcity/ and $num eq $getgroup;
-			} else {
-				next unless $areaorg=~ m/$getcity/;
 			}
 
 			my @hours = map {
@@ -456,15 +455,21 @@ if($getcity=~/^(バージョン|試験|更新|[Uu][Pp][Dd][Aa][Tt][Ee]|[Vv][Ee][
 	my $bgcolor;
 	while (<READ>) {
 		chomp;
-		my ($area1,$area2,$area3,$grp,$areaen1,$areaen2,$areaen3,$areakana1,$areakana2,$areakana3)=split (/\t/,$_);
+		my ($area1,$area2,$area3,$num,$subgrp,$areaen1,$areaen2,$areaen3,$areakana1,$areakana2,$areakana3)=split (/\t/,$_);
 		my $areaorg="$area1$area2$area3$areaen1$areaen2$areaen3$areakana1$areakana2$areakana3";
 		my $areakanji="$area1$area2$area3";
 		my $areakana="$areakana1$areakana2$areakana3";
 		my $arearoma="$areaen1$areaen2$areaen3";
-		my $num=$grp;
-		$num=~s/\-.*//g;
+		my $grp=$subgrp ne '' ? "$num-$subgrp" : $num;
 		$areaorg=~ s/ //g;
 		$areakana=~ s/ //;
+
+		if ($getgroup) {
+			next unless $areaorg=~ m/$getcity/ and $num eq $getgroup;
+		} else {
+			next unless $areaorg=~ m/$getcity/;
+		}
+
 		foreach(@tokyo_denryoku_list) {
 			if($area1 eq $_) {
 				$firm = 'T';
@@ -476,12 +481,6 @@ if($getcity=~/^(バージョン|試験|更新|[Uu][Pp][Dd][Aa][Tt][Ee]|[Vv][Ee][
 				$firm = 'H';
 				last;
 			}
-		}
-
-		if ($getgroup) {
-			next unless $areaorg=~ m/$getcity/ and $num eq $getgroup;
-		} else {
-			next unless $areaorg=~ m/$getcity/;
 		}
 
 		if ($count % 2 ==0) {

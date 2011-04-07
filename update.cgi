@@ -88,6 +88,11 @@ if(opendir(DIR,"$TMPDIR/$BASEFILE$VERSION")) {
 	closedir(DIR);
 	&shell("$RM -rf $TMPDIR");
 
+	if(-r "$PWD/.htaccess.org") {
+		print "Found $PWD/.htaccess.org\n";
+		&filecopy("$PWD/.htaccess.org","$PWD/.htaccess");
+		print "copy $PWD/.htaccess.org $PWD/.htaccess\n";
+	}
 	print "Complete.\n";
 	exit;
 } else {

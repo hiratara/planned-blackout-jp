@@ -2,11 +2,12 @@
 
 use strict;
 
-my $VER="V.1.140(nanakochi123456 version nyatakasan/hiratara 1st release:mnakajim)";
-my $tarball="power110326-2.tar.gz";
+my $VER="V.1.141(nanakochi123456 version nyatakasan/hiratara 1st release:mnakajim)";
+my $tarball="power110326-3.tar.gz";
 my $history=<<EOM;
 <h3>データ更新状況:</h3>
 <ul id="update">
+<li>2011/3/27 13:17 本家に対応しやすいように、all.allを変更した。</li>
 <li>2011/3/26 09:17 東京電力3月26日更新データに更新した。東京都にもサブグループが付くようになります。</li>
 <li>2011/3/26 03:16 東京電力２５グループ化に対応した。なお、東京都は現状ではデータがない為、今まで通りの表示となります。</li>
 <li>2011/3/25 18:40 東京電力２６日、２７日実施なしに対応した。</li>
@@ -24,6 +25,7 @@ my $history=<<EOM;
 
 <h3>エンジン更新履歴:</h3>
 <ul id="engine">
+<li>2011/3/25 13:16 本家に対応しやすいように、エンジンを変更した。</li>
 <li>2011/3/25 18:40 東京電力のグループが 1-Aや、5-Cになるのを仮対応した。</li>
 <li>2011/3/24 09:44 カタカナ、及びローマ字で検索できるようにした。</li>
 <li>2011/3/24 08:28 index.cgi を書き換えた。そのため、出力ファイル3ファイルが追加されます。</li>
