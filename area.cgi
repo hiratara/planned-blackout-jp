@@ -28,6 +28,7 @@ my $englishflg=0;
 $englishflg=1 if($mode eq 'e');
 my $mflg=0;
 $mflg=1 if($mode eq 'm');
+my $kanaflg=0;
 
 $zip=~s/\-//g;
 
@@ -104,10 +105,8 @@ $getcity=~s/7/７/g;
 $getcity=~s/8/８/g;
 $getcity=~s/8/９/g;
 
-# 英語モードの時、一時大文字変換をする。
-if($englishflg) {
-	$getcity=~tr/[a-z]/[A-Z/;
-}
+# 一時大文字変換をする。
+$getcity=~tr/[a-z]/[A-Z/;
 
 # バージョン情報表示
 if($comm eq 'ver') {
@@ -208,10 +207,12 @@ if($out eq 'rss') {
 		open (READ,"all.all");
 		while (<READ>) {
 			chomp;
-			my ($area1,$area2,$area3,$num,$areaen1,$areaen2,$areaen3)=split (/\t/,$_);
-			my $areaorg="$area1$area2$area3";
-			$areaorg="$area1$area2$area3$areaen1$areaen2$areaen3" if($englishflg);
+			my ($area1,$area2,$area3,$num,$areaen1,$areaen2,$areaen3,$areakana1,$areakana2,$areakana3)=split (/\t/,$_);
+			my $areaorg="$area1$area2$area3$areaen1$areaen2$areaen3$areakana1$areakana2$areakana3";
+			my $areakana="$areakana1$areakana2$areakana3";
+			my $arearoma="$areaen1$areaen2$areaen3";
 			$areaorg=~ s/ //g;
+			$areakana=~ s/ //;
 
 			foreach(@tokyo_denryoku_list) {
 				if($area1 eq $_) {
@@ -254,11 +255,23 @@ if($out eq 'rss') {
 </item>
 FIN
 				} else {
+					my $outarea;
+					my $xmltitle;
+					if($areakana=~ m/$getcity/) {
+						$outarea="$areakana1 $areakana2 $areakana3";
+						$xmltitle="【$mon[$i]月$mday[$i]日】$outarea(グループ$num)の計画停電情報です。";
+					} elsif($arearoma=~ m/$getcity/) {
+						$outarea="$areaen1 $areaen2 $areaen3";
+						$xmltitle="[$mon[$i]/$mday[$i]日] $outarea (group $num) of rolliing blackout infomation.";
+					} else {
+						$outarea="$area1$area2$area3";
+						$xmltitle="【$mon[$i]月$mday[$i]日】$outarea(グループ$num)の計画停電情報です。";
+					}
 					$xmldate[$i].=<<FIN;
 <item rdf:about="$basehref?city=$_getcity&amp;gid=$getgroup">
-<title>【$mon[$i]月$mday[$i]日】$area1$area2$area3(グループ$num)の計画停電情報です。</title>
+<title>$xmltitle</title>
 <link>$basehref?city=$_getcity&amp;zip1=$zip1&amp;zip2=$zip2&amp;gid=$getgroup</link>
-<description>$_です。</description>
+<description>@{[$arearoma=~m/$getcity/ ? ($_=~/なし/ ? 'none' : $_) : '$_です。']}</description>
 <dc:date>$rssdate</dc:date>
 </item>
 FIN
@@ -441,11 +454,13 @@ if($getcity=~/^(バージョン|試験|更新|[Uu][Pp][Dd][Aa][Tt][Ee]|[Vv][Ee][
 	my $bgcolor;
 	while (<READ>) {
 		chomp;
-		my ($area1,$area2,$area3,$num,$areaen1,$areaen2,$areaen3)=split (/\t/,$_);
-		my $areaorg="$area1$area2$area3";
-		$areaorg="$area1$area2$area3$areaen1$areaen2$areaen3" if($englishflg);
+		my ($area1,$area2,$area3,$num,$areaen1,$areaen2,$areaen3,$areakana1,$areakana2,$areakana3)=split (/\t/,$_);
+		my $areaorg="$area1$area2$area3$areaen1$areaen2$areaen3$areakana1$areakana2$areakana3";
+		my $areakanji="$area1$area2$area3";
+		my $areakana="$areakana1$areakana2$areakana3";
+		my $arearoma="$areaen1$areaen2$areaen3";
 		$areaorg=~ s/ //g;
-
+		$areakana=~ s/ //;
 		foreach(@tokyo_denryoku_list) {
 			if($area1 eq $_) {
 				$firm = 'T';
@@ -459,16 +474,16 @@ if($getcity=~/^(バージョン|試験|更新|[Uu][Pp][Dd][Aa][Tt][Ee]|[Vv][Ee][
 			}
 		}
 
-		if ($count % 2 ==0) {
-			$bgcolor='EEFFFF';
-		} else {
-			$bgcolor='FFEEFF';
-		}
-
 		if ($getgroup) {
 			next unless $areaorg=~ m/$getcity/ and $num eq $getgroup;
 		} else {
 			next unless $areaorg=~ m/$getcity/;
+		}
+
+		if ($count % 2 ==0) {
+			$bgcolor='EEFFFF';
+		} else {
+			$bgcolor='FFEEFF';
 		}
 
 		my @hours = map {
@@ -482,10 +497,20 @@ if($getcity=~/^(バージョン|試験|更新|[Uu][Pp][Dd][Aa][Tt][Ee]|[Vv][Ee][
 			      "<td>Group $num</td></tr>\n";
 
 		} else {
-			$buf.="<tr bgcolor=$bgcolor><td><b>$area1 $area2 $area3</b></td>" . 
-			      join('', map {"<td>$_</td>"} @hours) . 
-			      "<td>第$numグループ</td></tr>\n";
+			if($areakanji=~ m/$getcity/) {
+				$buf.="<tr bgcolor=$bgcolor><td><b>$area1 $area2 $area3</b></td>"
+					. join('', map {"<td>$_</td>"} @hours) . 
+					      "<td>第$numグループ</td></tr>\n";
 
+			} elsif($areakana=~ m/$getcity/) {
+				$buf.="<tr bgcolor=$bgcolor><td><b>$areakana1 $areakana2 $areakana3</b></td>"
+					. join('', map {"<td>$_</td>"} @hours) . 
+					      "<td>ダイ$numグループ</td></tr>\n";
+			} elsif($arearoma=~ m/$getcity/) {
+				$buf.="<tr bgcolor=$bgcolor><td><b>$areaen1 $areaen2 $areaen3</b></td>"
+					. join('', map {"<td>@{[$_ =~/なし/ ? 'none' : $_]}</td>"} @hours) . 
+					      "<td>Group $num</td></tr>\n";
+			}
 		}
 		++$count;
 	}
@@ -527,7 +552,7 @@ if($englishflg) {
 <title>$areas of Rolling blackout schedule</title></head>
 Found $count. The schedule time is different when there are two or more registration in the same region according to the place.<BR>
 When the power failure twice a day is scheduled, the power failure schedule in the latter half is executed according to the situation. <BR>
-When this page is boomarked, No input of city or ZIP code.<BR>
+You can bookmark rhis page for next use. <BR>
 $head
 $buf
 </table>
