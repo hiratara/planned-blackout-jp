@@ -11,6 +11,7 @@ use strict;
 use CGI;
 use Encode qw/decode decode_utf8/;
 use Encode::Guess;
+use PlannedBlackoutJP::Util qw/is_galapagos/;
 use Text::MicroTemplate::File;
 
 my $debug;
@@ -97,11 +98,16 @@ if($ziptmp=~/(\d\d\d)(\d\d\d\d)/) {
 	$zip=$zip1 . $zip2;
 }
 
-# 東京電力リスト
-my @tokyo_denryoku_list=("茨城県","栃木県","群馬県","埼玉県","千葉県","東京都","神奈川県","山梨県","静岡県");
+# 電力会社リスト
+my @company_list=(
+	# 東京電力
+	"茨城県,T","栃木県,T","群馬県,T","埼玉県,T","千葉県,T",
+	"東京都,T","神奈川県,T","山梨県,T","静岡県,T",
 
-# 東北電力リスト
-my @tohoku_denryoku_list=("青森県","秋田県","岩手県","宮城県","山形県","福島県","新潟県");
+	# 東北電力
+	"青森県,H","秋田県,H","岩手県,H","宮城県,H","山形県,H",
+	"福島県,H","新潟県,H"
+);
 
 # 各種変換
 my $titlename=$getcity;
@@ -162,11 +168,9 @@ for(my $i=0; $i<5; $i++) {
 	$mday[$i] = &date("j",,time+86400*$i);
 }
 
-# 携帯かどうか？ ループ数カウントも含めるため、それぞれの数字になってます。
-
+# 携帯かどうか？
 my $mobileflg;
-$mobileflg=4;
-$mobileflg=2 if($ENV{HTTP_USER_AGENT}=~/DoCoMo|UP\.Browser|KDDI|SoftBank|Voda[F|f]one|J\-PHONE/) || $mflg eq 1;
+$mobileflg=1 if(is_galapagos(\%ENV) || $mflg);
 
 # タイムテーブル取得
 
@@ -187,6 +191,9 @@ if($englishflg) {
 		$date_str[$i]="$mon[$i]月$mday[$i]日";
 	}
 }
+
+my $areas;
+
 # エラー出力
 if($getcity=~/^(バージョン|試験|更新|[Uu][Pp][Dd][Aa][Tt][Ee]|[Vv][Ee][Rr])/) {
 	@version_message=&getversion;
@@ -203,12 +210,88 @@ if($getcity=~/^(バージョン|試験|更新|[Uu][Pp][Dd][Aa][Tt][Ee]|[Vv][Ee][
 	} else {
 		$error_message="郵便番号が正確に入力されていないようです。";
 	}
-} elsif($zip eq '' && $getcity eq 'aa') {
+
+# グループ検索
+} elsif($getcity eq '') {
+	my $firms="T,H";
+	my %company_string;
+	my %groups;
 	if($englishflg) {
-		$error_message="It's not input city name or ZIP code.";
+		$company_string{T}="Tepco Area";
+		$company_string{H}="Tohoku Area";
 	} else {
-		$error_message="地域名、もしくは郵便番号が入力されていません。";
+		$company_string{T}="東京電力";
+		$company_string{H}="東北電力";
 	}
+	$groups{T}="1-A,1-B,1-C,1-D,1-E,2-A,2-B,2-C,2-D,2-E,3-A,3-B,3-C,3-D,3-E,4-A,4-B,4-C,4-D,4-E,5-A,5-B,5-C,5-D,5-E";
+	$groups{H}="1,2,3,4,5,6,7,8";
+
+	# 現状東京電力と東北電力のみだが、
+	# 他の電力会社が計画停電をしたときの為にループ
+	my @groups;
+	foreach my $firm(split(/,/,$firms)) {
+		my @nums;
+		my @subs;
+		foreach my $grp((split(/,/,$groups{$firm}))) {
+			my($num,$group)=split(/\-/,$grp);
+			if(($getgroup eq 0 && $getgroup_sub eq 0) ||
+					($getgroup ne 0 && $getgroup eq $num && $getgroup_sub eq 0) ||
+					($getgroup_sub ne 0 && $getgroup_sub eq $group && $getgroup eq 0) ||
+					($getgroup ne 0 && $getgroup eq $num &&
+					 $getgroup_sub ne 0 && $getgroup_sub eq $group)) {
+				my @hour_refs = map {
+					my $hours = $timetable->{$firm}{$_}{$num};
+					my $run_str = $runtable->{$firm}{$_}{$grp} || '';
+					my $hours_str = $hours ? join(', ', @$hours) : '-';
+					if($englishflg) {
+						if($run_str=~/午前/) {
+							$run_str="AM only";
+						} elsif($run_str=~/午後/) {
+							$run_str="PM only";
+						} elsif($run_str=~/せず/ || $run_str=~/中止/) {
+							$run_str="No execution";
+						} elsif($run_str=~/予定/) {
+							$run_str="Scheduled";
+						} elsif($run_str eq '') {
+							$run_str="";
+						} else {
+							$run_str="Execution";
+						}
+						$hours_str=~s/実施なし/No execution/g;
+					}
+					{hours_str => $hours_str, run_str => $run_str};
+				} @dates;
+
+				push @results, {
+					tdfk => $company_string{$firm},
+					shiku => '',
+					machiaza => '',
+					hour_refs => \@hour_refs,
+					grp => $grp
+				};
+			}
+		}
+	}
+	if($getgroup) {
+		if($englishflg) {
+			$areas="Group $getgroup@{[$getgroup_sub ? '-' . $getgroup_sub : '']}";
+		} else {
+			$areas="グループ $getgroup@{[$getgroup_sub ? '-' . $getgroup_sub : '']}";
+		}
+	} elsif($getgroup_sub) {
+		if($englishflg) {
+			$areas="SubGroup $getgroup_sub";
+		} else {
+			$areas="サブグループ $getgroup_sub";
+		}
+	} else {
+		if($englishflg) {
+			$areas="All Areas";
+		} else {
+			$areas="全エリア";
+		}
+	}
+# 文字列検索
 } else {
 	open my $in, '<:utf8', "all.all" || &err("all.all can't read");
 	my $firm;
@@ -226,19 +309,13 @@ if($getcity=~/^(バージョン|試験|更新|[Uu][Pp][Dd][Aa][Tt][Ee]|[Vv][Ee][
 		my $arearoma="$areaen1$areaen2$areaen3";
 		my $grp=$subgrp ne '' ? "$num-$subgrp" : $num;
 
-		foreach(@tokyo_denryoku_list) {
-			if($area1 eq $_) {
-				$firm = 'T';
+		foreach(@company_list) {
+			my($_pref,$_firm)=split(/,/,$_);
+			if($area1 eq $_pref) {
+				$firm=$_firm;
 				last;
 			}
 		}
-		foreach(@tohoku_denryoku_list) {
-			if($area1 eq $_) {
-				$firm = 'H';
-				last;
-			}
-		}
-
 		my @hour_refs = map {
 			my $hours = $timetable->{$firm}{$_}{$num};
 			my $run_str = $runtable->{$firm}{$_}{$grp} || '';
@@ -316,20 +393,18 @@ if($getcity=~/^(バージョン|試験|更新|[Uu][Pp][Dd][Aa][Tt][Ee]|[Vv][Ee][
 		}
 	}
 	close($in);
-}
 
-my $areas;
-
-if($zip ne '') {
-	if($englishflg) {
-		$areas="ZIP:$zip1-$zip2";
+	if($zip ne '') {
+		if($englishflg) {
+			$areas="ZIP:$zip1-$zip2";
+		} else {
+			$areas="〒$zip1-$zip2";
+		}
 	} else {
-		$areas="〒$zip1-$zip2";
+		$areas=$titlename;
 	}
-} else {
-	$areas=$titlename;
+	$areas=~ s/[;\"\'\$\@\%\(\)]//g;	# by @mnakajim
 }
-$areas=~ s/[;\"\'\$\@\%\(\)]//g;	# by @mnakajim
 
 if($out eq 'rss') {
 	&gzip_compress("Content-type: text/xml;charset=utf-8\nCache-Control: max-age=0\nExpires: Mon, 26, Jul 1997 05:00:00 GMT");
@@ -344,24 +419,7 @@ if($getcity!~/^(バージョン|試験|更新|[Uu][Pp][Dd][Aa][Tt][Ee]|[Vv][Ee][
 	$rss_link="area.cgi?city=$_getcity&zip1=$zip1&zip2=$zip2&gid=$getgroup&gids=$getgroup_sub&out=rss&m=$mode";
 }
 my $html;
-my $template;
-if($englishflg) {
-	if($out eq 'rss') {
-		$template="area_en_rss.xml";
-	} elsif($mobileflg eq 2) {
-		$template="area_en_m.html";
-	} else {
-		$template="area_en.html";
-	}
-} else {
-	if($out eq 'rss') {
-		$template="area_jp_rss.xml";
-	} elsif($mobileflg eq 2) {
-		$template="area_jp_m.html";
-	} else {
-		$template="area_jp.html";
-	}
-}
+my $template=&gettemplate($out,$mobileflg, $englishflg);
 if($out eq 'rss') {
 	$html = $mtf->render_file(
 		$template,
@@ -379,7 +437,7 @@ if($out eq 'rss') {
 			((times)[0] - $::conv_start))
 	);
 
-	if($mobileflg eq 2) {
+	if($mobileflg) {
 		$html=&z2h($html);
 	}
 }
@@ -387,6 +445,28 @@ print <<EOM;
 <?xml version="1.0" encoding="UTF-8" ?>
 $html$debug
 EOM
+
+# テンプレートファイル名指定
+sub gettemplate {
+	my ($out, $mobileflg, $englishflg)=@_;
+	if($englishflg) {
+		if($out eq 'rss') {
+			$template="area_en_rss.xml";
+		} elsif($mobileflg) {
+			$template="area_en_m.html";
+		} else {
+			$template="area_en.html";
+		}
+	} else {
+		if($out eq 'rss') {
+			$template="area_jp_rss.xml";
+		} elsif($mobileflg) {
+			$template="area_jp_m.html";
+		} else {
+			$template="area_jp.html";
+		}
+	}
+}
 
 # 郵便番号→住所
 sub getzip {
@@ -595,45 +675,29 @@ sub getengineversion {
 }
 
 sub getdatabaseversion {
-	open (READ,"all.all") || &err("all.all can't read");
-	while (<READ>) {
-		chomp;
-		my ($field,$ver)=split (/\t/,$_);
-		if($field eq "version") {
-			close(READ);
-			return $ver;
-		}
-	}
-	close(READ);
-	return "What version ? or older";
+	return &find_version_line("all.all","version");
 }
 
 sub getzipdatabaseversion {
-	open (READ,"yubin.csv") || &err("yubin.csv can't read");
-	while (<READ>) {
-		chomp;
-		my ($field,$ver)=split (/\t/,$_);
-		if($field eq "version") {
-			close(READ);
-			return $ver;
-		}
-	}
-	close(READ);
-	return "What version ? or older";
+	return &find_version_line("yubin.csv","version");
 }
 
 sub gettimetableversion {
-	open (READ,"timetable.txt") || &err("timetable.txt can't read");
-	while(<READ>) {
+	return &find_version_line("timetable.txt","V");
+}
+
+sub find_version_line($$) {
+	my ($file, $key) = @_;
+	open my $in, '<:utf8', "$file" or &err($file);
+
+	while (<$in>) {
 		chomp;
-		my ($firm,$ver)=split(/\t/,$_);
-		if($firm eq "V") {
-			close(READ);
-			return $ver;
+		my ($cur_key, $left) = split /\t/, $_, 2;
+		if ($cur_key eq $key) {
+			return $left;
 		}
 	}
-	close(READ);
-	return "What version ? or older";
+	return '--';
 }
 
 sub getruntableversion {
@@ -651,14 +715,11 @@ sub getruntableversion {
 }
 
 sub addnor() {
-	my $orgstr=$_[0];
-	$orgstr=~ s/　//g;
-	$orgstr=~ s/ //g;
-	$orgstr=~ s/が//g;
-	$orgstr=~ s/ケ//g;
-	$orgstr=~ s/ヶ//g;
-	$orgstr=~ s/の//g;
-	$orgstr=~ s/ノ//g;
+	my $orgstr=shift;
+	$orgstr =~ tr/がケヶのノ　 /ケケケのの/d;
+
+	# remove '字' and '大字'
+	$orgstr =~ s/([市区町村])大?字/$1/;
 	return $orgstr;
 }
 
