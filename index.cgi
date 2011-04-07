@@ -3,10 +3,11 @@
 use strict;
 
 my $VER="V.1.140(nanakochi123456 version nyatakasan/hiratara 1st release:mnakajim)";
-my $tarball="power110326.tar.gz";
+my $tarball="power110326-2.tar.gz";
 my $history=<<EOM;
 <h3>データ更新状況:</h3>
 <ul id="update">
+<li>2011/3/26 09:17 東京電力3月26日更新データに更新した。東京都にもサブグループが付くようになります。</li>
 <li>2011/3/26 03:16 東京電力２５グループ化に対応した。なお、東京都は現状ではデータがない為、今まで通りの表示となります。</li>
 <li>2011/3/25 18:40 東京電力２６日、２７日実施なしに対応した。</li>
 <li>2011/3/25 03:14 東京電力データを更新した。</li>
