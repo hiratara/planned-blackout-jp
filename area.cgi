@@ -91,9 +91,8 @@ my @tokyo_denryoku_list=("茨城県","栃木県","群馬県","埼玉県","千葉
 my @tohoku_denryoku_list=("青森県","秋田県","岩手県","宮城県","山形県","福島県","新潟県");
 
 # 各種変換
-$getcity=~s/ケ/ヶ/g;
-$getcity=~s/の/ノ/g;
-
+my $titlename=$getcity;
+$getcity=&addnor($getcity);
 $getcity=~s/0/０/g;
 $getcity=~s/1/１/g;
 $getcity=~s/2/２/g;
@@ -111,10 +110,14 @@ $getcity=~tr/[a-z]/[A-Z/;
 # バージョン情報表示
 if($comm eq 'ver') {
 	my $ver=&getengineversion;
+	my $timetable=&gettimetableversion();
+	my $areatable=&getdatabaseversion();
 	print <<FIN;
 Content-type: text/plain; charset=utf-8
 
-$ver
+area.cgi : $ver
+timetable.txt : $timetable
+areatable.txt : $areatable
 FIN
 	exit;
 }
@@ -209,11 +212,11 @@ if($out eq 'rss') {
 			chomp;
 			my ($area1,$area2,$area3,$num,$subgrp,$areaen1,$areaen2,$areaen3,$areakana1,$areakana2,$areakana3)=split (/\t/,$_);
 			my $areaorg="$area1$area2$area3$areaen1$areaen2$areaen3$areakana1$areakana2$areakana3";
-			my $areakana="$areakana1$areakana2$areakana3";
+			$areaorg=&addnor($areaorg);
+			my $areakanji;
+			my $areakana;
 			my $arearoma="$areaen1$areaen2$areaen3";
 			my $grp=$subgrp ne '' ? "$num-$subgrp" : $num;
-			$areaorg=~ s/ //g;
-			$areakana=~ s/ //;
 
 			if ($getgroup) {
 				next unless $areaorg=~ m/$getcity/ and $num eq $getgroup;
@@ -258,6 +261,8 @@ FIN
 				} else {
 					my $outarea;
 					my $xmltitle;
+					$areakanji=&addnor("$area1$area2$area3");
+					$areakana=&addnor("$areakana1$areakana2$areakana3");
 					if($areakana=~ m/$getcity/) {
 						$outarea="$areakana1 $areakana2 $areakana3";
 						$xmltitle="【$mon[$i]月$mday[$i]日】$outarea(グループ$grp)の計画停電情報です。";
@@ -308,7 +313,7 @@ FIN
 			$areas="〒$zip1-$zip2";
 		}
 	} else {
-		$areas="$getcity";
+		$areas=$titlename;
 	}
 	$areas=~ s/[;\"\'\$\@\%\(\)]//g;	# by @mnakajim
 
@@ -402,9 +407,15 @@ FIN
 <th>Group No</th></tr></tr>
 FIN
 } else {
-	$buf=<<FIN;
+	if($mobileflg eq 2) {
+		$buf=<<FIN;
+<table border=1><tr><th>地域</th>
+FIN
+	} else {
+		$buf=<<FIN;
 <table border=1><tr bgcolor=#C0C0C0><th>地域</th>
 FIN
+	}
 	if($mobileflg eq 2) {
 		for(my $i=0; $i<$mobileflg; $i++) {
 			$buf.=<<FIN;
@@ -457,12 +468,11 @@ if($getcity=~/^(バージョン|試験|更新|[Uu][Pp][Dd][Aa][Tt][Ee]|[Vv][Ee][
 		chomp;
 		my ($area1,$area2,$area3,$num,$subgrp,$areaen1,$areaen2,$areaen3,$areakana1,$areakana2,$areakana3)=split (/\t/,$_);
 		my $areaorg="$area1$area2$area3$areaen1$areaen2$areaen3$areakana1$areakana2$areakana3";
-		my $areakanji="$area1$area2$area3";
-		my $areakana="$areakana1$areakana2$areakana3";
+		$areaorg=&addnor($areaorg);
+		my $areakanji;
+		my $areakana;
 		my $arearoma="$areaen1$areaen2$areaen3";
 		my $grp=$subgrp ne '' ? "$num-$subgrp" : $num;
-		$areaorg=~ s/ //g;
-		$areakana=~ s/ //;
 
 		if ($getgroup) {
 			next unless $areaorg=~ m/$getcity/ and $num eq $getgroup;
@@ -483,34 +493,37 @@ if($getcity=~/^(バージョン|試験|更新|[Uu][Pp][Dd][Aa][Tt][Ee]|[Vv][Ee][
 			}
 		}
 
-		if ($count % 2 ==0) {
-			$bgcolor='EEFFFF';
-		} else {
-			$bgcolor='FFEEFF';
+		if($mobileflg eq 4) {
+			if ($count % 2 ==0) {
+				$bgcolor=' bgcolor=EEFFFF';
+			} else {
+				$bgcolor=' bgcolor=FFEEFF';
+			}
 		}
-
 		my @hours = map {
 			my $hours = $timetable->{$firm}{$_}{$num};
 			$hours ? join(', ', @$hours) : '-';
 		} @dates;
 
 		if($englishflg) {
-			$buf.="<tr bgcolor=$bgcolor><td><b>@{[&roma($areaen1)]} @{[&roma($areaen2)]} @{[&roma($areaen3)]}</b></td>" . 
+			$buf.="<tr$bgcolor><td><b>@{[&roma($areaen1)]} @{[&roma($areaen2)]} @{[&roma($areaen3)]}</b></td>" . 
 			      join('', map {"<td>@{[$_=~/なし/ ? 'none' : $_]}</td>"} @hours) . 
 			      "<td>Group $grp</td></tr>\n";
 
 		} else {
+			$areakanji=&addnor("$area1$area2$area3");
+			$areakana=&addnor("$areakana1$areakana2$areakana3");
 			if($areakanji=~ m/$getcity/) {
-				$buf.="<tr bgcolor=$bgcolor><td><b>$area1 $area2 $area3</b></td>"
+				$buf.="<tr$bgcolor><td><b>$area1 $area2 $area3</b></td>"
 					. join('', map {"<td>$_</td>"} @hours) . 
 					      "<td>第$grpグループ</td></tr>\n";
 
 			} elsif($areakana=~ m/$getcity/) {
-				$buf.="<tr bgcolor=$bgcolor><td><b>$areakana1 $areakana2 $areakana3</b></td>"
+				$buf.="<tr$bgcolor><td><b>$areakana1 $areakana2 $areakana3</b></td>"
 					. join('', map {"<td>$_</td>"} @hours) . 
 					      "<td>ダイ$grpグループ</td></tr>\n";
 			} elsif($arearoma=~ m/$getcity/) {
-				$buf.="<tr bgcolor=$bgcolor><td><b>$areaen1 $areaen2 $areaen3</b></td>"
+				$buf.="<tr$bgcolor><td><b>$areaen1 $areaen2 $areaen3</b></td>"
 					. join('', map {"<td>@{[$_ =~/なし/ ? 'none' : $_]}</td>"} @hours) . 
 					      "<td>Group $grp</td></tr>\n";
 			}
@@ -542,7 +555,7 @@ if($zip ne '') {
 		$areas="〒$zip1-$zip2";
 	}
 } else {
-	$areas="$getcity";
+	$areas=$titlename;
 }
 $areas=~ s/[;\"\'\$\@\%\(\)]//g;	# by @mnakajim
 
@@ -591,7 +604,7 @@ if($mobileflg eq 2 || $mflg eq 1) {
 	print $html;
 } else {
 # PC用出力
-	my $_getcity=&encode($getcity);
+	my $_getcity=&encode($titlename);
 	print<<FIN;
 $html
 [<a href="area.cgi?city=$_getcity&zip1=$zip1&zip2=$zip2&gid=$getgroup&out=rss&m=$mode">RSS</a>]
@@ -910,4 +923,16 @@ sub gettimetableversion {
 	}
 	close(READ);
 	return "What version ? or older";
+}
+
+sub addnor() {
+	my $orgstr=$_[0];
+	$orgstr=~ s/　//g;
+	$orgstr=~ s/ //g;
+	$orgstr=~ s/が//g;
+	$orgstr=~ s/ケ//g;
+	$orgstr=~ s/ヶ//g;
+	$orgstr=~ s/の//g;
+	$orgstr=~ s/ノ//g;
+	return $orgstr;
 }

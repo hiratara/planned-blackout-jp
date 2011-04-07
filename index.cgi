@@ -2,8 +2,8 @@
 
 use strict;
 
-my $VER="V.1.141(nanakochi123456 version nyatakasan/hiratara 1st release:mnakajim)";
-my $tarball="power110326-4.tar.gz";
+my $VER="V.1.142(nanakochi123456  1st release:mnakajim)";
+my $tarball="power110327.tar.gz";
 my $history=<<EOM;
 <h3>データ更新状況:</h3>
 <ul id="update">
@@ -26,6 +26,7 @@ my $history=<<EOM;
 
 <h3>エンジン更新履歴:</h3>
 <ul id="engine">
+<li>2011/3/27 07:30 area.cgi?comm=ver の返り値を本家とほぼ同じにした。文字正規化方法を本家と同じにした。携帯版での色出力を抑制した(パケ代節約のため)</li>
 <li>2011/3/25 13:16 本家に対応しやすいように、エンジンを変更した。</li>
 <li>2011/3/25 18:40 東京電力のグループが 1-Aや、5-Cになるのを仮対応した。</li>
 <li>2011/3/24 09:44 カタカナ、及びローマ字で検索できるようにした。</li>
