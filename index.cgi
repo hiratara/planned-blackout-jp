@@ -3,8 +3,9 @@
 use strict;
 
 my $VER="V.1.200(nanakochi123456  1st release:mnakajim)";
-my $tarball="power110401.tar.gz";
+my $tarball="power110401-2.tar.gz";
 my $data_update=<<EOM;
+<li>2011/4/01 11:10 東京電力、２～４日計画停電なしに対応。</li>
 <li>2011/3/31 19:55 東京電力データを更新。</li>
 <li>2011/3/31 14:55 東京電力、１日計画停電実施なしに対応。対応遅くなり申し訳ありません。</li>
 <li>2011/4/01 07:11 東北電力分の将来のデータが入っていなかったものを修正した。</li>
@@ -39,12 +40,13 @@ $nojapaneseflg=1 if($ENV{HTTP_ACCEPT_LANGUAGE}!~/ja/);
 my $mobileflg=0;
 $mobileflg=1 if($ENV{HTTP_USER_AGENT}=~/DoCoMo|UP\.Browser|KDDI|SoftBank|Voda[F|f]one|J\-PHONE|DDIPOCKET|WILLCOM|iPod|PDA/);
 
-$mobileflg=0 if($ENV{QUERY_STRING} eq 'p');
-$mobileflg=1 if($ENV{QUERY_STRING} eq 'm');
-$nojapaneseflg=0 if($ENV{QUERY_STRING} eq 'j');
-$nojapaneseflg=1 if($ENV{QUERY_STRING} eq 'e');
+$mobileflg=0 if($ENV{QUERY_STRING}=~'p');
+$mobileflg=1 if($ENV{QUERY_STRING}=~'m');
+$nojapaneseflg=0 if($ENV{QUERY_STRING}=~'j');
+$nojapaneseflg=1 if($ENV{QUERY_STRING}=~'e');
 
 my $english_file="english.html";
+my $english_mobile_file="english_mobile.html";
 my $mobile_file="mobile.html";
 my $pc_file="pc.html";
 my $mobile_update_file="mobile_update.html";
@@ -55,7 +57,11 @@ my $file;
 my $kanaflg=0;
 my $updatetitle;
 if($nojapaneseflg) {
-	$file=$english_file;
+	if($mobileflg) {
+		$file=$english_mobile_file;
+	} else {
+		$file=$english_file;
+	}
 } elsif($ENV{QUERY_STRING} eq 'mu') {
 	$file=$mobile_update_file;
 	$kanaflg=1;
@@ -68,10 +74,10 @@ if($nojapaneseflg) {
 if(open(R,$file)) {
 	foreach(<R>) {
 		if(/\@\@/) {
-			s/\@\@ENGLISHIMAGE\@\@/@{[$mobileflg ? '' : '<div style="text-align:center;" align="center"><img src="title_eng.jpg" width="300" \/><\/div>']}/;
 			s/\@\@VER\@\@/$VER/;
 			s/\@\@INCLUDE\=\"(.+)\"\@\@/@{[&include($1)]}/;
-			s/\@\@QRCODE\@\@/@{[&qrcode_link]}/;
+			s/\@\@QRCODEEN\@\@/@{[&qrcode_link_en]}/;
+			s/\@\@QRCODEJP\@\@/@{[&qrcode_link]}/;
 			s/\@\@DATAUPDATE\@\@/$data_update/;
 			s/\@\@ENGINEUPDATE\@\@/$engine_update/;
 			s/\@\@TARBALL\@\@/$tarball/;
@@ -124,7 +130,23 @@ sub qrcode_link {
 		return <<FIN;
 携帯へURLを送るには、こちらのQRコードをご利用下さい。<br />
 <img alt="QRCode" src="$basehost$basepath/area.cgi?m=qr\&amp;str=$string" />
+
 FIN
 	}
 	'';
 }
+
+sub qrcode_link_en {
+	my($basehref, $basehost, $basepath)=&getbasehref;
+	my $string=&encode("$basehost$basepath?e");
+	if(&load_module("GD::Barcode")) {
+		return <<FIN;
+If you have mobile phone to transfer this site, use this barcode.
+<br />
+<img alt="QRCode" src="$basehost$basepath/area.cgi?m=qr\&amp;str=$string" />
+
+FIN
+	}
+	'';
+}
+
