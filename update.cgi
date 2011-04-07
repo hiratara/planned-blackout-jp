@@ -1,11 +1,12 @@
 #!/usr/bin/perl
 # update cgi by nanakochi123456
-# 2011/03/21 更新しています。
+# 2011/04/01 更新しています。
 
 $WGET="wget";
 $BASEURL="http://power.daiba.cx/";
 $BASEHTML="index.cgi";
 $TMPDIR="/tmp/power_tmp";
+$COUNTERDIR="counter";
 $TAR="tar";
 $CP="cp";
 $RM="rm";
@@ -82,6 +83,7 @@ print "Dir check: $TMPDIR/$BASEFILE$VERSION\n";
 if(opendir(DIR,"$TMPDIR/$BASEFILE$VERSION")) {
 	while($file=readdir(DIR)) {
 		next if($file eq '.' || $file eq '..');
+		next if($file eq $COUNTERDIR);
 		print "copy $TMPDIR/$BASEFILE$VERSION/$file $PWD/$file\n";
 		&filecopy("$TMPDIR/$BASEFILE$VERSION/$file","$PWD/$file");
 	}
@@ -93,6 +95,10 @@ if(opendir(DIR,"$TMPDIR/$BASEFILE$VERSION")) {
 		&filecopy("$PWD/.htaccess.org","$PWD/.htaccess");
 		print "copy $PWD/.htaccess.org $PWD/.htaccess\n";
 	}
+	print "mkdir&chmod $PWD/$COUNTERDIR\n";
+	&shell("mkdir $PWD/$COUNTERDIR\n");
+	&shell("chmod 755 $PWD/$COUNTERDIR\n");
+
 	print "Complete.\n";
 	exit;
 } else {

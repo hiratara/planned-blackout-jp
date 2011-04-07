@@ -13,6 +13,7 @@ use Encode::Guess;
 
 my $debug;
 require "common.pl";
+require "counter.pl";
 
 # query 取得等
 
@@ -116,6 +117,7 @@ if($comm eq 'ver') {
 	my $timetable=&gettimetableversion();
 	my $areatable=&getdatabaseversion();
 	my $runtable=&getruntableversion();
+	my $counter=&counter_get();
 	print <<FIN;
 Content-type: text/plain; charset=utf-8
 
@@ -123,9 +125,12 @@ area.cgi : $ver
 timetable.txt : $timetable
 areatable.txt : $areatable
 runtable.txt  : $runtable
+$counter
 FIN
 	exit;
 }
+
+&counter_write();
 
 # $getbasehref に スクリプトの実パスが入る。
 my($basehref, $basehost, $basepath)=&getbasehref;

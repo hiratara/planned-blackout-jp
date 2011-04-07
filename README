@@ -11,6 +11,7 @@
 　all.all データファイル
 　area.cgi 検索スクリプト(Perl)
   common.pl(付随ファイル)
+　counter.pl(付属ファイル)
   timetable.txt(付随ファイル)
   runtable.txtx(付随ファイル)
 　yubin.csv(郵便番号データファイル　該当地域のみ）
@@ -27,6 +28,13 @@
 　title_eng.jpg(渡邊 春菜さん作の英語版TOPページ上の画像）
 　kekka.jpg(渡邊 春菜さん作の検索結果画面の画像)
 　kekka_eng.jpg(渡邊 春菜さん作の英語版検索結果の画像)
+
+ディレクトリ
+　counter/ 以下
+　アクセスカウンター（検索時のみカウント、表示は ?comm=ver のみ)
+　もし、ユーザー権限がないサーバーであれば、chmod 777 counter をして下さい。
+　counter.txt(カウンター本体 - 自動生成)
+　counter.lk(カウンター用リネームロックファイル flock が使用できない時のみ自動生成)
 
 ファイルが足りない、壊れて動かないというときはご連絡ください。
 
