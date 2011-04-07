@@ -2,8 +2,8 @@
 
 use strict;
 
-my $VER="V.1.145(nanakochi123456  1st release:mnakajim)";
-my $tarball="power110328-5.tar.gz";
+my $VER="V.1.147(nanakochi123456  1st release:mnakajim)";
+my $tarball="power110329.tar.gz";
 my $history=<<EOM;
 <h3>データ更新状況:</h3>
 <ul id="update">
@@ -25,6 +25,7 @@ my $history=<<EOM;
 
 <h3>エンジン更新履歴:</h3>
 <ul id="engine">
+<li>2011/3/29 11:40 アイコンを付けてみました。ICON素材 by watanabe_haruna</li>
 <li>2011/3/28 20:34 バージョン情報へのリンクを追加した。また、バージョン情報の表示時にQRコード及びRSSのリンクを出力しないようにした</li>
 <li>2011/3/28 08:04 東京電力が速報で一部サブグループのみの実施となった場合に、きちんと計画停電を実施するかしないかを明確にできるようにした。</li>
 <li>2011/3/27 12:54 ローマ字でスペースが入っていると検索できないバグを直した。</li>
@@ -48,7 +49,7 @@ $mobileflg=1 if($ENV{HTTP_USER_AGENT}=~/DoCoMo|UP\.Browser|KDDI|SoftBank|Voda[F|
 
 $mobileflg=0 if($ENV{QUERY_STRING} eq 'p');
 $mobileflg=1 if($ENV{QUERY_STRING} eq 'm');
-$nojapaneseflg=0 if($ENV{QUERY_STRING} eq 'p');
+$nojapaneseflg=0 if($ENV{QUERY_STRING} eq 'j');
 $nojapaneseflg=1 if($ENV{QUERY_STRING} eq 'e');
 
 my $english_file="english.html";
@@ -69,6 +70,7 @@ if($nojapaneseflg) {
 if(open(R,$file)) {
 	foreach(<R>) {
 		if(/\@\@/) {
+			s/\@\@ENGLISHIMAGE\@\@/@{[$mobileflg ? '' : '<div style="text-align:center;" align="center"><img src="title_eng.jpg" width="300" \/><\/div>']}/;
 			s/\@\@VER\@\@/$VER/;
 			s/\@\@INCLUDE\=\"(.+)\"\@\@/@{[&include($1)]}/;
 			s/\@\@QRCODE\@\@/@{[&qrcode_link]}/;
@@ -89,12 +91,18 @@ exit;
 
 sub include {
 	my $file=shift;
-	my $body;
+	my $body="";
 	if(open(I,$file)) {
+		my $div=$file;
+		$div=~s/\.//g;
+		$body.=<<EOM;
+<div id="$div">
+EOM
 		foreach(<I>) {
 			$body.=$_;
 		}
 		close(I);
+		$body.="</div>\n";
 	}
 	$body;
 }

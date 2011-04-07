@@ -588,10 +588,12 @@ my $html;
 if($englishflg) {
 	$html=<<FIN;
 <html><head>
-<title>$areas of Rolling blackout schedule</title></head>
+<title>$areas of Rolling blackout schedule</title></head><body>
+@{[$mobileflg eq 4 ? '<table><tr><td><img src="kekka_eng.jpg" width="200"></td><td>' : '']}
 Found $count. The schedule time is different when there are two or more registration in the same region according to the place.<BR>
 When the power failure twice a day is scheduled, the power failure schedule in the latter half is executed according to the situation. <BR>
 You can bookmark rhis page for next use. <BR>
+@{[$mobileflg eq 4 ? '</td></tr></table>' : '']}
 $head
 $buf
 </table>
@@ -600,10 +602,12 @@ FIN
 } else {
 	$html=<<FIN;
 <html><head>
-<title>$areasの計画停電予定</title></head>
+<title>$areasの計画停電予定</title></head><body>
+@{[$mobileflg eq 4 ? '<table><tr><td><img src="kekka.jpg" width="200"></td><td>' : '']}
 $count件が見つかりました。同一地域で複数登録があるときは、場所によって予定時間が異なります。<BR>
 1日2回の停電予定がある場合、後半の停電予定は状況に応じて実行となります。<BR>
 このページをブックマークしておくと、ブックマーク呼び出しだけで地域名または郵便番号の入力が不要です。 <BR>
+@{[$mobileflg eq 4 ? '</td></tr></table>' : '']}
 $head
 $buf
 </table>
@@ -648,6 +652,18 @@ $debug
 </body>
 </html>
 FIN
+
+# 結果表示の画像表示
+sub result_img {
+	my($file)=shift;
+	my $body;
+	if($mobileflg eq 4) {
+		$body=<<EOM;
+<img src="$file" width="200"><br />
+EOM
+	}
+	$body;
+}
 
 # ローマ字の1文字目を大文字、それ以降を小文字にする。
 sub roma {

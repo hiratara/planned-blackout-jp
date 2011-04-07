@@ -1039,10 +1039,12 @@ Spry.Widget.TabbedPanels.prototype.attachBehaviors = function(element)
 <div id="other">[<a href="./area.cgi?city=ver">バージョン情報</a>] [<a href="?m">モバイル向けページ</a>] [<a href="?e">English</a>]</div>
 <div id="header">
 <div id="logo">
-<h1>停電時間検索 <span id="ver">@@VER@@ (東京電力、東北電力)</span></h1>
+<h1>停電時間検索 <span id="ver">@@VER@@ (東京電力、東北電力)</span><br />
+<img src="title_s.jpg" alt="停電時間検索ツール">
+</h1>
 </div>
 </div>
-<div id="header">@@INCLUDE="header.html"@@</div>
+@@INCLUDE="header.html"@@
 <div id="about">
 <p> 計画停電（輪番停電）の時間やグループを簡単に検索できるツールです。自分の住んでいる地域がどこのグループに属するのか、住所の一部など、または郵便番号から検索できます。</p></div>
 <div id="sArea">
@@ -1216,6 +1218,7 @@ Spry.Widget.TabbedPanels.prototype.attachBehaviors = function(element)
 <li class="miList"><a href="http://hunatu.lix.jp/p/">http://hunatu.lix.jp/p/</a></li>
 <li class="miList"><a href="http://pw.x0.to/">http://pw.x0.to/</a> (nanakochi123456)</li>
 <li class="miList"><a href="http://power.daiba.cx/?e">http://power.daiba.cx/?e/</a> (nanakochi123456) *独自拡張:ローマ字/検索対応(英語版)</li>
+<li class="miList"><a href="http://www.gosoudan.com/power/index.en.html">http://www.gosoudan.com/power/index.en.html</a> (_nat) *英語版</li>
 </ul>
 </div>
 </div>
@@ -1285,22 +1288,46 @@ Spry.Widget.TabbedPanels.prototype.attachBehaviors = function(element)
 </div>
 </div>
 <div id="qrcode">@@QRCODE@@</div>
+@@INCLUDE="footer.html"@@
 <hr />
 <div id="fileset">
 <p>当サイト版の<a href="http://power.daiba.cx/@@TARBALL@@">ファイルセット</a>あります。サイトの機能強化・運営強化にご協力いただける方、ご利用ください。
 </div>
 <div id="copyright">
 <ul>
-<li>オリジナル・運営:<a href="http://twitter.com/mnakajim">中島昌彦</a>(M.NAKAJIM -- pwr.bizoole@gmail.com)</li>
-<li>本家サイトへ <a href="http://bizoole.com/power/">停電時間検索ツール</a> </li>
+<li> 本家サイトへ:<a href="http://bizoole.com/power/">停電時間検索ツール</a> 運営:中島昌彦(pwr (dot) bizoole (at) gmail (dot) com)</li>
+
 </ul>
+</div>
+<div id="twiiter">
+<img src="twitter_tag.jpg" width="400" />
+<!--twitter用スクリプト http://www.twitstat.us/-->
+<div class="twitstatus_badge_container" id="twitstat_badge_871"></div>
+<script type="text/javascript" src="http://twitstat.us/twitstat.us-min.js"></script>
+<script type="text/javascript"> 
+twitstat.badge.init({
+    badge_container: "twitstat_badge_871",
+    title: " ",
+    keywords: "#jishin_power",
+    max: 7,
+    border_color: "#434343",
+    header_background: "#434343",
+    header_font_color: "#ffffff",
+    content_background_color: "#e1e1e1",
+    content_font_color: "#333333",
+    link_color: "#307ace",
+    width: 400
+});
+</script>
+<a href="http://twitter.com/#!/search/%23jishin_power" target=_blank>計画停電ハッシュタグ</a>
+<!--ここまでtwitter用スクリプト -->
 </div>
 <div id="supported">
 <ul id="supporter">
 <li>Supported by</li>
-<li><a href="http://twitter.com/nanakochi123456">nanakochi123456</a>&nbsp;(by cgi engine)</li>
-<li><a href="http://twitter.com/Komotoya">Komotoya&nbsp</a>(by toppage design)</li>
+<li><a href="http://twitter.com/Komotoya">Komotoya</a>&nbsp(by toppage design)</li>
 <li><a href="http://twitter.com/10b346">10b346</a>&nbsp;(by SEO)</li>
+<li><a href=http://www.kandabako.info/~power/teiden_icons/>watanabe_haruna</a>&nbsp;(by Icons)</li>
 </ul>
 </div>
 </div>
