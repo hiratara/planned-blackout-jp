@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 
-$VER="V.1.131b1(nanakochi123456)";
-$tarball="power110322-3.tar.gz";
+$VER="V.1.131b2(nanakochi123456)";
+$tarball="power110322-4.tar.gz";
 
 $history=<<EOM;
 <h3>データ更新状況:</h3>
@@ -16,6 +16,7 @@ $history=<<EOM;
 
 <h3>エンジン更新履歴:</h3>
 <ul id="engine">
+<li>2011/3/22 17:30 英語版にて、１文字目大文字、それ以上の文字を小文字にしました。また、area.cgiにおいてもgzip圧縮をしました。</li>
 <li>2011/3/22 16:00 英語版（β）を作成した。なお、地名変換には、Kakasiを使用しています。</li>
 <li>2011/3/22 11:40 22日東京電力　第１及び５グループ２回目計画停電なしに対応。</li>
 <li>2011/3/22 10:30 事前にall.allを最適化しておくことで、検索時間をわずかに最適化した。</li>
@@ -927,9 +928,9 @@ $VER<br />
 <hr />
 <form action="area.cgi" method="get">
 <div>City or AreaName (egg..Tokyo is toukyou, City is shi....Roman alphabet)</div>
-<input type="text" name="city" size="20" />
+<input type="text" name="city" size="20" style="ime-mode:active;"/>
 <div>or ZIP code</div>
-<input type="text" name="zip1" maxlength="3" size="3" istyle="4" mode="numeric" />-<input type="text" name="zip2" maxlength="4" size="4" istyle="4" mode="numeric" /><br />
+<input type="text" name="zip1" maxlength="3" size="3" istyle="4" mode="numeric" style="ime-mode:disabled;" />-<input type="text" name="zip2" maxlength="4" size="4" istyle="4" mode="numeric" style="ime-mode:disabled;"/><br />
 <div>Refine group number</div>
 <select name="gid">
 <option value="0">none</option>
@@ -1012,7 +1013,7 @@ $pc_body=<<EOM;
 <form action="./area.cgi" method="get" name="form">
 <div id="sAreaL">
 <h2><span class="h2List">▶</span>計画停電の予定時間を知りたい市区町村名、地域名</h2>
-<input type="text" name="city" size="20" id="city" />
+<input type="text" name="city" size="20" style="ime-mode:active;"id="city" />
 </div>
 <div id="sAreaR">
 <h2><span class="h2List">▶</span>グループ番号で絞り込み</h2>

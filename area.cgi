@@ -196,7 +196,7 @@ if($out eq 'rss') {
 							}
 							$xml=<<FIN;
 <item rdf:about="$::basehref?city=$_getcity&amp;zip1=$zip1&amp;zip2=$zip2&amp;gid=$getgroup">
-<title>[$mon[$i]/$mday[$i]] $areaen1 $areaen2 $areaen3(group $num) of rolliing blackout infomation.</title>
+<title>[$mon[$i]/$mday[$i]] @{[&roma($areaen1)]} @{[&roma($areaen2)]} @{[&roma($areaen3)]} (group $num) of rolliing blackout infomation.</title>
 <link>$::basehref?city=$_getcity&amp;zip1=$zip1&amp;zip2=$zip2&amp;gid=$getgroup</link>
 <description>$g{"$date[$i]_$num"}</description>
 <dc:date>$rssdate</dc:date>
@@ -226,7 +226,7 @@ FIN
 							}
 							$xml=<<FIN;
 <item rdf:about="$::basehref?city=$_getcity&amp;zip1=$zip1&amp;zip2=$zip2&amp;gid=$getgroup">
-<title>[$mon[$i]/$mday[$i]] $areaen1 $areaen2 $areaen3(group $num) of rolliing blackout infomation.</title>
+<title>[$mon[$i]/$mday[$i]] @{[&roma($areaen1)]} @{[&roma($areaen2)]} @{[&roma($areaen3)]} (group $num) of rolliing blackout infomation.</title>
 <link>$::basehref?city=$_getcity&amp;zip1=$zip1&amp;zip2=$zip2&amp;gid=$getgroup</link>
 <description>$g{"$date[$i]_$num"}</description>
 <dc:date>$rssdate</dc:date>
@@ -440,7 +440,7 @@ if ($zip2 eq "0000") {
 			if ($areaorg=~ m/$getcity/ and $num eq $getgroup) {
 				if($englishflg) {
 					$buf.=<<FIN;
-<tr bgcolor=$bgcolor><td><b>$areaen1 $areaen2 $areaen3</b></td>
+<tr bgcolor=$bgcolor><td><b>@{[&roma($areaen1)]} @{[&roma($areaen2)]} @{[&roma($areaen3)]}</b></td>
 FIN
 				} else {
 					$buf.=<<FIN;
@@ -472,7 +472,7 @@ FIN
 			if ($areaorg=~ m/$getcity/) {
 				if($englishflg) {
 					$buf.=<<FIN;
-<tr bgcolor=$bgcolor><td><b>$areaen1 $areaen2 $areaen3</b></td>
+<tr bgcolor=$bgcolor><td><b>@{[&roma($areaen1)]} @{[&roma($areaen2)]} @{[&roma($areaen3)]}</b></td>
 FIN
 				} else {
 					$buf.=<<FIN;
@@ -529,12 +529,50 @@ if($zip ne '') {
 }
 $areas=~ s/[;\"\'\$\@\%\(\)]//g;	# by @mnakajim
 
-if($englishflg) {
-	$html=<<FIN;
-Content-type: text/html;charset=utf-8
+#-- gzip圧縮
+
+$gzip_command="gzip";
+
+foreach(split(/:/,$ENV{PATH})) {
+	if(-x "$_/$gzip_command") {
+		$gzip_path="$_/$gzip_command" ;
+		if(open(PIPE,"$::gzip_path --help 2>&1|")) {
+			foreach(<PIPE>) {
+				$forceflag="--force" if(/(\-\-force)/);
+				$fastflag="--fast" if(/(\-\-fast)/);
+			}
+			close(PIPE);
+		}
+	}
+}
+$gzip_path="$gzip_path $fastflag $forceflag";
+if ($gzip_path ne '') {
+	if(($ENV{'HTTP_ACCEPT_ENCODING'}=~/gzip/)) {
+		if($ENV{'HTTP_ACCEPT_ENCODING'}=~/x-gzip/) {
+			$gzip_header="Content-Encoding: x-gzip\n";
+		} else {
+			$gzip_header="Content-Encoding: gzip\n";
+		}
+	}
+}
+
+#-- サーバー出力
+print<<END;
+Content-type: text/html; charset=utf-8
 Cache-Control: max-age=0
 Expires: Mon, 26, Jul 1997 05:00:00 GMT
+END
 
+print "$gzip_header" if($gzip_header ne '');
+print "\n";
+
+if ($gzip_header ne '') {
+	open(STDOUT,"| $gzip_path");
+	binmode(STDOUT);
+}
+
+if($englishflg) {
+	$html=<<FIN;
 <html><head>
 <title>$areas of Rolling blackout schedule</title></head>
 Found $count. The schedule time is different when there are two or more registration in the same region according to the place.<BR>
@@ -547,10 +585,6 @@ $buf
 FIN
 } else {
 	$html=<<FIN;
-Content-type: text/html;charset=utf-8
-Cache-Control: max-age=0
-Expires: Mon, 26, Jul 1997 05:00:00 GMT
-
 <html><head>
 <title>$areasの計画停電予定</title></head>
 $count件が見つかりました。同一地域で複数登録があるときは、場所によって予定時間が異なります。<BR>
@@ -588,6 +622,20 @@ $debug
 </body>
 </html>
 FIN
+
+# ローマ字の1文字目を大文字、それ以降を小文字にする。
+sub roma {
+	my($buf)=@_;
+	my $out;
+	my $tmp;
+	if($buf=~/^(.)(.+)$/) {
+		$out=$1;
+		$tmp=$2;
+		$tmp=~tr/[A-Z]/[a-z]/;
+		$out.=$tmp;
+	}
+	$out;
+}
 
 # 面倒なのでpyukiwikiから移植ｗ
 
