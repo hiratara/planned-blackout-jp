@@ -630,11 +630,15 @@ if($mobileflg eq 2 || $mflg eq 1) {
 	my $_getcity=&encode($titlename);
 	print<<FIN;
 $html
-[<a href="area.cgi?city=$_getcity&zip1=$zip1&zip2=$zip2&gid=$getgroup&out=rss&m=$mode">RSS</a>]
 FIN
 
-# QRコード生成
-	print &make_link_qrcode("$basehref?city=$_getcity&amp;gid=$getgroup&amp;m=$mode");
+# RSS出力＆QRコード生成
+	if($getcity!~/^(バージョン|試験|更新|[Uu][Pp][Dd][Aa][Tt][Ee]|[Vv][Ee][Rr])/) {
+		print <<FIN;
+[<a href="area.cgi?city=$_getcity&zip1=$zip1&zip2=$zip2&gid=$getgroup&out=rss&m=$mode">RSS</a>]
+FIN
+		print &make_link_qrcode("$basehref?city=$_getcity&amp;gid=$getgroup&amp;m=$mode");
+	}
 # 変換時間表示
 	printf("<hr>\nPowered by Perl $] HTML convert time to %.3f sec.",
 		((times)[0] - $::_conv_start));
@@ -879,9 +883,9 @@ sub make_link_qrcode {
 	my ($string) = shift;
 	if(&load_module("GD::Barcode")) {
 		if($englishflg) {
-			$buf="If you have mobile phone to transfer this result, use this barcode.";
+			$buf="<br />If you have mobile phone to transfer this result, use this barcode.";
 		} else {
-			$buf="この検索結果を携帯に転送するには、このQRコードを読み込んで下さい。";
+			$buf="<br />この検索結果を携帯に転送するには、このQRコードを読み込んで下さい。";
 		}
 		$string=&encode($string);
 		return <<EOM;
