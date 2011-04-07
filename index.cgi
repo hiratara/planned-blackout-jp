@@ -5,8 +5,9 @@ use strict;
 
 # "1.150n"-"1.199n"
 my $VER="V.1.150n(nanakochi123456  1st release:mnakajim)";
-my $tarball="power110403.tar.gz";
+my $tarball="power110404.tar.gz";
 my $data_update=<<EOM;
+<li>2011/4/04 20:50 東京電力データを更新。</li>
 <li>2011/4/01 20:24 東京電力データを更新。</li>
 <li>2011/4/01 11:10 東京電力、２～４日計画停電なしに対応。</li>
 <li>2011/3/31 19:55 東京電力データを更新。</li>

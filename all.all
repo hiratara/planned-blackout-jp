@@ -5279,7 +5279,6 @@
 埼玉県	久喜市	久喜中央１丁目	4	B	SAITAMAKEN	KUKISHI	KUKICHUUOU1CHOUME	サイタマケン	クキシ	クキチュウオウ１チョウメ
 埼玉県	久喜市	久喜中央２丁目	4	B	SAITAMAKEN	KUKISHI	KUKICHUUOU2CHOUME	サイタマケン	クキシ	クキチュウオウ２チョウメ
 埼玉県	久喜市	久喜中央３丁目	4	B	SAITAMAKEN	KUKISHI	KUKICHUUOU3CHOUME	サイタマケン	クキシ	クキチュウオウ３チョウメ
-埼玉県	久喜市	久喜中央４丁目	2	B	SAITAMAKEN	KUKISHI	KUKICHUUOU4CHOUME	サイタマケン	クキシ	クキチュウオウ４チョウメ
 埼玉県	久喜市	久喜中央４丁目	4	B	SAITAMAKEN	KUKISHI	KUKICHUUOU4CHOUME	サイタマケン	クキシ	クキチュウオウ４チョウメ
 埼玉県	久喜市	久喜北１丁目	4	B	SAITAMAKEN	KUKISHI	KUKIKITA1CHOUME	サイタマケン	クキシ	クキキタ１チョウメ
 埼玉県	久喜市	久喜北２丁目	4	B	SAITAMAKEN	KUKISHI	KUKIKITA2CHOUME	サイタマケン	クキシ	クキキタ２チョウメ
@@ -17475,7 +17474,6 @@
 栃木県	さくら市	草川	5	A	TOCHIGIKEN	SAKURASHI	KUSAKAWA	トチギケン	サクラシ	クサカワ
 栃木県	さくら市	葛城	1	A	TOCHIGIKEN	SAKURASHI	KATSURAGI	トチギケン	サクラシ	カツラギ
 栃木県	さくら市	葛城	5	A	TOCHIGIKEN	SAKURASHI	KATSURAGI	トチギケン	サクラシ	カツラギ
-栃木県	さくら市	蒲須坂	1	A	TOCHIGIKEN	SAKURASHI	KAMASUZAKA	トチギケン	サクラシ	カマスザカ
 栃木県	さくら市	蒲須坂	5	A	TOCHIGIKEN	SAKURASHI	KAMASUZAKA	トチギケン	サクラシ	カマスザカ
 栃木県	さくら市	金枝	1	A	TOCHIGIKEN	SAKURASHI	KINEDA	トチギケン	サクラシ	キンエダ
 栃木県	さくら市	鍛冶ヶ澤	5	A	TOCHIGIKEN	SAKURASHI	KAJIGASAWA	トチギケン	サクラシ	カジガサワ
@@ -17573,7 +17571,6 @@
 栃木県	下野市	上坪山	3	A	TOCHIGIKEN	SHIMOTSUKESHI	UETSUBOYAMA	トチギケン	シモツケシ	ウエツボヤマ
 栃木県	下野市	上大領	3	A	TOCHIGIKEN	SHIMOTSUKESHI	UEDAIRYOU	トチギケン	シモツケシ	ウエダイリョウ
 栃木県	下野市	上川島	3	A	TOCHIGIKEN	SHIMOTSUKESHI	KAMIKAWASHIMA	トチギケン	シモツケシ	カミカワシマ
-栃木県	下野市	下古山	1	A	TOCHIGIKEN	SHIMOTSUKESHI	SHITAFURUYAMA	トチギケン	シモツケシ	シタフルヤマ
 栃木県	下野市	下古山	3	A	TOCHIGIKEN	SHIMOTSUKESHI	SHITAFURUYAMA	トチギケン	シモツケシ	シタフルヤマ
 栃木県	下野市	下古山１丁目	3	A	TOCHIGIKEN	SHIMOTSUKESHI	SHITAFURUYAMA1CHOUME	トチギケン	シモツケシ	シタフルヤマ１チョウメ
 栃木県	下野市	下古山２丁目	3	A	TOCHIGIKEN	SHIMOTSUKESHI	SHITAFURUYAMA2CHOUME	トチギケン	シモツケシ	シタフルヤマ２チョウメ
@@ -17583,12 +17580,10 @@
 栃木県	下野市	下坪山	3	A	TOCHIGIKEN	SHIMOTSUKESHI	SHITATSUBOYAMA	トチギケン	シモツケシ	シタツボヤマ
 栃木県	下野市	下大領	3	A	TOCHIGIKEN	SHIMOTSUKESHI	SHITADAIRYOU	トチギケン	シモツケシ	シタダイリョウ
 栃木県	下野市	下文狹	1	A	TOCHIGIKEN	SHIMOTSUKESHI	SHITABUNKYOU	トチギケン	シモツケシ	シタブンキョウ
-栃木県	下野市	下石橋	1	A	TOCHIGIKEN	SHIMOTSUKESHI	SHITAISHIBASHI	トチギケン	シモツケシ	シタイシバシ
 栃木県	下野市	下石橋	3	A	TOCHIGIKEN	SHIMOTSUKESHI	SHITAISHIBASHI	トチギケン	シモツケシ	シタイシバシ
 栃木県	下野市	下長田	3	A	TOCHIGIKEN	SHIMOTSUKESHI	SHITANAGATA	トチギケン	シモツケシ	シタナガタ
 栃木県	下野市	中大領	1	A	TOCHIGIKEN	SHIMOTSUKESHI	CHUUDAIRYOU	トチギケン	シモツケシ	チュウダイリョウ
 栃木県	下野市	中大領	3	A	TOCHIGIKEN	SHIMOTSUKESHI	CHUUDAIRYOU	トチギケン	シモツケシ	チュウダイリョウ
-栃木県	下野市	中川島	1	A	TOCHIGIKEN	SHIMOTSUKESHI	NAKAGAWASHIMA	トチギケン	シモツケシ	ナカガワシマ
 栃木県	下野市	中川島	3	A	TOCHIGIKEN	SHIMOTSUKESHI	NAKAGAWASHIMA	トチギケン	シモツケシ	ナカガワシマ
 栃木県	下野市	仁良川	1	A	TOCHIGIKEN	SHIMOTSUKESHI	HITOSHIRYOUKAWA	トチギケン	シモツケシ	ヒトシリョウカワ
 栃木県	下野市	仁良川	3	A	TOCHIGIKEN	SHIMOTSUKESHI	HITOSHIRYOUKAWA	トチギケン	シモツケシ	ヒトシリョウカワ
@@ -17618,7 +17613,6 @@
 栃木県	下野市	文教１丁目	3	A	TOCHIGIKEN	SHIMOTSUKESHI	BUNKYOU1CHOUME	トチギケン	シモツケシ	ブンキョウ１チョウメ
 栃木県	下野市	文教２丁目	3	A	TOCHIGIKEN	SHIMOTSUKESHI	BUNKYOU2CHOUME	トチギケン	シモツケシ	ブンキョウ２チョウメ
 栃木県	下野市	文教３丁目	3	A	TOCHIGIKEN	SHIMOTSUKESHI	BUNKYOU3CHOUME	トチギケン	シモツケシ	ブンキョウ３チョウメ
-栃木県	下野市	本吉田	1	A	TOCHIGIKEN	SHIMOTSUKESHI	MOTOYOSHITA	トチギケン	シモツケシ	モトヨシタ
 栃木県	下野市	本吉田	3	A	TOCHIGIKEN	SHIMOTSUKESHI	MOTOYOSHITA	トチギケン	シモツケシ	モトヨシタ
 栃木県	下野市	東前原	3	A	TOCHIGIKEN	SHIMOTSUKESHI	HIGASHIMAEHARA	トチギケン	シモツケシ	ヒガシマエハラ
 栃木県	下野市	東根	1	A	TOCHIGIKEN	SHIMOTSUKESHI	HIGASHINE	トチギケン	シモツケシ	ヒガシネ
@@ -17629,7 +17623,6 @@
 栃木県	下野市	烏ヶ森２丁目	1	A	TOCHIGIKEN	SHIMOTSUKESHI	KARASUGAMORI2CHOUME	トチギケン	シモツケシ	カラスガモリ２チョウメ
 栃木県	下野市	田中	1	A	TOCHIGIKEN	SHIMOTSUKESHI	TANAKA	トチギケン	シモツケシ	タナカ
 栃木県	下野市	田中	3	A	TOCHIGIKEN	SHIMOTSUKESHI	TANAKA	トチギケン	シモツケシ	タナカ
-栃木県	下野市	町田	1	A	TOCHIGIKEN	SHIMOTSUKESHI	MACHIDA	トチギケン	シモツケシ	マチダ
 栃木県	下野市	町田	3	A	TOCHIGIKEN	SHIMOTSUKESHI	MACHIDA	トチギケン	シモツケシ	マチダ
 栃木県	下野市	石橋	1	A	TOCHIGIKEN	SHIMOTSUKESHI	ISHIBASHI	トチギケン	シモツケシ	イシバシ
 栃木県	下野市	石橋	3	A	TOCHIGIKEN	SHIMOTSUKESHI	ISHIBASHI	トチギケン	シモツケシ	イシバシ
@@ -17646,7 +17639,7 @@
 栃木県	下野市	祇園５丁目	1	A	TOCHIGIKEN	SHIMOTSUKESHI	GION5CHOUME	トチギケン	シモツケシ	ギオン５チョウメ
 栃木県	下野市	祇園５丁目	3	A	TOCHIGIKEN	SHIMOTSUKESHI	GION5CHOUME	トチギケン	シモツケシ	ギオン５チョウメ
 栃木県	下野市	笹原	1	A	TOCHIGIKEN	SHIMOTSUKESHI	SASAHARA	トチギケン	シモツケシ	ササハラ
-栃木県	下野市	笹原	3	Ａ	TOCHIGIKEN	SHIMOTSUKESHI	SASAHARA	トチギケン	シモツケシ	ササハラ
+栃木県	下野市	笹原	3	A	TOCHIGIKEN	SHIMOTSUKESHI	SASAHARA	トチギケン	シモツケシ	ササハラ
 栃木県	下野市	箕輪	1	A	TOCHIGIKEN	SHIMOTSUKESHI	MINOWA	トチギケン	シモツケシ	ミノワ
 栃木県	下野市	箕輪	3	A	TOCHIGIKEN	SHIMOTSUKESHI	MINOWA	トチギケン	シモツケシ	ミノワ
 栃木県	下野市	紫	1	A	TOCHIGIKEN	SHIMOTSUKESHI	MURASAKI	トチギケン	シモツケシ	ムラサキ
@@ -17655,7 +17648,6 @@
 栃木県	下野市	緑１丁目	1	A	TOCHIGIKEN	SHIMOTSUKESHI	MIDORI1CHOUME	トチギケン	シモツケシ	ミドリ１チョウメ
 栃木県	下野市	緑１丁目	3	A	TOCHIGIKEN	SHIMOTSUKESHI	MIDORI1CHOUME	トチギケン	シモツケシ	ミドリ１チョウメ
 栃木県	下野市	緑２丁目	1	A	TOCHIGIKEN	SHIMOTSUKESHI	MIDORI2CHOUME	トチギケン	シモツケシ	ミドリ２チョウメ
-栃木県	下野市	緑２丁目	3	A	TOCHIGIKEN	SHIMOTSUKESHI	MIDORI2CHOUME	トチギケン	シモツケシ	ミドリ２チョウメ
 栃木県	下野市	緑３丁目	1	A	TOCHIGIKEN	SHIMOTSUKESHI	MIDORI3CHOUME	トチギケン	シモツケシ	ミドリ３チョウメ
 栃木県	下野市	緑３丁目	3	A	TOCHIGIKEN	SHIMOTSUKESHI	MIDORI3CHOUME	トチギケン	シモツケシ	ミドリ３チョウメ
 栃木県	下野市	緑４丁目	1	A	TOCHIGIKEN	SHIMOTSUKESHI	MIDORI4CHOUME	トチギケン	シモツケシ	ミドリ４チョウメ
@@ -17741,14 +17733,10 @@
 栃木県	佐野市	柿平町	4	A	TOCHIGIKEN	SANOSHI	KAKITAIRAMACHI	トチギケン	サノシ	カキタイラマチ
 栃木県	佐野市	栃本町	4	A	TOCHIGIKEN	SANOSHI	TOCHIMOTOMACHI	トチギケン	サノシ	トチモトマチ
 栃木県	佐野市	栄町	3	A	TOCHIGIKEN	SANOSHI	SAKAEMACHI	トチギケン	サノシ	サカエマチ
-栃木県	佐野市	栄町	4	A	TOCHIGIKEN	SANOSHI	SAKAEMACHI	トチギケン	サノシ	サカエマチ
 栃木県	佐野市	梅園町	4	A	TOCHIGIKEN	SANOSHI	UMEZONOMACHI	トチギケン	サノシ	ウメゾノマチ
-栃木県	佐野市	植上町	3	A	TOCHIGIKEN	SANOSHI	SHOKUUEMACHI	トチギケン	サノシ	ショクウエマチ
-栃木県	佐野市	植上町	4	A	TOCHIGIKEN	SANOSHI	SHOKUUEMACHI	トチギケン	サノシ	ショクウエマチ
 栃木県	佐野市	植下町	4	A	TOCHIGIKEN	SANOSHI	SHOKUSHITAMACHI	トチギケン	サノシ	ショクシタマチ
 栃木県	佐野市	植野町	4	A	TOCHIGIKEN	SANOSHI	UENOMACHI	トチギケン	サノシ	ウエノマチ
 栃木県	佐野市	水木町	4	A	TOCHIGIKEN	SANOSHI	MIZUKIMACHI	トチギケン	サノシ	ミズキマチ
-栃木県	佐野市	浅沼町	3	A	TOCHIGIKEN	SANOSHI	ASANUMAMACHI	トチギケン	サノシ	アサヌママチ
 栃木県	佐野市	浅沼町	4	A	TOCHIGIKEN	SANOSHI	ASANUMAMACHI	トチギケン	サノシ	アサヌママチ
 栃木県	佐野市	牧町	4	A	TOCHIGIKEN	SANOSHI	MAKIMACHI	トチギケン	サノシ	マキマチ
 栃木県	佐野市	犬伏上町	3	A	TOCHIGIKEN	SANOSHI	INUFUKUUEMACHI	トチギケン	サノシ	イヌフクウエマチ
@@ -17791,14 +17779,11 @@
 栃木県	佐野市	長谷場町	4	A	TOCHIGIKEN	SANOSHI	HASEBAMACHI	トチギケン	サノシ	ハセバマチ
 栃木県	佐野市	閑馬町	4	A	TOCHIGIKEN	SANOSHI	HIMAUMAMACHI	トチギケン	サノシ	ヒマウママチ
 栃木県	佐野市	関川町	3	A	TOCHIGIKEN	SANOSHI	SEKIGAWAMACHI	トチギケン	サノシ	セキガワマチ
-栃木県	佐野市	関川町	4	A	TOCHIGIKEN	SANOSHI	SEKIGAWAMACHI	トチギケン	サノシ	セキガワマチ
 栃木県	佐野市	韮川町	3	A	TOCHIGIKEN	SANOSHI	NIRAKAWAMACHI	トチギケン	サノシ	ニラカワマチ
 栃木県	佐野市	飛駒町	4	A	TOCHIGIKEN	SANOSHI	HIKOMAMACHI	トチギケン	サノシ	ヒコママチ
-栃木県	佐野市	飯田町	4	A	TOCHIGIKEN	SANOSHI	IIDAMACHI	トチギケン	サノシ	イイダマチ
 栃木県	佐野市	高橋町	4	A	TOCHIGIKEN	SANOSHI	TAKAHASHIMACHI	トチギケン	サノシ	タカハシマチ
 栃木県	佐野市	高砂町	4	A	TOCHIGIKEN	SANOSHI	TAKASAGOMACHI	トチギケン	サノシ	タカサゴマチ
 栃木県	佐野市	高萩町	3	A	TOCHIGIKEN	SANOSHI	TAKAHAGIMACHI	トチギケン	サノシ	タカハギマチ
-栃木県	佐野市	高萩町	4	A	TOCHIGIKEN	SANOSHI	TAKAHAGIMACHI	トチギケン	サノシ	タカハギマチ
 栃木県	佐野市	黒袴町	3	A	TOCHIGIKEN	SANOSHI	KUROHAKAMAMACHI	トチギケン	サノシ	クロハカママチ
 栃木県	塩谷郡塩谷町	大字上寺島	5	A	TOCHIGIKEN	SHIOYAGUNSHIOYAMACHI	OOAZAUETERASHIMA	トチギケン	シオヤグンシオヤマチ	オオアザウエテラシマ
 栃木県	塩谷郡塩谷町	大字上平	5	A	TOCHIGIKEN	SHIOYAGUNSHIOYAMACHI	OOAZAUETAIRA	トチギケン	シオヤグンシオヤマチ	オオアザウエタイラ
@@ -17981,22 +17966,18 @@
 栃木県	宇都宮市	上欠町	3	A	TOCHIGIKEN	UTSUNOMIYASHI	UEKETSUMACHI	トチギケン	ウツノミヤシ	ウエケツマチ
 栃木県	宇都宮市	上田原町	5	A	TOCHIGIKEN	UTSUNOMIYASHI	UEDAHARAMACHI	トチギケン	ウツノミヤシ	ウエダハラマチ
 栃木県	宇都宮市	上田町	5	A	TOCHIGIKEN	UTSUNOMIYASHI	UEDAMACHI	トチギケン	ウツノミヤシ	ウエダマチ
-栃木県	宇都宮市	上籠谷町	1	Ａ	TOCHIGIKEN	UTSUNOMIYASHI	UEKAGOTANIMACHI	トチギケン	ウツノミヤシ	ウエカゴタニマチ
-栃木県	宇都宮市	上野町	3	A	TOCHIGIKEN	UTSUNOMIYASHI	UENOMACHI	トチギケン	ウツノミヤシ	ウエノマチ
+栃木県	宇都宮市	上籠谷町	1	A	TOCHIGIKEN	UTSUNOMIYASHI	UEKAGOTANIMACHI	トチギケン	ウツノミヤシ	ウエカゴタニマチ
 栃木県	宇都宮市	上野町	5	A	TOCHIGIKEN	UTSUNOMIYASHI	UENOMACHI	トチギケン	ウツノミヤシ	ウエノマチ
 栃木県	宇都宮市	下ヶ橋町	5	A	TOCHIGIKEN	UTSUNOMIYASHI	SHITAGAHASHIMACHI	トチギケン	ウツノミヤシ	シタガハシマチ
 栃木県	宇都宮市	下小倉町	5	A	TOCHIGIKEN	UTSUNOMIYASHI	SHITAOGURAMACHI	トチギケン	ウツノミヤシ	シタオグラマチ
 栃木県	宇都宮市	下岡本町	5	A	TOCHIGIKEN	UTSUNOMIYASHI	SHITAOKAMOTOMACHI	トチギケン	ウツノミヤシ	シタオカモトマチ
-栃木県	宇都宮市	下川俣町	3	A	TOCHIGIKEN	UTSUNOMIYASHI	SHIMOKAWAMATAMACHI	トチギケン	ウツノミヤシ	シモカワマタマチ
 栃木県	宇都宮市	下川俣町	5	A	TOCHIGIKEN	UTSUNOMIYASHI	SHIMOKAWAMATAMACHI	トチギケン	ウツノミヤシ	シモカワマタマチ
 栃木県	宇都宮市	下平出町	5	A	TOCHIGIKEN	UTSUNOMIYASHI	SHIMODAIRADEMACHI	トチギケン	ウツノミヤシ	シモダイラデマチ
 栃木県	宇都宮市	下戸祭１丁目	3	A	TOCHIGIKEN	UTSUNOMIYASHI	GEKOMATSURI1CHOUME	トチギケン	ウツノミヤシ	ゲコマツリ１チョウメ
 栃木県	宇都宮市	下戸祭２丁目	3	A	TOCHIGIKEN	UTSUNOMIYASHI	GEKOMATSURI2CHOUME	トチギケン	ウツノミヤシ	ゲコマツリ２チョウメ
 栃木県	宇都宮市	下栗町	5	A	TOCHIGIKEN	UTSUNOMIYASHI	SHITAKURIMACHI	トチギケン	ウツノミヤシ	シタクリマチ
 栃木県	宇都宮市	下栗１丁目	5	A	TOCHIGIKEN	UTSUNOMIYASHI	SHITAKURI1CHOUME	トチギケン	ウツノミヤシ	シタクリ１チョウメ
-栃木県	宇都宮市	下桑島町	1	A	TOCHIGIKEN	UTSUNOMIYASHI	SHITAKUWASHIMAMACHI	トチギケン	ウツノミヤシ	シタクワシママチ
 栃木県	宇都宮市	下桑島町	5	A	TOCHIGIKEN	UTSUNOMIYASHI	SHITAKUWASHIMAMACHI	トチギケン	ウツノミヤシ	シタクワシママチ
-栃木県	宇都宮市	下欠町	3	A	TOCHIGIKEN	UTSUNOMIYASHI	SHITAKETSUMACHI	トチギケン	ウツノミヤシ	シタケツマチ
 栃木県	宇都宮市	下欠町	5	A	TOCHIGIKEN	UTSUNOMIYASHI	SHITAKETSUMACHI	トチギケン	ウツノミヤシ	シタケツマチ
 栃木県	宇都宮市	下河原町	5	A	TOCHIGIKEN	UTSUNOMIYASHI	SHITAKAWARAMACHI	トチギケン	ウツノミヤシ	シタカワラマチ
 栃木県	宇都宮市	下河原１丁目	5	A	TOCHIGIKEN	UTSUNOMIYASHI	SHITAKAWARA1CHOUME	トチギケン	ウツノミヤシ	シタカワラ１チョウメ
@@ -18027,7 +18008,6 @@
 栃木県	宇都宮市	中央１丁目	5	A	TOCHIGIKEN	UTSUNOMIYASHI	CHUUOU1CHOUME	トチギケン	ウツノミヤシ	チュウオウ１チョウメ
 栃木県	宇都宮市	中央２丁目	5	A	TOCHIGIKEN	UTSUNOMIYASHI	CHUUOU2CHOUME	トチギケン	ウツノミヤシ	チュウオウ２チョウメ
 栃木県	宇都宮市	中央３丁目	5	A	TOCHIGIKEN	UTSUNOMIYASHI	CHUUOU3CHOUME	トチギケン	ウツノミヤシ	チュウオウ３チョウメ
-栃木県	宇都宮市	中央５丁目	3	A	TOCHIGIKEN	UTSUNOMIYASHI	CHUUOU5CHOUME	トチギケン	ウツノミヤシ	チュウオウ５チョウメ
 栃木県	宇都宮市	中央５丁目	5	A	TOCHIGIKEN	UTSUNOMIYASHI	CHUUOU5CHOUME	トチギケン	ウツノミヤシ	チュウオウ５チョウメ
 栃木県	宇都宮市	中岡本町	5	A	TOCHIGIKEN	UTSUNOMIYASHI	NAKAOKAHONCHOU	トチギケン	ウツノミヤシ	ナカオカホンチョウ
 栃木県	宇都宮市	中戸祭町	3	A	TOCHIGIKEN	UTSUNOMIYASHI	NAKAKOMATSURIMACHI	トチギケン	ウツノミヤシ	ナカコマツリマチ
@@ -18067,7 +18047,6 @@
 栃木県	宇都宮市	元今泉２丁目	3	A	TOCHIGIKEN	UTSUNOMIYASHI	MOTOIMAIZUMI2CHOUME	トチギケン	ウツノミヤシ	モトイマイズミ２チョウメ
 栃木県	宇都宮市	元今泉２丁目	5	A	TOCHIGIKEN	UTSUNOMIYASHI	MOTOIMAIZUMI2CHOUME	トチギケン	ウツノミヤシ	モトイマイズミ２チョウメ
 栃木県	宇都宮市	元今泉３丁目	5	A	TOCHIGIKEN	UTSUNOMIYASHI	MOTOIMAIZUMI3CHOUME	トチギケン	ウツノミヤシ	モトイマイズミ３チョウメ
-栃木県	宇都宮市	元今泉４丁目	3	A	TOCHIGIKEN	UTSUNOMIYASHI	MOTOIMAIZUMI4CHOUME	トチギケン	ウツノミヤシ	モトイマイズミ４チョウメ
 栃木県	宇都宮市	元今泉４丁目	5	A	TOCHIGIKEN	UTSUNOMIYASHI	MOTOIMAIZUMI4CHOUME	トチギケン	ウツノミヤシ	モトイマイズミ４チョウメ
 栃木県	宇都宮市	元今泉５丁目	5	A	TOCHIGIKEN	UTSUNOMIYASHI	MOTOIMAIZUMI5CHOUME	トチギケン	ウツノミヤシ	モトイマイズミ５チョウメ
 栃木県	宇都宮市	元今泉６丁目	5	A	TOCHIGIKEN	UTSUNOMIYASHI	MOTOIMAIZUMI6CHOUME	トチギケン	ウツノミヤシ	モトイマイズミ６チョウメ
@@ -18076,7 +18055,6 @@
 栃木県	宇都宮市	免ノ内町	5	A	TOCHIGIKEN	UTSUNOMIYASHI	MENNONAIMACHI	トチギケン	ウツノミヤシ	メンノナイマチ
 栃木県	宇都宮市	八千代１丁目	3	A	TOCHIGIKEN	UTSUNOMIYASHI	YACHIYO1CHOUME	トチギケン	ウツノミヤシ	ヤチヨ１チョウメ
 栃木県	宇都宮市	八千代１丁目	5	A	TOCHIGIKEN	UTSUNOMIYASHI	YACHIYO1CHOUME	トチギケン	ウツノミヤシ	ヤチヨ１チョウメ
-栃木県	宇都宮市	八千代２丁目	3	A	TOCHIGIKEN	UTSUNOMIYASHI	YACHIYO2CHOUME	トチギケン	ウツノミヤシ	ヤチヨ２チョウメ
 栃木県	宇都宮市	八千代２丁目	5	A	TOCHIGIKEN	UTSUNOMIYASHI	YACHIYO2CHOUME	トチギケン	ウツノミヤシ	ヤチヨ２チョウメ
 栃木県	宇都宮市	八幡台	3	A	TOCHIGIKEN	UTSUNOMIYASHI	HACHIMANDAI	トチギケン	ウツノミヤシ	ハチマンダイ
 栃木県	宇都宮市	六道町	3	A	TOCHIGIKEN	UTSUNOMIYASHI	RIKUDOUMACHI	トチギケン	ウツノミヤシ	リクドウマチ
@@ -18280,7 +18258,6 @@
 栃木県	宇都宮市	東戸祭１丁目	3	A	TOCHIGIKEN	UTSUNOMIYASHI	HIGASHIKOMATSURI1CHOUME	トチギケン	ウツノミヤシ	ヒガシコマツリ１チョウメ
 栃木県	宇都宮市	東木代町	1	A	TOCHIGIKEN	UTSUNOMIYASHI	HIGASHIKIDAIMACHI	トチギケン	ウツノミヤシ	ヒガシキダイマチ
 栃木県	宇都宮市	東木代町	5	A	TOCHIGIKEN	UTSUNOMIYASHI	HIGASHIKIDAIMACHI	トチギケン	ウツノミヤシ	ヒガシキダイマチ
-栃木県	宇都宮市	東横田町	3	A	TOCHIGIKEN	UTSUNOMIYASHI	TOUYOKOTAMACHI	トチギケン	ウツノミヤシ	トウヨコタマチ
 栃木県	宇都宮市	東横田町	5	A	TOCHIGIKEN	UTSUNOMIYASHI	TOUYOKOTAMACHI	トチギケン	ウツノミヤシ	トウヨコタマチ
 栃木県	宇都宮市	東浦町	5	A	TOCHIGIKEN	UTSUNOMIYASHI	HIGASHIURAMACHI	トチギケン	ウツノミヤシ	ヒガシウラマチ
 栃木県	宇都宮市	東町	3	A	TOCHIGIKEN	UTSUNOMIYASHI	HIGASHICHOU	トチギケン	ウツノミヤシ	ヒガシチョウ
@@ -18310,10 +18287,8 @@
 栃木県	宇都宮市	横山１丁目	5	A	TOCHIGIKEN	UTSUNOMIYASHI	YOKOYAMA1CHOUME	トチギケン	ウツノミヤシ	ヨコヤマ１チョウメ
 栃木県	宇都宮市	横山２丁目	5	A	TOCHIGIKEN	UTSUNOMIYASHI	YOKOYAMA2CHOUME	トチギケン	ウツノミヤシ	ヨコヤマ２チョウメ
 栃木県	宇都宮市	横山３丁目	5	A	TOCHIGIKEN	UTSUNOMIYASHI	YOKOYAMA3CHOUME	トチギケン	ウツノミヤシ	ヨコヤマ３チョウメ
-栃木県	宇都宮市	横田新町	3	A	TOCHIGIKEN	UTSUNOMIYASHI	YOKOTASHINMACHI	トチギケン	ウツノミヤシ	ヨコタシンマチ
 栃木県	宇都宮市	横田新町	5	A	TOCHIGIKEN	UTSUNOMIYASHI	YOKOTASHINMACHI	トチギケン	ウツノミヤシ	ヨコタシンマチ
 栃木県	宇都宮市	氷室町	1	A	TOCHIGIKEN	UTSUNOMIYASHI	HIMUROMACHI	トチギケン	ウツノミヤシ	ヒムロマチ
-栃木県	宇都宮市	江曽島本町	3	A	TOCHIGIKEN	UTSUNOMIYASHI	KOUSOSHIMAMOTOMACHI	トチギケン	ウツノミヤシ	コウソシマモトマチ
 栃木県	宇都宮市	江曽島本町	5	A	TOCHIGIKEN	UTSUNOMIYASHI	KOUSOSHIMAMOTOMACHI	トチギケン	ウツノミヤシ	コウソシマモトマチ
 栃木県	宇都宮市	江曽島町	5	A	TOCHIGIKEN	UTSUNOMIYASHI	KOUSOSHIMAMACHI	トチギケン	ウツノミヤシ	コウソシママチ
 栃木県	宇都宮市	江曽島１丁目	5	A	TOCHIGIKEN	UTSUNOMIYASHI	KOUSOSHIMA1CHOUME	トチギケン	ウツノミヤシ	コウソシマ１チョウメ
@@ -18381,7 +18356,6 @@
 栃木県	宇都宮市	緑３丁目	5	A	TOCHIGIKEN	UTSUNOMIYASHI	MIDORI3CHOUME	トチギケン	ウツノミヤシ	ミドリ３チョウメ
 栃木県	宇都宮市	緑４丁目	5	A	TOCHIGIKEN	UTSUNOMIYASHI	MIDORI4CHOUME	トチギケン	ウツノミヤシ	ミドリ４チョウメ
 栃木県	宇都宮市	緑５丁目	5	A	TOCHIGIKEN	UTSUNOMIYASHI	MIDORI5CHOUME	トチギケン	ウツノミヤシ	ミドリ５チョウメ
-栃木県	宇都宮市	羽牛田町	3	A	TOCHIGIKEN	UTSUNOMIYASHI	HANEUSHITAMACHI	トチギケン	ウツノミヤシ	ハネウシタマチ
 栃木県	宇都宮市	芦沼町	5	A	TOCHIGIKEN	UTSUNOMIYASHI	ASHINUMAMACHI	トチギケン	ウツノミヤシ	アシヌママチ
 栃木県	宇都宮市	花園町	3	A	TOCHIGIKEN	UTSUNOMIYASHI	HANAZONOMACHI	トチギケン	ウツノミヤシ	ハナゾノマチ
 栃木県	宇都宮市	花園町	5	A	TOCHIGIKEN	UTSUNOMIYASHI	HANAZONOMACHI	トチギケン	ウツノミヤシ	ハナゾノマチ
@@ -18426,10 +18400,8 @@
 栃木県	宇都宮市	西川田南２丁目	3	A	TOCHIGIKEN	UTSUNOMIYASHI	NISHIKAWATAMINAMI2CHOUME	トチギケン	ウツノミヤシ	ニシカワタミナミ２チョウメ
 栃木県	宇都宮市	西川田南２丁目	5	A	TOCHIGIKEN	UTSUNOMIYASHI	NISHIKAWATAMINAMI2CHOUME	トチギケン	ウツノミヤシ	ニシカワタミナミ２チョウメ
 栃木県	宇都宮市	西川田本町１丁目	5	A	TOCHIGIKEN	UTSUNOMIYASHI	NISHIKAWATAMOTOMACHI1CHOUME	トチギケン	ウツノミヤシ	ニシカワタモトマチ１チョウメ
-栃木県	宇都宮市	西川田本町２丁目	3	A	TOCHIGIKEN	UTSUNOMIYASHI	NISHIKAWATAMOTOMACHI2CHOUME	トチギケン	ウツノミヤシ	ニシカワタモトマチ２チョウメ
 栃木県	宇都宮市	西川田本町２丁目	5	A	TOCHIGIKEN	UTSUNOMIYASHI	NISHIKAWATAMOTOMACHI2CHOUME	トチギケン	ウツノミヤシ	ニシカワタモトマチ２チョウメ
 栃木県	宇都宮市	西川田本町３丁目	5	A	TOCHIGIKEN	UTSUNOMIYASHI	NISHIKAWATAMOTOMACHI3CHOUME	トチギケン	ウツノミヤシ	ニシカワタモトマチ３チョウメ
-栃木県	宇都宮市	西川田本町４丁目	3	A	TOCHIGIKEN	UTSUNOMIYASHI	NISHIKAWATAMOTOMACHI4CHOUME	トチギケン	ウツノミヤシ	ニシカワタモトマチ４チョウメ
 栃木県	宇都宮市	西川田本町４丁目	5	A	TOCHIGIKEN	UTSUNOMIYASHI	NISHIKAWATAMOTOMACHI4CHOUME	トチギケン	ウツノミヤシ	ニシカワタモトマチ４チョウメ
 栃木県	宇都宮市	西川田東町	3	A	TOCHIGIKEN	UTSUNOMIYASHI	NISHIKAWATAHIGASHICHOU	トチギケン	ウツノミヤシ	ニシカワタヒガシチョウ
 栃木県	宇都宮市	西川田町	3	A	TOCHIGIKEN	UTSUNOMIYASHI	NISHIKAWATAMACHI	トチギケン	ウツノミヤシ	ニシカワタマチ
@@ -18471,14 +18443,12 @@
 栃木県	宇都宮市	長岡町	3	A	TOCHIGIKEN	UTSUNOMIYASHI	NAGAOKAMACHI	トチギケン	ウツノミヤシ	ナガオカマチ
 栃木県	宇都宮市	長岡町	5	A	TOCHIGIKEN	UTSUNOMIYASHI	NAGAOKAMACHI	トチギケン	ウツノミヤシ	ナガオカマチ
 栃木県	宇都宮市	長峰町	5	A	TOCHIGIKEN	UTSUNOMIYASHI	NAGAMINEMACHI	トチギケン	ウツノミヤシ	ナガミネマチ
-栃木県	宇都宮市	関堀町	3	A	TOCHIGIKEN	UTSUNOMIYASHI	KANHORIMACHI	トチギケン	ウツノミヤシ	カンホリマチ
 栃木県	宇都宮市	関堀町	5	A	TOCHIGIKEN	UTSUNOMIYASHI	KANHORIMACHI	トチギケン	ウツノミヤシ	カンホリマチ
 栃木県	宇都宮市	関白町	5	A	TOCHIGIKEN	UTSUNOMIYASHI	KANPAKUMACHI	トチギケン	ウツノミヤシ	カンパクマチ
 栃木県	宇都宮市	陽南１丁目	3	A	TOCHIGIKEN	UTSUNOMIYASHI	YOUMINAMI1CHOUME	トチギケン	ウツノミヤシ	ヨウミナミ１チョウメ
 栃木県	宇都宮市	陽南１丁目	5	A	TOCHIGIKEN	UTSUNOMIYASHI	YOUMINAMI1CHOUME	トチギケン	ウツノミヤシ	ヨウミナミ１チョウメ
 栃木県	宇都宮市	陽南２丁目	5	A	TOCHIGIKEN	UTSUNOMIYASHI	YOUMINAMI2CHOUME	トチギケン	ウツノミヤシ	ヨウミナミ２チョウメ
 栃木県	宇都宮市	陽南３丁目	5	A	TOCHIGIKEN	UTSUNOMIYASHI	YOUMINAMI3CHOUME	トチギケン	ウツノミヤシ	ヨウミナミ３チョウメ
-栃木県	宇都宮市	陽南４丁目	3	A	TOCHIGIKEN	UTSUNOMIYASHI	YOUMINAMI4CHOUME	トチギケン	ウツノミヤシ	ヨウミナミ４チョウメ
 栃木県	宇都宮市	陽南４丁目	5	A	TOCHIGIKEN	UTSUNOMIYASHI	YOUMINAMI4CHOUME	トチギケン	ウツノミヤシ	ヨウミナミ４チョウメ
 栃木県	宇都宮市	陽東１丁目	5	A	TOCHIGIKEN	UTSUNOMIYASHI	YOUHIGASHI1CHOUME	トチギケン	ウツノミヤシ	ヨウヒガシ１チョウメ
 栃木県	宇都宮市	陽東２丁目	5	A	TOCHIGIKEN	UTSUNOMIYASHI	YOUHIGASHI2CHOUME	トチギケン	ウツノミヤシ	ヨウヒガシ２チョウメ
@@ -18508,7 +18478,6 @@
 栃木県	宇都宮市	馬場通り３丁目	5	A	TOCHIGIKEN	UTSUNOMIYASHI	BABATOORI3CHOUME	トチギケン	ウツノミヤシ	ババトオリ３チョウメ
 栃木県	宇都宮市	馬場通り４丁目	3	A	TOCHIGIKEN	UTSUNOMIYASHI	BABATOORI4CHOUME	トチギケン	ウツノミヤシ	ババトオリ４チョウメ
 栃木県	宇都宮市	馬場通り４丁目	5	A	TOCHIGIKEN	UTSUNOMIYASHI	BABATOORI4CHOUME	トチギケン	ウツノミヤシ	ババトオリ４チョウメ
-栃木県	宇都宮市	駅前通り１丁目	3	A	TOCHIGIKEN	UTSUNOMIYASHI	EKIMAEDOORI1CHOUME	トチギケン	ウツノミヤシ	エキマエドオリ１チョウメ
 栃木県	宇都宮市	駅前通り１丁目	5	A	TOCHIGIKEN	UTSUNOMIYASHI	EKIMAEDOORI1CHOUME	トチギケン	ウツノミヤシ	エキマエドオリ１チョウメ
 栃木県	宇都宮市	駒生町	3	A	TOCHIGIKEN	UTSUNOMIYASHI	KOMANAMAMACHI	トチギケン	ウツノミヤシ	コマナママチ
 栃木県	宇都宮市	駒生町	5	A	TOCHIGIKEN	UTSUNOMIYASHI	KOMANAMAMACHI	トチギケン	ウツノミヤシ	コマナママチ
@@ -18521,8 +18490,7 @@
 栃木県	宇都宮市	鶴田１丁目	3	A	TOCHIGIKEN	UTSUNOMIYASHI	TSURUTA1CHOUME	トチギケン	ウツノミヤシ	ツルタ１チョウメ
 栃木県	宇都宮市	鶴田２丁目	3	A	TOCHIGIKEN	UTSUNOMIYASHI	TSURUTA2CHOUME	トチギケン	ウツノミヤシ	ツルタ２チョウメ
 栃木県	宇都宮市	鶴田３丁目	3	A	TOCHIGIKEN	UTSUNOMIYASHI	TSURUTA3CHOUME	トチギケン	ウツノミヤシ	ツルタ３チョウメ
-栃木県	宇都宮市	鷺ノ谷町	3	A	TOCHIGIKEN	UTSUNOMIYASHI	SAGINOTANIMACHI	トチギケン	ウツノミヤシ	サギノタニマチ
-栃木県	宇都宮市	鷺ノ谷町	5	Ａ	TOCHIGIKEN	UTSUNOMIYASHI	SAGINOTANIMACHI	トチギケン	ウツノミヤシ	サギノタニマチ
+栃木県	宇都宮市	鷺ノ谷町	5	A	TOCHIGIKEN	UTSUNOMIYASHI	SAGINOTANIMACHI	トチギケン	ウツノミヤシ	サギノタニマチ
 栃木県	小山市	三峯１丁目	2	A	TOCHIGIKEN	OYAMASHI	SANMINE1CHOUME	トチギケン	オヤマシ	サンミネ１チョウメ
 栃木県	小山市	三峯２丁目	2	A	TOCHIGIKEN	OYAMASHI	SANMINE2CHOUME	トチギケン	オヤマシ	サンミネ２チョウメ
 栃木県	小山市	中久喜１丁目	2	A	TOCHIGIKEN	OYAMASHI	NAKAKUKI1CHOUME	トチギケン	オヤマシ	ナカクキ１チョウメ
@@ -18536,7 +18504,6 @@
 栃木県	小山市	中央町３丁目	2	A	TOCHIGIKEN	OYAMASHI	CHUUOUMACHI3CHOUME	トチギケン	オヤマシ	チュウオウマチ３チョウメ
 栃木県	小山市	乙女１丁目	2	A	TOCHIGIKEN	OYAMASHI	OTOME1CHOUME	トチギケン	オヤマシ	オトメ１チョウメ
 栃木県	小山市	乙女２丁目	2	A	TOCHIGIKEN	OYAMASHI	OTOME2CHOUME	トチギケン	オヤマシ	オトメ２チョウメ
-栃木県	小山市	乙女３丁目	1	A	TOCHIGIKEN	OYAMASHI	OTOME3CHOUME	トチギケン	オヤマシ	オトメ３チョウメ
 栃木県	小山市	乙女３丁目	2	A	TOCHIGIKEN	OYAMASHI	OTOME3CHOUME	トチギケン	オヤマシ	オトメ３チョウメ
 栃木県	小山市	八幡町１丁目	2	A	TOCHIGIKEN	OYAMASHI	HACHIMANMACHI1CHOUME	トチギケン	オヤマシ	ハチマンマチ１チョウメ
 栃木県	小山市	八幡町２丁目	2	A	TOCHIGIKEN	OYAMASHI	HACHIMANMACHI2CHOUME	トチギケン	オヤマシ	ハチマンマチ２チョウメ
@@ -18563,7 +18530,6 @@
 栃木県	小山市	大字上初田	2	A	TOCHIGIKEN	OYAMASHI	OOAZAUEHATSUTA	トチギケン	オヤマシ	オオアザウエハツタ
 栃木県	小山市	大字上国府塚	2	A	TOCHIGIKEN	OYAMASHI	OOAZAUEKOUTSUKA	トチギケン	オヤマシ	オオアザウエコウツカ
 栃木県	小山市	大字上国府塚	3	A	TOCHIGIKEN	OYAMASHI	OOAZAUEKOUTSUKA	トチギケン	オヤマシ	オオアザウエコウツカ
-栃木県	小山市	大字上泉	2	A	TOCHIGIKEN	OYAMASHI	OOAZAUEIZUMI	トチギケン	オヤマシ	オオアザウエイズミ
 栃木県	小山市	大字上泉	3	A	TOCHIGIKEN	OYAMASHI	OOAZAUEIZUMI	トチギケン	オヤマシ	オオアザウエイズミ
 栃木県	小山市	大字上生井	2	A	TOCHIGIKEN	OYAMASHI	OOAZAUENAMAI	トチギケン	オヤマシ	オオアザウエナマイ
 栃木県	小山市	大字上石塚	2	A	TOCHIGIKEN	OYAMASHI	OOAZAUEISHIDUKA	トチギケン	オヤマシ	オオアザウエイシヅカ
@@ -18574,21 +18540,18 @@
 栃木県	小山市	大字下国府塚	3	A	TOCHIGIKEN	OYAMASHI	OOAZASHIMOKUNIFUTSUKA	トチギケン	オヤマシ	オオアザシモクニフツカ
 栃木県	小山市	大字下河原田	3	A	TOCHIGIKEN	OYAMASHI	OOAZASHITAKAWARADA	トチギケン	オヤマシ	オオアザシタカワラダ
 栃木県	小山市	大字下泉	3	A	TOCHIGIKEN	OYAMASHI	OOAZASHITAIZUMI	トチギケン	オヤマシ	オオアザシタイズミ
-栃木県	小山市	大字下生井	1	A	TOCHIGIKEN	OYAMASHI	OOAZASHITABAEI	トチギケン	オヤマシ	オオアザシタバエイ
 栃木県	小山市	大字下生井	2	A	TOCHIGIKEN	OYAMASHI	OOAZASHITABAEI	トチギケン	オヤマシ	オオアザシタバエイ
 栃木県	小山市	大字下石塚	2	A	TOCHIGIKEN	OYAMASHI	OOAZASHITAISHIDUKA	トチギケン	オヤマシ	オオアザシタイシヅカ
 栃木県	小山市	大字下石塚	3	A	TOCHIGIKEN	OYAMASHI	OOAZASHITAISHIDUKA	トチギケン	オヤマシ	オオアザシタイシヅカ
 栃木県	小山市	大字中久喜	1	A	TOCHIGIKEN	OYAMASHI	OOAZANAKAKUKI	トチギケン	オヤマシ	オオアザナカクキ
 栃木県	小山市	大字中久喜	2	A	TOCHIGIKEN	OYAMASHI	OOAZANAKAKUKI	トチギケン	オヤマシ	オオアザナカクキ
 栃木県	小山市	大字中島	3	A	TOCHIGIKEN	OYAMASHI	OOAZANAKASHIMA	トチギケン	オヤマシ	オオアザナカシマ
-栃木県	小山市	大字中河原	1	A	TOCHIGIKEN	OYAMASHI	OOAZANAKAGAWARA	トチギケン	オヤマシ	オオアザナカガワラ
 栃木県	小山市	大字中河原	3	A	TOCHIGIKEN	OYAMASHI	OOAZANAKAGAWARA	トチギケン	オヤマシ	オオアザナカガワラ
 栃木県	小山市	大字中里	2	A	TOCHIGIKEN	OYAMASHI	OOAZANAKAZATO	トチギケン	オヤマシ	オオアザナカザト
 栃木県	小山市	大字中里	3	A	TOCHIGIKEN	OYAMASHI	OOAZANAKAZATO	トチギケン	オヤマシ	オオアザナカザト
 栃木県	小山市	大字乙女	2	A	TOCHIGIKEN	OYAMASHI	OOAZAOTOME	トチギケン	オヤマシ	オオアザオトメ
 栃木県	小山市	大字井岡	3	A	TOCHIGIKEN	OYAMASHI	OOAZAIOKA	トチギケン	オヤマシ	オオアザイオカ
 栃木県	小山市	大字今里	2	A	TOCHIGIKEN	OYAMASHI	OOAZAIMASATO	トチギケン	オヤマシ	オオアザイマサト
-栃木県	小山市	大字今里	3	A	TOCHIGIKEN	OYAMASHI	OOAZAIMASATO	トチギケン	オヤマシ	オオアザイマサト
 栃木県	小山市	大字出井	1	A	TOCHIGIKEN	OYAMASHI	OOAZASHUTSUI	トチギケン	オヤマシ	オオアザシュツイ
 栃木県	小山市	大字出井	2	A	TOCHIGIKEN	OYAMASHI	OOAZASHUTSUI	トチギケン	オヤマシ	オオアザシュツイ
 栃木県	小山市	大字出井	3	A	TOCHIGIKEN	OYAMASHI	OOAZASHUTSUI	トチギケン	オヤマシ	オオアザシュツイ
@@ -18620,7 +18583,6 @@
 栃木県	小山市	大字小薬	2	A	TOCHIGIKEN	OYAMASHI	OOAZASHOUKUSURI	トチギケン	オヤマシ	オオアザショウクスリ
 栃木県	小山市	大字小袋	3	A	TOCHIGIKEN	OYAMASHI	OOAZASHOUFUKURO	トチギケン	オヤマシ	オオアザショウフクロ
 栃木県	小山市	大字島田	2	A	TOCHIGIKEN	OYAMASHI	OOAZASHIMADA	トチギケン	オヤマシ	オオアザシマダ
-栃木県	小山市	大字平和	1	A	TOCHIGIKEN	OYAMASHI	OOAZAHEIWA	トチギケン	オヤマシ	オオアザヘイワ
 栃木県	小山市	大字平和	2	A	TOCHIGIKEN	OYAMASHI	OOAZAHEIWA	トチギケン	オヤマシ	オオアザヘイワ
 栃木県	小山市	大字延島	3	A	TOCHIGIKEN	OYAMASHI	OOAZAENSHIMA	トチギケン	オヤマシ	オオアザエンシマ
 栃木県	小山市	大字延島新田	3	A	TOCHIGIKEN	OYAMASHI	OOAZAENSHIMANITTA	トチギケン	オヤマシ	オオアザエンシマニッタ
@@ -18634,7 +18596,6 @@
 栃木県	小山市	大字楢木	2	A	TOCHIGIKEN	OYAMASHI	OOAZANARAKI	トチギケン	オヤマシ	オオアザナラキ
 栃木県	小山市	大字横倉	2	A	TOCHIGIKEN	OYAMASHI	OOAZAYOKOKURA	トチギケン	オヤマシ	オオアザヨコクラ
 栃木県	小山市	大字横倉新田	2	A	TOCHIGIKEN	OYAMASHI	OOAZAYOKOKURANITTA	トチギケン	オヤマシ	オオアザヨコクラニッタ
-栃木県	小山市	大字泉崎	2	A	TOCHIGIKEN	OYAMASHI	OOAZAIZUMISAKI	トチギケン	オヤマシ	オオアザイズミサキ
 栃木県	小山市	大字渋井	2	A	TOCHIGIKEN	OYAMASHI	OOAZASHIBUI	トチギケン	オヤマシ	オオアザシブイ
 栃木県	小山市	大字犬塚	2	A	TOCHIGIKEN	OYAMASHI	OOAZAINUTSUKA	トチギケン	オヤマシ	オオアザイヌツカ
 栃木県	小山市	大字生良	2	A	TOCHIGIKEN	OYAMASHI	OOAZANAMARYOU	トチギケン	オヤマシ	オオアザナマリョウ
@@ -18654,7 +18615,6 @@
 栃木県	小山市	大字荒井	1	A	TOCHIGIKEN	OYAMASHI	OOAZAARAI	トチギケン	オヤマシ	オオアザアライ
 栃木県	小山市	大字荒川	2	A	TOCHIGIKEN	OYAMASHI	OOAZAARAKAWA	トチギケン	オヤマシ	オオアザアラカワ
 栃木県	小山市	大字萩島	2	A	TOCHIGIKEN	OYAMASHI	OOAZAHAGISHIMA	トチギケン	オヤマシ	オオアザハギシマ
-栃木県	小山市	大字萩島	3	A	TOCHIGIKEN	OYAMASHI	OOAZAHAGISHIMA	トチギケン	オヤマシ	オオアザハギシマ
 栃木県	小山市	大字萱橋	3	A	TOCHIGIKEN	OYAMASHI	OOAZAKAYAHASHI	トチギケン	オヤマシ	オオアザカヤハシ
 栃木県	小山市	大字迫間田	2	A	TOCHIGIKEN	OYAMASHI	OOAZASAKOKANTA	トチギケン	オヤマシ	オオアザサコカンタ
 栃木県	小山市	大字鉢形	1	A	TOCHIGIKEN	OYAMASHI	OOAZAHACHIKATACHI	トチギケン	オヤマシ	オオアザハチカタチ
@@ -18666,7 +18626,6 @@
 栃木県	小山市	大字雨ヶ谷新田	2	A	TOCHIGIKEN	OYAMASHI	OOAZAAMEGATANINITTA	トチギケン	オヤマシ	オオアザアメガタニニッタ
 栃木県	小山市	大字飯塚	1	A	TOCHIGIKEN	OYAMASHI	OOAZAIIDUKA	トチギケン	オヤマシ	オオアザイイヅカ
 栃木県	小山市	大字飯塚	3	A	TOCHIGIKEN	OYAMASHI	OOAZAIIDUKA	トチギケン	オヤマシ	オオアザイイヅカ
-栃木県	小山市	大字高椅	1	A	TOCHIGIKEN	OYAMASHI	OOAZATAKAI	トチギケン	オヤマシ	オオアザタカイ
 栃木県	小山市	大字高椅	3	A	TOCHIGIKEN	OYAMASHI	OOAZATAKAI	トチギケン	オヤマシ	オオアザタカイ
 栃木県	小山市	大字黒本	1	A	TOCHIGIKEN	OYAMASHI	OOAZAKUROHON	トチギケン	オヤマシ	オオアザクロホン
 栃木県	小山市	大字黒本	2	A	TOCHIGIKEN	OYAMASHI	OOAZAKUROHON	トチギケン	オヤマシ	オオアザクロホン
@@ -18685,7 +18644,6 @@
 栃木県	小山市	本郷町１丁目	2	A	TOCHIGIKEN	OYAMASHI	HONGOUMACHI1CHOUME	トチギケン	オヤマシ	ホンゴウマチ１チョウメ
 栃木県	小山市	本郷町２丁目	2	A	TOCHIGIKEN	OYAMASHI	HONGOUMACHI2CHOUME	トチギケン	オヤマシ	ホンゴウマチ２チョウメ
 栃木県	小山市	本郷町３丁目	2	A	TOCHIGIKEN	OYAMASHI	HONGOUMACHI3CHOUME	トチギケン	オヤマシ	ホンゴウマチ３チョウメ
-栃木県	小山市	東城南１丁目	1	A	TOCHIGIKEN	OYAMASHI	HIGASHIJOUNAN1CHOUME	トチギケン	オヤマシ	ヒガシジョウナン１チョウメ
 栃木県	小山市	東城南１丁目	2	A	TOCHIGIKEN	OYAMASHI	HIGASHIJOUNAN1CHOUME	トチギケン	オヤマシ	ヒガシジョウナン１チョウメ
 栃木県	小山市	東城南２丁目	2	A	TOCHIGIKEN	OYAMASHI	HIGASHIJOUNAN2CHOUME	トチギケン	オヤマシ	ヒガシジョウナン２チョウメ
 栃木県	小山市	東城南３丁目	2	A	TOCHIGIKEN	OYAMASHI	HIGASHIJOUNAN3CHOUME	トチギケン	オヤマシ	ヒガシジョウナン３チョウメ
@@ -18708,7 +18666,6 @@
 栃木県	小山市	神鳥谷４丁目	2	A	TOCHIGIKEN	OYAMASHI	KAMITORIYA4CHOUME	トチギケン	オヤマシ	カミトリヤ４チョウメ
 栃木県	小山市	神鳥谷５丁目	2	A	TOCHIGIKEN	OYAMASHI	KAMITORIYA5CHOUME	トチギケン	オヤマシ	カミトリヤ５チョウメ
 栃木県	小山市	神鳥谷６丁目	2	A	TOCHIGIKEN	OYAMASHI	KAMITORIYA6CHOUME	トチギケン	オヤマシ	カミトリヤ６チョウメ
-栃木県	小山市	粟宮１丁目	1	A	TOCHIGIKEN	OYAMASHI	AWAMIYA1CHOUME	トチギケン	オヤマシ	アワミヤ１チョウメ
 栃木県	小山市	粟宮１丁目	2	A	TOCHIGIKEN	OYAMASHI	AWAMIYA1CHOUME	トチギケン	オヤマシ	アワミヤ１チョウメ
 栃木県	小山市	粟宮２丁目	2	A	TOCHIGIKEN	OYAMASHI	AWAMIYA2CHOUME	トチギケン	オヤマシ	アワミヤ２チョウメ
 栃木県	小山市	美しが丘３丁目	2	A	TOCHIGIKEN	OYAMASHI	UTSUKUSHIGAOKA3CHOUME	トチギケン	オヤマシ	ウツクシガオカ３チョウメ
@@ -18720,7 +18677,6 @@
 栃木県	小山市	西城南１丁目	2	A	TOCHIGIKEN	OYAMASHI	SAIJOUMINAMI1CHOUME	トチギケン	オヤマシ	サイジョウミナミ１チョウメ
 栃木県	小山市	西城南２丁目	2	A	TOCHIGIKEN	OYAMASHI	SAIJOUMINAMI2CHOUME	トチギケン	オヤマシ	サイジョウミナミ２チョウメ
 栃木県	小山市	西城南３丁目	2	A	TOCHIGIKEN	OYAMASHI	SAIJOUMINAMI3CHOUME	トチギケン	オヤマシ	サイジョウミナミ３チョウメ
-栃木県	小山市	西城南４丁目	1	A	TOCHIGIKEN	OYAMASHI	SAIJOUMINAMI4CHOUME	トチギケン	オヤマシ	サイジョウミナミ４チョウメ
 栃木県	小山市	西城南４丁目	2	A	TOCHIGIKEN	OYAMASHI	SAIJOUMINAMI4CHOUME	トチギケン	オヤマシ	サイジョウミナミ４チョウメ
 栃木県	小山市	西城南５丁目	2	A	TOCHIGIKEN	OYAMASHI	SAIJOUMINAMI5CHOUME	トチギケン	オヤマシ	サイジョウミナミ５チョウメ
 栃木県	小山市	西城南６丁目	2	A	TOCHIGIKEN	OYAMASHI	SAIJOUMINAMI6CHOUME	トチギケン	オヤマシ	サイジョウミナミ６チョウメ
@@ -18728,7 +18684,6 @@
 栃木県	小山市	駅南町１丁目	2	A	TOCHIGIKEN	OYAMASHI	EKIMINAMIMACHI1CHOUME	トチギケン	オヤマシ	エキミナミマチ１チョウメ
 栃木県	小山市	駅南町２丁目	2	A	TOCHIGIKEN	OYAMASHI	EKIMINAMIMACHI2CHOUME	トチギケン	オヤマシ	エキミナミマチ２チョウメ
 栃木県	小山市	駅南町３丁目	2	A	TOCHIGIKEN	OYAMASHI	EKIMINAMIMACHI3CHOUME	トチギケン	オヤマシ	エキミナミマチ３チョウメ
-栃木県	小山市	駅南町４丁目	1	A	TOCHIGIKEN	OYAMASHI	EKIMINAMIMACHI4CHOUME	トチギケン	オヤマシ	エキミナミマチ４チョウメ
 栃木県	小山市	駅南町４丁目	2	A	TOCHIGIKEN	OYAMASHI	EKIMINAMIMACHI4CHOUME	トチギケン	オヤマシ	エキミナミマチ４チョウメ
 栃木県	小山市	駅南町５丁目	2	A	TOCHIGIKEN	OYAMASHI	EKIMINAMIMACHI5CHOUME	トチギケン	オヤマシ	エキミナミマチ５チョウメ
 栃木県	小山市	駅南町６丁目	2	A	TOCHIGIKEN	OYAMASHI	EKIMINAMIMACHI6CHOUME	トチギケン	オヤマシ	エキミナミマチ６チョウメ
@@ -18759,7 +18714,6 @@
 栃木県	日光市	匠町	3	A	TOCHIGIKEN	NIKKOUSHI	TAKUMIMACHI	トチギケン	ニッコウシ	タクミマチ
 栃木県	日光市	千本木	3	A	TOCHIGIKEN	NIKKOUSHI	SENBONKI	トチギケン	ニッコウシ	センボンキ
 栃木県	日光市	南小来川	3	A	TOCHIGIKEN	NIKKOUSHI	MINAMISHOURAIKAWA	トチギケン	ニッコウシ	ミナミショウライカワ
-栃木県	日光市	原宿	3	A	TOCHIGIKEN	NIKKOUSHI	HARAJUKU	トチギケン	ニッコウシ	ハラジュク
 栃木県	日光市	原宿	5	A	TOCHIGIKEN	NIKKOUSHI	HARAJUKU	トチギケン	ニッコウシ	ハラジュク
 栃木県	日光市	吉沢	3	A	TOCHIGIKEN	NIKKOUSHI	YOSHIZAWA	トチギケン	ニッコウシ	ヨシザワ
 栃木県	日光市	和泉	3	A	TOCHIGIKEN	NIKKOUSHI	IZUMI	トチギケン	ニッコウシ	イズミ
@@ -18779,7 +18733,6 @@
 栃木県	日光市	室瀬	3	A	TOCHIGIKEN	NIKKOUSHI	SHITSUSE	トチギケン	ニッコウシ	シツセ
 栃木県	日光市	宮小来川	3	A	TOCHIGIKEN	NIKKOUSHI	MIYASHOURAIKAWA	トチギケン	ニッコウシ	ミヤショウライカワ
 栃木県	日光市	小代	3	A	TOCHIGIKEN	NIKKOUSHI	SHOUDAI	トチギケン	ニッコウシ	ショウダイ
-栃木県	日光市	小佐越	3	A	TOCHIGIKEN	NIKKOUSHI	SHOUSAETSU	トチギケン	ニッコウシ	ショウサエツ
 栃木県	日光市	小佐越	5	A	TOCHIGIKEN	NIKKOUSHI	SHOUSAETSU	トチギケン	ニッコウシ	ショウサエツ
 栃木県	日光市	小倉	3	A	TOCHIGIKEN	NIKKOUSHI	OGURA	トチギケン	ニッコウシ	オグラ
 栃木県	日光市	小林	3	A	TOCHIGIKEN	NIKKOUSHI	KOBAYASHI	トチギケン	ニッコウシ	コバヤシ
@@ -18802,7 +18755,6 @@
 栃木県	日光市	文挾町	3	A	TOCHIGIKEN	NIKKOUSHI	BUNKYOUMACHI	トチギケン	ニッコウシ	ブンキョウマチ
 栃木県	日光市	日光	3	A	TOCHIGIKEN	NIKKOUSHI	NIKKOU	トチギケン	ニッコウシ	ニッコウ
 栃木県	日光市	日向	3	A	TOCHIGIKEN	NIKKOUSHI	HYUUGA	トチギケン	ニッコウシ	ヒュウガ
-栃木県	日光市	日向	5	A	TOCHIGIKEN	NIKKOUSHI	HYUUGA	トチギケン	ニッコウシ	ヒュウガ
 栃木県	日光市	日蔭	3	A	TOCHIGIKEN	NIKKOUSHI	HIKAGE	トチギケン	ニッコウシ	ヒカゲ
 栃木県	日光市	明神	3	A	TOCHIGIKEN	NIKKOUSHI	MYOUJIN	トチギケン	ニッコウシ	ミョウジン
 栃木県	日光市	木和田島	3	A	TOCHIGIKEN	NIKKOUSHI	KIWADASHIMA	トチギケン	ニッコウシ	キワダシマ
@@ -18879,7 +18831,6 @@
 栃木県	日光市	針貝	3	A	TOCHIGIKEN	NIKKOUSHI	HARIKAI	トチギケン	ニッコウシ	ハリカイ
 栃木県	日光市	長畑	3	A	TOCHIGIKEN	NIKKOUSHI	CHOUHATAKE	トチギケン	ニッコウシ	チョウハタケ
 栃木県	日光市	高原	5	A	TOCHIGIKEN	NIKKOUSHI	KOUGEN	トチギケン	ニッコウシ	コウゲン
-栃木県	日光市	高徳	3	A	TOCHIGIKEN	NIKKOUSHI	TAKANORI	トチギケン	ニッコウシ	タカノリ
 栃木県	日光市	高徳	5	A	TOCHIGIKEN	NIKKOUSHI	TAKANORI	トチギケン	ニッコウシ	タカノリ
 栃木県	日光市	高柴	5	A	TOCHIGIKEN	NIKKOUSHI	TAKASHIBA	トチギケン	ニッコウシ	タカシバ
 栃木県	日光市	鬼怒川温泉大原	5	A	TOCHIGIKEN	NIKKOUSHI	KINUGAWAONSENOOHARA	トチギケン	ニッコウシ	キヌガワオンセンオオハラ
@@ -18936,7 +18887,6 @@
 栃木県	栃木市	大平町牛久	2	A	TOCHIGIKEN	TOCHIGISHI	OOHIRACHOUUSHIKU	トチギケン	トチギシ	オオヒラチョウウシク
 栃木県	栃木市	大平町真弓	2	A	TOCHIGIKEN	TOCHIGISHI	OOHIRACHOUMAYUMI	トチギケン	トチギシ	オオヒラチョウマユミ
 栃木県	栃木市	大平町蔵井	2	A	TOCHIGIKEN	TOCHIGISHI	OOHIRACHOUKURAI	トチギケン	トチギシ	オオヒラチョウクライ
-栃木県	栃木市	大平町西山田	2	A	TOCHIGIKEN	TOCHIGISHI	OOHIRACHOUNISHIYAMATA	トチギケン	トチギシ	オオヒラチョウニシヤマタ
 栃木県	栃木市	大平町西山田	3	A	TOCHIGIKEN	TOCHIGISHI	OOHIRACHOUNISHIYAMATA	トチギケン	トチギシ	オオヒラチョウニシヤマタ
 栃木県	栃木市	大平町西水代	3	A	TOCHIGIKEN	TOCHIGISHI	OOHIRACHOUNISHIMIZUDAI	トチギケン	トチギシ	オオヒラチョウニシミズダイ
 栃木県	栃木市	大平町西野田	2	A	TOCHIGIKEN	TOCHIGISHI	OOHIRACHOUNISHINOTA	トチギケン	トチギシ	オオヒラチョウニシノタ
@@ -18991,19 +18941,15 @@
 栃木県	栃木市	湊町	3	A	TOCHIGIKEN	TOCHIGISHI	MINATOMACHI	トチギケン	トチギシ	ミナトマチ
 栃木県	栃木市	片柳町１丁目	2	A	TOCHIGIKEN	TOCHIGISHI	HENYANAGIMACHI1CHOUME	トチギケン	トチギシ	ヘンヤナギマチ１チョウメ
 栃木県	栃木市	片柳町１丁目	3	A	TOCHIGIKEN	TOCHIGISHI	HENYANAGIMACHI1CHOUME	トチギケン	トチギシ	ヘンヤナギマチ１チョウメ
-栃木県	栃木市	片柳町２丁目	2	A	TOCHIGIKEN	TOCHIGISHI	HENYANAGIMACHI2CHOUME	トチギケン	トチギシ	ヘンヤナギマチ２チョウメ
 栃木県	栃木市	片柳町２丁目	3	A	TOCHIGIKEN	TOCHIGISHI	HENYANAGIMACHI2CHOUME	トチギケン	トチギシ	ヘンヤナギマチ２チョウメ
 栃木県	栃木市	片柳町３丁目	3	A	TOCHIGIKEN	TOCHIGISHI	HENYANAGIMACHI3CHOUME	トチギケン	トチギシ	ヘンヤナギマチ３チョウメ
-栃木県	栃木市	片柳町４丁目	2	A	TOCHIGIKEN	TOCHIGISHI	HENYANAGIMACHI4CHOUME	トチギケン	トチギシ	ヘンヤナギマチ４チョウメ
 栃木県	栃木市	片柳町４丁目	3	A	TOCHIGIKEN	TOCHIGISHI	HENYANAGIMACHI4CHOUME	トチギケン	トチギシ	ヘンヤナギマチ４チョウメ
 栃木県	栃木市	片柳町５丁目	3	A	TOCHIGIKEN	TOCHIGISHI	HENYANAGIMACHI5CHOUME	トチギケン	トチギシ	ヘンヤナギマチ５チョウメ
-栃木県	栃木市	田村町	2	A	TOCHIGIKEN	TOCHIGISHI	TAMURAMACHI	トチギケン	トチギシ	タムラマチ
 栃木県	栃木市	田村町	3	A	TOCHIGIKEN	TOCHIGISHI	TAMURAMACHI	トチギケン	トチギシ	タムラマチ
-栃木県	栃木市	皆川城内町	2	Ａ	TOCHIGIKEN	TOCHIGISHI	MINAGAWAJOUNAIMACHI	トチギケン	トチギシ	ミナガワジョウナイマチ
+栃木県	栃木市	皆川城内町	2	A	TOCHIGIKEN	TOCHIGISHI	MINAGAWAJOUNAIMACHI	トチギケン	トチギシ	ミナガワジョウナイマチ
 栃木県	栃木市	皆川城内町	3	A	TOCHIGIKEN	TOCHIGISHI	MINAGAWAJOUNAIMACHI	トチギケン	トチギシ	ミナガワジョウナイマチ
 栃木県	栃木市	祝町	3	A	TOCHIGIKEN	TOCHIGISHI	SHUKUMACHI	トチギケン	トチギシ	シュクマチ
 栃木県	栃木市	神田町	2	A	TOCHIGIKEN	TOCHIGISHI	KANDAMACHI	トチギケン	トチギシ	カンダマチ
-栃木県	栃木市	神田町	3	A	TOCHIGIKEN	TOCHIGISHI	KANDAMACHI	トチギケン	トチギシ	カンダマチ
 栃木県	栃木市	箱森町	2	A	TOCHIGIKEN	TOCHIGISHI	HAKOMORICHOU	トチギケン	トチギシ	ハコモリチョウ
 栃木県	栃木市	箱森町	3	A	TOCHIGIKEN	TOCHIGISHI	HAKOMORICHOU	トチギケン	トチギシ	ハコモリチョウ
 栃木県	栃木市	細堀町	2	A	TOCHIGIKEN	TOCHIGISHI	SAIHORIMACHI	トチギケン	トチギシ	サイホリマチ
@@ -19039,7 +18985,6 @@
 栃木県	栃木市	藤田町	3	A	TOCHIGIKEN	TOCHIGISHI	FUJITAMACHI	トチギケン	トチギシ	フジタマチ
 栃木県	栃木市	都賀町升塚	2	A	TOCHIGIKEN	TOCHIGISHI	MIYAKOGAMACHIMASUTSUKA	トチギケン	トチギシ	ミヤコガマチマスツカ
 栃木県	栃木市	都賀町升塚	3	A	TOCHIGIKEN	TOCHIGISHI	MIYAKOGAMACHIMASUTSUKA	トチギケン	トチギシ	ミヤコガマチマスツカ
-栃木県	栃木市	都賀町原宿	2	A	TOCHIGIKEN	TOCHIGISHI	MIYAKOGAMACHIHARAJUKU	トチギケン	トチギシ	ミヤコガマチハラジュク
 栃木県	栃木市	都賀町原宿	3	A	TOCHIGIKEN	TOCHIGISHI	MIYAKOGAMACHIHARAJUKU	トチギケン	トチギシ	ミヤコガマチハラジュク
 栃木県	栃木市	都賀町合戦場	2	A	TOCHIGIKEN	TOCHIGISHI	MIYAKOGAMACHIKASSENBA	トチギケン	トチギシ	ミヤコガマチカッセンバ
 栃木県	栃木市	都賀町合戦場	3	A	TOCHIGIKEN	TOCHIGISHI	MIYAKOGAMACHIKASSENBA	トチギケン	トチギシ	ミヤコガマチカッセンバ
@@ -19278,7 +19223,6 @@
 栃木県	矢板市	高塩	5	A	TOCHIGIKEN	YAITASHI	KOUEN	トチギケン	ヤイタシ	コウエン
 栃木県	矢板市	鹿島町	5	A	TOCHIGIKEN	YAITASHI	KASHIMACHOU	トチギケン	ヤイタシ	カシマチョウ
 栃木県	芳賀郡市貝町	大字上根	1	A	TOCHIGIKEN	HAGAGUNSHIKAIMACHI	OOAZAUENE	トチギケン	ハガグンシカイマチ	オオアザウエネ
-栃木県	芳賀郡市貝町	大字塩田	1	A	TOCHIGIKEN	HAGAGUNSHIKAIMACHI	OOAZASHIODA	トチギケン	ハガグンシカイマチ	オオアザシオダ
 栃木県	芳賀郡市貝町	大字塩田	5	A	TOCHIGIKEN	HAGAGUNSHIKAIMACHI	OOAZASHIODA	トチギケン	ハガグンシカイマチ	オオアザシオダ
 栃木県	芳賀郡市貝町	大字多田羅	1	A	TOCHIGIKEN	HAGAGUNSHIKAIMACHI	OOAZATADARA	トチギケン	ハガグンシカイマチ	オオアザタダラ
 栃木県	芳賀郡市貝町	大字大谷津	1	A	TOCHIGIKEN	HAGAGUNSHIKAIMACHI	OOAZAOOTANITSU	トチギケン	ハガグンシカイマチ	オオアザオオタニツ
@@ -19337,11 +19281,9 @@
 栃木県	芳賀郡茂木町	大字下菅又	1	A	TOCHIGIKEN	HAGAGUNMOTEGIMACHI	OOAZASHITAKANMATA	トチギケン	ハガグンモテギマチ	オオアザシタカンマタ
 栃木県	芳賀郡茂木町	大字入郷	5	A	TOCHIGIKEN	HAGAGUNMOTEGIMACHI	OOAZANYUUSATO	トチギケン	ハガグンモテギマチ	オオアザニュウサト
 栃木県	芳賀郡茂木町	大字北高岡	1	A	TOCHIGIKEN	HAGAGUNMOTEGIMACHI	OOAZAKITATAKAOKA	トチギケン	ハガグンモテギマチ	オオアザキタタカオカ
-栃木県	芳賀郡茂木町	大字千本	1	A	TOCHIGIKEN	HAGAGUNMOTEGIMACHI	OOAZASENBON	トチギケン	ハガグンモテギマチ	オオアザセンボン
 栃木県	芳賀郡茂木町	大字坂井	1	A	TOCHIGIKEN	HAGAGUNMOTEGIMACHI	OOAZASAKAI	トチギケン	ハガグンモテギマチ	オオアザサカイ
 栃木県	芳賀郡茂木町	大字天子	1	A	TOCHIGIKEN	HAGAGUNMOTEGIMACHI	OOAZATENKO	トチギケン	ハガグンモテギマチ	オオアザテンコ
 栃木県	芳賀郡茂木町	大字河又	5	A	TOCHIGIKEN	HAGAGUNMOTEGIMACHI	OOAZAKAWAMATA	トチギケン	ハガグンモテギマチ	オオアザカワマタ
-栃木県	芳賀郡茂木町	大字福手	1	A	TOCHIGIKEN	HAGAGUNMOTEGIMACHI	OOAZAFUKUTE	トチギケン	ハガグンモテギマチ	オオアザフクテ
 栃木県	芳賀郡茂木町	大字茂木	1	A	TOCHIGIKEN	HAGAGUNMOTEGIMACHI	OOAZAMOTEGI	トチギケン	ハガグンモテギマチ	オオアザモテギ
 栃木県	芳賀郡茂木町	大字飯	1	A	TOCHIGIKEN	HAGAGUNMOTEGIMACHI	OOAZAMESHI	トチギケン	ハガグンモテギマチ	オオアザメシ
 栃木県	足利市	上渋垂町	3	A	TOCHIGIKEN	ASHIKAGASHI	UESHIBUSUIMACHI	トチギケン	アシカガシ	ウエシブスイマチ
@@ -19515,7 +19457,7 @@
 栃木県	那須塩原市	三本木	1	A	TOCHIGIKEN	NASUSHIOBARASHI	SANBONGI	トチギケン	ナスシオバラシ	サンボンギ
 栃木県	那須塩原市	上中野	1	A	TOCHIGIKEN	NASUSHIOBARASHI	UENAKANO	トチギケン	ナスシオバラシ	ウエナカノ
 栃木県	那須塩原市	上厚崎	1	A	TOCHIGIKEN	NASUSHIOBARASHI	UEATSUSHISAKI	トチギケン	ナスシオバラシ	ウエアツシサキ
-栃木県	那須塩原市	上塩原	1	Ａ	TOCHIGIKEN	NASUSHIOBARASHI	UESHIOBARA	トチギケン	ナスシオバラシ	ウエシオバラ
+栃木県	那須塩原市	上塩原	1	A	TOCHIGIKEN	NASUSHIOBARASHI	UESHIOBARA	トチギケン	ナスシオバラシ	ウエシオバラ
 栃木県	那須塩原市	上大塚新田	1	A	TOCHIGIKEN	NASUSHIOBARASHI	UEOOTSUKANITTA	トチギケン	ナスシオバラシ	ウエオオツカニッタ
 栃木県	那須塩原市	上大貫	1	A	TOCHIGIKEN	NASUSHIOBARASHI	UEOONUKI	トチギケン	ナスシオバラシ	ウエオオヌキ
 栃木県	那須塩原市	上横林	1	A	TOCHIGIKEN	NASUSHIOBARASHI	UEYOKOHAYASHI	トチギケン	ナスシオバラシ	ウエヨコハヤシ
@@ -19535,7 +19477,7 @@
 栃木県	那須塩原市	下田野	1	A	TOCHIGIKEN	NASUSHIOBARASHI	SHIMODANO	トチギケン	ナスシオバラシ	シモダノ
 栃木県	那須塩原市	並木町	1	A	TOCHIGIKEN	NASUSHIOBARASHI	NAMIKIMACHI	トチギケン	ナスシオバラシ	ナミキマチ
 栃木県	那須塩原市	中内	1	A	TOCHIGIKEN	NASUSHIOBARASHI	NAKAUCHI	トチギケン	ナスシオバラシ	ナカウチ
-栃木県	那須塩原市	中塩原	1	Ａ	TOCHIGIKEN	NASUSHIOBARASHI	NAKASHIOBARA	トチギケン	ナスシオバラシ	ナカシオバラ
+栃木県	那須塩原市	中塩原	1	A	TOCHIGIKEN	NASUSHIOBARASHI	NAKASHIOBARA	トチギケン	ナスシオバラシ	ナカシオバラ
 栃木県	那須塩原市	中央町	1	A	TOCHIGIKEN	NASUSHIOBARASHI	CHUUOUMACHI	トチギケン	ナスシオバラシ	チュウオウマチ
 栃木県	那須塩原市	亀山	1	A	TOCHIGIKEN	NASUSHIOBARASHI	KAMEYAMA	トチギケン	ナスシオバラシ	カメヤマ
 栃木県	那須塩原市	二つ室	1	A	TOCHIGIKEN	NASUSHIOBARASHI	FUTATSUSHITSU	トチギケン	ナスシオバラシ	フタツシツ
@@ -19636,10 +19578,10 @@
 栃木県	那須塩原市	清住町	1	A	TOCHIGIKEN	NASUSHIOBARASHI	KIYOSHIJUUMACHI	トチギケン	ナスシオバラシ	キヨシジュウマチ
 栃木県	那須塩原市	渡辺	1	A	TOCHIGIKEN	NASUSHIOBARASHI	WATANABE	トチギケン	ナスシオバラシ	ワタナベ
 栃木県	那須塩原市	湯宮	1	A	TOCHIGIKEN	NASUSHIOBARASHI	YUMIYA	トチギケン	ナスシオバラシ	ユミヤ
-栃木県	那須塩原市	湯本塩原	1	Ａ	TOCHIGIKEN	NASUSHIOBARASHI	YUMOTOSHIOBARA	トチギケン	ナスシオバラシ	ユモトシオバラ
-栃木県	那須塩原市	無栗屋	1	Ａ	TOCHIGIKEN	NASUSHIOBARASHI	MUKURIYA	トチギケン	ナスシオバラシ	ムクリヤ
+栃木県	那須塩原市	湯本塩原	1	A	TOCHIGIKEN	NASUSHIOBARASHI	YUMOTOSHIOBARA	トチギケン	ナスシオバラシ	ユモトシオバラ
+栃木県	那須塩原市	無栗屋	1	A	TOCHIGIKEN	NASUSHIOBARASHI	MUKURIYA	トチギケン	ナスシオバラシ	ムクリヤ
 栃木県	那須塩原市	百村	1	A	TOCHIGIKEN	NASUSHIOBARASHI	MOMOMURA	トチギケン	ナスシオバラシ	モモムラ
-栃木県	那須塩原市	睦	1	Ａ	TOCHIGIKEN	NASUSHIOBARASHI	MUTSUMI	トチギケン	ナスシオバラシ	ムツミ
+栃木県	那須塩原市	睦	1	A	TOCHIGIKEN	NASUSHIOBARASHI	MUTSUMI	トチギケン	ナスシオバラシ	ムツミ
 栃木県	那須塩原市	石林	1	A	TOCHIGIKEN	NASUSHIOBARASHI	ISHIHAYASHI	トチギケン	ナスシオバラシ	イシハヤシ
 栃木県	那須塩原市	笹沼	1	A	TOCHIGIKEN	NASUSHIOBARASHI	SASANUMA	トチギケン	ナスシオバラシ	ササヌマ
 栃木県	那須塩原市	箕輪	1	A	TOCHIGIKEN	NASUSHIOBARASHI	MINOWA	トチギケン	ナスシオバラシ	ミノワ
@@ -19715,7 +19657,6 @@
 栃木県	那須烏山市	向田	5	A	TOCHIGIKEN	NASUKARASUYAMASHI	KOUTA	トチギケン	ナスカラスヤマシ	コウタ
 栃木県	那須烏山市	城東	5	A	TOCHIGIKEN	NASUKARASUYAMASHI	JOUTOU	トチギケン	ナスカラスヤマシ	ジョウトウ
 栃木県	那須烏山市	大木須	5	A	TOCHIGIKEN	NASUKARASUYAMASHI	TAIBOKUSU	トチギケン	ナスカラスヤマシ	タイボクス
-栃木県	那須烏山市	大桶	1	A	TOCHIGIKEN	NASUKARASUYAMASHI	DAIOKE	トチギケン	ナスカラスヤマシ	ダイオケ
 栃木県	那須烏山市	大桶	5	A	TOCHIGIKEN	NASUKARASUYAMASHI	DAIOKE	トチギケン	ナスカラスヤマシ	ダイオケ
 栃木県	那須烏山市	大沢	5	A	TOCHIGIKEN	NASUKARASUYAMASHI	OOSAWA	トチギケン	ナスカラスヤマシ	オオサワ
 栃木県	那須烏山市	大里	5	A	TOCHIGIKEN	NASUKARASUYAMASHI	OOSATO	トチギケン	ナスカラスヤマシ	オオサト
@@ -19731,7 +19672,6 @@
 栃木県	那須烏山市	岩子	5	A	TOCHIGIKEN	NASUKARASUYAMASHI	IWAKO	トチギケン	ナスカラスヤマシ	イワコ
 栃木県	那須烏山市	志鳥	1	A	TOCHIGIKEN	NASUKARASUYAMASHI	KOKOROZASHITORI	トチギケン	ナスカラスヤマシ	ココロザシトリ
 栃木県	那須烏山市	志鳥	5	A	TOCHIGIKEN	NASUKARASUYAMASHI	KOKOROZASHITORI	トチギケン	ナスカラスヤマシ	ココロザシトリ
-栃木県	那須烏山市	愛宕台	1	A	TOCHIGIKEN	NASUKARASUYAMASHI	ATAGODAI	トチギケン	ナスカラスヤマシ	アタゴダイ
 栃木県	那須烏山市	愛宕台	5	A	TOCHIGIKEN	NASUKARASUYAMASHI	ATAGODAI	トチギケン	ナスカラスヤマシ	アタゴダイ
 栃木県	那須烏山市	旭１丁目	5	A	TOCHIGIKEN	NASUKARASUYAMASHI	ASAHI1CHOUME	トチギケン	ナスカラスヤマシ	アサヒ１チョウメ
 栃木県	那須烏山市	旭２丁目	5	A	TOCHIGIKEN	NASUKARASUYAMASHI	ASAHI2CHOUME	トチギケン	ナスカラスヤマシ	アサヒ２チョウメ
@@ -19823,7 +19763,7 @@
 栃木県	那須郡那須町	大字高久丙	1	A	TOCHIGIKEN	NASUGUNNASUMACHI	OOAZATAKAKUHINOE	トチギケン	ナスグンナスマチ	オオアザタカクヒノエ
 栃木県	那須郡那須町	大字高久乙	1	A	TOCHIGIKEN	NASUGUNNASUMACHI	OOAZATAKAKUOTSU	トチギケン	ナスグンナスマチ	オオアザタカクオツ
 栃木県	那須郡那須町	大字高久甲	1	A	TOCHIGIKEN	NASUGUNNASUMACHI	OOAZATAKAKUKABUTO	トチギケン	ナスグンナスマチ	オオアザタカクカブト
-栃木県	那須郡那須町	富岡	1	Ａ	TOCHIGIKEN	NASUGUNNASUMACHI	TOMIOKA	トチギケン	ナスグンナスマチ	トミオカ
+栃木県	那須郡那須町	富岡	1	A	TOCHIGIKEN	NASUGUNNASUMACHI	TOMIOKA	トチギケン	ナスグンナスマチ	トミオカ
 栃木県	鹿沼市	さつき町	3	A	TOCHIGIKEN	KANUMASHI	SATSUKIMACHI	トチギケン	カヌマシ	サツキマチ
 栃木県	鹿沼市	みなみ町	3	A	TOCHIGIKEN	KANUMASHI	MINAMIMACHI	トチギケン	カヌマシ	ミナミマチ
 栃木県	鹿沼市	万町	3	A	TOCHIGIKEN	KANUMASHI	MANMACHI	トチギケン	カヌマシ	マンマチ
@@ -19849,7 +19789,6 @@
 栃木県	鹿沼市	下横町	3	A	TOCHIGIKEN	KANUMASHI	SHITAYOKOCHOU	トチギケン	カヌマシ	シタヨコチョウ
 栃木県	鹿沼市	下武子町	3	A	TOCHIGIKEN	KANUMASHI	SHITATAKESHIKOMACHI	トチギケン	カヌマシ	シタタケシコマチ
 栃木県	鹿沼市	下永野	2	A	TOCHIGIKEN	KANUMASHI	SHITANAGANO	トチギケン	カヌマシ	シタナガノ
-栃木県	鹿沼市	下永野	3	A	TOCHIGIKEN	KANUMASHI	SHITANAGANO	トチギケン	カヌマシ	シタナガノ
 栃木県	鹿沼市	下沢	3	A	TOCHIGIKEN	KANUMASHI	SHIMOZAWA	トチギケン	カヌマシ	シモザワ
 栃木県	鹿沼市	下田町１丁目	3	A	TOCHIGIKEN	KANUMASHI	SHIMODAMACHI1CHOUME	トチギケン	カヌマシ	シモダマチ１チョウメ
 栃木県	鹿沼市	下田町２丁目	3	A	TOCHIGIKEN	KANUMASHI	SHIMODAMACHI2CHOUME	トチギケン	カヌマシ	シモダマチ２チョウメ
@@ -25433,7 +25372,6 @@
 群馬県	高崎市	三ツ寺町	5	B	GUNMAKEN	TAKASAKISHI	SANTSUTERAMACHI	グンマケン	タカサキシ	サンツテラマチ
 群馬県	高崎市	上並榎町	5	B	GUNMAKEN	TAKASAKISHI	UENAMIENOKIMACHI	グンマケン	タカサキシ	ウエナミエノキマチ
 群馬県	高崎市	上中居町	5	B	GUNMAKEN	TAKASAKISHI	UENAKAIMACHI	グンマケン	タカサキシ	ウエナカイマチ
-群馬県	高崎市	上佐野町	5	B	GUNMAKEN	TAKASAKISHI	UESANOMACHI	グンマケン	タカサキシ	ウエサノマチ
 群馬県	高崎市	上和田町	5	B	GUNMAKEN	TAKASAKISHI	UEWADAMACHI	グンマケン	タカサキシ	ウエワダマチ
 群馬県	高崎市	上大島町	5	B	GUNMAKEN	TAKASAKISHI	UEOOSHIMACHOU	グンマケン	タカサキシ	ウエオオシマチョウ
 群馬県	高崎市	上大類町	5	B	GUNMAKEN	TAKASAKISHI	UEDAIRUIMACHI	グンマケン	タカサキシ	ウエダイルイマチ
@@ -25803,12 +25741,14 @@
 静岡県	三島市	一番町	2	E	SHIZUOKAKEN	MISHIMASHI	ICHIBANCHOU	シズオカケン	ミシマシ	イチバンチョウ
 静岡県	三島市	一番町	3	E	SHIZUOKAKEN	MISHIMASHI	ICHIBANCHOU	シズオカケン	ミシマシ	イチバンチョウ
 静岡県	三島市	三ツ谷新田	2	E	SHIZUOKAKEN	MISHIMASHI	SANTSUTANINITTA	シズオカケン	ミシマシ	サンツタニニッタ
+静岡県	三島市	三好町	2	E	SHIZUOKAKEN	MISHIMASHI	MIYOSHIMACHI	シズオカケン	ミシマシ	ミヨシマチ
 静岡県	三島市	三好町	3	E	SHIZUOKAKEN	MISHIMASHI	MIYOSHIMACHI	シズオカケン	ミシマシ	ミヨシマチ
 静岡県	三島市	三恵台	2	E	SHIZUOKAKEN	MISHIMASHI	SANMEGUMIDAI	シズオカケン	ミシマシ	サンメグミダイ
 静岡県	三島市	中	2	E	SHIZUOKAKEN	MISHIMASHI	NAKA	シズオカケン	ミシマシ	ナカ
 静岡県	三島市	中央町	2	E	SHIZUOKAKEN	MISHIMASHI	CHUUOUMACHI	シズオカケン	ミシマシ	チュウオウマチ
 静岡県	三島市	中央町	3	E	SHIZUOKAKEN	MISHIMASHI	CHUUOUMACHI	シズオカケン	ミシマシ	チュウオウマチ
 静岡県	三島市	中島	2	E	SHIZUOKAKEN	MISHIMASHI	NAKASHIMA	シズオカケン	ミシマシ	ナカシマ
+静岡県	三島市	中島	3	E	SHIZUOKAKEN	MISHIMASHI	NAKASHIMA	シズオカケン	ミシマシ	ナカシマ
 静岡県	三島市	中島	5	E	SHIZUOKAKEN	MISHIMASHI	NAKASHIMA	シズオカケン	ミシマシ	ナカシマ
 静岡県	三島市	中田町	3	E	SHIZUOKAKEN	MISHIMASHI	NAKADAMACHI	シズオカケン	ミシマシ	ナカダマチ
 静岡県	三島市	佐野	2	E	SHIZUOKAKEN	MISHIMASHI	SANO	シズオカケン	ミシマシ	サノ
@@ -25850,6 +25790,7 @@
 静岡県	三島市	富士見台	2	E	SHIZUOKAKEN	MISHIMASHI	FUJIMIDAI	シズオカケン	ミシマシ	フジミダイ
 静岡県	三島市	富田町	2	E	SHIZUOKAKEN	MISHIMASHI	TOMITAMACHI	シズオカケン	ミシマシ	トミタマチ
 静岡県	三島市	富田町	3	E	SHIZUOKAKEN	MISHIMASHI	TOMITAMACHI	シズオカケン	ミシマシ	トミタマチ
+静岡県	三島市	寿町	2	E	SHIZUOKAKEN	MISHIMASHI	HISASHIMACHI	シズオカケン	ミシマシ	ヒサシマチ
 静岡県	三島市	寿町	3	E	SHIZUOKAKEN	MISHIMASHI	HISASHIMACHI	シズオカケン	ミシマシ	ヒサシマチ
 静岡県	三島市	山中新田	2	E	SHIZUOKAKEN	MISHIMASHI	SANCHUUNITTA	シズオカケン	ミシマシ	サンチュウニッタ
 静岡県	三島市	川原ヶ谷	2	E	SHIZUOKAKEN	MISHIMASHI	KAWARAGATANI	シズオカケン	ミシマシ	カワラガタニ
@@ -25858,6 +25799,7 @@
 静岡県	三島市	平田	3	E	SHIZUOKAKEN	MISHIMASHI	HIRATA	シズオカケン	ミシマシ	ヒラタ
 静岡県	三島市	幸原町１丁目	2	E	SHIZUOKAKEN	MISHIMASHI	SACHIHARAMACHI1CHOUME	シズオカケン	ミシマシ	サチハラマチ１チョウメ
 静岡県	三島市	幸原町２丁目	2	E	SHIZUOKAKEN	MISHIMASHI	SACHIHARAMACHI2CHOUME	シズオカケン	ミシマシ	サチハラマチ２チョウメ
+静岡県	三島市	広小路町	2	E	SHIZUOKAKEN	MISHIMASHI	HIROKOUJIMACHI	シズオカケン	ミシマシ	ヒロコウジマチ
 静岡県	三島市	広小路町	3	E	SHIZUOKAKEN	MISHIMASHI	HIROKOUJIMACHI	シズオカケン	ミシマシ	ヒロコウジマチ
 静岡県	三島市	御園	5	E	SHIZUOKAKEN	MISHIMASHI	MISONO	シズオカケン	ミシマシ	ミソノ
 静岡県	三島市	徳倉	2	E	SHIZUOKAKEN	MISHIMASHI	TOKUKURA	シズオカケン	ミシマシ	トククラ
@@ -25878,6 +25820,7 @@
 静岡県	三島市	東壱町田	2	E	SHIZUOKAKEN	MISHIMASHI	TOUICHIMACHIDA	シズオカケン	ミシマシ	トウイチマチダ
 静岡県	三島市	東大場１丁目	2	E	SHIZUOKAKEN	MISHIMASHI	TOUDAIBA1CHOUME	シズオカケン	ミシマシ	トウダイバ１チョウメ
 静岡県	三島市	東大場１丁目	5	E	SHIZUOKAKEN	MISHIMASHI	TOUDAIBA1CHOUME	シズオカケン	ミシマシ	トウダイバ１チョウメ
+静岡県	三島市	東大場２丁目	2	E	SHIZUOKAKEN	MISHIMASHI	TOUDAIBA2CHOUME	シズオカケン	ミシマシ	トウダイバ２チョウメ
 静岡県	三島市	東大場２丁目	5	E	SHIZUOKAKEN	MISHIMASHI	TOUDAIBA2CHOUME	シズオカケン	ミシマシ	トウダイバ２チョウメ
 静岡県	三島市	東本町１丁目	2	E	SHIZUOKAKEN	MISHIMASHI	HIGASHIHONCHOU1CHOUME	シズオカケン	ミシマシ	ヒガシホンチョウ１チョウメ
 静岡県	三島市	東本町２丁目	2	E	SHIZUOKAKEN	MISHIMASHI	HIGASHIHONCHOU2CHOUME	シズオカケン	ミシマシ	ヒガシホンチョウ２チョウメ
@@ -25886,6 +25829,7 @@
 静岡県	三島市	松本	2	E	SHIZUOKAKEN	MISHIMASHI	MATSUMOTO	シズオカケン	ミシマシ	マツモト
 静岡県	三島市	松本	3	E	SHIZUOKAKEN	MISHIMASHI	MATSUMOTO	シズオカケン	ミシマシ	マツモト
 静岡県	三島市	柳郷地	2	E	SHIZUOKAKEN	MISHIMASHI	YANAGIGOUCHI	シズオカケン	ミシマシ	ヤナギゴウチ
+静岡県	三島市	栄町	2	E	SHIZUOKAKEN	MISHIMASHI	SAKAEMACHI	シズオカケン	ミシマシ	サカエマチ
 静岡県	三島市	栄町	3	E	SHIZUOKAKEN	MISHIMASHI	SAKAEMACHI	シズオカケン	ミシマシ	サカエマチ
 静岡県	三島市	梅名	2	E	SHIZUOKAKEN	MISHIMASHI	UMEMEI	シズオカケン	ミシマシ	ウメメイ
 静岡県	三島市	梅名	3	E	SHIZUOKAKEN	MISHIMASHI	UMEMEI	シズオカケン	ミシマシ	ウメメイ
@@ -25897,6 +25841,7 @@
 静岡県	三島市	玉沢	2	E	SHIZUOKAKEN	MISHIMASHI	TAMASAWA	シズオカケン	ミシマシ	タマサワ
 静岡県	三島市	竹倉	2	E	SHIZUOKAKEN	MISHIMASHI	TAKEKURA	シズオカケン	ミシマシ	タケクラ
 静岡県	三島市	笹原新田	2	E	SHIZUOKAKEN	MISHIMASHI	SASAHARANITTA	シズオカケン	ミシマシ	ササハラニッタ
+静岡県	三島市	緑町	2	E	SHIZUOKAKEN	MISHIMASHI	MIDORIMACHI	シズオカケン	ミシマシ	ミドリマチ
 静岡県	三島市	緑町	3	E	SHIZUOKAKEN	MISHIMASHI	MIDORIMACHI	シズオカケン	ミシマシ	ミドリマチ
 静岡県	三島市	芙蓉台１丁目	2	E	SHIZUOKAKEN	MISHIMASHI	FUYOUDAI1CHOUME	シズオカケン	ミシマシ	フヨウダイ１チョウメ
 静岡県	三島市	芙蓉台２丁目	2	E	SHIZUOKAKEN	MISHIMASHI	FUYOUDAI2CHOUME	シズオカケン	ミシマシ	フヨウダイ２チョウメ
@@ -25906,6 +25851,7 @@
 静岡県	三島市	萩	2	E	SHIZUOKAKEN	MISHIMASHI	HAGI	シズオカケン	ミシマシ	ハギ
 静岡県	三島市	藤代町	2	E	SHIZUOKAKEN	MISHIMASHI	FUJISHIROMACHI	シズオカケン	ミシマシ	フジシロマチ
 静岡県	三島市	西本町	3	E	SHIZUOKAKEN	MISHIMASHI	NISHIHONMACHI	シズオカケン	ミシマシ	ニシホンマチ
+静岡県	三島市	西若町	2	E	SHIZUOKAKEN	MISHIMASHI	NISHIJAKUMACHI	シズオカケン	ミシマシ	ニシジャクマチ
 静岡県	三島市	西若町	3	E	SHIZUOKAKEN	MISHIMASHI	NISHIJAKUMACHI	シズオカケン	ミシマシ	ニシジャクマチ
 静岡県	三島市	谷田	2	E	SHIZUOKAKEN	MISHIMASHI	TANITA	シズオカケン	ミシマシ	タニタ
 静岡県	三島市	錦が丘	2	E	SHIZUOKAKEN	MISHIMASHI	NISHIKIGAOKA	シズオカケン	ミシマシ	ニシキガオカ
@@ -26441,9 +26387,13 @@
 静岡県	御殿場市	杉名沢	1	E	SHIZUOKAKEN	GOTENBASHI	SUGIMEISAWA	シズオカケン	ゴテンバシ	スギメイサワ
 静岡県	御殿場市	東山	1	E	SHIZUOKAKEN	GOTENBASHI	HIGASHIYAMA	シズオカケン	ゴテンバシ	ヒガシヤマ
 静岡県	御殿場市	東田中	1	E	SHIZUOKAKEN	GOTENBASHI	HIGASHIDANAKA	シズオカケン	ゴテンバシ	ヒガシダナカ
+静岡県	御殿場市	東田中	2	E	SHIZUOKAKEN	GOTENBASHI	HIGASHIDANAKA	シズオカケン	ゴテンバシ	ヒガシダナカ
 静岡県	御殿場市	東田中１丁目	1	E	SHIZUOKAKEN	GOTENBASHI	HIGASHIDANAKA1CHOUME	シズオカケン	ゴテンバシ	ヒガシダナカ１チョウメ
+静岡県	御殿場市	東田中１丁目	2	E	SHIZUOKAKEN	GOTENBASHI	HIGASHIDANAKA1CHOUME	シズオカケン	ゴテンバシ	ヒガシダナカ１チョウメ
 静岡県	御殿場市	東田中２丁目	1	E	SHIZUOKAKEN	GOTENBASHI	HIGASHIDANAKA2CHOUME	シズオカケン	ゴテンバシ	ヒガシダチュウニチョウメ
+静岡県	御殿場市	東田中２丁目	2	E	SHIZUOKAKEN	GOTENBASHI	HIGASHIDANAKA2CHOUME	シズオカケン	ゴテンバシ	ヒガシダチュウニチョウメ
 静岡県	御殿場市	東田中３丁目	1	E	SHIZUOKAKEN	GOTENBASHI	HIGASHIDANAKA3CHOUME	シズオカケン	ゴテンバシ	ヒガシダナカ３チョウメ
+静岡県	御殿場市	東田中３丁目	2	E	SHIZUOKAKEN	GOTENBASHI	HIGASHIDANAKA3CHOUME	シズオカケン	ゴテンバシ	ヒガシダナカ３チョウメ
 静岡県	御殿場市	板妻	2	E	SHIZUOKAKEN	GOTENBASHI	ITATSUMA	シズオカケン	ゴテンバシ	イタツマ
 静岡県	御殿場市	柴怒田	1	E	SHIZUOKAKEN	GOTENBASHI	SHIBADOTA	シズオカケン	ゴテンバシ	シバドタ
 静岡県	御殿場市	水土野	1	E	SHIZUOKAKEN	GOTENBASHI	MIZUTSUCHINO	シズオカケン	ゴテンバシ	ミズツチノ
@@ -26459,6 +26409,7 @@
 静岡県	御殿場市	神場１丁目	2	E	SHIZUOKAKEN	GOTENBASHI	KAMIBA1CHOUME	シズオカケン	ゴテンバシ	カミバ１チョウメ
 静岡県	御殿場市	神場２丁目	2	E	SHIZUOKAKEN	GOTENBASHI	KAMIBA2CHOUME	シズオカケン	ゴテンバシ	カミバ２チョウメ
 静岡県	御殿場市	神場３丁目	2	E	SHIZUOKAKEN	GOTENBASHI	KAMIBA3CHOUME	シズオカケン	ゴテンバシ	カミバ３チョウメ
+静岡県	御殿場市	神山	1	E	SHIZUOKAKEN	GOTENBASHI	KAMIYAMA	シズオカケン	ゴテンバシ	カミヤマ
 静岡県	御殿場市	神山	2	E	SHIZUOKAKEN	GOTENBASHI	KAMIYAMA	シズオカケン	ゴテンバシ	カミヤマ
 静岡県	御殿場市	神山平１丁目	2	E	SHIZUOKAKEN	GOTENBASHI	KAMIYAMATAIRA1CHOUME	シズオカケン	ゴテンバシ	カミヤマタイラ１チョウメ
 静岡県	御殿場市	神山平２丁目	2	E	SHIZUOKAKEN	GOTENBASHI	KAMIYAMATAIRA2CHOUME	シズオカケン	ゴテンバシ	カミヤマタイラ２チョウメ
@@ -26467,6 +26418,7 @@
 静岡県	御殿場市	竈	2	E	SHIZUOKAKEN	GOTENBASHI	KAMADO	シズオカケン	ゴテンバシ	カマド
 静岡県	御殿場市	茱萸沢	1	E	SHIZUOKAKEN	GOTENBASHI	GUMIGUMISAWA	シズオカケン	ゴテンバシ	グミグミサワ
 静岡県	御殿場市	萩原	1	E	SHIZUOKAKEN	GOTENBASHI	HAGIWARA	シズオカケン	ゴテンバシ	ハギワラ
+静岡県	御殿場市	萩原	2	E	SHIZUOKAKEN	GOTENBASHI	HAGIWARA	シズオカケン	ゴテンバシ	ハギワラ
 静岡県	御殿場市	萩蕪	1	E	SHIZUOKAKEN	GOTENBASHI	HAGIKABURA	シズオカケン	ゴテンバシ	ハギカブラ
 静岡県	御殿場市	萩蕪	2	E	SHIZUOKAKEN	GOTENBASHI	HAGIKABURA	シズオカケン	ゴテンバシ	ハギカブラ
 静岡県	御殿場市	西田中	1	E	SHIZUOKAKEN	GOTENBASHI	NISHIDANAKA	シズオカケン	ゴテンバシ	ニシダナカ
@@ -26476,10 +26428,8 @@
 静岡県	沼津市	一本松	5	E	SHIZUOKAKEN	NUMADUSHI	IPPONMATSU	シズオカケン	ヌマヅシ	イッポンマツ
 静岡県	沼津市	三園町	2	E	SHIZUOKAKEN	NUMADUSHI	MISONOMACHI	シズオカケン	ヌマヅシ	ミソノマチ
 静岡県	沼津市	三枚橋	2	E	SHIZUOKAKEN	NUMADUSHI	SANMAIHASHI	シズオカケン	ヌマヅシ	サンマイハシ
-静岡県	沼津市	三枚橋	3	E	SHIZUOKAKEN	NUMADUSHI	SANMAIHASHI	シズオカケン	ヌマヅシ	サンマイハシ
 静岡県	沼津市	三枚橋日ノ出町	2	E	SHIZUOKAKEN	NUMADUSHI	SANMAIHASHINICHINODEMACHI	シズオカケン	ヌマヅシ	サンマイハシニチノデマチ
 静岡県	沼津市	三枚橋杉崎町	2	E	SHIZUOKAKEN	NUMADUSHI	SANMAIHASHISUGISAKIMACHI	シズオカケン	ヌマヅシ	サンマイハシスギサキマチ
-静岡県	沼津市	三枚橋杉崎町	3	E	SHIZUOKAKEN	NUMADUSHI	SANMAIHASHISUGISAKIMACHI	シズオカケン	ヌマヅシ	サンマイハシスギサキマチ
 静岡県	沼津市	三枚橋町	2	E	SHIZUOKAKEN	NUMADUSHI	SANMAIHASHIMACHI	シズオカケン	ヌマヅシ	サンマイハシマチ
 静岡県	沼津市	三枚橋竹ノ岬	2	E	SHIZUOKAKEN	NUMADUSHI	SANMAIHASHITAKENOMISAKI	シズオカケン	ヌマヅシ	サンマイハシタケノミサキ
 静岡県	沼津市	三枚橋荒田	3	E	SHIZUOKAKEN	NUMADUSHI	SANMAIHASHIKOUTA	シズオカケン	ヌマヅシ	サンマイハシコウタ
@@ -26583,7 +26533,6 @@
 静岡県	沼津市	双葉町	2	E	SHIZUOKAKEN	NUMADUSHI	FUTABAMACHI	シズオカケン	ヌマヅシ	フタバマチ
 静岡県	沼津市	双葉町	3	E	SHIZUOKAKEN	NUMADUSHI	FUTABAMACHI	シズオカケン	ヌマヅシ	フタバマチ
 静岡県	沼津市	口野	2	E	SHIZUOKAKEN	NUMADUSHI	KUCHINO	シズオカケン	ヌマヅシ	クチノ
-静岡県	沼津市	口野	5	E	SHIZUOKAKEN	NUMADUSHI	KUCHINO	シズオカケン	ヌマヅシ	クチノ
 静岡県	沼津市	吉田町	2	E	SHIZUOKAKEN	NUMADUSHI	YOSHIDACHOU	シズオカケン	ヌマヅシ	ヨシダチョウ
 静岡県	沼津市	善太夫西原	2	E	SHIZUOKAKEN	NUMADUSHI	ZENTAYUUNISHIHARA	シズオカケン	ヌマヅシ	ゼンタユウニシハラ
 静岡県	沼津市	多比	2	E	SHIZUOKAKEN	NUMADUSHI	TAHI	シズオカケン	ヌマヅシ	タヒ
@@ -26591,16 +26540,14 @@
 静岡県	沼津市	大岡	2	E	SHIZUOKAKEN	NUMADUSHI	OOOKA	シズオカケン	ヌマヅシ	オオオカ
 静岡県	沼津市	大岡	3	E	SHIZUOKAKEN	NUMADUSHI	OOOKA	シズオカケン	ヌマヅシ	オオオカ
 静岡県	沼津市	大平	2	E	SHIZUOKAKEN	NUMADUSHI	OOHIRA	シズオカケン	ヌマヅシ	オオヒラ
+静岡県	沼津市	大平	3	E	SHIZUOKAKEN	NUMADUSHI	OOHIRA	シズオカケン	ヌマヅシ	オオヒラ
 静岡県	沼津市	大平	5	E	SHIZUOKAKEN	NUMADUSHI	OOHIRA	シズオカケン	ヌマヅシ	オオヒラ
 静岡県	沼津市	大手町１丁目	2	E	SHIZUOKAKEN	NUMADUSHI	OOTEMACHI1CHOUME	シズオカケン	ヌマヅシ	オオテマチ１チョウメ
-静岡県	沼津市	大手町１丁目	3	E	SHIZUOKAKEN	NUMADUSHI	OOTEMACHI1CHOUME	シズオカケン	ヌマヅシ	オオテマチ１チョウメ
 静岡県	沼津市	大手町２丁目	2	E	SHIZUOKAKEN	NUMADUSHI	OOTEMACHI2CHOUME	シズオカケン	ヌマヅシ	オオテマチ２チョウメ
 静岡県	沼津市	大手町３丁目	2	E	SHIZUOKAKEN	NUMADUSHI	OOTEMACHI3CHOUME	シズオカケン	ヌマヅシ	オオテマチ３チョウメ
 静岡県	沼津市	大手町４丁目	2	E	SHIZUOKAKEN	NUMADUSHI	OOTEMACHI4CHOUME	シズオカケン	ヌマヅシ	オオテマチ４チョウメ
-静岡県	沼津市	大手町４丁目	3	E	SHIZUOKAKEN	NUMADUSHI	OOTEMACHI4CHOUME	シズオカケン	ヌマヅシ	オオテマチ４チョウメ
 静岡県	沼津市	大手町５丁目	2	E	SHIZUOKAKEN	NUMADUSHI	OOTEMACHI5CHOUME	シズオカケン	ヌマヅシ	オオテマチ５チョウメ
 静岡県	沼津市	大諏訪	3	E	SHIZUOKAKEN	NUMADUSHI	OOZUWA	シズオカケン	ヌマヅシ	オオズワ
-静岡県	沼津市	大諏訪	5	E	SHIZUOKAKEN	NUMADUSHI	OOZUWA	シズオカケン	ヌマヅシ	オオズワ
 静岡県	沼津市	大門町	2	E	SHIZUOKAKEN	NUMADUSHI	DAIMONMACHI	シズオカケン	ヌマヅシ	ダイモンマチ
 静岡県	沼津市	大門町	3	E	SHIZUOKAKEN	NUMADUSHI	DAIMONMACHI	シズオカケン	ヌマヅシ	ダイモンマチ
 静岡県	沼津市	宮前町	2	E	SHIZUOKAKEN	NUMADUSHI	MIYAMAEMACHI	シズオカケン	ヌマヅシ	ミヤマエマチ
@@ -26610,7 +26557,6 @@
 静岡県	沼津市	富士見町	2	E	SHIZUOKAKEN	NUMADUSHI	FUJIMICHOU	シズオカケン	ヌマヅシ	フジミチョウ
 静岡県	沼津市	寿町	3	E	SHIZUOKAKEN	NUMADUSHI	HISASHIMACHI	シズオカケン	ヌマヅシ	ヒサシマチ
 静岡県	沼津市	小林台	2	E	SHIZUOKAKEN	NUMADUSHI	KOBAYASHIDAI	シズオカケン	ヌマヅシ	コバヤシダイ
-静岡県	沼津市	小林台	3	E	SHIZUOKAKEN	NUMADUSHI	KOBAYASHIDAI	シズオカケン	ヌマヅシ	コバヤシダイ
 静岡県	沼津市	小諏訪	3	E	SHIZUOKAKEN	NUMADUSHI	SHOUSUWA	シズオカケン	ヌマヅシ	ショウスワ
 静岡県	沼津市	山ヶ下町	2	E	SHIZUOKAKEN	NUMADUSHI	YAMAGASHITAMACHI	シズオカケン	ヌマヅシ	ヤマガシタマチ
 静岡県	沼津市	山王台	2	E	SHIZUOKAKEN	NUMADUSHI	SANNOUDAI	シズオカケン	ヌマヅシ	サンノウダイ
@@ -26656,31 +26602,24 @@
 静岡県	沼津市	末広町	3	E	SHIZUOKAKEN	NUMADUSHI	SUEHIROCHOU	シズオカケン	ヌマヅシ	スエヒロチョウ
 静岡県	沼津市	本	2	E	SHIZUOKAKEN	NUMADUSHI	HON	シズオカケン	ヌマヅシ	ホン
 静岡県	沼津市	本丸子町	3	E	SHIZUOKAKEN	NUMADUSHI	HONMARUKOMACHI	シズオカケン	ヌマヅシ	ホンマルコマチ
-静岡県	沼津市	本字下一丁田	2	E	SHIZUOKAKEN	NUMADUSHI	HONJISHIMOICHICHOUTA	シズオカケン	ヌマヅシ	ホンジシモイチチョウタ
 静岡県	沼津市	本字下一丁田	3	E	SHIZUOKAKEN	NUMADUSHI	HONJISHIMOICHICHOUTA	シズオカケン	ヌマヅシ	ホンジシモイチチョウタ
-静岡県	沼津市	本字下中溝	3	E	SHIZUOKAKEN	NUMADUSHI	HONJISHITANAKAMIZO	シズオカケン	ヌマヅシ	ホンジシタナカミゾ
 静岡県	沼津市	本字下小路町	2	E	SHIZUOKAKEN	NUMADUSHI	HONJISHITAKOUJIMACHI	シズオカケン	ヌマヅシ	ホンジシタコウジマチ
 静岡県	沼津市	本字下河原町	2	E	SHIZUOKAKEN	NUMADUSHI	HONJISHITAKAWARAMACHI	シズオカケン	ヌマヅシ	ホンジシタカワラマチ
 静岡県	沼津市	本字出口町	2	E	SHIZUOKAKEN	NUMADUSHI	HONJIDEGUCHIMACHI	シズオカケン	ヌマヅシ	ホンジデグチマチ
 静岡県	沼津市	本字前田	2	E	SHIZUOKAKEN	NUMADUSHI	HONJIMAEDA	シズオカケン	ヌマヅシ	ホンジマエダ
-静岡県	沼津市	本字前田	3	E	SHIZUOKAKEN	NUMADUSHI	HONJIMAEDA	シズオカケン	ヌマヅシ	ホンジマエダ
-静岡県	沼津市	本字千本	2	E	SHIZUOKAKEN	NUMADUSHI	HONJISENBON	シズオカケン	ヌマヅシ	ホンジセンボン
 静岡県	沼津市	本字千本	3	E	SHIZUOKAKEN	NUMADUSHI	HONJISENBON	シズオカケン	ヌマヅシ	ホンジセンボン
 静岡県	沼津市	本字千本港口	2	E	SHIZUOKAKEN	NUMADUSHI	HONJISENBONMINATOKUCHI	シズオカケン	ヌマヅシ	ホンジセンボンミナトクチ
 静岡県	沼津市	本字千本郷林	2	E	SHIZUOKAKEN	NUMADUSHI	HONJISENBONSATOHAYASHI	シズオカケン	ヌマヅシ	ホンジセンボンサトハヤシ
 静岡県	沼津市	本字宮町	2	E	SHIZUOKAKEN	NUMADUSHI	HONJIMIYAMACHI	シズオカケン	ヌマヅシ	ホンジミヤマチ
 静岡県	沼津市	本字新町	2	E	SHIZUOKAKEN	NUMADUSHI	HONJISHINMACHI	シズオカケン	ヌマヅシ	ホンジシンマチ
-静岡県	沼津市	本字松下七反田	2	E	SHIZUOKAKEN	NUMADUSHI	HONJIMATSUSHITASHICHIHANTA	シズオカケン	ヌマヅシ	ホンジマツシタシチハンタ
 静岡県	沼津市	本字松下七反田	3	E	SHIZUOKAKEN	NUMADUSHI	HONJIMATSUSHITASHICHIHANTA	シズオカケン	ヌマヅシ	ホンジマツシタシチハンタ
 静岡県	沼津市	本字浅間町	2	E	SHIZUOKAKEN	NUMADUSHI	HONJIASAMAMACHI	シズオカケン	ヌマヅシ	ホンジアサママチ
 静岡県	沼津市	本松下	3	E	SHIZUOKAKEN	NUMADUSHI	HONMATSUSHITA	シズオカケン	ヌマヅシ	ホンマツシタ
 静岡県	沼津市	本田町	3	E	SHIZUOKAKEN	NUMADUSHI	HONDAMACHI	シズオカケン	ヌマヅシ	ホンダマチ
 静岡県	沼津市	本町	2	E	SHIZUOKAKEN	NUMADUSHI	HONCHOU	シズオカケン	ヌマヅシ	ホンチョウ
 静岡県	沼津市	本白銀町	2	E	SHIZUOKAKEN	NUMADUSHI	HONHAKUGINMACHI	シズオカケン	ヌマヅシ	ホンハクギンマチ
-静岡県	沼津市	本白銀町	3	E	SHIZUOKAKEN	NUMADUSHI	HONHAKUGINMACHI	シズオカケン	ヌマヅシ	ホンハクギンマチ
 静岡県	沼津市	本西松下	3	E	SHIZUOKAKEN	NUMADUSHI	HONNISHIMATSUSHITA	シズオカケン	ヌマヅシ	ホンニシマツシタ
 静岡県	沼津市	本郷町	2	E	SHIZUOKAKEN	NUMADUSHI	HONGOUMACHI	シズオカケン	ヌマヅシ	ホンゴウマチ
-静岡県	沼津市	本錦町	2	E	SHIZUOKAKEN	NUMADUSHI	HONNISHIKICHOU	シズオカケン	ヌマヅシ	ホンニシキチョウ
 静岡県	沼津市	本錦町	3	E	SHIZUOKAKEN	NUMADUSHI	HONNISHIKICHOU	シズオカケン	ヌマヅシ	ホンニシキチョウ
 静岡県	沼津市	杉崎町	2	E	SHIZUOKAKEN	NUMADUSHI	SUGISAKIMACHI	シズオカケン	ヌマヅシ	スギサキマチ
 静岡県	沼津市	杉崎町	3	E	SHIZUOKAKEN	NUMADUSHI	SUGISAKIMACHI	シズオカケン	ヌマヅシ	スギサキマチ
@@ -26746,14 +26685,11 @@
 静岡県	沼津市	西浦足保	5	E	SHIZUOKAKEN	NUMADUSHI	NISHIURAASHIHO	シズオカケン	ヌマヅシ	ニシウラアシホ
 静岡県	沼津市	西添町	5	E	SHIZUOKAKEN	NUMADUSHI	NISHISOEMACHI	シズオカケン	ヌマヅシ	ニシソエマチ
 静岡県	沼津市	西熊堂	3	E	SHIZUOKAKEN	NUMADUSHI	NISHIKUMADOU	シズオカケン	ヌマヅシ	ニシクマドウ
-静岡県	沼津市	西野	5	E	SHIZUOKAKEN	NUMADUSHI	NISHINO	シズオカケン	ヌマヅシ	ニシノ
 静岡県	沼津市	西間門	3	E	SHIZUOKAKEN	NUMADUSHI	NISHIKANMON	シズオカケン	ヌマヅシ	ニシカンモン
 静岡県	沼津市	西間門２丁目	3	E	SHIZUOKAKEN	NUMADUSHI	NISHIKANMON2CHOUME	シズオカケン	ヌマヅシ	ニシカンモン２チョウメ
 静岡県	沼津市	西間門３丁目	3	E	SHIZUOKAKEN	NUMADUSHI	NISHIKANMON3CHOUME	シズオカケン	ヌマヅシ	ニシカンモン３チョウメ
 静岡県	沼津市	豊町	3	E	SHIZUOKAKEN	NUMADUSHI	YUTAKAMACHI	シズオカケン	ヌマヅシ	ユタカマチ
-静岡県	沼津市	足高	2	E	SHIZUOKAKEN	NUMADUSHI	ASHITAKA	シズオカケン	ヌマヅシ	アシタカ
 静岡県	沼津市	足高	3	E	SHIZUOKAKEN	NUMADUSHI	ASHITAKA	シズオカケン	ヌマヅシ	アシタカ
-静岡県	沼津市	足高	5	E	SHIZUOKAKEN	NUMADUSHI	ASHITAKA	シズオカケン	ヌマヅシ	アシタカ
 静岡県	沼津市	通横町	2	E	SHIZUOKAKEN	NUMADUSHI	TOORIYOKOCHOU	シズオカケン	ヌマヅシ	トオリヨコチョウ
 静岡県	沼津市	錦町	2	E	SHIZUOKAKEN	NUMADUSHI	NISHIKICHOU	シズオカケン	ヌマヅシ	ニシキチョウ
 静岡県	沼津市	錦町	3	E	SHIZUOKAKEN	NUMADUSHI	NISHIKICHOU	シズオカケン	ヌマヅシ	ニシキチョウ
@@ -26762,6 +26698,7 @@
 静岡県	沼津市	馬込	2	E	SHIZUOKAKEN	NUMADUSHI	UMAGOME	シズオカケン	ヌマヅシ	ウマゴメ
 静岡県	沼津市	駿河台	3	E	SHIZUOKAKEN	NUMADUSHI	SURUGADAI	シズオカケン	ヌマヅシ	スルガダイ
 静岡県	沼津市	高尾台	3	E	SHIZUOKAKEN	NUMADUSHI	TAKAODAI	シズオカケン	ヌマヅシ	タカオダイ
+静岡県	沼津市	高島本町	2	E	SHIZUOKAKEN	NUMADUSHI	TAKASHIMAHONCHOU	シズオカケン	ヌマヅシ	タカシマホンチョウ
 静岡県	沼津市	高島本町	3	E	SHIZUOKAKEN	NUMADUSHI	TAKASHIMAHONCHOU	シズオカケン	ヌマヅシ	タカシマホンチョウ
 静岡県	沼津市	高島町	2	E	SHIZUOKAKEN	NUMADUSHI	TAKASHIMACHOU	シズオカケン	ヌマヅシ	タカシマチョウ
 静岡県	沼津市	高島町	3	E	SHIZUOKAKEN	NUMADUSHI	TAKASHIMACHOU	シズオカケン	ヌマヅシ	タカシマチョウ
@@ -26778,7 +26715,6 @@
 静岡県	熱海市	伊豆山	2	E	SHIZUOKAKEN	ATAMISHI	IZUYAMA	シズオカケン	アタミシ	イズヤマ
 静岡県	熱海市	初島	2	E	SHIZUOKAKEN	ATAMISHI	HATSUSHIMA	シズオカケン	アタミシ	ハツシマ
 静岡県	熱海市	和田浜南町	2	E	SHIZUOKAKEN	ATAMISHI	WADAHAMAMINAMIMACHI	シズオカケン	アタミシ	ワダハマミナミマチ
-静岡県	熱海市	和田浜南町	5	E	SHIZUOKAKEN	ATAMISHI	WADAHAMAMINAMIMACHI	シズオカケン	アタミシ	ワダハマミナミマチ
 静岡県	熱海市	和田町	2	E	SHIZUOKAKEN	ATAMISHI	WADAMACHI	シズオカケン	アタミシ	ワダマチ
 静岡県	熱海市	咲見町	2	E	SHIZUOKAKEN	ATAMISHI	SAKIKENMACHI	シズオカケン	アタミシ	サキケンマチ
 静岡県	熱海市	小嵐町	2	E	SHIZUOKAKEN	ATAMISHI	SHOUARASHIMACHI	シズオカケン	アタミシ	ショウアラシマチ
@@ -26798,7 +26734,6 @@
 静岡県	熱海市	水口町２丁目	2	E	SHIZUOKAKEN	ATAMISHI	MIZUGUCHIMACHI2CHOUME	シズオカケン	アタミシ	ミズグチマチ２チョウメ
 静岡県	熱海市	泉	2	E	SHIZUOKAKEN	ATAMISHI	IZUMI	シズオカケン	アタミシ	イズミ
 静岡県	熱海市	泉	3	D	SHIZUOKAKEN	ATAMISHI	IZUMI	シズオカケン	アタミシ	イズミ
-静岡県	熱海市	泉元宮上分	3	D	SHIZUOKAKEN	ATAMISHI	IZUMIMOTOMIYAUEFUN	シズオカケン	アタミシ	イズミモトミヤウエフン
 静岡県	熱海市	海光町	2	E	SHIZUOKAKEN	ATAMISHI	UMIHIKARIMACHI	シズオカケン	アタミシ	ウミヒカリマチ
 静岡県	熱海市	清水町	2	E	SHIZUOKAKEN	ATAMISHI	SHIMIZUCHOU	シズオカケン	アタミシ	シミズチョウ
 静岡県	熱海市	渚町	2	E	SHIZUOKAKEN	ATAMISHI	NAGISAMACHI	シズオカケン	アタミシ	ナギサマチ
@@ -26816,15 +26751,13 @@
 静岡県	熱海市	西熱海町２丁目	2	E	SHIZUOKAKEN	ATAMISHI	NISHIATAMIMACHI2CHOUME	シズオカケン	アタミシ	ニシアタミマチ２チョウメ
 静岡県	熱海市	銀座町	2	E	SHIZUOKAKEN	ATAMISHI	GINZAMACHI	シズオカケン	アタミシ	ギンザマチ
 静岡県	熱海市	青葉町	2	E	SHIZUOKAKEN	ATAMISHI	AOBAMACHI	シズオカケン	アタミシ	アオバマチ
+静岡県	田方郡函南町	パサディナ区	2	E	SHIZUOKAKEN	TAGATAGUNHAKOMINAMIMACHI	PASADEINAKU	シズオカケン	タガタグンハコミナミマチ	パサディナク
+静岡県	田方郡函南町	パサディナ区	5	E	SHIZUOKAKEN	TAGATAGUNHAKOMINAMIMACHI	PASADEINAKU	シズオカケン	タガタグンハコミナミマチ	パサディナク
 静岡県	田方郡函南町	上沢	2	E	SHIZUOKAKEN	TAGATAGUNHAKOMINAMIMACHI	KAMIZAWA	シズオカケン	タガタグンハコミナミマチ	カミザワ
 静岡県	田方郡函南町	上沢	5	E	SHIZUOKAKEN	TAGATAGUNHAKOMINAMIMACHI	KAMIZAWA	シズオカケン	タガタグンハコミナミマチ	カミザワ
 静岡県	田方郡函南町	丹那	5	E	SHIZUOKAKEN	TAGATAGUNHAKOMINAMIMACHI	TANNA	シズオカケン	タガタグンハコミナミマチ	タンナ
 静岡県	田方郡函南町	仁田	5	E	SHIZUOKAKEN	TAGATAGUNHAKOMINAMIMACHI	HITOSHITA	シズオカケン	タガタグンハコミナミマチ	ヒトシタ
 静岡県	田方郡函南町	塚本	5	E	SHIZUOKAKEN	TAGATAGUNHAKOMINAMIMACHI	TSUKAMOTO	シズオカケン	タガタグンハコミナミマチ	ツカモト
-静岡県	田方郡函南町	大土肥	2	E	SHIZUOKAKEN	TAGATAGUNHAKOMINAMIMACHI	DAITOI	シズオカケン	タガタグンハコミナミマチ	ダイトイ
-静岡県	田方郡函南町	大土肥	5	E	SHIZUOKAKEN	TAGATAGUNHAKOMINAMIMACHI	DAITOI	シズオカケン	タガタグンハコミナミマチ	ダイトイ
-静岡県	田方郡函南町	大竹	2	E	SHIZUOKAKEN	TAGATAGUNHAKOMINAMIMACHI	OOTAKE	シズオカケン	タガタグンハコミナミマチ	オオタケ
-静岡県	田方郡函南町	大竹	5	E	SHIZUOKAKEN	TAGATAGUNHAKOMINAMIMACHI	OOTAKE	シズオカケン	タガタグンハコミナミマチ	オオタケ
 静岡県	田方郡函南町	平井	5	E	SHIZUOKAKEN	TAGATAGUNHAKOMINAMIMACHI	HIRAI	シズオカケン	タガタグンハコミナミマチ	ヒライ
 静岡県	田方郡函南町	平井南箱根ダイヤランド	5	E	SHIZUOKAKEN	TAGATAGUNHAKOMINAMIMACHI	HIRAIMINAMIHAKONEDAIYARANDO	シズオカケン	タガタグンハコミナミマチ	ヒライミナミハコネダイヤランド
 静岡県	田方郡函南町	新田	5	E	SHIZUOKAKEN	TAGATAGUNHAKOMINAMIMACHI	NITTA	シズオカケン	タガタグンハコミナミマチ	ニッタ
@@ -27006,7 +26939,6 @@
 静岡県	駿東郡長泉町	下長窪	2	E	SHIZUOKAKEN	SHUNTOUGUNCHOUIZUMIMACHI	SHITACHOUKUBO	シズオカケン	シュントウグンチョウイズミマチ	シタチョウクボ
 静岡県	駿東郡長泉町	中土狩	2	E	SHIZUOKAKEN	SHUNTOUGUNCHOUIZUMIMACHI	NAKATSUCHIKARI	シズオカケン	シュントウグンチョウイズミマチ	ナカツチカリ
 静岡県	駿東郡長泉町	元長窪	2	E	SHIZUOKAKEN	SHUNTOUGUNCHOUIZUMIMACHI	MOTOCHOUKUBO	シズオカケン	シュントウグンチョウイズミマチ	モトチョウクボ
-静岡県	駿東郡長泉町	元長窪	3	E	SHIZUOKAKEN	SHUNTOUGUNCHOUIZUMIMACHI	MOTOCHOUKUBO	シズオカケン	シュントウグンチョウイズミマチ	モトチョウクボ
 静岡県	駿東郡長泉町	南一色	2	E	SHIZUOKAKEN	SHUNTOUGUNCHOUIZUMIMACHI	MINAMIISSHOKU	シズオカケン	シュントウグンチョウイズミマチ	ミナミイッショク
 静岡県	駿東郡長泉町	本宿	2	E	SHIZUOKAKEN	SHUNTOUGUNCHOUIZUMIMACHI	HONYADO	シズオカケン	シュントウグンチョウイズミマチ	ホンヤド
 静岡県	駿東郡長泉町	本宿	3	E	SHIZUOKAKEN	SHUNTOUGUNCHOUIZUMIMACHI	HONYADO	シズオカケン	シュントウグンチョウイズミマチ	ホンヤド
@@ -27017,4 +26949,4 @@
 静岡県	駿東郡長泉町	竹原	2	E	SHIZUOKAKEN	SHUNTOUGUNCHOUIZUMIMACHI	TAKEHARA	シズオカケン	シュントウグンチョウイズミマチ	タケハラ
 静岡県	駿東郡長泉町	竹原	3	E	SHIZUOKAKEN	SHUNTOUGUNCHOUIZUMIMACHI	TAKEHARA	シズオカケン	シュントウグンチョウイズミマチ	タケハラ
 静岡県	駿東郡長泉町	納米里	2	E	SHIZUOKAKEN	SHUNTOUGUNCHOUIZUMIMACHI	NOUKOMESATO	シズオカケン	シュントウグンチョウイズミマチ	ノウコメサト
-version	2011-04-03 12:03
+version	2011-04-04 20:47
